@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ═══ MODIFICA QUESTI TRE ═══ -->
+<title>TITOLO ARTICOLO — Mauro Ghilardini</title>
+<meta name="description" content="DESCRIZIONE BREVE ARTICOLO (max 160 caratteri)">
+<!-- ════════════════════════════ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#090807;--ash:#141210;--ember:#2C2318;
+  --gold:#C9973A;--gold-hi:#E8B84B;
+  --ivory:#F2EDE3;--sepia:#A8967A;--sepia-d:#6B5D48;
+  --line:rgba(201,151,58,.28);
+  --fd:'Cinzel',serif;--fb:'Cormorant Garamond',Georgia,serif;--fl:'Josefin Sans',sans-serif;
+  --nav-h:64px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--ivory);font-family:var(--fb);font-size:18px;line-height:1.8;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.04;pointer-events:none;z-index:9999}
+img{display:block;max-width:100%;background:transparent}
+a{text-decoration:none}
+
+/* ── NAV ─────────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);padding:0 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(9,8,7,.95);border-bottom:.5px solid var(--line);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:.9rem;color:var(--gold)}
+.nav-logo img{width:30px;height:30px;object-fit:contain;background:transparent}
+.nav-logo-text{font-family:var(--fd);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{font-family:var(--fl);font-size:.64rem;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--sepia);transition:color .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold-hi)}
+
+/* ── COVER ARTICOLO ───────────────────────────────────── */
+.article-cover{position:relative;height:65vh;min-height:420px;overflow:hidden}
+.cover-img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);filter:sepia(12%) brightness(.45)}
+.cover-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(9,8,7,.15) 0%,rgba(9,8,7,.5) 55%,rgba(9,8,7,1) 100%)}
+.cover-meta{position:absolute;bottom:0;left:0;right:0;padding:3rem 4rem}
+.cover-cat{font-family:var(--fl);font-size:.7rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.7rem}
+.cover-title{font-family:var(--fd);font-size:clamp(1.6rem,3.5vw,3rem);font-weight:700;color:var(--ivory);line-height:1.1;max-width:780px;margin-bottom:1rem}
+.cover-info{font-family:var(--fl);font-size:.6rem;letter-spacing:.22em;color:var(--sepia-d);display:flex;gap:2rem}
+
+/* ── CORPO ARTICOLO ───────────────────────────────────── */
+.article-body{max-width:720px;margin:0 auto;padding:5rem 2rem 8rem}
+
+/* Primo paragrafo con capolettera */
+.article-body p:first-of-type::first-letter{
+  font-family:var(--fd);font-size:4.2rem;font-weight:900;color:var(--gold);
+  float:left;line-height:.78;margin:.05em .14em 0 0;padding-top:.06em
+}
+
+/* Tipografia articolo */
+.article-body p{
+  font-size:1.1rem;line-height:2;color:rgba(242,237,227,.85);
+  margin-bottom:1.8rem;text-wrap:pretty
+}
+.article-body h2{
+  font-family:var(--fd);font-size:1.4rem;font-weight:700;color:var(--ivory);
+  letter-spacing:.06em;margin:3.5rem 0 1.2rem;padding-top:1rem;
+  border-top:.5px solid var(--line)
+}
+.article-body h3{
+  font-family:var(--fd);font-size:1.05rem;font-weight:400;color:var(--gold);
+  letter-spacing:.08em;margin:2.5rem 0 .8rem
+}
+.article-body blockquote{
+  border-left:2px solid var(--gold);padding:1rem 0 1rem 1.8rem;
+  margin:2.5rem 0;font-style:italic;color:rgba(242,237,227,.7);font-size:1.05rem
+}
+.article-body strong{color:var(--ivory);font-weight:600}
+.article-body em{color:rgba(242,237,227,.78)}
+.article-body a{color:var(--gold);border-bottom:.5px solid var(--line);transition:color .3s,border-color .3s}
+.article-body a:hover{color:var(--gold-hi);border-color:var(--gold-hi)}
+
+/* Immagine inline */
+.article-img{margin:3rem -2rem;overflow:hidden}
+.article-img img{width:100%;filter:sepia(8%) brightness(.78)}
+.article-img figcaption{font-family:var(--fl);font-size:.6rem;letter-spacing:.18em;color:var(--sepia-d);padding:.8rem 2rem 0;text-align:center}
+
+/* Video embed */
+.article-video{margin:3rem 0;position:relative;aspect-ratio:16/9}
+.article-video iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+
+/* Separatore */
+.article-rule{width:55px;height:.5px;background:var(--gold);margin:3rem auto}
+
+/* ── BACK LINK ────────────────────────────────────────── */
+.back-link{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--fl);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--sepia);margin-bottom:3rem;transition:color .3s}
+.back-link:hover{color:var(--gold)}
+.back-link::before{content:'←';font-style:normal}
+
+/* ── FOOTER ────────────────────────────────────────────── */
+footer{border-top:.5px solid var(--line);padding:2.8rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.f-left{display:flex;align-items:center;gap:1rem}
+.f-left img{width:28px;height:28px;object-fit:contain;background:transparent}
+.f-name{font-family:var(--fd);font-size:.75rem;letter-spacing:.22em;color:var(--sepia)}
+.f-right{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
+.f-copy{font-family:var(--fl);font-size:.58rem;letter-spacing:.18em;color:var(--sepia-d)}
+.f-social{display:flex;gap:1.2rem}
+.f-social-link{font-family:var(--fl);font-size:.6rem;letter-spacing:.22em;color:var(--sepia);transition:color .3s}
+.f-social-link:hover{color:var(--gold)}
+
+/* ── RESPONSIVE ────────────────────────────────────────── */
+@media(max-width:960px){
+  nav{padding:0 1.5rem}
+  .nav-links{gap:1.2rem}
+  .cover-meta{padding:2rem 1.5rem}
+  .article-body{padding:3rem 1.5rem 6rem}
+  .article-img{margin:2.5rem 0}
+  footer{flex-direction:column;align-items:flex-start;padding:2rem 1.5rem}
+  .f-right{align-items:flex-start}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .cover-info{flex-direction:column;gap:.4rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../images/image_0.png" alt="logo">
+    <span class="nav-logo-text">M · Ghilardini</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../index.html#about">Chi sono</a></li>
+    <li><a href="../index.html#youtube">YouTube</a></li>
+    <li><a href="../index.html#musica">Musica</a></li>
+    <li><a href="index.html" class="active">Blog</a></li>
+    <li><a href="../index.html#contatti">Contatti</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ COVER: cambia src immagine, categoria, titolo, data ═══ -->
+<div class="article-cover">
+  <img class="cover-img" src="../images/image_5.jpg" alt="TITOLO ARTICOLO">
+  <div class="cover-overlay"></div>
+  <div class="cover-meta">
+    <span class="cover-cat">CATEGORIA · SOTTOCATEGORIA</span>
+    <h1 class="cover-title">Titolo dell'articolo, anche lungo su due righe</h1>
+    <div class="cover-info">
+      <span>Mauro Ghilardini</span>
+      <span>Maggio 2026</span>
+      <span>8 min lettura</span>
+    </div>
+  </div>
+</div>
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<!-- CORPO ARTICOLO -->
+<article class="article-body">
+
+  <a href="index.html" class="back-link">Tutti gli articoli</a>
+
+  <!-- ═══ QUI VA IL TESTO. Struttura disponibile: ═══
+
+  Paragrafo normale:
+  <p>Testo...</p>
+
+  Titolo sezione:
+  <h2>Titolo sezione</h2>
+
+  Sottotitolo:
+  <h3>Sottotitolo</h3>
+
+  Citazione:
+  <blockquote>Testo citazione o frase in evidenza.</blockquote>
+
+  Immagine inline (usa percorso relativo ../images/):
+  <figure class="article-img">
+    <img src="../images/image_X.jpg" alt="descrizione">
+    <figcaption>Didascalia opzionale</figcaption>
+  </figure>
+
+  Video YouTube embed:
+  <div class="article-video">
+    <iframe src="https://www.youtube.com/embed/ID_VIDEO?rel=0&modestbranding=1"
+            title="Titolo video" allowfullscreen
+            allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+            loading="lazy"></iframe>
+  </div>
+
+  Separatore decorativo:
+  <div class="article-rule"></div>
+
+  ════════════════════════════════════════════════════ -->
+
+  <p>Primo paragrafo dell'articolo. Inizia qui il testo — il capolettera dorato viene applicato automaticamente.</p>
+
+  <p>Secondo paragrafo.</p>
+
+  <h2>Prima sezione</h2>
+
+  <p>Testo della sezione.</p>
+
+  <blockquote>Una frase in evidenza, una citazione, un pensiero che merita spazio.</blockquote>
+
+  <p>Continua il testo.</p>
+
+</article>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-left">
+    <img src="../images/image_0.png" alt="logo">
+    <span class="f-name">Mauro Ghilardini</span>
+  </div>
+  <div class="f-right">
+    <span class="f-copy">© 2026 · Bergamo, Italia</span>
+    <div class="f-social">
+      <a href="https://www.youtube.com/@MauroGhilardiniOfficial" class="f-social-link">YT</a>
+      <a href="https://www.instagram.com/mauroghilardini_official/" class="f-social-link">IG</a>
+      <a href="https://ko-fi.com/mauroghilardini" class="f-social-link">Ko</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

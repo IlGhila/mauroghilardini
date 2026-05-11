@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Mauro Ghilardini</title>
+<meta name="description" content="Articoli di Mauro Ghilardini su musica, videogiochi, composizione e tutto ciò che sta nel mezzo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#090807;
+  --gold:#C9973A;--gold-hi:#C17F20;
+  --ivory:#F5F0E8;--ivory-d:#EAE3D5;
+  --ink:#1A1510;--ink-soft:#3D3228;--ink-faint:#6B5D48;
+  --line:rgba(180,140,80,.22);
+  --fd:'Cinzel',serif;--fb:'Cormorant Garamond',Georgia,serif;--fl:'Josefin Sans',sans-serif;
+  --nav-h:64px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--ivory);color:var(--ink);font-family:var(--fb);font-size:18px;line-height:1.8;overflow-x:hidden}
+img{display:block;max-width:100%;background:transparent}
+a{text-decoration:none}
+
+/* ── NAV ─────────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);padding:0 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(9,8,7,.96);border-bottom:.5px solid rgba(201,151,58,.2);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:.9rem;color:var(--gold)}
+.nav-logo img{width:30px;height:30px;object-fit:contain;background:transparent}
+.nav-logo-text{font-family:var(--fd);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{font-family:var(--fl);font-size:.64rem;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:#A8967A;transition:color .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+
+/* ── HERO ─────────────────────────────────────────────── */
+.blog-hero{padding:160px 0 80px;border-bottom:.5px solid var(--line)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 4rem}
+.sec-label{font-family:var(--fl);font-size:.78rem;font-weight:700;letter-spacing:.36em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.8rem}
+.sec-title{font-family:var(--fd);font-size:clamp(2rem,3.5vw,3rem);font-weight:700;color:var(--ink);line-height:1.1}
+.sec-rule{width:55px;height:2px;background:var(--gold);margin:1.5rem 0 1rem}
+.blog-hero p{font-family:var(--fb);font-style:italic;font-size:1.1rem;color:var(--ink-faint);max-width:500px}
+
+/* ── GRIGLIA ARTICOLI ─────────────────────────────────── */
+.blog-section{padding:80px 0 120px}
+.articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+
+/* Card standard */
+.article-card{position:relative;overflow:hidden;display:flex;flex-direction:column;background:var(--ivory-d);border:.5px solid transparent;transition:border-color .35s,transform .4s cubic-bezier(.22,1,.36,1)}
+.article-card:hover{border-color:var(--line);transform:translateY(-4px)}
+.article-card::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.article-card:hover::after{transform:scaleX(1)}
+
+.card-img-wrap{overflow:hidden;aspect-ratio:16/9;width:100%}
+.card-img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);filter:saturate(.8) brightness(.9);transition:filter .5s,transform .5s;display:block}
+.article-card:hover .card-img{filter:saturate(1) brightness(1);transform:scale(1.10)}
+
+.card-body{padding:1.8rem;flex:1;display:flex;flex-direction:column}
+.card-cat{font-family:var(--fl);font-size:.6rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.card-title{font-family:var(--fd);font-size:1.05rem;font-weight:700;color:var(--ink);letter-spacing:.04em;line-height:1.3;margin-bottom:.7rem}
+.card-excerpt{font-family:var(--fb);font-style:italic;font-size:.9rem;color:var(--ink-faint);line-height:1.6;flex:1}
+.card-meta{display:flex;justify-content:space-between;align-items:center;margin-top:1.2rem;padding-top:1rem;border-top:.5px solid var(--line)}
+.card-date{font-family:var(--fl);font-size:.58rem;letter-spacing:.18em;color:var(--ink-faint)}
+.card-arrow{font-family:var(--fl);font-size:.6rem;letter-spacing:.2em;color:var(--gold);transition:color .3s,transform .3s}
+.article-card:hover .card-arrow{color:var(--gold-hi);transform:translateX(4px)}
+
+/* Card featured — prima della lista, occupa tutta la larghezza */
+.article-card.featured{grid-column:1/-1;flex-direction:row;min-height:400px}
+.article-card.featured .card-img-wrap{aspect-ratio:unset;width:52%;flex-shrink:0}
+.article-card.featured .card-body{padding:3rem;justify-content:center}
+.article-card.featured .card-title{font-size:1.5rem;margin-bottom:1rem}
+.article-card.featured .card-excerpt{font-size:1rem}
+
+/* ── FOOTER ────────────────────────────────────────────── */
+footer{border-top:.5px solid var(--line);background:var(--void);padding:2.8rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.f-left{display:flex;align-items:center;gap:1rem}
+.f-left img{width:28px;height:28px;object-fit:contain;background:transparent}
+.f-name{font-family:var(--fd);font-size:.75rem;letter-spacing:.22em;color:#A8967A}
+.f-right{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
+.f-copy{font-family:var(--fl);font-size:.58rem;letter-spacing:.18em;color:#6B5D48}
+.f-social{display:flex;gap:1.2rem}
+.f-social-link{font-family:var(--fl);font-size:.6rem;letter-spacing:.22em;color:#6B5D48;transition:color .3s}
+.f-social-link:hover{color:var(--gold)}
+
+/* ── RESPONSIVE ────────────────────────────────────────── */
+@media(max-width:960px){
+  .wrap{padding:0 1.5rem}
+  nav{padding:0 1.5rem}
+  .nav-links{gap:1.2rem}
+  .articles-grid{grid-template-columns:1fr}
+  .article-card.featured{flex-direction:column}
+  .article-card.featured .card-img-wrap{width:100%;aspect-ratio:16/9}
+  footer{flex-direction:column;align-items:flex-start;padding:2rem 1.5rem}
+  .f-right{align-items:flex-start}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .blog-hero{padding:120px 0 60px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../images/image_0.png" alt="logo">
+    <span class="nav-logo-text">M · Ghilardini</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../index.html#about">Chi sono</a></li>
+    <li><a href="../index.html#youtube">YouTube</a></li>
+    <li><a href="../index.html#musica">Musica</a></li>
+    <li><a href="index.html" class="active">Blog</a></li>
+    <li><a href="../index.html#contatti">Contatti</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="blog-hero">
+  <div class="wrap">
+    <span class="sec-label">Scrittura</span>
+    <h1 class="sec-title">Il blog.</h1>
+    <div class="sec-rule"></div>
+    <p>Analisi, riflessioni, storie. Quello che non entra in un video e non si comprime in un post.</p>
+  </div>
+</div>
+
+<!-- ARTICOLI -->
+<section class="blog-section">
+  <div class="wrap">
+    <div class="articles-grid">
+
+      <!-- ARTICOLO 1 — FEATURED -->
+      <a href="soundtrack-videogiochi-parte-1.html" class="article-card featured">
+        <div class="card-img-wrap">
+          <img class="card-img" src="../images/blog/soundtrack-videogiochi-parte-1/copertina.png" alt="Le 10 migliori soundtrack nei videogiochi">
+        </div>
+        <div class="card-body">
+          <span class="card-cat">OST · Parte I di III</span>
+          <div class="card-title">Le 10 migliori soundtrack nei videogiochi secondo me</div>
+          <p class="card-excerpt">Non una lista con punteggi e stelline. Un viaggio tra armonie, timbri e silenzi — con i motivi tecnici per cui quella musica è straordinaria. Si parte da EastShade, Ico e Last Day of June.</p>
+          <div class="card-meta">
+            <span class="card-date">Maggio 2026</span>
+            <span class="card-arrow">Leggi →</span>
+          </div>
+        </div>
+      </a>
+
+      <!--
+      ═══════════════════════════════════════════════
+      PROSSIMI ARTICOLI — copia questo blocco:
+
+      <a href="nome-articolo.html" class="article-card">
+        <div class="card-img-wrap">
+          <img class="card-img" src="../images/blog/nome-articolo/copertina.jpg" alt="titolo">
+        </div>
+        <div class="card-body">
+          <span class="card-cat">CATEGORIA</span>
+          <div class="card-title">Titolo articolo</div>
+          <p class="card-excerpt">Breve descrizione.</p>
+          <div class="card-meta">
+            <span class="card-date">Mese Anno</span>
+            <span class="card-arrow">Leggi →</span>
+          </div>
+        </div>
+      </a>
+      ═══════════════════════════════════════════════
+      -->
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-left">
+    <img src="../images/image_0.png" alt="logo">
+    <span class="f-name">Mauro Ghilardini</span>
+  </div>
+  <div class="f-right">
+    <span class="f-copy">© 2026 · Bergamo, Italia</span>
+    <div class="f-social">
+      <a href="https://www.youtube.com/@MauroGhilardiniOfficial" class="f-social-link">YT</a>
+      <a href="https://www.instagram.com/mauroghilardini_official/" class="f-social-link">IG</a>
+      <a href="https://ko-fi.com/mauroghilardini" class="f-social-link">Ko</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

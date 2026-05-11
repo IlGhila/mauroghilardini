@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le 10 migliori soundtrack nei videogiochi — Parte I — Mauro Ghilardini</title>
+<meta name="description" content="Tre colonne sonore che mi hanno cambiato il modo di ascoltare: EastShade, Ico, Last Day of June. Analisi musicale e ricordo personale.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#090807;
+  --gold:#C9973A;--gold-hi:#C17F20;
+  --ivory:#F5F0E8;--ivory-d:#EAE3D5;
+  --ink:#1A1510;--ink-soft:#2E2419;--ink-faint:#5C4E3A;
+  --line:rgba(180,140,80,.22);
+  --fd:'Cinzel',serif;--fb:'Cormorant Garamond',Georgia,serif;--fl:'Josefin Sans',sans-serif;
+  --nav-h:64px;
+}
+html{scroll-behavior:smooth}
+body{color:var(--ink);font-family:var(--fb);font-size:20px;line-height:1.9;overflow-x:hidden;position:relative}
+
+/* ── SFONDO GLOBALE — copertina fissa ─────────────────── */
+.page-bg{position:fixed;inset:0;z-index:-2;background-size:cover;background-position:center;background-attachment:fixed}
+.page-bg-overlay{position:fixed;inset:0;z-index:-1;background:rgba(245,240,232,.91)}
+
+img{display:block;max-width:100%;background:transparent}
+a{text-decoration:none}
+
+/* ── NAV ─────────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);padding:0 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(9,8,7,.96);border-bottom:.5px solid rgba(201,151,58,.2);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:.9rem;color:var(--gold)}
+.nav-logo img{width:30px;height:30px;object-fit:contain;background:transparent}
+.nav-logo-text{font-family:var(--fd);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{font-family:var(--fl);font-size:.64rem;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:#A8967A;transition:color .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+
+/* ── HERO — copertina a tutto schermo ─────────────────── */
+.article-hero{position:relative;height:100vh;min-height:620px;overflow:hidden;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:brightness(.3) saturate(.75)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(9,8,7,.05) 0%,rgba(9,8,7,.1) 30%,rgba(9,8,7,.72) 68%,rgba(9,8,7,.98) 100%)}
+.hero-content{position:relative;z-index:1;padding:0 4rem 5rem;max-width:1000px}
+.hero-series{font-family:var(--fl);font-size:.72rem;font-weight:700;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:1rem}
+.hero-title{font-family:var(--fd);font-size:clamp(2.2rem,5vw,4.2rem);font-weight:900;color:#F5F0E8;line-height:1.05;margin-bottom:1.4rem}
+.hero-title em{font-style:normal;color:var(--gold)}
+.hero-meta{display:flex;gap:2rem;align-items:center;flex-wrap:wrap}
+.hero-meta span{font-family:var(--fl);font-size:.64rem;letter-spacing:.22em;color:rgba(242,237,227,.5)}
+.hero-meta .dot{width:3px;height:3px;border-radius:50%;background:rgba(242,237,227,.3)}
+
+/* ── CORPO ARTICOLO ───────────────────────────────────── */
+.article-wrap{max-width:740px;margin:0 auto;padding:5rem 2rem 4rem;position:relative}
+
+.back-link{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--fl);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:4rem;transition:color .3s;border-bottom:.5px solid var(--line);padding-bottom:.3rem}
+.back-link:hover{color:var(--gold-hi)}
+.back-link::before{content:'←'}
+
+/* Intro con capolettera */
+.article-intro{font-size:1.35rem;line-height:2;color:var(--ink-soft);margin-bottom:3rem;font-style:italic}
+.article-intro::first-letter{font-family:var(--fd);font-size:5rem;font-weight:900;color:var(--gold);float:left;line-height:.75;margin:.06em .15em 0 0;padding-top:.06em;font-style:normal}
+
+p{font-size:1.15rem;line-height:2;color:var(--ink-soft);margin-bottom:1.8rem;text-wrap:pretty}
+em{color:var(--ink);font-style:italic}
+strong{color:var(--ink);font-weight:700}
+
+/* Titoli sezione */
+.section-header{margin:5.5rem 0 2rem;padding-top:2.5rem;border-top:.5px solid var(--line)}
+.section-num{font-family:var(--fl);font-size:.66rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.5rem}
+.section-title{font-family:var(--fd);font-size:clamp(1.6rem,2.8vw,2.2rem);font-weight:700;color:var(--ink);letter-spacing:.04em;line-height:1.2}
+.section-rule{width:40px;height:2px;background:var(--gold);margin:1rem 0 2.2rem}
+
+/* Citazione */
+blockquote{border-left:2px solid var(--gold);padding:1rem 0 1rem 2.2rem;margin:3rem 0;font-style:italic;font-size:1.2rem;color:var(--ink-faint);line-height:1.9;background:rgba(180,140,80,.06);border-radius:0 2px 2px 0}
+
+/* ── IMMAGINI ─────────────────────────────────────────── */
+.img-full{margin:3.5rem -5rem;overflow:hidden}
+.img-full img{width:100%;max-height:520px;object-fit:cover;filter:saturate(.88) brightness(.93);transition:filter .6s}
+.img-full:hover img{filter:saturate(1) brightness(1)}
+.img-caption{font-family:var(--fl);font-size:.58rem;letter-spacing:.2em;color:var(--ink-faint);padding:.7rem 5rem 0;text-align:right}
+
+.img-inline{margin:3rem 0;overflow:hidden}
+.img-inline img{width:100%;max-height:460px;object-fit:cover;filter:saturate(.88) brightness(.93);transition:filter .6s}
+.img-inline:hover img{filter:saturate(1) brightness(1)}
+.img-caption-inline{font-family:var(--fl);font-size:.58rem;letter-spacing:.2em;color:var(--ink-faint);padding:.6rem 0 0;text-align:right}
+
+/* ── SEPARATORE ───────────────────────────────────────── */
+.divider{display:flex;align-items:center;gap:1.5rem;margin:4.5rem 0}
+.divider::before,.divider::after{content:'';flex:1;height:.5px;background:var(--line)}
+.divider span{font-family:var(--fl);font-size:.62rem;letter-spacing:.3em;color:var(--ink-faint)}
+
+/* ── VIDEO ────────────────────────────────────────────── */
+.video-wrap{margin:4rem 0}
+.video-label{font-family:var(--fl);font-size:.66rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block}
+.video-frame{position:relative;aspect-ratio:16/9;background:var(--void)}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+
+/* ── CTA ──────────────────────────────────────────────── */
+.cta-block{border:.5px solid var(--line);padding:3.5rem;margin:5rem 0 2rem;text-align:center;position:relative;background:rgba(245,240,232,.7);backdrop-filter:blur(8px)}
+.cta-block::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:55px;height:2px;background:var(--gold)}
+.cta-label{font-family:var(--fl);font-size:.66rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:1rem}
+.cta-text{font-family:var(--fd);font-size:1.2rem;color:var(--ink);margin-bottom:.6rem}
+.cta-sub{font-family:var(--fb);font-style:italic;font-size:1rem;color:var(--ink-faint);margin-bottom:2rem}
+.btn-gold{font-family:var(--fl);font-size:.68rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:#F5F0E8;background:var(--void);padding:.9rem 2.6rem;display:inline-block;transition:background .3s,transform .3s}
+.btn-gold:hover{background:var(--gold-hi);transform:translateY(-2px)}
+
+/* ── NAVIGAZIONE SERIE ────────────────────────────────── */
+.series-nav{display:flex;justify-content:flex-end;margin:3rem 0 7rem;padding-top:2rem;border-top:.5px solid var(--line)}
+.series-next{font-family:var(--fl);font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);transition:color .3s;display:flex;flex-direction:column;align-items:flex-end;gap:.4rem}
+.series-next:hover{color:var(--gold-hi)}
+.series-next span:first-child{font-size:.58rem;opacity:.5}
+
+/* ── FOOTER ────────────────────────────────────────────── */
+footer{border-top:.5px solid var(--line);background:var(--void);padding:2.8rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;position:relative;z-index:1}
+.f-left{display:flex;align-items:center;gap:1rem}
+.f-left img{width:28px;height:28px;object-fit:contain;background:transparent}
+.f-name{font-family:var(--fd);font-size:.75rem;letter-spacing:.22em;color:#A8967A}
+.f-right{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
+.f-copy{font-family:var(--fl);font-size:.58rem;letter-spacing:.18em;color:#6B5D48}
+.f-social{display:flex;gap:1.2rem}
+.f-social-link{font-family:var(--fl);font-size:.6rem;letter-spacing:.22em;color:#6B5D48;transition:color .3s}
+.f-social-link:hover{color:var(--gold)}
+
+/* ── RESPONSIVE ────────────────────────────────────────── */
+@media(max-width:960px){
+  nav{padding:0 1.5rem}
+  .nav-links{gap:1.2rem}
+  .hero-content{padding:0 1.5rem 3.5rem}
+  .article-wrap{padding:3.5rem 1.5rem 3rem}
+  .img-full{margin:2.5rem -1.5rem}
+  .img-caption{padding:.6rem 1.5rem 0}
+  footer{flex-direction:column;align-items:flex-start;padding:2rem 1.5rem}
+  .f-right{align-items:flex-start}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .cta-block{padding:2rem 1.5rem}
+  body{font-size:18px}
+}
+</style>
+</head>
+<body>
+
+<!-- SFONDO GLOBALE -->
+<div class="page-bg" style="background-image:url('../images/blog/soundtrack-videogiochi-parte-1/copertina.png')"></div>
+<div class="page-bg-overlay"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../images/image_0.png" alt="logo">
+    <span class="nav-logo-text">M · Ghilardini</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../index.html#about">Chi sono</a></li>
+    <li><a href="../index.html#youtube">YouTube</a></li>
+    <li><a href="../index.html#musica">Musica</a></li>
+    <li><a href="index.html" class="active">Blog</a></li>
+    <li><a href="../index.html#contatti">Contatti</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="article-hero">
+  <img class="hero-bg" src="../images/blog/soundtrack-videogiochi-parte-1/copertina.png" alt="Le 10 migliori soundtrack nei videogiochi">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-series">OST · Parte I di III</span>
+    <h1 class="hero-title">Le 10 migliori soundtrack<br>nei videogiochi <em>secondo me.</em></h1>
+    <div class="hero-meta">
+      <span>Mauro Ghilardini</span>
+      <div class="dot"></div>
+      <span>Maggio 2026</span>
+      <div class="dot"></div>
+      <span>8 min lettura</span>
+    </div>
+  </div>
+</div>
+
+<!-- CORPO -->
+<article class="article-wrap">
+
+  <a href="index.html" class="back-link">Tutti gli articoli</a>
+
+  <p class="article-intro">Di video simili ce n'è pieno il web. Questo è diverso — o almeno, ci prova. Non una lista di titoli con punteggi e stelline. Un viaggio tra armonie, timbri e silenzi. Tre giochi per volta, con i motivi tecnici per cui quella musica è straordinaria. Allacciate le cinture.</p>
+
+  <figure class="img-full">
+    <img src="../images/blog/soundtrack-videogiochi-parte-1/visual_break.webp" alt="Un viaggio tra epica armonia e ricordo">
+    <figcaption class="img-caption">Tre puntate. Dieci titoli. Una classifica personale.</figcaption>
+  </figure>
+
+  <!-- EASTSHADE -->
+  <div class="section-header">
+    <span class="section-num">Posizione 10</span>
+    <h2 class="section-title">EastShade</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <p>Iniziamo senza alcun botto. Anzi, con gli archi eterei di <em>Cave on the Shore</em> — la prima traccia che sentite appena entrate in questo gioco del 2019 dove non impugnate una spada, ma un cavalletto.</p>
+
+  <p>In EastShade siete un pittore che vaga su un'isola splendida e misteriosa, dipingendo paesaggi e parlando con abitanti antropomorfi. La colonna sonora non fa altro che avvolgervi con il colore giusto — senza mai distrarre. Niente temi da boss epici, niente urla. Solo archi morbidi, flauti leggeri e arpe che respirano con il paesaggio.</p>
+
+  <figure class="img-inline">
+    <img src="../images/blog/soundtrack-videogiochi-parte-1/eastshade.jpg" alt="EastShade — paesaggio con cavalletto">
+    <figcaption class="img-caption-inline">EastShade, 2019 — un quadro giocabile.</figcaption>
+  </figure>
+
+  <blockquote>L'atmosfera è contemplativa, le armonie fluide, le progressioni ti cullano invece di stupirti. Molti paragonano questo stile a Jeremy Soule, quello di Skyrim. Ma è qualcosa di più intimo, raccolto, quasi cameristico.</blockquote>
+
+  <p>Il dettaglio che mi ha colpito di più: i temi principali non sono melodici, sono <strong>armonici</strong> — o addirittura timbrici. Ti ritrovi in un dato posto anche solo ascoltando un accordo, perché quel luogo ha quel colore musicale, quel voicing spalmato nella tavolozza sonora. Un minimalismo bachiano applicato all'esplorazione.</p>
+
+  <p>Nel riascoltare la soundtrack per questo video ho rivissuto ogni momento del gioco. Una piccola chicca raramente citata. Ascolto e visita consigliati.</p>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- ICO -->
+  <div class="section-header">
+    <span class="section-num">Posizione 9</span>
+    <h2 class="section-title">Ico — Michiru Oshima, 2001</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <p>Dall'esplosione di colori di EastShade passiamo a qualcosa di completamente diverso. Stessa parola — minimalismo — ma qui significa <strong>sottrazione</strong>.</p>
+
+  <p>Definire Ico un cult è quasi riduttivo. Se EastShade era un quadro impressionista, Ico è un castello di marmo che il vento non riesce a consumare. Un gioco fatto di silenzi, di mani che si stringono, di ambienti immensi che respirano mistero e solitudine.</p>
+
+  <figure class="img-full">
+    <img src="../images/blog/soundtrack-videogiochi-parte-1/ico.jpeg" alt="Ico — il castello">
+    <figcaption class="img-caption">Ico, 2001 — enorme, splendido, devastante nel suo silenzio.</figcaption>
+  </figure>
+
+  <p>La maestria di questa colonna sonora sta nell'<strong>economia di mezzi</strong>. Gran parte del gioco ruota attorno a un unico tema armonico di tre accordi. Tre. Presentati in forme sempre diverse — chitarre acustiche antiche, synth ovattati — la ripetizione non annoia mai, crea isolamento. Come il castello: enorme, maestoso, eppure soffocante.</p>
+
+  <blockquote>In Ico il silenzio non è assenza. È una corona musicale di attesa tra un momento e l'altro. Il vento che soffia è musica. I passi nei corridoi vuoti sono musica. Non ti rendi conto se la soundtrack sia sound design o se il sound design sia la soundtrack.</blockquote>
+
+  <p>Il vero colpo al cuore è <em>You Were There</em>. Inizia quasi rumorosa, poi arriva un arpeggio di piano elettrico inondato di riverbero. Sopra, una scelta geniale: una voce bianca, una voce di bambino. Liberatoria — eppure non ti libera dalla sensazione di ritrovarti perduto in un luogo immenso e vuoto.</p>
+
+  <p>Il dettaglio tecnico che mi fa impazzire: quando entra la batteria, sembra portare stabilità. Ma è una <strong>stabilità fittizia</strong>. La struttura accordale si muove in tempo ternario — 6/8 — mentre la batteria procede in 2/4. Un caso di polimetro. Instabile e granitico come il castello in cui siete intrappolati.</p>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- LAST DAY OF JUNE -->
+  <div class="section-header">
+    <span class="section-num">Posizione 8</span>
+    <h2 class="section-title">Last Day of June — Steven Wilson, 2017</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <p>Qui il discorso si fa quasi sacrilego. Perché per un purista può sembrare un delitto prendere le canzoni tratte dagli album solisti di Wilson — <em>Insurgentes</em>, <em>Grace for Drowning</em>, soprattutto <em>The Raven That Refused to Sing</em> — e smontarle. Però quando il delitto lo compie il compositore stesso, è tutta un'altra cosa.</p>
+
+  <figure class="img-inline">
+    <img src="../images/blog/soundtrack-videogiochi-parte-1/lastday.jpg" alt="Last Day of June">
+    <figcaption class="img-caption-inline">Last Day of June, 2017 — sviluppato da Ovosonico, Italia.</figcaption>
+  </figure>
+
+  <p>Last Day of June è una storia d'amore, di perdita e del tentativo disperato di cambiare il passato. Graficamente è un quadro animato. Tutto è affidato all'espressività dei corpi e alla musica di Wilson, che per l'occasione ha ristrutturato le sue composizioni per l'intera avventura.</p>
+
+  <blockquote>Questa soundtrack è una lezione di umiltà. Capire che le idee artistiche non sono mai qualcosa di finito o intoccabile — nemmeno se le hai consegnate ai posteri in CD curatissimi.</blockquote>
+
+  <p>Wilson ha distrutto le sue creature per far sì che potessero narrare una storia nuova. Lirica e commovente come sono le sue. Tutta la colonna sonora è un perdersi in tristezza e ritrovarsi in una malinconia serena — tutto nello stesso tempo.</p>
+
+  <figure class="img-full">
+    <img src="../images/blog/soundtrack-videogiochi-parte-1/finale.png" alt="Mauro Ghilardini">
+    <figcaption class="img-caption">Il viaggio continua nella parte seconda.</figcaption>
+  </figure>
+
+  <p>Non c'è molto da analizzare tecnicamente, questa volta. Dovete divorare i dischi di Wilson e poi giocare. Stop.</p>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- VIDEO -->
+  <div class="video-wrap">
+    <span class="video-label">Guarda la video-analisi completa</span>
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed/YHIhNVnA-3I?rel=0&modestbranding=1"
+              title="Le 10 migliori soundtrack nei videogiochi — Parte I"
+              allowfullscreen
+              allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+              loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <span class="cta-label">Continua il viaggio</span>
+    <div class="cta-text">Parte II: un banjo nell'ignoto, una saga immortale, una foresta da salvare.</div>
+    <div class="cta-sub">Le prossime sette posizioni, presto sul canale e sul blog.</div>
+    <a href="https://www.youtube.com/@MauroGhilardiniOfficial" target="_blank" rel="noopener" class="btn-gold">Iscriviti al canale</a>
+  </div>
+
+  <!-- NAVIGAZIONE SERIE -->
+  <nav class="series-nav" aria-label="Navigazione serie">
+    <a href="#" class="series-next">
+      <span>Prossimo articolo</span>
+      <span>OST · Parte II →</span>
+    </a>
+  </nav>
+
+</article>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-left">
+    <img src="../images/image_0.png" alt="logo">
+    <span class="f-name">Mauro Ghilardini</span>
+  </div>
+  <div class="f-right">
+    <span class="f-copy">© 2026 · Bergamo, Italia</span>
+    <div class="f-social">
+      <a href="https://www.youtube.com/@MauroGhilardiniOfficial" class="f-social-link">YT</a>
+      <a href="https://www.instagram.com/mauroghilardini_official/" class="f-social-link">IG</a>
+      <a href="https://ko-fi.com/mauroghilardini" class="f-social-link">Ko</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
