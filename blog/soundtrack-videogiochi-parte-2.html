@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le 10 migliori soundtrack nei videogiochi — Parte II — Mauro Ghilardini</title>
+<meta name="description" content="Dal cosmo wagneriano di Midgar al banjo nell'ignoto, dalla foresta di Nibel alle aurore boreali di Skyrim: quattro colonne sonore che alzano l'asticella.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#090807;
+  --gold:#C9973A;--gold-hi:#C17F20;
+  --ivory:#F5F0E8;--ivory-d:#EAE3D5;
+  --ink:#1A1510;--ink-soft:#2E2419;--ink-faint:#5C4E3A;
+  --line:rgba(180,140,80,.22);
+  --fd:'Cinzel',serif;--fb:'Cormorant Garamond',Georgia,serif;--fl:'Josefin Sans',sans-serif;
+  --nav-h:64px;
+}
+html{scroll-behavior:smooth}
+body{color:var(--ink);font-family:var(--fb);font-size:20px;line-height:1.9;overflow-x:hidden;position:relative}
+
+.page-bg{position:fixed;inset:0;z-index:-2;background-size:cover;background-position:center;background-attachment:fixed}
+.page-bg-overlay{position:fixed;inset:0;z-index:-1;background:rgba(245,240,232,.91)}
+
+img{display:block;max-width:100%;background:transparent}
+a{text-decoration:none}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);padding:0 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(9,8,7,.96);border-bottom:.5px solid rgba(201,151,58,.2);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:.9rem;color:var(--gold)}
+.nav-logo img{width:30px;height:30px;object-fit:contain;background:transparent}
+.nav-logo-text{font-family:var(--fd);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{font-family:var(--fl);font-size:.64rem;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:#A8967A;transition:color .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+
+.article-hero{position:relative;height:100vh;min-height:620px;overflow:hidden;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;filter:brightness(.28) saturate(.7)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(9,8,7,.05) 0%,rgba(9,8,7,.1) 30%,rgba(9,8,7,.72) 68%,rgba(9,8,7,.98) 100%)}
+.hero-content{position:relative;z-index:1;padding:0 4rem 5rem;max-width:1000px}
+.hero-series{font-family:var(--fl);font-size:.72rem;font-weight:700;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:1rem}
+.hero-title{font-family:var(--fd);font-size:clamp(2.2rem,5vw,4.2rem);font-weight:900;color:#F5F0E8;line-height:1.05;margin-bottom:1.4rem}
+.hero-title em{font-style:normal;color:var(--gold)}
+.hero-meta{display:flex;gap:2rem;align-items:center;flex-wrap:wrap}
+.hero-meta span{font-family:var(--fl);font-size:.64rem;letter-spacing:.22em;color:rgba(242,237,227,.5)}
+.hero-meta .dot{width:3px;height:3px;border-radius:50%;background:rgba(242,237,227,.3)}
+
+.article-wrap{max-width:740px;margin:0 auto;padding:5rem 2rem 4rem;position:relative}
+
+.back-link{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--fl);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:4rem;transition:color .3s;border-bottom:.5px solid var(--line);padding-bottom:.3rem}
+.back-link:hover{color:var(--gold-hi)}
+.back-link::before{content:'←'}
+
+.article-intro{font-size:1.35rem;line-height:2;color:var(--ink-soft);margin-bottom:3rem;font-style:italic}
+.article-intro::first-letter{font-family:var(--fd);font-size:5rem;font-weight:900;color:var(--gold);float:left;line-height:.75;margin:.06em .15em 0 0;padding-top:.06em;font-style:normal}
+
+p{font-size:1.15rem;line-height:2;color:var(--ink-soft);margin-bottom:1.8rem;text-wrap:pretty}
+em{color:var(--ink);font-style:italic}
+strong{color:var(--ink);font-weight:700}
+
+.section-header{margin:5.5rem 0 2rem;padding-top:2.5rem;border-top:.5px solid var(--line)}
+.section-num{font-family:var(--fl);font-size:.66rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.5rem}
+.section-title{font-family:var(--fd);font-size:clamp(1.6rem,2.8vw,2.2rem);font-weight:700;color:var(--ink);letter-spacing:.04em;line-height:1.2}
+.section-rule{width:40px;height:2px;background:var(--gold);margin:1rem 0 2.2rem}
+
+blockquote{border-left:2px solid var(--gold);padding:1rem 0 1rem 2.2rem;margin:3rem 0;font-style:italic;font-size:1.2rem;color:var(--ink-faint);line-height:1.9;background:rgba(180,140,80,.06);border-radius:0 2px 2px 0}
+
+.img-full{margin:3.5rem -5rem;overflow:hidden}
+.img-full img{width:100%;max-height:520px;object-fit:cover;filter:saturate(.88) brightness(.93);transition:filter .6s}
+.img-full:hover img{filter:saturate(1) brightness(1)}
+.img-caption{font-family:var(--fl);font-size:.58rem;letter-spacing:.2em;color:var(--ink-faint);padding:.7rem 5rem 0;text-align:right}
+
+.img-inline{margin:3rem 0;overflow:hidden}
+.img-inline img{width:100%;max-height:460px;object-fit:cover;filter:saturate(.88) brightness(.93);transition:filter .6s}
+.img-inline:hover img{filter:saturate(1) brightness(1)}
+.img-caption-inline{font-family:var(--fl);font-size:.58rem;letter-spacing:.2em;color:var(--ink-faint);padding:.6rem 0 0;text-align:right}
+
+.divider{display:flex;align-items:center;gap:1.5rem;margin:4.5rem 0}
+.divider::before,.divider::after{content:'';flex:1;height:.5px;background:var(--line)}
+.divider span{font-family:var(--fl);font-size:.62rem;letter-spacing:.3em;color:var(--ink-faint)}
+
+.video-wrap{margin:4rem 0}
+.video-label{font-family:var(--fl);font-size:.66rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block}
+.video-frame{position:relative;aspect-ratio:16/9;background:var(--void)}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+
+.cta-block{border:.5px solid var(--line);padding:3.5rem;margin:5rem 0 2rem;text-align:center;position:relative;background:rgba(245,240,232,.7);backdrop-filter:blur(8px)}
+.cta-block::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:55px;height:2px;background:var(--gold)}
+.cta-label{font-family:var(--fl);font-size:.66rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:1rem}
+.cta-text{font-family:var(--fd);font-size:1.2rem;color:var(--ink);margin-bottom:.6rem}
+.cta-sub{font-family:var(--fb);font-style:italic;font-size:1rem;color:var(--ink-faint);margin-bottom:2rem}
+.btn-gold{font-family:var(--fl);font-size:.68rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:#F5F0E8;background:var(--void);padding:.9rem 2.6rem;display:inline-block;transition:background .3s,transform .3s}
+.btn-gold:hover{background:var(--gold-hi);transform:translateY(-2px)}
+
+.series-nav{display:flex;justify-content:space-between;margin:3rem 0 7rem;padding-top:2rem;border-top:.5px solid var(--line)}
+.series-prev,.series-next{font-family:var(--fl);font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);transition:color .3s;display:flex;flex-direction:column;gap:.4rem}
+.series-prev:hover,.series-next:hover{color:var(--gold-hi)}
+.series-prev span:first-child,.series-next span:first-child{font-size:.58rem;opacity:.5}
+.series-next{align-items:flex-end}
+
+footer{border-top:.5px solid var(--line);background:var(--void);padding:2.8rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;position:relative;z-index:1}
+.f-left{display:flex;align-items:center;gap:1rem}
+.f-left img{width:28px;height:28px;object-fit:contain;background:transparent}
+.f-name{font-family:var(--fd);font-size:.75rem;letter-spacing:.22em;color:#A8967A}
+.f-right{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
+.f-copy{font-family:var(--fl);font-size:.58rem;letter-spacing:.18em;color:#6B5D48}
+.f-social{display:flex;gap:1.2rem}
+.f-social-link{font-family:var(--fl);font-size:.6rem;letter-spacing:.22em;color:#6B5D48;transition:color .3s}
+.f-social-link:hover{color:var(--gold)}
+
+@media(max-width:960px){
+  nav{padding:0 1.5rem}
+  .nav-links{gap:1.2rem}
+  .hero-content{padding:0 1.5rem 3.5rem}
+  .article-wrap{padding:3.5rem 1.5rem 3rem}
+  .img-full{margin:2.5rem -1.5rem}
+  .img-caption{padding:.6rem 1.5rem 0}
+  footer{flex-direction:column;align-items:flex-start;padding:2rem 1.5rem}
+  .f-right{align-items:flex-start}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .cta-block{padding:2rem 1.5rem}
+  body{font-size:18px}
+}
+</style>
+</head>
+<body>
+
+<div class="page-bg" style="background-image:url('../images/blog/soundtrack-videogiochi-parte-2/copertina.jpg')"></div>
+<div class="page-bg-overlay"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../images/image_0.png" alt="logo">
+    <span class="nav-logo-text">M · Ghilardini</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../index.html#about">Chi sono</a></li>
+    <li><a href="../index.html#youtube">YouTube</a></li>
+    <li><a href="../index.html#musica">Musica</a></li>
+    <li><a href="index.html" class="active">Blog</a></li>
+    <li><a href="../index.html#contatti">Contatti</a></li>
+  </ul>
+</nav>
+
+<div class="article-hero">
+  <img class="hero-bg" src="../images/blog/soundtrack-videogiochi-parte-2/copertina.jpg" alt="Le 10 migliori soundtrack nei videogiochi — Parte II">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-series">OST · Parte II di III</span>
+    <h1 class="hero-title">Le 10 migliori soundtrack<br>nei videogiochi — <em>Parte II.</em></h1>
+    <div class="hero-meta">
+      <span>Mauro Ghilardini</span>
+      <div class="dot"></div>
+      <span>Maggio 2026</span>
+      <div class="dot"></div>
+      <span>12 min lettura</span>
+    </div>
+  </div>
+</div>
+
+<article class="article-wrap">
+
+  <a href="index.html" class="back-link">Tutti gli articoli</a>
+
+  <p class="article-intro">Nella prima parte siamo partiti piano — EastShade, Ico, Steven Wilson. Stavolta si alza il volume. Quattro titoli che non si limitano ad accompagnare: costruiscono mondi sonori con architetture che reggono l'esame musicologico. Wagner lo avrebbe approvato — forse con qualche riserva sul banjo.</p>
+
+  <figure class="img-full">
+    <img src="../images/blog/soundtrack-videogiochi-parte-2/visual_break.jpg" alt="Un viaggio tra cosmo, silenzio e foresta">
+    <figcaption class="img-caption">Posizioni 7, 6, 5 e 4. Il podio si avvicina.</figcaption>
+  </figure>
+
+  <!-- FINAL FANTASY VII -->
+  <div class="section-header">
+    <span class="section-num">Posizione 7</span>
+    <h2 class="section-title">Final Fantasy VII Remake — Nobuo Uematsu &amp; team, 2020</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <p>Lo ammetto subito: sono entrato nel mondo di Final Fantasy solo da poche ore, e solo con il Remake. Eppure da musicista a volte non serve finire un'opera di cento ore per capire con che tipo di architettura abbiamo a che fare. Bastano i titoli di testa.</p>
+
+  <figure class="img-full">
+    <img src="../images/blog/soundtrack-videogiochi-parte-2/copertina.jpg" alt="Midgar — Final Fantasy VII Remake">
+    <figcaption class="img-caption">Midgar dall'alto — una città costruita su una piattaforma a 300 metri d'altezza.</figcaption>
+  </figure>
+
+  <p>Se analizziamo armonicamente il preludio capiamo subito perché funziona tutto così bene. L'arpeggio gira ipnotico fra il sesto e il primo grado, poi lancia il tutto verso una cadenza apparentemente scontata — quarto e quinto con l'aggiunta della nona. Un classico. E invece no. Entra un <strong>interscambio modale</strong>: un La♭maj7 che sale verso Si♭7, e poi — boom — tutto rientra prepotentemente in Do maggiore. Qui esplode l'orchestra: l'oboe traccia la melodia, i fraseggi di contrappunto amplificano una ricchezza che sa di romanticismo russo, di Šostakovič, di Wagner che avrebbe voluto firmare lui.</p>
+
+  <blockquote>C'è un futuristico uso dei synth, un eroico rilancio dato da quella cadenza e un'epica nell'uso della grande orchestra wagneriana. Un livello compositivo notevole — e lo dico con grande umiltà, avendo ascoltato solo l'inizio.</blockquote>
+
+  <p>La struttura si regge su tre gambe ben distinte: il sintetizzatore che porta il peso distopico di Midgar, l'orchestra romantica che incarna l'eroismo dei personaggi, e i temi melodici di Uematsu — architetti dell'anima del gioco prima ancora che la storia inizi. È musica scritta per servire la narrazione in modo impeccabile.</p>
+
+  <figure class="img-inline">
+    <img src="../images/blog/soundtrack-videogiochi-parte-2/finalfantasy.jpg" alt="Final Fantasy VII Remake — i personaggi al tramonto">
+    <figcaption class="img-caption-inline">Final Fantasy VII Remake, 2020 — guardare lontano, sapendo che la musica è già là.</figcaption>
+  </figure>
+
+  <p>Non so ancora dove mi porterà il viaggio di Cloud. Ma la musica di Final Fantasy promette di essere la prova vivente di come il videogioco possa considerarsi l'opera totale del nostro secolo. Se Wagner fosse vivo, sono convinto che vorrebbe musicare un videogioco. Voi quale gli assegnereste?</p>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- OUTER WILDS -->
+  <div class="section-header">
+    <span class="section-num">Posizione 6</span>
+    <h2 class="section-title">Outer Wilds — Andrew Prahlow, 2019</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <p>Se in Final Fantasy la musica è scritta bene per accompagnare un viaggio, in Outer Wilds la musica <em>è</em> il viaggio stesso. Se in Final Fantasy l'emozione nasceva dalla melodia, qui nasce dalla scoperta della logica intrinseca del divenire.</p>
+
+  <p>L'idea alla base del gioco è ormai abbastanza nota — ma se non volete spoiler, saltate al paragrafo successivo. <strong>[SPOILER]</strong> Siete un astronauta alle prime armi che si risveglia davanti a un falò. Avete esattamente 22 minuti per esplorare un sistema solare miniaturizzato — enorme, bizzarro, meraviglioso — prima che il sole diventi una supernova e distrugga tutto. E il loop ricomincia. Vi svegliate di nuovo lì, davanti a quel fuoco, con qualche conoscenza in più. <strong>[FINE SPOILER]</strong></p>
+
+  <figure class="img-full">
+    <img src="../images/blog/soundtrack-videogiochi-parte-2/outerwilds.jpg" alt="Outer Wilds — il sole che esplode">
+    <figcaption class="img-caption">Outer Wilds, 2019 — 22 minuti. Poi ricomincia. E non è mai uguale.</figcaption>
+  </figure>
+
+  <p>Andrew Prahlow ha lavorato a questa colonna sonora per quasi dieci anni, crescendo insieme al gioco fin dai primi prototipi studenteschi di Mobius Digital. La sua intuizione geniale: usare un <strong>banjo</strong>. Qualcosa che suonasse fuori asse rispetto alla chitarra acustica — che richiamasse la semplicità rustica dei focolari, ma con un pizzico di stranezza. Il risultato è una sorta di <em>space country</em>, uno shoegaze astrale che ti fa sentire immediatamente a casa pur essendo nello spazio profondo.</p>
+
+  <blockquote>Da musicista, quello che mi ha lasciato a bocca aperta è come Prahlow abbia costruito l'architettura sonora basandosi sui leitmotiv dei viaggiatori — e anche qui Wagner la fa da padrone. Ogni esploratore nello spazio suona uno strumento. Quando vi posizionate nel punto giusto, tutte le frequenze si allineano: gli strumenti, pur essendo su pianeti diversi, suonano la stessa melodia in un'unica colossale armonia collettiva.</blockquote>
+
+  <p>Qui sfociamo nella filosofia più pura. Il parallelo con Pitagora — che per primo chiamò "Cosmo" la sfera di tutte le cose proprio per l'ordine che esiste in essa — è quasi naturale. Mentre ascoltiamo quegli strumenti lontani accordarsi, stiamo percependo quello che Di Blasi definisce <em>l'intelligibilità del reale</em>: vedere il mondo attraverso il numero e la musica significa capire che le cose non divengono a caso, che esiste una logica intrinseca del divenire.</p>
+
+  <p>Il contrasto tra il banjo — limite, forma familiare, ordine rassicurante — e le tracce oniriche delle rovine nomai — l'illimitato, l'indefinibile, il dream pop astrale — non è caos. È un'estetica del non ancora definito. Anassimandro avrebbe riconosciuto l'<em>ápeiron</em>.</p>
+
+  <p>Il finale è un mantra, un rosario musicale. La struttura ludica del loop temporale e la struttura musicale dell'eterno ritorno melodico si fondono in modo perfetto: ogni ciclo porta nuova consapevolezza, non semplice ripetizione. Outer Wilds è potentissimo perché poggia su una metafisica reale — e la sua musica lo dimostra ad ogni ascolto.</p>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- ORI -->
+  <div class="section-header">
+    <span class="section-num">Posizione 5</span>
+    <h2 class="section-title">Ori and the Blind Forest — Gareth Coker, 2015</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <p>Una colonna sonora che era sulla bocca di tutti qualche anno fa e oggi sembra quasi finita fuori dai radar. Eppure per me resta una bomba assoluta. Definire il lavoro di Gareth Coker su Ori <em>magico</em> è riduttivo — ma è anche il punto di partenza giusto.</p>
+
+  <figure class="img-full">
+    <img src="../images/blog/soundtrack-videogiochi-parte-2/ori.jpg" alt="Ori and the Blind Forest">
+    <figcaption class="img-caption">Ori and the Blind Forest, 2015 — luce, foresta, e un tema pianistico che cresce con voi.</figcaption>
+  </figure>
+
+  <p>Il dettaglio fondamentale che emerge dalle interviste di Coker è l'idea di <strong>flow</strong>. In Ori, musica, controlli e art style non sono compartimenti stagni: sono un unico respiro. Coker è un sostenitore accanito dei temi ricorrenti — anche qui Wagner docet. Il leitmotiv funge da bussola emotiva. In un mondo fantasy devi trasportare il giocatore in un luogo diverso, eppure familiare.</p>
+
+  <p>Il tema di Ori non è solo una bella melodia al pianoforte: è una cellula che muta continuamente. Inizia fragile e sottile, ma man mano che lo spirito della foresta cresce e acquisisce i poteri, la musica si espande, diventa più complessa, più sicura. Come se la narrazione facesse armonia con il sistema di gioco.</p>
+
+  <blockquote>Quando arrivi negli Spirit Caverns la musica ha un certo peso. Ma nel momento esatto in cui sblocchi il wall jump, scatta una transizione: il brano diventa improvvisamente più leggero, saltellante. La musica ti sta comunicando tecnicamente che sei più agile, più libero. È un rinforzo psicologico di rara precisione.</blockquote>
+
+  <p>Questo è possibile grazie all'ossessione di Coker per quella che chiama "implementazione" — avere le mani in pasta sul gioco stesso. Come dice lui in una intervista per Spitfire Audio: <em>"È come la teoria musicale — puoi farne a meno, ma quando scrivi per videogioco conoscerla non ti farà certo male."</em> Nelle difficilissime sequenze di fuga, il pianoforte non cerca mai di sovrastare il giocatore. Punta dritto al cuore.</p>
+
+  <figure class="img-inline">
+    <img src="../images/blog/soundtrack-videogiochi-parte-2/visual_break.jpg" alt="La foresta di Nibel">
+    <figcaption class="img-caption-inline">La foresta di Nibel — un ecosistema, non un fondale.</figcaption>
+  </figure>
+
+  <p>Il risultato è un mondo in cui non ti senti un visitatore, ma parte integrante di un ecosistema. Una musica che ti culla nell'esplorazione e ti fa battere il cuore nelle fughe — senza mai perdere quell'eleganza melodica, quel traino eroico e quella malinconia epica che fanno di Ori qualcosa di più di un platform.</p>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- SKYRIM -->
+  <div class="section-header">
+    <span class="section-num">Posizione 4</span>
+    <h2 class="section-title">The Elder Scrolls V: Skyrim — Jeremy Soule, 2011</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <p>Con la quarta posizione arriviamo a quella che è stata per me la prima vera esperienza di open world. Fino a quel momento l'unico mondo aperto che avevo vissuto era la terra di Flight Simulator 95 — e potete immaginare il devasto mentale che mi ha dato l'immensità di Skyrim al primo approccio. Sapere di poter andare dovunque è un'esperienza di liberazione totale.</p>
+
+  <figure class="img-full">
+    <img src="../images/blog/soundtrack-videogiochi-parte-2/skyrim.jpg" alt="Skyrim — le montagne del nord">
+    <figcaption class="img-caption">The Elder Scrolls V: Skyrim, 2011 — un drago sopra le montagne. La musica è già là.</figcaption>
+  </figure>
+
+  <p>La musica è di Jeremy Soule, un compositore old school che prende i maestri del passato — Čajkovskij su tutti — e li mescola a uno stile elettroacustico molto moderno. La vera intuizione fu seguire la richiesta del Game Director Todd Howard, che voleva qualcosa di meno melodico e più aggressivo rispetto ai capitoli precedenti. Il risultato è il celebre tema <em>Dragonborn</em>: un coro maschile che canta all'unisono in una lingua inventata. Un inno che trasuda potenza primordiale.</p>
+
+  <blockquote>Molti critici hanno accostato il lavoro di Soule ai grandi compositori nordici come Grieg o Sibelius. C'è un concetto tecnico bellissimo che spiega questa colonna sonora: il <em>Naturklang</em> — un senso di stasi musicale che contiene però una spinta interna data da piccoli ostinati ritmici. È esattamente quello che succede in brani come <em>Unbroken Road</em>: la musica non è un semplice sottofondo, è un quadro alla Friedrich trasformato in suono.</blockquote>
+
+  <p>Soule usa riverberi lunghi e cluster di accordi per darti la sensazione fisica di essere in uno spazio immenso. In <em>Far Horizons</em> archi profondi e ottoni scuri richiamano direttamente i paesaggi nordici e l'epica primordiale delle opere di Sibelius. C'è poi una cura quasi artigianale dei dettagli: per imitare il suono di un dulcimer nel brano <em>Ancient Stones</em>, Soule non ha usato un plugin — ha percosso le corde del pianoforte con una matita.</p>
+
+  <p>Nella colonna sonora di Skyrim c'è sapienza compositiva, profonda cultura della composizione classica e un mixing che trasforma archi setosi e bassi profondi in aurore boreali. Una musica capace di evocare paesaggi meglio di qualsiasi immagine.</p>
+
+  <figure class="img-full">
+    <img src="../images/blog/soundtrack-videogiochi-parte-2/finale.jpeg" alt="Mauro Ghilardini">
+    <figcaption class="img-caption">Il podio si avvicina. Sopravvivenza, rinascita, e un viaggio che non dimenticherete.</figcaption>
+  </figure>
+
+  <p>Con i draghi di Jeremy Soule chiudiamo questa seconda parte. Abbiamo attraversato l'architettura wagneriana di Midgar, toccato il cosmo con il banjo di Outer Wilds, ci siamo persi nel flow di Ori e nell'impeto delle aurore boreali di Skyrim. Il podio aspetta.</p>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- VIDEO -->
+  <div class="video-wrap">
+    <span class="video-label">Guarda la video-analisi completa</span>
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed/JFCDLPdwqdY?rel=0&modestbranding=1"
+              title="Le 10 migliori soundtrack nei videogiochi — Parte II"
+              allowfullscreen
+              allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+              loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <span class="cta-label">Continua il viaggio</span>
+    <div class="cta-text">Parte III: sopravvivenza, rinascita e un viaggio che non dimenticherete.</div>
+    <div class="cta-sub">Il podio, presto sul canale e sul blog.</div>
+    <a href="https://www.youtube.com/@MauroGhilardiniOfficial" target="_blank" rel="noopener" class="btn-gold">Iscriviti al canale</a>
+  </div>
+
+  <!-- NAVIGAZIONE SERIE -->
+  <nav class="series-nav" aria-label="Navigazione serie">
+    <a href="soundtrack-videogiochi-parte-1.html" class="series-prev">
+      <span>Articolo precedente</span>
+      <span>← OST · Parte I</span>
+    </a>
+    <a href="#" class="series-next">
+      <span>Prossimo articolo</span>
+      <span>OST · Parte III →</span>
+    </a>
+  </nav>
+
+</article>
+
+<footer>
+  <div class="f-left">
+    <img src="../images/image_0.png" alt="logo">
+    <span class="f-name">Mauro Ghilardini</span>
+  </div>
+  <div class="f-right">
+    <span class="f-copy">© 2026 · Bergamo, Italia</span>
+    <div class="f-social">
+      <a href="https://www.youtube.com/@MauroGhilardiniOfficial" class="f-social-link">YT</a>
+      <a href="https://www.instagram.com/mauroghilardini_official/" class="f-social-link">IG</a>
+      <a href="https://ko-fi.com/mauroghilardini" class="f-social-link">Ko</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
