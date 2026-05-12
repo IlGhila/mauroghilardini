@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloodborne e la sublime orchestra dell'orrore — Mauro Ghilardini</title>
+<meta name="description" content="Come Miyazaki ha trasformato l'orrore in sublime. Lore, filosofia e tre ambiti musicali per capire perché la soundtrack di Bloodborne è un'opera irripetibile.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#090807;
+  --gold:#C9973A;--gold-hi:#C17F20;
+  --ivory:#F5F0E8;--ivory-d:#EAE3D5;
+  --ink:#1A1510;--ink-soft:#2E2419;--ink-faint:#5C4E3A;
+  --line:rgba(180,140,80,.22);
+  --fd:'Cinzel',serif;--fb:'Cormorant Garamond',Georgia,serif;--fl:'Josefin Sans',sans-serif;
+  --nav-h:64px;
+}
+html{scroll-behavior:smooth}
+body{color:var(--ink);font-family:var(--fb);font-size:20px;line-height:1.9;overflow-x:hidden;position:relative}
+
+.page-bg{position:fixed;inset:0;z-index:-2;background-size:cover;background-position:center;background-attachment:fixed}
+.page-bg-overlay{position:fixed;inset:0;z-index:-1;background:rgba(245,240,232,.91)}
+
+img{display:block;max-width:100%;background:transparent}
+a{text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);padding:0 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(9,8,7,.96);border-bottom:.5px solid rgba(201,151,58,.2);backdrop-filter:blur(14px)}
+.nav-logo{display:flex;align-items:center;gap:.9rem;color:var(--gold)}
+.nav-logo img{width:30px;height:30px;object-fit:contain;background:transparent}
+.nav-logo-text{font-family:var(--fd);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{font-family:var(--fl);font-size:.64rem;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:#A8967A;transition:color .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+
+/* HERO — brightness alzata a .38 per leggibilità */
+.article-hero{position:relative;height:100vh;min-height:620px;overflow:hidden;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:brightness(.38) saturate(.75)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(9,8,7,.0) 0%,rgba(9,8,7,.15) 40%,rgba(9,8,7,.78) 68%,rgba(9,8,7,.99) 100%)}
+.hero-content{position:relative;z-index:1;padding:0 4rem 5rem;max-width:1000px}
+.hero-series{font-family:var(--fl);font-size:.72rem;font-weight:700;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:1rem}
+.hero-title{font-family:var(--fd);font-size:clamp(2.2rem,5vw,4.2rem);font-weight:900;color:#F5F0E8;line-height:1.05;margin-bottom:1.4rem}
+.hero-title em{font-style:normal;color:var(--gold)}
+.hero-meta{display:flex;gap:2rem;align-items:center;flex-wrap:wrap}
+.hero-meta span{font-family:var(--fl);font-size:.64rem;letter-spacing:.22em;color:rgba(242,237,227,.5)}
+.hero-meta .dot{width:3px;height:3px;border-radius:50%;background:rgba(242,237,227,.3)}
+
+/* CORPO */
+.article-wrap{max-width:740px;margin:0 auto;padding:5rem 2rem 4rem;position:relative}
+
+.back-link{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--fl);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:3rem;transition:color .3s;border-bottom:.5px solid var(--line);padding-bottom:.3rem}
+.back-link:hover{color:var(--gold-hi)}
+.back-link::before{content:'←'}
+
+/* INDICE */
+.toc-section{
+  background:var(--ivory-d);
+  border-top:3px solid var(--gold);
+  border-bottom:.5px solid var(--line);
+  padding:4rem 0 4.5rem;
+  position:relative;
+  z-index:2;
+}
+.toc-inner{
+  max-width:740px;
+  margin:0 auto;
+  padding:0 2rem;
+}
+.toc-label{
+  font-family:var(--fl);
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.5em;
+  text-transform:uppercase;
+  color:var(--gold);
+  display:block;
+  margin-bottom:2rem;
+}
+.toc-section ol{
+  list-style:none;
+  counter-reset:toc-counter;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:1rem 3rem;
+}
+.toc-section ol li{
+  counter-increment:toc-counter;
+  display:flex;
+  align-items:baseline;
+  gap:.8rem;
+}
+.toc-section ol li::before{
+  content:counter(toc-counter,upper-roman);
+  font-family:var(--fl);
+  font-size:.6rem;
+  color:var(--gold);
+  min-width:1.4rem;
+  flex-shrink:0;
+}
+.toc-section ol li a{
+  font-family:var(--fb);
+  font-size:1.1rem;
+  color:var(--ink-soft);
+  line-height:1.4;
+  border-bottom:.5px solid transparent;
+  transition:color .3s,border-color .3s;
+}
+.toc-section ol li a:hover{
+  color:var(--gold-hi);
+  border-bottom-color:var(--line);
+}
+
+@media(max-width:960px){
+  .toc-section ol{grid-template-columns:1fr}
+  .toc-inner{padding:0 1.5rem}
+}
+
+@media(max-width:960px){
+  .toc-inner{padding:0 1.5rem}
+  .toc ol{grid-template-columns:1fr}
+}
+
+.article-intro{font-size:1.3rem;line-height:2;color:var(--ink-soft);margin-bottom:3rem;font-style:italic}
+.article-intro::first-letter{font-family:var(--fd);font-size:5rem;font-weight:900;color:var(--gold);float:left;line-height:.75;margin:.06em .15em 0 0;padding-top:.06em;font-style:normal}
+
+p{font-size:1.12rem;line-height:1.95;color:var(--ink-soft);margin-bottom:1.6rem;text-wrap:pretty}
+em{color:var(--ink);font-style:italic}
+strong{color:var(--ink);font-weight:700}
+
+.section-header{margin:5rem 0 1.8rem;padding-top:2.5rem;border-top:.5px solid var(--line)}
+.section-label{font-family:var(--fl);font-size:.66rem;font-weight:700;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.5rem}
+.section-title{font-family:var(--fd);font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:var(--ink);letter-spacing:.04em;line-height:1.2}
+.section-rule{width:40px;height:2px;background:var(--gold);margin:.8rem 0 2rem}
+
+/* Ambiti */
+.ambito{margin:3.5rem 0 1.8rem;padding:2rem 2.2rem;background:rgba(180,140,80,.05);border-left:2px solid var(--gold)}
+.ambito-num{font-family:var(--fl);font-size:.6rem;font-weight:700;letter-spacing:.36em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.4rem}
+.ambito-title{font-family:var(--fd);font-size:1.2rem;font-weight:700;color:var(--ink);margin-bottom:1rem;letter-spacing:.04em}
+.ambito p{margin-bottom:0;font-size:1.08rem}
+
+blockquote{border-left:2px solid var(--gold);padding:.8rem 0 .8rem 2rem;margin:2.5rem 0;font-style:italic;font-size:1.15rem;color:var(--ink-faint);line-height:1.85;background:rgba(180,140,80,.06);border-radius:0 2px 2px 0}
+
+/* Immagini */
+.img-full{margin:3rem -5rem;overflow:hidden}
+.img-full img{width:100%;max-height:500px;object-fit:cover;filter:saturate(.78) brightness(.9);transition:filter .6s}
+.img-full:hover img{filter:saturate(.96) brightness(1)}
+.img-caption{font-family:var(--fl);font-size:.58rem;letter-spacing:.2em;color:var(--ink-faint);padding:.6rem 5rem 0;text-align:right}
+
+.img-inline{margin:2.5rem 0;overflow:hidden}
+.img-inline img{width:100%;max-height:440px;object-fit:cover;filter:saturate(.78) brightness(.9);transition:filter .6s}
+.img-inline:hover img{filter:saturate(.96) brightness(1)}
+.img-caption-inline{font-family:var(--fl);font-size:.58rem;letter-spacing:.2em;color:var(--ink-faint);padding:.5rem 0 0;text-align:right}
+
+/* Immagine laterale destra — per il libro Eco e il vinile */
+.img-aside{float:right;width:280px;margin:0 0 2rem 2.5rem;overflow:hidden}
+.img-aside img{width:100%;object-fit:cover;filter:saturate(.78) brightness(.9);transition:filter .6s}
+.img-aside:hover img{filter:saturate(.96) brightness(1)}
+.img-aside-caption{font-family:var(--fl);font-size:.56rem;letter-spacing:.18em;color:var(--ink-faint);padding:.5rem 0 0;text-align:right}
+.clearfix::after{content:'';display:table;clear:both}
+
+.img-duo{margin:3rem -5rem;display:grid;grid-template-columns:1fr 1fr;gap:2px;overflow:hidden}
+.img-duo img{width:100%;height:300px;object-fit:cover;filter:saturate(.78) brightness(.9);transition:filter .6s}
+.img-duo img:hover{filter:saturate(.96) brightness(1)}
+.img-duo-caption{font-family:var(--fl);font-size:.58rem;letter-spacing:.2em;color:var(--ink-faint);padding:.6rem 5rem 0;text-align:right;margin-bottom:1rem}
+
+.divider{display:flex;align-items:center;gap:1.5rem;margin:4rem 0}
+.divider::before,.divider::after{content:'';flex:1;height:.5px;background:var(--line)}
+.divider span{font-family:var(--fl);font-size:.62rem;letter-spacing:.3em;color:var(--ink-faint)}
+
+/* Video */
+.video-wrap{margin:3.5rem 0}
+.video-label{font-family:var(--fl);font-size:.66rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block}
+.video-frame{position:relative;aspect-ratio:16/9;background:var(--void)}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+
+/* Box correlato */
+.related-box{border:.5px solid var(--line);padding:1.8rem 2.2rem;margin:3.5rem 0;background:rgba(245,240,232,.6);backdrop-filter:blur(6px)}
+.related-label{font-family:var(--fl);font-size:.62rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.8rem}
+.related-link{font-family:var(--fd);font-size:.95rem;color:var(--ink);transition:color .3s;display:inline-block;border-bottom:.5px solid var(--line);padding-bottom:.2rem}
+.related-link:hover{color:var(--gold-hi)}
+
+/* CTA */
+.cta-block{border:.5px solid var(--line);padding:3rem;margin:4.5rem 0 2rem;text-align:center;position:relative;background:rgba(245,240,232,.7);backdrop-filter:blur(8px)}
+.cta-block::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:55px;height:2px;background:var(--gold)}
+.cta-label{font-family:var(--fl);font-size:.66rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:1rem}
+.cta-text{font-family:var(--fd);font-size:1.15rem;color:var(--ink);margin-bottom:.5rem}
+.cta-sub{font-family:var(--fb);font-style:italic;font-size:.95rem;color:var(--ink-faint);margin-bottom:1.8rem}
+.btn-gold{font-family:var(--fl);font-size:.68rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:#F5F0E8;background:var(--void);padding:.9rem 2.6rem;display:inline-block;transition:background .3s,transform .3s}
+.btn-gold:hover{background:var(--gold-hi);transform:translateY(-2px)}
+
+.series-nav{
+  background:var(--ivory-d);
+  padding:1.2rem 2rem;
+  border-bottom:.5px solid var(--line);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:3rem;
+  flex-wrap:wrap;
+}
+.series-prev, .series-prev span {
+  color:var(--ink-faint);
+  font-family:var(--fl);
+  font-size:.64rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+}
+
+footer{border-top:.5px solid var(--line);background:var(--void);padding:2.8rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;position:relative;z-index:1}
+.f-left{display:flex;align-items:center;gap:1rem}
+.f-left img{width:28px;height:28px;object-fit:contain;background:transparent}
+.f-name{font-family:var(--fd);font-size:.75rem;letter-spacing:.22em;color:#A8967A}
+.f-right{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
+.f-copy{font-family:var(--fl);font-size:.58rem;letter-spacing:.18em;color:#6B5D48}
+.f-social{display:flex;gap:1.2rem}
+.f-social-link{font-family:var(--fl);font-size:.6rem;letter-spacing:.22em;color:#6B5D48;transition:color .3s}
+.f-social-link:hover{color:var(--gold)}
+
+@media(max-width:960px){
+  nav{padding:0 1.5rem}
+  .nav-links{gap:1.2rem}
+  .hero-content{padding:0 1.5rem 3.5rem}
+  .article-wrap{padding:3.5rem 1.5rem 3rem}
+  .img-full{margin:2rem -1.5rem}
+  .img-caption{padding:.5rem 1.5rem 0}
+  .img-duo{margin:2rem -1.5rem}
+  .img-duo-caption{padding:.5rem 1.5rem 0}
+  .img-duo img{height:200px}
+  .img-aside{float:none;width:100%;margin:0 0 2rem 0}
+  footer{flex-direction:column;align-items:flex-start;padding:2rem 1.5rem}
+  .f-right{align-items:flex-start}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .cta-block{padding:2rem 1.5rem}
+  .ambito{padding:1.5rem}
+  .img-duo{grid-template-columns:1fr}
+  body{font-size:18px}
+}
+</style>
+</head>
+<body>
+
+<div class="page-bg" style="background-image:url('../images/blog/bloodborne-sublime-orchestra/copertina.jpg')"></div>
+<div class="page-bg-overlay"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../images/image_0.png" alt="logo">
+    <span class="nav-logo-text">M · Ghilardini</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../index.html#about">Chi sono</a></li>
+    <li><a href="../index.html#youtube">YouTube</a></li>
+    <li><a href="../index.html#musica">Musica</a></li>
+    <li><a href="index.html" class="active">Blog</a></li>
+    <li><a href="../index.html#contatti">Contatti</a></li>
+  </ul>
+</nav>
+
+<div class="article-hero">
+  <img class="hero-bg" src="../images/blog/bloodborne-sublime-orchestra/copertina.jpg" alt="Bloodborne — Yharnam notturna">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-series">Bloodborne · Musica &amp; Filosofia</span>
+    <h1 class="hero-title">La sublime<br>orchestra <em>dell'orrore.</em></h1>
+    <div class="hero-meta">
+      <span>Mauro Ghilardini</span>
+      <div class="dot"></div>
+      <span>Maggio 2026</span>
+      <div class="dot"></div>
+      <span>12 min lettura</span>
+    </div>
+  </div>
+</div>
+
+<article class="article-wrap">
+
+<section class="toc-section">
+  <div class="toc-inner">
+    <span class="toc-label">Indice</span>
+    <ol>
+      <li><a href="#lore">L'orrore — la lore di Yharnam</a></li>
+      <li><a href="#sublime">Il sublime — quando l'orrore affascina</a></li>
+      <li><a href="#orchestra">L'orchestra — tre ambiti del caos limitato</a></li>
+      <li><a href="#ambito-1">I · L'orchestra senza respiro</a></li>
+      <li><a href="#ambito-2">II · Il cromatismo e il silenzio</a></li>
+      <li><a href="#ambito-3">III · La destabilizzazione del ritmo</a></li>
+      <li><a href="#vinile">Il vinile, il film e una forma di superbia</a></li>
+    </ol>
+  </div>
+</section>
+
+  <div class="divider"><span>✦</span></div>
+
+  <p class="article-intro">Bloodborne è per molti il vertice della formula FromSoftware — un incubo di design sorretto da quella che chiamo la sublime orchestra dell'orrore. Il soldout del boxset Laced Records e l'annuncio di un film animato Sony ci dicono che l'abisso sta per tornare. Come si trasporta un orrore così viscerale fuori dal videogioco senza tradirlo?</p>
+
+  <figure class="img-full">
+    <img src="../images/blog/bloodborne-sublime-orchestra/02.jpg" alt="Bloodborne — il cacciatore verso Yharnam al tramonto">
+    <figcaption class="img-caption">Yharnam al tramonto. Già da qui la musica tace — e il silenzio pesa.</figcaption>
+  </figure>
+
+  <!-- I. LORE -->
+  <div id="lore" class="section-header">
+    <span class="section-label">Primo movimento</span>
+    <h2 class="section-title">L'orrore — la lore di Yharnam</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <p>Immaginate un miracolo liquido capace di curare ogni piaga e potenziare il corpo. Il problema non è il fluido — è il contenitore. Il corpo umano è troppo fragile per reggere il peso di una natura divina. <strong>Bloodborne è il diario di questo collasso.</strong></p>
+
+  <p>La civiltà dei Pthumeriani visse in simbiosi con i Grandi Esseri — entità che sovrastavano l'intelletto umano come l'oceano sovrasta una singola goccia. Da quel contatto filtrò il sangue antico: un miracolo che prometteva di riparare la carne e spalancare la mente. Il sangue li elevò solo per poterli divorare meglio. I Pthumeriani scomparvero, lasciandosi alle spalle le ossa di una civiltà che aveva scambiato la propria umanità con il potere.</p>
+
+  <figure class="img-duo">
+    <img src="../images/blog/bloodborne-sublime-orchestra/03.png" alt="Bloodborne — combattimento con la bestia">
+    <img src="../images/blog/bloodborne-sublime-orchestra/04.png" alt="Bloodborne — cacciatore davanti alla mansion gotica">
+  </figure>
+  <p class="img-duo-caption">La bestia e il cacciatore — due facce dello stesso collasso.</p>
+
+  <p>Secoli dopo, Lawrence fondò la Chiesa della Cura, portò il fluido a Yharnam e fece una promessa: <em>venite, bevete e guarite</em>. Per capire il disastro che seguì dobbiamo recuperare un concetto di Tommaso d'Aquino: la <strong>natura</strong>. Non un'etichetta — un motore. È il modo in cui una cosa sta al mondo per esprimere ciò che è. Quando la materia non è adeguata alla forma, quell'ente si deforma, perde integrità — diventa, in senso tecnico, <strong>mostruoso</strong>. La materia umana non può reggere la forma di un Dio. Per questo Yharnam si riempì di bestie.</p>
+
+  <blockquote>Bloodborne non è una storia di mostri, ma la cronaca di cosa succede quando la natura dell'uomo viene corrotta dalla brama di ciò che non le appartiene. È l'orrore massimo — viscerale, cosmico, imperdonabile.</blockquote>
+
+  <figure class="img-full">
+    <img src="../images/blog/bloodborne-sublime-orchestra/05.webp" alt="Bloodborne — Yharnam notturna con guglie e luna">
+    <figcaption class="img-caption">Yharnam di notte — una città che ha perduto la libertà della propria natura.</figcaption>
+  </figure>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- II. SUBLIME -->
+  <div id="sublime" class="section-header">
+    <span class="section-label">Secondo movimento</span>
+    <h2 class="section-title">Il sublime — quando l'orrore affascina</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="clearfix">
+    <figure class="img-aside">
+      <img src="../images/blog/bloodborne-sublime-orchestra/storia.webp" alt="Umberto Eco — Storia della bruttezza">
+      <p class="img-aside-caption">Umberto Eco, Storia della bruttezza — Bompiani</p>
+    </figure>
+
+    <p>Eppure Bloodborne ci attrae profondamente. Perché? La risposta è nel concetto di <strong>sublime</strong>. Aristotele nella <em>Poetica</em> scriveva che le cose viste con disgusto nella realtà le guardiamo con piacere nell'arte, se l'imitazione è maestosa. Plutarco aggiungeva che il brutto imitato dall'arte riceve un riverbero di bellezza dalla maestria dell'artista.</p>
+
+    <p>Nel 1757 Edmund Burke pubblica l'opera che cambia tutto: <em>Indagine sull'origine delle idee del sublime e del bello</em>. Il <strong>bello</strong> imita ciò che è armonioso. Il <strong>sublime</strong> si ha quando l'arte imita il caos. Umberto Eco lo descrive nella <em>Storia della bruttezza</em>: si prova il sublime di fronte a un temporale, a un mare in tempesta, ad abissi, oscurità, solitudine. Tutte impressioni dilettevoli quando l'orrore non può possederci.</p>
+
+    <p>La condizione è precisa: il caos deve essere mediato, tenuto a distanza. Quando accade, il terrore si trasforma in brivido di meraviglia. L'arte fornisce questa tettoia — tanto più è strutturata la forma artistica, tanto più è potente il fascino.</p>
+  </div>
+
+  <p>In Bloodborne questo diventa <strong>sublime ludico</strong>. Miyazaki deve narrare lo sfacelo di Yharnam rendendolo esteticamente sublime. Level design, character design e musica agiscono come quel riverbero formale di bellezza di cui parlava Plutarco.</p>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- III. L'ORCHESTRA -->
+  <div id="orchestra" class="section-header">
+    <span class="section-label">Terzo movimento</span>
+    <h2 class="section-title">L'orchestra — tre ambiti del caos limitato</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <p>Per sublimare il caos dell'orrore in musica, lo si deve imbrigliare in una forma rigorosa: il caos c'è, lo senti, ma è tenuto a distanza da una struttura che non cede. Ho individuato tre ambiti in cui questa ricetta è perfettamente applicata.</p>
+
+  <figure class="img-full">
+    <img src="../images/blog/bloodborne-sublime-orchestra/visual_break.jpg" alt="Bloodborne — artwork del cacciatore in bianco e nero">
+    <figcaption class="img-caption">Il cacciatore — l'unico limite umano in un mondo che ha perso la propria forma.</figcaption>
+  </figure>
+
+  <!-- AMBITO 1 -->
+  <div id="ambito-1" class="ambito">
+    <span class="ambito-num">Primo ambito</span>
+    <div class="ambito-title">L'orchestra senza respiro</div>
+    <p>Sei compositori, tre americani e tre giapponesi, con stili diversi. Caos autoriale tenuto a bada da una restrizione spietata: <strong>solo archi, ottoni, coro e percussioni</strong>. Nessun legno. Flauti, oboi, clarinetti sono gli strumenti che respirano — toglierli significa togliere all'orchestra il respiro. Un'orchestra senza respiro per narrare una città che ha perso la libertà della propria natura. Il coro segue il modello del canto gregoriano medievale in latino, deformato fino all'irriconoscibile.</p>
+  </div>
+
+  <div class="clearfix">
+    <figure class="img-aside">
+      <img src="../images/blog/bloodborne-sublime-orchestra/monolito_ligeti.jpg" alt="2001 Odissea nello spazio — scena del monolito">
+      <p class="img-aside-caption">Kubrick, 2001: Odissea nello spazio — il Kyrie di Ligeti sul monolito nero</p>
+    </figure>
+    <p>Il risultato è un orrore musicale affascinante come il <em>Kyrie</em> di Ligeti nella scena del monolito nero in <em>2001: Odissea nello spazio</em> — così misterioso e spaventoso, eppure irresistibile. Le scelte stilistiche di Kubrick sono state probabilmente fondamentali per i compositori del gioco. Nell'arte tutto si tiene.</p>
+  </div>
+
+  <!-- AMBITO 2 -->
+  <div id="ambito-2" class="ambito">
+    <span class="ambito-num">Secondo ambito</span>
+    <div class="ambito-title">Il cromatismo e il silenzio</div>
+    <p>Il caos musicale nasce dall'uso smodato del <strong>cromatismo</strong>. Il contraltare è radicale: il limite al caos armonico è il <strong>silenzio</strong>. In Bloodborne la musica tace per la maggior parte del tempo — si esplora nel silenzio, si combattono i nemici comuni nel silenzio di una Yharnam semideserta. Solo nei boss, nei momenti decisivi, la musica entra. È la lezione di Ico e Shadow of the Colossus: il silenzio non è assenza, è la tettoia che crea l'attesa e amplifica l'impatto. Ecco perché la musica di Bloodborne, quando arriva, arriva come il destino.</p>
+  </div>
+
+  <!-- AMBITO 3 -->
+  <div id="ambito-3" class="ambito">
+    <span class="ambito-num">Terzo ambito</span>
+    <div class="ambito-title">La destabilizzazione del ritmo</div>
+    <p>I brani non seguono un 4/4 rassicurante. Le linee melodiche fluttuano senza agganciarsi a una scansione prevedibile. Nel tema principale, la voce solista e il controcanto della viola sembrano esistere fuori dal tempo. Eppure non appaiono caotici — perché sotto c'è qualcosa di immobile: i contrabbassi fermi sulla tonica minore. Un pavimento armonico che non scandisce nulla, semplicemente è lì. È la <strong>micropolifonia</strong> di Ligeti: dense trame polifoniche sovrapposte che insieme creano una nuvola caotica di suono, ancorata a un drone che impedisce la dissoluzione totale. È così che la musica produce terrore cosmico — e non semplice fastidio.</p>
+  </div>
+
+  <figure class="img-full">
+    <img src="../images/blog/bloodborne-sublime-orchestra/06.jpg" alt="Bloodborne — cacciatore nel cimitero al tramonto rosso">
+    <figcaption class="img-caption">Tre ambiti, un'equazione sola: caos limitato. L'orrore sublimato.</figcaption>
+  </figure>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- IV. VINILE -->
+  <div id="vinile" class="section-header">
+    <span class="section-label">Coda</span>
+    <h2 class="section-title">Il vinile, il film e una forma di superbia</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="clearfix">
+    <figure class="img-aside">
+      <img src="../images/blog/bloodborne-sublime-orchestra/laced_record.png" alt="Bloodborne OST — boxset Laced Records">
+      <p class="img-aside-caption">Bloodborne Original Soundtrack Vol. I &amp; II — Laced Records, soldout</p>
+    </figure>
+
+    <p>Il boxset Laced Records è andato soldout in pochi giorni. Presto ci sarà anche un film animato. Si può trasportare il sublime del videogioco senza tradirlo?</p>
+
+    <p>La storia di Bloodborne è la cronaca di una perdita della forma. La sua musica ha cercato di imbrigliare il caos dell'incubo usando come tettoia il gameplay e il silenzio. Per dieci anni questa musica ha vissuto nel digitale — ora ha un peso fisico che si può stringere tra le mani. C'è qualcosa di poeticamente giusto in questa uscita: la musica che raccontava l'impossibilità dell'uomo finito di contenere l'infinito è diventata essa stessa un oggetto finito.</p>
+
+    <p>Eppure io quel vinile non l'ho comprato. Quella musica vive dentro l'ecosistema di limiti che abbiamo esplorato — ha bisogno del silenzio di Yharnam, della lotta del protagonista, della morte che interrompe il brano prima che tu possa contemplarlo completamente. Senza quei limiti, il sublime potrebbe mancare. Estrarre quella musica dal gioco per pretenderne la stessa catarsi in salotto mi suona come una forma di superbia.</p>
+  </div>
+
+  <blockquote>Forse il segreto del soldout sta in una nostra nuova forma di superbia. Compriamo il vinile perché ci illudiamo di possedere l'abisso — mentre in realtà non lo vivremo mai con l'interezza con cui l'abbiamo vissuto nel videogioco. Stiamo cercando ancora una volta di contenere l'infinito in una forma finita?</blockquote>
+
+  <figure class="img-full">
+    <img src="../images/blog/bloodborne-sublime-orchestra/06.jpg" alt="Bloodborne — Yharnam al crepuscolo">
+    <figcaption class="img-caption">Yharnam non si possiede. Si abita, si soffre, si contempla. Poi si muore.</figcaption>
+  </figure>
+
+  <!-- BOX CORRELATO -->
+  <div class="related-box">
+    <span class="related-label">Approfondisci sul canale</span>
+    <p style="font-family:var(--fl);font-size:.76rem;color:var(--ink-faint);letter-spacing:.06em;margin-bottom:.9rem;line-height:1.6">Il video <em>Moonlit Melody</em> di oggi esplora in dettaglio tutti e tre gli ambiti trattati in questo articolo — è la seconda parte di un percorso che inizia da qui.</p>
+    <a href="https://www.youtube.com/watch?v=5_Y2n2d_XS0" target="_blank" rel="noopener" class="related-link">Guarda Moonlit Melody su YouTube →</a>
+  </div>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- VIDEO -->
+  <div class="video-wrap">
+    <span class="video-label">Guarda la video-analisi completa</span>
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed/92sQA9TAcNk?rel=0&modestbranding=1"
+              title="Bloodborne — la sublime orchestra dell'orrore"
+              allowfullscreen
+              allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+              loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <figure class="img-full" style="margin-top:3.5rem">
+    <img src="../images/blog/bloodborne-sublime-orchestra/finale.png" alt="Mauro Ghilardini — voce e microfono">
+    <figcaption class="img-caption">Ogni riflessione ha un valore, se fatta con sincerità. Scrivetemi la vostra.</figcaption>
+  </figure>
+
+  <!-- CTA -->
+  <div class="cta-block">
+    <span class="cta-label">Continua il viaggio</span>
+    <div class="cta-text">Analisi, filosofia, musica per videogiochi.</div>
+    <div class="cta-sub">Iscriviti al canale e soprattutto — scrivimi nei commenti.</div>
+    <a href="https://www.youtube.com/@MauroGhilardiniOfficial" target="_blank" rel="noopener" class="btn-gold">Iscriviti al canale</a>
+  </div>
+
+ <div class="series-nav">
+  <a href="index.html" class="back-link">Tutti gli articoli</a>
+  <a href="soundtrack-videogiochi-parte-2.html" class="series-prev">
+    <span>Articolo precedente</span>
+    <span>← OST · Il podio (Parte III)</span>
+  </a>
+</div>
+
+</article>
+
+<footer>
+  <div class="f-left">
+    <img src="../images/image_0.png" alt="logo">
+    <span class="f-name">Mauro Ghilardini</span>
+  </div>
+  <div class="f-right">
+    <span class="f-copy">© 2026 · Bergamo, Italia</span>
+    <div class="f-social">
+      <a href="https://www.youtube.com/@MauroGhilardiniOfficial" class="f-social-link">YT</a>
+      <a href="https://www.instagram.com/mauroghilardini_official/" class="f-social-link">IG</a>
+      <a href="https://ko-fi.com/mauroghilardini" class="f-social-link">Ko</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
