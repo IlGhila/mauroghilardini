@@ -19,9 +19,26 @@
   --nav-h:64px;
 }
 html{scroll-behavior:smooth}
-body{background:var(--ivory);color:var(--ink);font-family:var(--fb);font-size:18px;line-height:1.8;overflow-x:hidden}
+body{color:var(--ink);font-family:var(--fb);font-size:18px;line-height:1.8;overflow-x:hidden}
 img{display:block;max-width:100%;background:transparent}
 a{text-decoration:none}
+
+/* SFONDO GLOBALE — partitura */
+.page-bg{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background-image:url('../images/blog/partitura-bg.jpg');
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position:center center;
+}
+.page-bg-overlay{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background:rgba(245,240,232,.91);
+}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);padding:0 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(9,8,7,.96);border-bottom:.5px solid rgba(201,151,58,.2);backdrop-filter:blur(14px)}
 .nav-logo{display:flex;align-items:center;gap:.9rem;color:var(--gold)}
@@ -65,7 +82,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);padding:
 .article-card.featured .card-title{font-size:1.5rem;margin-bottom:1rem}
 .article-card.featured .card-excerpt{font-size:1rem}
 
-footer{border-top:.5px solid var(--line);background:var(--void);padding:2.8rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+footer{border-top:.5px solid var(--line);background:var(--void);padding:2.8rem 4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;position:relative;z-index:1}
 .f-left{display:flex;align-items:center;gap:1rem}
 .f-left img{width:28px;height:28px;object-fit:contain;background:transparent}
 .f-name{font-family:var(--fd);font-size:.75rem;letter-spacing:.22em;color:#A8967A}
@@ -92,6 +109,9 @@ footer{border-top:.5px solid var(--line);background:var(--void);padding:2.8rem 4
 </style>
 </head>
 <body>
+
+<div class="page-bg"></div>
+<div class="page-bg-overlay"></div>
 
 <nav>
   <a href="../index.html" class="nav-logo">
