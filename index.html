@@ -222,6 +222,29 @@ footer{position:relative;z-index:1;background:rgba(9,8,7,.96);border-top:.5px so
 .f-social-link{font-family:var(--fl);font-size:.62rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--sepia);transition:color .3s}
 .f-social-link:hover{color:var(--gold-hi)}
 
+/* ── COOKIE BANNER ───────────────────────────────────── */
+#cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:8000;background:rgba(9,8,7,.97);border-top:.5px solid var(--line);backdrop-filter:blur(16px);padding:1.1rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;transition:transform .45s cubic-bezier(.22,1,.36,1)}
+#cookie-banner.hidden{transform:translateY(110%);pointer-events:none}
+.ck-text{font-family:var(--fl);font-size:.58rem;letter-spacing:.1em;color:rgba(168,150,122,.85);line-height:1.85;max-width:680px}
+.ck-text strong{color:var(--ivory);font-weight:400}
+.ck-btns{display:flex;gap:.7rem;flex-shrink:0}
+.ck-btn{font-family:var(--fl);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;padding:.65rem 1.5rem;cursor:pointer;border:none;transition:background .3s,color .3s}
+.ck-btn-refuse{background:transparent;border:.5px solid rgba(242,237,227,.25);color:var(--sepia)}
+.ck-btn-refuse:hover{border-color:var(--gold);color:var(--gold)}
+.ck-btn-accept{background:var(--gold);color:var(--void)}
+.ck-btn-accept:hover{background:var(--gold-hi)}
+.vid-ph--cookie{background:var(--ember);cursor:default}
+.vid-ph--cookie .cookie-unlock{background:none;border:none;color:var(--gold);cursor:pointer;font-family:var(--fl);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;margin-top:.4rem;padding:0;display:block}
+.vid-ph--cookie .cookie-unlock:hover{color:var(--gold-hi)}
+.behold-ph{padding:3.5rem 2rem;text-align:center;border:.5px solid var(--line);margin-top:1rem}
+.behold-ph p{font-family:var(--fl);font-size:.6rem;letter-spacing:.15em;color:var(--sepia);text-transform:uppercase;line-height:2.2}
+.behold-ph .cookie-unlock{background:none;border:none;color:var(--gold);cursor:pointer;font-family:var(--fl);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;padding:0;display:inline}
+.behold-ph .cookie-unlock:hover{color:var(--gold-hi)}
+@media(max-width:720px){
+  #cookie-banner{flex-direction:column;align-items:flex-start;padding:1.2rem 1.5rem;gap:1rem}
+  .ck-text{max-width:100%}
+}
+
 /* ── REVEAL ───────────────────────────────────────────── */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -369,14 +392,8 @@ footer{position:relative;z-index:1;background:rgba(9,8,7,.96);border-top:.5px so
         </div>
         <a href="https://www.instagram.com/mauroghilardini_official/" target="_blank" rel="noopener">@mauroghilardini_official →</a>
       </div>
-      <div class="reveal">
-        <behold-widget feed-id="pWHAOkgMJG78qDjKoIjM"></behold-widget>
-        <script>
-          (() => {
-            const d=document,s=d.createElement("script");s.type="module";
-            s.src="https://w.behold.so/widget.js";d.head.append(s);
-          })();
-        </script>
+      <div class="reveal" id="behold-wrap">
+        <behold-widget feed-id="pWHAOkgMJG78qDjKoIjM" style="display:none"></behold-widget>
       </div>
     </div>
   </div>
@@ -538,22 +555,22 @@ footer{position:relative;z-index:1;background:rgba(9,8,7,.96);border-top:.5px so
       </div>
 <div class="video-grid" id="yt-grid">
         <div class="video-wrap reveal">
-          <iframe src="https://www.youtube.com/embed/IWIoXZqCbF0?rel=0&modestbranding=1" title="Video" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" loading="lazy"></iframe>
+          <iframe data-src="https://www.youtube.com/embed/IWIoXZqCbF0?rel=0&modestbranding=1" class="yt-embed" title="Video" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" loading="lazy"></iframe>
         </div>
         <div class="video-wrap reveal d1">
-          <iframe src="https://www.youtube.com/embed/jIWEeDzYbO0?rel=0&modestbranding=1" title="Video" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" loading="lazy"></iframe>
+          <iframe data-src="https://www.youtube.com/embed/jIWEeDzYbO0?rel=0&modestbranding=1" class="yt-embed" title="Video" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" loading="lazy"></iframe>
         </div>
         <div class="video-wrap reveal d2">
-          <iframe src="https://www.youtube.com/embed/92sQA9TAcNk?rel=0&modestbranding=1" title="Video" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" loading="lazy"></iframe>
+          <iframe data-src="https://www.youtube.com/embed/92sQA9TAcNk?rel=0&modestbranding=1" class="yt-embed" title="Video" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" loading="lazy"></iframe>
         </div>
         <div class="video-wrap reveal d3">
-          <iframe src="https://www.youtube.com/embed/uaHlxSHMz5A?rel=0&modestbranding=1" title="Video" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" loading="lazy"></iframe>
+          <iframe data-src="https://www.youtube.com/embed/uaHlxSHMz5A?rel=0&modestbranding=1" class="yt-embed" title="Video" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" loading="lazy"></iframe>
         </div>
         <div class="video-wrap reveal">
-          <iframe src="https://www.youtube.com/embed/6Q5Ba_W1TUk?rel=0&modestbranding=1" title="Video" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" loading="lazy"></iframe>
+          <iframe data-src="https://www.youtube.com/embed/6Q5Ba_W1TUk?rel=0&modestbranding=1" class="yt-embed" title="Video" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" loading="lazy"></iframe>
         </div>
         <div class="video-wrap reveal d1">
-          <iframe src="https://www.youtube.com/embed/pnYjG0ZT8xA?rel=0&modestbranding=1" title="Video" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" loading="lazy"></iframe>
+          <iframe data-src="https://www.youtube.com/embed/pnYjG0ZT8xA?rel=0&modestbranding=1" class="yt-embed" title="Video" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" loading="lazy"></iframe>
         </div>
       </div>
     </div>
@@ -623,6 +640,15 @@ footer{position:relative;z-index:1;background:rgba(9,8,7,.96);border-top:.5px so
   </div>
 </footer>
 
+<!-- COOKIE BANNER -->
+<div id="cookie-banner" role="dialog" aria-label="Consenso cookie" aria-live="polite">
+  <p class="ck-text">Questo sito incorpora video di <strong>YouTube</strong> e un feed <strong>Instagram</strong> (via Behold) che possono impostare cookie di terze parti. Puoi rifiutare: i contenuti incorporati verranno disabilitati e nessun dato sarà inviato a Google o Behold.</p>
+  <div class="ck-btns">
+    <button class="ck-btn ck-btn-refuse" id="cookie-refuse">Rifiuta</button>
+    <button class="ck-btn ck-btn-accept" id="cookie-accept">Accetta</button>
+  </div>
+</div>
+
 <script>
 /* NAV */
 const nav = document.getElementById('nav');
@@ -669,7 +695,103 @@ const obs = new IntersectionObserver(entries => {
 }, {threshold:0.08});
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-/* Video YouTube: embed statici hardcoded nel markup */
+/* ── COOKIE CONSENT ─────────────────────────────────── */
+(function(){
+  const KEY = 'mg_cookie_consent';
+  const banner = document.getElementById('cookie-banner');
+
+  function loadYoutube() {
+    document.querySelectorAll('iframe.yt-embed[data-src]').forEach(f => {
+      if (!f.src || f.getAttribute('src') === '') f.src = f.dataset.src;
+    });
+  }
+
+  function loadBehold() {
+    if (document.querySelector('script[src="https://w.behold.so/widget.js"]')) return;
+    const s = document.createElement('script');
+    s.type = 'module';
+    s.src = 'https://w.behold.so/widget.js';
+    document.head.append(s);
+  }
+
+  function createVideoPhs() {
+    document.querySelectorAll('iframe.yt-embed').forEach(f => {
+      const wrap = f.closest('.video-wrap');
+      if (!wrap || wrap.querySelector('.vid-ph--cookie')) return;
+      const ph = document.createElement('div');
+      ph.className = 'vid-ph vid-ph--cookie';
+      ph.innerHTML =
+        '<span class="vid-ph-icon">▶</span>' +
+        '<span style="font-family:var(--fl);font-size:.58rem;letter-spacing:.14em;color:var(--sepia);text-transform:uppercase;line-height:2;display:block">Video YouTube<br>' +
+        '<button class="cookie-unlock">Accetta i cookie per vederlo</button></span>';
+      wrap.appendChild(ph);
+    });
+  }
+
+  function createBeholdPh() {
+    const wrap = document.getElementById('behold-wrap');
+    if (!wrap || wrap.querySelector('.behold-ph')) return;
+    const ph = document.createElement('div');
+    ph.className = 'behold-ph';
+    ph.innerHTML =
+      '<p>Feed Instagram non caricato.<br>' +
+      '<button class="cookie-unlock">Accetta i cookie per vederlo</button></p>';
+    wrap.prepend(ph);
+  }
+
+  function bindUnlockBtns() {
+    document.querySelectorAll('.cookie-unlock').forEach(btn => {
+      btn.addEventListener('click', accept);
+    });
+  }
+
+  function removeVideoPhs() {
+    document.querySelectorAll('.vid-ph--cookie').forEach(p => p.remove());
+  }
+
+  function removeBeholdPh() {
+    document.querySelectorAll('.behold-ph').forEach(p => p.remove());
+    const widget = document.querySelector('behold-widget');
+    if (widget) widget.style.display = '';
+  }
+
+  function accept() {
+    localStorage.setItem(KEY, 'accepted');
+    banner.classList.add('hidden');
+    removeVideoPhs();
+    removeBeholdPh();
+    loadYoutube();
+    loadBehold();
+  }
+
+  function refuse() {
+    localStorage.setItem(KEY, 'refused');
+    banner.classList.add('hidden');
+    createVideoPhs();
+    createBeholdPh();
+    bindUnlockBtns();
+  }
+
+  const saved = localStorage.getItem(KEY);
+  if (saved === 'accepted') {
+    banner.classList.add('hidden');
+    loadYoutube();
+    loadBehold();
+  } else if (saved === 'refused') {
+    banner.classList.add('hidden');
+    createVideoPhs();
+    createBeholdPh();
+    bindUnlockBtns();
+  } else {
+    /* nessuna scelta ancora — mostra banner, blocca terze parti */
+    createVideoPhs();
+    createBeholdPh();
+    bindUnlockBtns();
+  }
+
+  document.getElementById('cookie-accept').addEventListener('click', accept);
+  document.getElementById('cookie-refuse').addEventListener('click', refuse);
+})();
 </script>
 </body>
 </html>
