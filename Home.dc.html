@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -111,7 +111,7 @@
 
   <!-- ===== 3 · PROSSIMA DATA ===== -->
   <section id="dalvivo" data-screen-label="Prossima data" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:3; background:#201f1c;">
-    <img src="images/mauro-02.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position: left 0%; filter:grayscale(1) contrast(1.04) brightness(.62);">
+    <img src="images/mauro-02.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position: left bottom; filter:grayscale(1) contrast(1.04) brightness(.62);">
     <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(24,23,20,.55),rgba(24,23,20,.2) 40%,rgba(24,23,20,.85));"></div>
     <div data-reveal style="opacity:0; transition:opacity 1s ease; position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:18px; padding:0 24px; color:#e7e3d8;">
       <span style="font-size:11px; font-weight:600; letter-spacing:.34em; text-transform:uppercase; color:rgba(231,227,216,.7);">{{ liveLabel }}</span>
@@ -147,7 +147,7 @@
         <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9; margin-bottom:10px;">{{ repG1 }}</span>
         <sc-for list="{{ repTeatro }}" as="r" hint-placeholder-count="5">
           <div data-reveal style="opacity:0; transform:translateY(16px); transition:opacity .7s ease,transform .7s ease; padding:15px 0; border-top:1px solid rgba(231,227,216,.16);">
-            <div style="font-family:'EB Garamond',serif; font-size:clamp(22px,2.2vw,30px); line-height:1.1;">{{ r.name }}</div>
+            <a href="{{ r.href }}" style="font-family:'EB Garamond',serif; font-size:clamp(22px,2.2vw,30px); line-height:1.1; display:block; color:inherit;">{{ r.name }}</a>
             <div style="font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#aab0b9; margin-top:5px;">{{ r.meta }}</div>
           </div>
         </sc-for>
@@ -156,7 +156,7 @@
         <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9; margin-bottom:10px;">{{ repG2 }}</span>
         <sc-for list="{{ repConcerti }}" as="r" hint-placeholder-count="5">
           <div data-reveal style="opacity:0; transform:translateY(16px); transition:opacity .7s ease,transform .7s ease; padding:15px 0; border-top:1px solid rgba(231,227,216,.16);">
-            <div style="font-family:'EB Garamond',serif; font-size:clamp(22px,2.2vw,30px); line-height:1.1;">{{ r.name }}</div>
+            <a href="{{ r.href }}" style="font-family:'EB Garamond',serif; font-size:clamp(22px,2.2vw,30px); line-height:1.1; display:block; color:inherit;">{{ r.name }}</a>
             <div style="font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#aab0b9; margin-top:5px;">{{ r.meta }}</div>
           </div>
         </sc-for>
@@ -201,7 +201,7 @@
           <a href="#" style="font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; border-bottom:1px solid rgba(239,233,216,.5); padding-bottom:5px;">{{ writeLink2 }} →</a>
         </div>
       </div>
-      <div style="aspect-ratio:3/4; background:rgba(28,27,24,.22); border:1px solid rgba(239,233,216,.3); display:grid; place-items:center; font-family:'EB Garamond',serif; font-style:italic; color:rgba(239,233,216,.6); font-size:15px; text-align:center; padding:24px;">{{ bookPlaceholder }}</div>
+      <img src="images/scrittura/dormono.jpg" alt="Dormono sulla Collina" style="aspect-ratio:6/9; width:88%; max-width:400px; object-fit:cover; display:block; margin:0 auto;">
     </div>
   </section>
 
@@ -406,20 +406,22 @@ class Component extends DCLogic {
     const navItems = t.menuItems.map((label, i) => ({ label, href: hrefs[i], num: ROM[i] }));
 
     const repTeatro = [
-      { name: 'Parabole di un Clown', mIt: 'Teatro sacro · in repertorio', mEn: 'Sacred theatre · in repertoire' },
-      { name: 'Dormono sulla Collina', mIt: 'Lettura musicale · da cui il libro', mEn: 'Musical reading · became the book' },
-      { name: 'Sergente nella Neve', mIt: 'Lettura · Rigoni Stern', mEn: 'Reading · Rigoni Stern' },
-      { name: 'Vita da Cantautrice', mIt: 'Lettura-concerto', mEn: 'Reading-concert' },
-      { name: 'Là, dove nasce l\u2019acqua', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
-    ].map((r) => ({ name: r.name, meta: en ? r.mEn : r.mIt }));
+      { name: 'Parabole di un Clown', slug: 'parabole-di-un-clown', mIt: 'Teatro sacro · in repertorio', mEn: 'Sacred theatre · in repertoire' },
+      { name: 'Dormono sulla Collina', slug: 'dormono-sulla-collina', mIt: 'Lettura musicale · da cui il libro', mEn: 'Musical reading · became the book' },
+      { name: 'Sergente nella Neve', slug: 'sergente-nella-neve', mIt: 'Lettura · Rigoni Stern', mEn: 'Reading · Rigoni Stern' },
+      { name: 'Vita da Cantautrice', slug: 'vita-da-cantautrice', mIt: 'Lettura-concerto', mEn: 'Reading-concert' },
+      { name: 'Robin Hood', slug: 'robin-hood', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
+      { name: 'Gli angeli del Natale', slug: 'angeli-del-natale', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
+      { name: 'Luca', slug: 'luca', mIt: 'Teatro profano · coming soon', mEn: 'Profane theatre · coming soon' },
+    ].map((r) => ({ name: r.name, href: 'repertorio/?slug=' + r.slug, meta: en ? r.mEn : r.mIt }));
 
     const repConcerti = [
-      { name: 'Queen at Wembley', mIt: 'Tributo · con i Lydian', mEn: 'Tribute · with Lydian' },
-      { name: 'Live Aid Tribute', mIt: 'Tributo · con i Lydian', mEn: 'Tribute · with Lydian' },
-      { name: 'I Maestri Cantori d\u2019Italia', mIt: 'Voce e pianoforte', mEn: 'Voice and piano' },
-      { name: 'Sushi Cornucopia', mIt: 'Band · su richiesta', mEn: 'Band · on request' },
-      { name: 'Orizzonti Acustici', mIt: 'Chitarra e voce', mEn: 'Guitar and voice' },
-    ].map((r) => ({ name: r.name, meta: en ? r.mEn : r.mIt }));
+      { name: 'Queen at Wembley', slug: 'queen-at-wembley', mIt: 'Tributo · con i Lydian', mEn: 'Tribute · with Lydian' },
+      { name: 'Live Aid Tribute', slug: 'live-aid-tribute', mIt: 'Tributo · con i Lydian', mEn: 'Tribute · with Lydian' },
+      { name: 'I Maestri Cantori d'Italia', slug: 'maestri-cantori-ditalia', mIt: 'Voce e pianoforte', mEn: 'Voice and piano' },
+      { name: 'Sushi Cornucopia', slug: 'sushi-cornucopia', mIt: 'Band · su richiesta', mEn: 'Band · on request' },
+      { name: 'Orizzonti Acustici', slug: 'orizzonti-acustici', mIt: 'Chitarra e voce', mEn: 'Guitar and voice' },
+    ].map((r) => ({ name: r.name, href: 'repertorio/?slug=' + r.slug, meta: en ? r.mEn : r.mIt }));
 
     const dischi = [
       { title: 'New Life', year: '1997', roleIt: 'Minstrel · LP', roleEn: 'Minstrel · LP', color: '#5f6f63', z: 30, cover: '',

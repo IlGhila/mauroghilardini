@@ -1,0 +1,135 @@
+# CMS Decap per Mauro Ghilardini
+# In locale: avvia con `npx decap-server` nella root del progetto, poi apri /admin/
+# In produzione: rimuovi local_backend e configura il backend GitHub con le credenziali OAuth reali.
+
+local_backend: true
+
+backend:
+  name: github
+  repo: owner/mghilardini   # <-- sostituire con il repo GitHub reale (es. mauroghilardini/sito)
+  branch: main
+
+media_folder: images/cms
+public_folder: /images/cms
+
+collections:
+  - name: spettacoli
+    label: Spettacoli
+    label_singular: Spettacolo
+    folder: data/spettacoli
+    create: true
+    slug: "{{slug}}"
+    identifier_field: slug
+    extension: json
+    format: json
+    fields:
+      - { label: "Slug (URL)", name: slug, widget: string, hint: "es. dormono-sulla-collina — determina l'URL /repertorio/?slug=…" }
+      - { label: "Bozza", name: bozza, widget: boolean, default: false, hint: "Se attivo, la scheda mostra solo titolo e messaggio 'in preparazione'" }
+      - { label: "Titolo", name: titolo, widget: string }
+      - { label: "Eyebrow IT", name: eyebrow_it, widget: string, hint: "es. Teatro Minimo · Reading musicale" }
+      - { label: "Eyebrow EN", name: eyebrow_en, widget: string }
+
+      - label: "Hero"
+        name: hero_group
+        widget: object
+        collapsed: false
+        fields:
+          - { label: "Immagine hero", name: hero_img, widget: image, required: false }
+          - { label: "Posizione immagine", name: hero_position, widget: string, default: "center 40%", required: false, hint: "es. center 40% — valore CSS object-position" }
+
+      - { label: "Forma IT", name: forma_it, widget: string, hint: "es. Reading teatrale" }
+      - { label: "Forma EN", name: forma_en, widget: string }
+      - { label: "Durata", name: durata, widget: string, required: false, hint: "es. circa 80′" }
+      - { label: "Organico IT", name: organico_it, widget: string, required: false, hint: "es. Trio · voce, chitarra, tastiere" }
+      - { label: "Organico EN", name: organico_en, widget: string, required: false }
+
+      - label: "Sinossi"
+        name: sinossi_group
+        widget: object
+        collapsed: true
+        fields:
+          - { label: "Titolo sinossi IT", name: sinossi_lead_it, widget: string, required: false }
+          - { label: "Titolo sinossi EN", name: sinossi_lead_en, widget: string, required: false }
+          - label: "Paragrafi IT"
+            name: sinossi_it
+            widget: list
+            field: { label: Paragrafo, name: t, widget: text }
+            required: false
+          - label: "Paragrafi EN"
+            name: sinossi_en
+            widget: list
+            field: { label: Paragraph, name: t, widget: text }
+            required: false
+
+      - label: "Note di progetto"
+        name: progetto_group
+        widget: object
+        collapsed: true
+        fields:
+          - { label: "Lead IT", name: progetto_lead_it, widget: string, required: false }
+          - { label: "Lead EN", name: progetto_lead_en, widget: string, required: false }
+          - { label: "Testo IT", name: progetto_it, widget: text, required: false }
+          - { label: "Testo EN", name: progetto_en, widget: text, required: false }
+
+      - label: "Locandina"
+        name: locandina_group
+        widget: object
+        collapsed: true
+        fields:
+          - { label: "Immagine locandina", name: locandina, widget: image, required: false }
+          - { label: "Titolo IT", name: locandina_titolo_it, widget: string, required: false }
+          - { label: "Titolo EN", name: locandina_titolo_en, widget: string, required: false }
+          - { label: "Nota IT", name: locandina_nota_it, widget: text, required: false }
+          - { label: "Nota EN", name: locandina_nota_en, widget: text, required: false }
+
+      - label: "Foto (galleria)"
+        name: foto
+        widget: list
+        field: { label: "Foto", name: src, widget: image }
+        required: false
+
+      - label: "Video (ID YouTube)"
+        name: video
+        widget: list
+        field: { label: "ID YouTube", name: id, widget: string, hint: "solo l'ID, es. pfDiz1cL9jM" }
+        required: false
+
+      - label: "Cast"
+        name: cast
+        widget: list
+        required: false
+        fields:
+          - { label: "Nome", name: nome, widget: string }
+          - { label: "Ruolo IT", name: ruolo_it, widget: string }
+          - { label: "Ruolo EN", name: ruolo_en, widget: string }
+          - { label: "Strumenti", name: strumenti, widget: string, required: false }
+
+      - label: "Crew"
+        name: crew
+        widget: list
+        required: false
+        fields:
+          - { label: "Ruolo IT", name: ruolo_it, widget: string }
+          - { label: "Ruolo EN", name: ruolo_en, widget: string }
+          - { label: "Nome", name: nome, widget: string }
+
+      - label: "Ingaggio"
+        name: ingaggio_group
+        widget: object
+        collapsed: true
+        fields:
+          - { label: "Budget IT", name: budget_it, widget: string, default: "Su richiesta", required: false }
+          - { label: "Budget EN", name: budget_en, widget: string, default: "On request", required: false }
+          - { label: "Nota budget IT", name: budget_nota_it, widget: text, required: false }
+          - { label: "Nota budget EN", name: budget_nota_en, widget: text, required: false }
+
+      - label: "Scheda tecnica"
+        name: tecnica_group
+        widget: object
+        collapsed: true
+        fields:
+          - { label: "PDF scheda tecnica", name: scheda_tecnica_pdf, widget: file, required: false, hint: "Se assente, viene mostrata la nota testuale" }
+          - { label: "Nota IT (se no PDF)", name: scheda_tecnica_nota_it, widget: string, required: false }
+          - { label: "Nota EN (se no PDF)", name: scheda_tecnica_nota_en, widget: string, required: false }
+
+      - { label: "Email CTA", name: cta_email, widget: string, default: "info@mauroghilardini.it" }

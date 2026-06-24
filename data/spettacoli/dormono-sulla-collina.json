@@ -1,0 +1,104 @@
+﻿{
+    "slug":  "dormono-sulla-collina",
+    "bozza":  false,
+    "titolo":  "Dormono sulla Collina",
+    "eyebrow_it":  "Teatro Minimo · Reading musicale",
+    "eyebrow_en":  "Teatro Minimo · Musical reading",
+    "forma_it":  "Reading teatrale",
+    "forma_en":  "Theatrical reading",
+    "durata":  "circa 80′",
+    "organico_it":  "Trio · voce, chitarra, tastiere",
+    "organico_en":  "Trio · voice, guitar, keys",
+    "hero_img":  "images/dormono/scena-03.jpg",
+    "hero_position":  "center 40%",
+    "sinossi_lead_it":  "Un doppio anniversario, un solo viaggio.",
+    "sinossi_lead_en":  "A double anniversary, a single journey.",
+    "sinossi_it":  [
+                       "Un reading teatrale che celebra il 25° dalla scomparsa di Fabrizio De André e il 110° dalla pubblicazione di «Spoon River» di Edgar Lee Masters.",
+                       "La storia di William, un viaggiatore in cerca di senso, si intreccia alle canzoni dell’album «Non al denaro, non all’amore, né al cielo» di De André e alle poesie di Masters. Una fusione che unisce il particolare e l’universale, e lascia i personaggi esprimersi attraverso musica e poesia.",
+                       "Non solo un omaggio a De André e Lee Masters, ma un’opera che dialoga, su temi diversi, con generazioni e sensibilità differenti."
+                   ],
+    "sinossi_en":  [
+                       "A theatrical reading marking 25 years since Fabrizio De André’s passing and 110 years since Edgar Lee Masters published «Spoon River».",
+                       "William, a traveller in search of meaning, weaves through the songs of De André’s «Non al denaro, non all’amore, né al cielo» and Masters’ poems — a fusion of the particular and the universal, the characters speaking through music and poetry.",
+                       "Not only a tribute to De André and Lee Masters, but a work that speaks, across many themes, to different generations and sensibilities."
+                   ],
+    "progetto_lead_it":  "Ogni interprete è musicista, narratore e cantante.",
+    "progetto_lead_en":  "Every performer is musician, narrator and singer.",
+    "progetto_it":  "Ne deriva un mondo ricco e variegato, nella forma e nelle sue sfumature. Le piccole storie individuali di uomini e donne convergono in un quadro universale, fino a un finale sorprendente che unisce il mistero iniziale e le trame narrative in una epifania collettiva. Il testo è pubblicato da Phronesis Editore.",
+    "progetto_en":  "The result is a rich, varied world in form and nuance. The small individual stories of men and women converge into a universal picture, up to a surprising finale that binds the opening mystery and the narrative threads into a collective epiphany. The text is published by Phronesis Editore.",
+    "locandina":  "images/dormono/locandina.jpg",
+    "locandina_titolo_it":  "L’immagine dello spettacolo",
+    "locandina_titolo_en":  "The image of the show",
+    "locandina_nota_it":  "Teatro Minimo · regia di Umberto Zanoletti. La grafica ufficiale, pronta per la stampa e la comunicazione dell’evento.",
+    "locandina_nota_en":  "Teatro Minimo · directed by Umberto Zanoletti. The official artwork, ready for print and event communication.",
+    "foto":  [
+                 "images/dormono/scena-04.jpg",
+                 "images/dormono/scena-01.jpg",
+                 "images/dormono/scena-02.jpg"
+             ],
+    "video":  [
+                  "pfDiz1cL9jM",
+                  "X81DjZye78w",
+                  "ylw0anD2u6o"
+              ],
+    "cast":  [
+                 {
+                     "nome":  "Mauro Ghilardini",
+                     "ruolo_it":  "Voce recitante",
+                     "ruolo_en":  "Narrating voice",
+                     "strumenti":  "Chitarra · Pianoforte · Canto"
+                 },
+                 {
+                     "nome":  "Miriam Gotti",
+                     "ruolo_it":  "Voce recitante",
+                     "ruolo_en":  "Narrating voice",
+                     "strumenti":  "Chitarra · Percussioni · Canto"
+                 },
+                 {
+                     "nome":  "Francesco Maffeis",
+                     "ruolo_it":  "Voce recitante",
+                     "ruolo_en":  "Narrating voice",
+                     "strumenti":  "Pianoforte · Tastiere · Cori"
+                 }
+             ],
+    "crew":  [
+                 {
+                     "ruolo_it":  "Regia",
+                     "ruolo_en":  "Direction",
+                     "nome":  "Umberto Zanoletti"
+                 },
+                 {
+                     "ruolo_it":  "Testi e traduzioni",
+                     "ruolo_en":  "Texts \u0026 translations",
+                     "nome":  "Mauro Ghilardini"
+                 },
+                 {
+                     "ruolo_it":  "Arrangiamenti",
+                     "ruolo_en":  "Arrangements",
+                     "nome":  "Francesco Maffeis"
+                 },
+                 {
+                     "ruolo_it":  "Poesie",
+                     "ruolo_en":  "Poems",
+                     "nome":  "Edgar Lee Masters"
+                 },
+                 {
+                     "ruolo_it":  "Coordinamento tecnico",
+                     "ruolo_en":  "Technical coordination",
+                     "nome":  "Diego Bergamini"
+                 },
+                 {
+                     "ruolo_it":  "Produzione",
+                     "ruolo_en":  "Production",
+                     "nome":  "Teatro Minimo"
+                 }
+             ],
+    "budget_it":  "Su richiesta",
+    "budget_en":  "On request",
+    "budget_nota_it":  "Cachet e condizioni concordati con Teatro Minimo, che gestisce produzione e parte tecnica. Scrivimi per disponibilità e preventivo.",
+    "budget_nota_en":  "Fee and terms agreed with Teatro Minimo, who handle production and the technical side. Write to me for availability and a quote.",
+    "scheda_tecnica_nota_it":  "Scheda tecnica gestita da Teatro Minimo — fornita su richiesta.",
+    "scheda_tecnica_nota_en":  "Technical rider handled by Teatro Minimo — provided on request.",
+    "cta_email":  "info@mauroghilardini.it"
+}
