@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chi è · Mauro Ghilardini</title>
+<meta name="description" content="Chi è Mauro Ghilardini: cantante lirico e progressive rock, attore, compositore, insegnante, scrittore. Bergamo.">
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://mauroghilardini.it/cordia.html">
+<meta property="og:title"       content="Chi è · Mauro Ghilardini">
+<meta property="og:description" content="Chi è Mauro Ghilardini: cantante lirico e progressive rock, attore, compositore, insegnante, scrittore. Bergamo.">
+<meta property="og:image"       content="https://mauroghilardini.it/images/og-cordia.jpg">
+<meta property="og:locale"      content="it_IT">
+<meta name="twitter:card"       content="summary_large_image">
+<link rel="canonical"           href="https://mauroghilardini.it/cordia.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:  #f4f0e7;
+  --ink:    #23211c;
+  --ink2:   #5c574d;
+  --faint:  #a09a8c;
+  --line:   #ddd6c8;
+  --line2:  #e6e0d3;
+  --accent: #b4502f;
+  --ser: 'Crimson Pro', Georgia, serif;
+  --gro: 'Archivo', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--gro);
+  overflow: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── BRUSH ── */
+.brush {
+  position: absolute;
+  z-index: 1;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  left: 46%;
+  top: 50%;
+  width: 78vh;
+  min-width: 680px;
+  transform-origin: center;
+  transition: transform 1s cubic-bezier(.66,0,.2,1), opacity 1s ease, filter 1s ease;
+}
+
+/* ── CHROME ── */
+.chrome {
+  position: absolute;
+  top: 34px;
+  left: 52px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 4;
+}
+.back-circle {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+  flex: none;
+}
+.back-circle:hover { background: var(--accent); color: var(--cream); }
+.wordmark {
+  font-family: var(--gro);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.chrome-right {
+  position: absolute;
+  top: 38px;
+  right: 56px;
+  font-family: var(--gro);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--faint);
+  z-index: 4;
+}
+
+/* ── LAYOUT ── */
+.layout {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: clamp(420px, 40vw, 560px) 1fr;
+  gap: 48px;
+  align-items: start;
+  min-height: 100vh;
+  padding: 118px 56px 56px;
+}
+
+/* ── LEFT: TRACKLIST ── */
+.tracklist { max-width: 520px; }
+
+.tl-title {
+  font-family: var(--ser);
+  font-weight: 300;
+  font-size: clamp(48px, 6vh, 64px);
+  line-height: 1;
+  margin: 0 0 6px;
+}
+.tl-sub {
+  font-family: var(--ser);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 17px;
+  color: var(--ink2);
+  margin-bottom: 30px;
+}
+.section-label {
+  font-family: var(--gro);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 4px;
+}
+.section-label + .section-label,
+.track-list + .section-label { margin-top: 22px; }
+
+.track-list { list-style: none; }
+
+.trk {
+  display: grid;
+  grid-template-columns: 26px 18px 1fr;
+  align-items: baseline;
+  column-gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--line2);
+  cursor: pointer;
+}
+.trk:last-child { border-bottom: 1px solid var(--line2); }
+
+.trk-num {
+  font-family: var(--gro);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--faint);
+  transition: color .2s;
+}
+.trk-dash {
+  width: 14px;
+  height: 2px;
+  background: var(--line);
+  align-self: center;
+  transition: background .2s;
+}
+.trk-body {}
+.trk-name {
+  font-family: var(--ser);
+  font-size: 19px;
+  color: var(--ink2);
+  transition: color .2s;
+}
+.trk-meta {
+  font-family: var(--gro);
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-left: 10px;
+}
+
+/* hover */
+.trk:hover .trk-name { color: var(--ink); }
+.trk:hover .trk-dash { background: var(--accent); }
+
+/* active */
+.trk.is-active .trk-num  { color: var(--accent); }
+.trk.is-active .trk-dash { background: var(--accent); }
+.trk.is-active .trk-name { color: var(--ink); }
+
+/* ── RIGHT: ACTIVE VOICE ── */
+.active-voice {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 520px;
+  justify-self: end;
+}
+.active-voice-inner {
+  background: linear-gradient(90deg, rgba(244,240,231,0), rgba(244,240,231,.94) 22%);
+  padding: 40px 0 40px 56px;
+  margin-left: -56px;
+  opacity: 1;
+  transition: opacity .22s ease;
+}
+.active-voice-inner.is-fading { opacity: 0; }
+
+.av-group {
+  font-family: var(--gro);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.av-name {
+  font-family: var(--ser);
+  font-weight: 300;
+  font-size: clamp(44px, 6vh, 58px);
+  line-height: 1;
+  color: var(--ink);
+  margin: 14px 0 0;
+}
+.av-meta {
+  font-family: var(--gro);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink2);
+  margin-top: 18px;
+}
+.av-rule {
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  margin: 24px 0;
+}
+.av-desc {
+  font-family: var(--ser);
+  font-weight: 300;
+  font-size: 19px;
+  line-height: 1.66;
+  color: var(--ink2);
+  max-width: 44ch;
+}
+.av-desc em { font-style: italic; }
+.av-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 30px;
+}
+.av-link {
+  font-family: var(--gro);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink2);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 5px;
+  text-decoration: none;
+  transition: color .2s, border-color .2s;
+}
+.av-link:hover { color: var(--accent); border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- brush -->
+<img class="brush" id="brush" src="images/cut/cordia.png" alt="" aria-hidden="true">
+
+<!-- chrome -->
+<div class="chrome">
+  <a class="back-circle" href="index.html" aria-label="Torna indietro">←</a>
+  <span class="wordmark">Mauro Ghilardini</span>
+</div>
+<div class="chrome-right" id="chromeRight" aria-hidden="true">Chi è · I</div>
+
+<!-- layout -->
+<div class="layout">
+
+  <!-- colonna sinistra -->
+  <div class="tracklist">
+    <h1 class="tl-title">Chi è</h1>
+    <p class="tl-sub">Voce, palco e parola — il percorso e i dischi</p>
+
+    <div class="section-label">Il percorso</div>
+    <ul class="track-list" id="listPerc"></ul>
+
+    <div class="section-label">Discografia</div>
+    <ul class="track-list" id="listDisc"></ul>
+  </div>
+
+  <!-- colonna destra -->
+  <div class="active-voice">
+    <div class="active-voice-inner" id="activeVoice">
+      <div class="av-group" id="avGroup"></div>
+      <h2 class="av-name" id="avName"></h2>
+      <div class="av-meta" id="avMeta"></div>
+      <div class="av-rule"></div>
+      <p class="av-desc" id="avDesc"></p>
+      <div class="av-links" id="avLinks"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var ROM = ['I','II','III','IV','V','VI','VII','VIII','IX','X'];
+
+  var PERC = [
+    {
+      name: 'La Voce',
+      meta: 'Canto · Lirico · dal 1998',
+      desc: 'Il canto nasce nel 1998, con la vittoria al concorso nazionale per voci nuove <em>Festagiovani</em> e lo studio sotto la guida di Giovanni Guerini. Fin da subito il solismo, accanto allo studio della vocalità antica e delle sue prassi esecutive. Predilige il repertorio madrigalistico — Monteverdi, Caccini — e quello sacro — Pergolesi, Mozart. Come solista ha cantato con il gruppo <em>Fosco Corti</em> di Bergamo, l\'Agimus Lombardia, il Circolo Mayr-Donizetti e l\'Orchestra Antonio Vivaldi del M° Passerini.',
+      links: []
+    },
+    {
+      name: 'Minstrel',
+      meta: 'Progressive rock · 1997–2009',
+      desc: 'Cantante e compositore della band di progressive rock <em>Minstrel</em>, con cui si fa conoscere in ambito internazionale. Tre album pubblicati: <em>New Life</em> (1997), <em>Faust</em> (Kaliphonia, Milano, 2000) e <em>Ahab</em> (BTF, Milano, 2009). Rock sinfonico nato a Bergamo, lungo tutta la stagione del prog italiano fra gli anni Novanta e Duemila.',
+      links: [
+        { label: 'Intervista su ProgArchives', href: 'https://www.progarchives.com/forum/forum_posts.asp?TID=70519&FID=47' }
+      ]
+    },
+    {
+      name: 'Teatro Minimo',
+      meta: 'Teatro musicale · dal 2001',
+      desc: 'Attore, cantante e curatore musicale. Sul palco ha vestito ruoli da protagonista — Gesù nel <em>Jesus Christ Superstar</em> di Andrew Lloyd Webber, Geppetto in <em>Pinocchio</em>, San Francesco in <em>Forza Venite Gente</em> — e da narratore, da <em>Pierino il lupo</em> a <em>Io Verdi</em>. Dal 2001 è collaboratore stabile del <em>Teatro Minimo</em> di Umberto Zanoletti.',
+      links: [
+        { label: 'Teatro Minimo', href: 'https://teatrominimo.weebly.com/index.html' }
+      ]
+    },
+    {
+      name: 'Insegnamento',
+      meta: 'CDpM Bergamo · Reparto Elettroacustica',
+      desc: 'Insegna canto moderno e lirico, produzione musicale, arrangiamento e musica d\'insieme rock e pop al Centro Didattico Produzione Musica di Bergamo. In passato anche al Liceo di Clusone, a Mousiké e all\'Ateneo Musicale di Bergamo. Con l\'architetto e ingegnere del suono Diego Bergamini ha fondato lo studio di registrazione <em>Reparto Elettroacustica</em>, ad Ardesio.',
+      links: [
+        { label: 'Pagina docente al CDpM', href: 'https://www.cdpm.it/didattica/docenti/mauro-ghilardini/' },
+        { label: 'Reparto Elettroacustica', href: 'https://repartoelettroacustica.weebly.com/' }
+      ]
+    },
+    {
+      name: 'Colonne Sonore',
+      meta: 'Composizione · Teatro · Cinema',
+      desc: 'Compone colonne sonore per il teatro e per il cinema. Tra le compagnie: Teatro Minimo, Comici &amp; Cosmetici, Gli Inadatti. Per <em>Parabole di un clown</em> firma le musiche insieme al M° Francesco Maffeis; dallo spettacolo nasce nel 2012 il CD <em>In viaggio…</em>. Nel 2016 debutta sul grande schermo con la colonna sonora del cortometraggio <em>Il suono della vita</em> del regista Massimo Selis.',
+      links: [
+        { label: 'Petzl Legend Tour', href: 'https://www.youtube.com/watch?v=NK1ABN_T6l8' }
+      ]
+    },
+    {
+      name: 'La Parola',
+      meta: 'Scrittura · Filosofia · Phronesis 2024',
+      desc: 'Studioso di metafisica, filosofia tomista e teologia cattolica, formatosi sotto la guida dei professori Gaetan Cantale, Fulvio Di Blasi (Notre Dame, Lublino) e Adriano Virgili. Dal 2021 collabora con il Thomas International Center Italia di Palermo e con la casa editrice Phronesis, con cui nel 2024 pubblica <em>Dormono sulla Collina</em> — il testo teatrale che intreccia l\'<em>Antologia di Spoon River</em> di Edgar Lee Masters e le canzoni di Fabrizio De André.',
+      links: [
+        { label: 'Acquista il libro', href: 'https://amzn.to/4unKNtP' },
+        { label: 'Phronesis Editore', href: 'https://www.phronesis.it/' }
+      ]
+    }
+  ];
+
+  var DISC = [
+    {
+      name: 'New Life',
+      meta: 'Minstrel · 1997',
+      desc: 'Disco d\'esordio della band bergamasca. Un progressive rock che muove i primi passi tra influenze classiche e rock sinfonico, cercando un suono proprio tra le montagne.',
+      links: []
+    },
+    {
+      name: 'Faust',
+      meta: 'Minstrel · Kaliphonia 2000',
+      desc: 'Concept album ispirato al <em>Faust</em> di Goethe. La voce lirica incontra le strutture elaborate del progressive, in un dialogo tra tradizione letteraria e musica contemporanea.',
+      links: []
+    },
+    {
+      name: 'Ahab',
+      meta: 'Minstrel · BTF 2009',
+      desc: 'Tratto da <em>Moby Dick</em> di Melville, il lavoro più maturo della band. L\'ossessione del capitano Achab diventa architettura sonora: temi che ritornano, si trasformano, sprofondano.',
+      links: []
+    },
+    {
+      name: 'In Viaggio',
+      meta: 'Teatro Minimo · Parabole di un Clown · Esaurito',
+      desc: 'CD originale dello spettacolo teatrale con Umberto Zanoletti. Musiche composte e arrangiate per la scena. Non più disponibile commercialmente.',
+      links: []
+    },
+    {
+      name: 'Toni Mannaro',
+      meta: 'Musical · Introvabile',
+      desc: 'Registrazione dell\'omonimo musical. Copia fisica di difficile reperimento; la produzione non è mai stata distribuita commercialmente.',
+      links: []
+    }
+  ];
+
+  var FLAT = PERC.map(function (e, i) {
+    return { group: 'Il percorso', rom: ROM[i], entry: e };
+  }).concat(DISC.map(function (e, i) {
+    return { group: 'Discografia', rom: ROM[i], entry: e };
+  }));
+
+  var TOTAL = FLAT.length;
+  var sel = 0;
+
+  var brush      = document.getElementById('brush');
+  var avGroup    = document.getElementById('avGroup');
+  var avName     = document.getElementById('avName');
+  var avMeta     = document.getElementById('avMeta');
+  var avDesc     = document.getElementById('avDesc');
+  var avLinks    = document.getElementById('avLinks');
+  var avVoice    = document.getElementById('activeVoice');
+  var chromeRight = document.getElementById('chromeRight');
+  var listPerc   = document.getElementById('listPerc');
+  var listDisc   = document.getElementById('listDisc');
+
+  function r2(x) { return Math.round(x * 100) / 100; }
+
+  function updateBrush(depth) {
+    var rot   = r2(90 + depth * 12);
+    var sc    = r2(1  + depth * 0.5);
+    var op    = r2(0.4 + 0.5 * depth);
+    var sat   = r2(1  + depth * 0.7);
+    brush.style.transform = 'translate(-50%,-50%) rotate(' + rot + 'deg) scale(' + sc + ')';
+    brush.style.opacity   = op;
+    brush.style.filter    = 'saturate(' + sat + ')';
+  }
+
+  function updateDetail(flat, instant) {
+    var e = flat.entry;
+    if (instant) {
+      avGroup.textContent = flat.group + ' · ' + flat.rom;
+      avName.textContent  = e.name;
+      avMeta.textContent  = e.meta;
+      avDesc.innerHTML    = e.desc;
+      renderLinks(e.links);
+    } else {
+      avVoice.classList.add('is-fading');
+      setTimeout(function () {
+        avGroup.textContent = flat.group + ' · ' + flat.rom;
+        avName.textContent  = e.name;
+        avMeta.textContent  = e.meta;
+        avDesc.innerHTML    = e.desc;
+        renderLinks(e.links);
+        avVoice.classList.remove('is-fading');
+      }, 160);
+    }
+    chromeRight.textContent = 'Chi è · ' + flat.rom;
+  }
+
+  function renderLinks(links) {
+    avLinks.innerHTML = '';
+    links.forEach(function (lk) {
+      var a = document.createElement('a');
+      a.className = 'av-link';
+      a.href = lk.href;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = lk.label + ' →';
+      avLinks.appendChild(a);
+    });
+  }
+
+  function pick(idx, instant) {
+    sel = idx;
+    var depth = TOTAL > 1 ? sel / (TOTAL - 1) : 0;
+    updateBrush(depth);
+    updateDetail(FLAT[sel], instant);
+
+    document.querySelectorAll('.trk').forEach(function (el, i) {
+      el.classList.toggle('is-active', i === sel);
+    });
+  }
+
+  function buildList(listEl, items, offset) {
+    items.forEach(function (e, i) {
+      var li = document.createElement('li');
+      li.className = 'trk';
+      li.setAttribute('tabindex', '0');
+      li.setAttribute('role', 'button');
+      li.setAttribute('aria-label', e.name);
+      li.innerHTML =
+        '<span class="trk-num">' + ROM[i] + '</span>' +
+        '<span class="trk-dash"></span>' +
+        '<span class="trk-body">' +
+          '<span class="trk-name">' + e.name + '</span>' +
+          '<span class="trk-meta">' + e.meta + '</span>' +
+        '</span>';
+      var idx = offset + i;
+      li.addEventListener('click', function () { pick(idx, false); });
+      li.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); pick(idx, false); }
+      });
+      listEl.appendChild(li);
+    });
+  }
+
+  buildList(listPerc, PERC, 0);
+  buildList(listDisc, DISC, PERC.length);
+
+  /* keyboard nav: ↑↓ on focused list items */
+  document.addEventListener('keydown', function (ev) {
+    if (ev.target.tagName === 'INPUT' || ev.target.tagName === 'TEXTAREA') return;
+    if (!ev.target.classList.contains('trk')) return;
+    if (ev.key === 'ArrowDown') { ev.preventDefault(); pick(Math.min(sel + 1, TOTAL - 1), false); focusItem(sel); }
+    else if (ev.key === 'ArrowUp') { ev.preventDefault(); pick(Math.max(sel - 1, 0), false); focusItem(sel); }
+  });
+
+  function focusItem(i) {
+    var all = document.querySelectorAll('.trk');
+    if (all[i]) { try { all[i].focus(); } catch (_) {} }
+  }
+
+  /* init */
+  pick(0, true);
+})();
+</script>
+</body>
+</html>

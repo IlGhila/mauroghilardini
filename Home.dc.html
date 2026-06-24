@@ -64,22 +64,89 @@
     /* Tap target minimi */
     button, a { min-height: 44px; display: inline-flex; align-items: center; }
     nav a { display: flex !important; }
+
+    /* Singoli — 2 colonne su mobile */
+    #singoli .sing-grid { grid-template-columns: repeat(2, 1fr) !important; }
   }
+
+  /* Musica — contenitore disco + etichetta */
+  .music-ctl { display:flex; align-items:center; gap:13px; pointer-events:auto; }
+  .music-cap { font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#fff; white-space:nowrap; mix-blend-mode:difference; opacity:0; transition:opacity .3s ease; pointer-events:none; }
+  .music-ctl:hover .music-cap { opacity:1; }
+
+  /* Disco vinile */
+  /* Wrapper: scala il gruppo disco + ombra */
+  .vinyl-wrap { position:relative; width:52px; height:52px; flex-shrink:0; transform:scale(.38); transform-origin:left center; transition:transform .35s ease; }
+  .music-ctl:hover .vinyl-wrap { transform:scale(1); }
+
+  /* Ombra rotante (dietro il disco, visibile solo quando suona) */
+  .vinyl-wrap::after { content:''; position:absolute; inset:-6px; border-radius:50%; background:conic-gradient(rgba(0,0,0,.55) 0deg, transparent 100deg, transparent 360deg); opacity:0; pointer-events:none; transition:opacity .4s ease; }
+  .vinyl-wrap.is-playing::after { opacity:1; animation:vinylspin 3.4s linear infinite; }
+  @keyframes vinylspin { to { transform:rotate(360deg); } }
+
+  /* Disco */
+  .vinyl { position:relative; width:52px; height:52px; border-radius:50%; border:none; padding:0; cursor:pointer; overflow:hidden; flex-shrink:0; background-color:#15140f; background-image:repeating-radial-gradient(circle at 50% 50%,rgba(231,227,216,.06) 0 1.5px,transparent 1.5px 4.5px); box-shadow:0 6px 22px rgba(0,0,0,.5),inset 0 0 0 1px rgba(231,227,216,.16); opacity:.5; transition:opacity .4s ease; }
+  .music-ctl:hover .vinyl { opacity:.85; }
+  .vinyl.is-playing { opacity:1; }
+  .vinyl::before { content:''; position:absolute; top:50%; left:50%; width:18px; height:18px; border-radius:50%; background:radial-gradient(circle,#c2543a 0 38%,#15140f 42%); transform:translate(-50%,-50%); box-shadow:inset 0 0 0 1px rgba(231,227,216,.2); }
+
+  /* Menu button */
+  #mgMenuLines span { transition: transform .3s ease, opacity .3s ease; }
+
+  /* Hero name — snap istantaneo */
+  #heroName { transition: opacity .05s linear, transform .12s cubic-bezier(.22,1,.36,1); }
+
+  /* SCROLL hint */
+  #heroScrollHint { transition: opacity .4s ease; }
+  @keyframes scrollBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+  #heroScrollHint .scroll-arrow { display:inline-block; animation:scrollBounce 1.6s ease-in-out infinite; }
+
+  /* Controlli nav — ingresso e stati */
+  .nav-ctrl { transition: opacity .7s ease, transform .6s cubic-bezier(.4,0,.2,1); }
+  .nav-ctrl.is-hidden { opacity: 0 !important; transform: translateY(-18px) !important; pointer-events: none !important; }
+  .nav-ctrl.is-active { opacity: 1 !important; transform: translateY(0) !important; }
+  .nav-ctrl.is-active .vinyl-wrap { opacity: 1 !important; }
+
+  /* Singoli — card hover */
+  .sing-card { position:relative; display:block; overflow:hidden; cursor:pointer; }
+  .sing-card img { display:block; width:100%; aspect-ratio:1; object-fit:cover; transition:transform .4s ease; }
+  .sing-card:hover img { transform:scale(1.06); }
+  .sing-card .sing-overlay { position:absolute; inset:0; background:rgba(0,0,0,.45); opacity:0; transition:opacity .3s ease; display:grid; place-items:center; }
+  .sing-card:hover .sing-overlay { opacity:1; }
+  .sing-play { width:54px; height:54px; border-radius:50%; border:2px solid #fff; display:grid; place-items:center; }
+  .sing-play::after { content:''; display:block; width:0; height:0; border-style:solid; border-width:10px 0 10px 18px; border-color:transparent transparent transparent #fff; margin-left:4px; }
 </style>
 </helmet>
 <div style="position:relative; background:#d9d6cc; color:#2b2823;">
 
-  <!-- ===== NAV (full-screen invisible layer) ===== -->
-  <div style="position:fixed; inset:0; z-index:9000; pointer-events:none;">
-    <div id="brandLabel" style="position:absolute; top:22px; left:50%; transform:translateX(-50%) translateY(-6px); opacity:0; transition:opacity .4s ease, transform .4s ease; background:#1c1b18; color:#d9d6cc; padding:9px 15px; font-size:11px; font-weight:600; letter-spacing:.34em; text-transform:uppercase; pointer-events:auto;">Mauro Ghilardini</div>
-    <div style="position:absolute; top:22px; right:clamp(18px,4vw,46px); display:flex; gap:7px; font-size:11px; font-weight:600; letter-spacing:.14em; pointer-events:auto; mix-blend-mode:difference; color:#fff;">
+  <!-- ===== NAV (barra fissa in alto) ===== -->
+  <audio id="mgAudio" loop src="audio/tema.mp3" preload="none"></audio>
+  <div style="position:fixed; top:0; left:0; right:0; z-index:9000; pointer-events:none; height:64px; mix-blend-mode:difference; color:#fff;">
+
+    <!-- SINISTRA: disco vinile + etichetta musica -->
+    <div class="music-ctl nav-ctrl is-hidden" style="position:absolute; top:0; left:clamp(18px,4vw,46px); height:64px;">
+      <div id="vinylWrap" class="vinyl-wrap">
+        <button id="musicBtn" class="vinyl" aria-label="Musica on/off" data-label-on="{{ musicOn }}" data-label-off="{{ musicOff }}"></button>
+      </div>
+      <span id="musicCap" class="music-cap">{{ musicOff }}</span>
+    </div>
+
+    <!-- CENTRO: IT / EN -->
+    <div class="nav-ctrl is-hidden" style="position:absolute; top:0; left:50%; transform:translateX(-50%); height:64px; display:flex; align-items:center; gap:7px; font-size:11px; font-weight:600; letter-spacing:.14em; pointer-events:auto;">
       <button onClick="{{ setIt }}" style="background:none;border:none;cursor:pointer;color:#fff;padding:4px 2px;opacity:{{ itOp }};">IT</button>
       <span style="opacity:.5;">/</span>
       <button onClick="{{ setEn }}" style="background:none;border:none;cursor:pointer;color:#fff;padding:4px 2px;opacity:{{ enOp }};">EN</button>
     </div>
-    <button onClick="{{ toggleMenu }}" aria-label="Menu" style="position:absolute; bottom:30px; right:clamp(18px,4vw,46px); width:54px; height:54px; border-radius:50%; border:1px solid rgba(217,214,204,.4); background:#1c1b18; cursor:pointer; pointer-events:auto; display:grid; place-items:center;">
-      <span style="width:7px;height:7px;border-radius:50%;background:#d9d6cc;display:block;transform:scale({{ dotScale }});transition:transform .3s ease;"></span>
+
+    <!-- DESTRA: MENU -->
+    <button class="nav-ctrl is-hidden" onClick="{{ toggleMenu }}" aria-label="Menu" style="position:absolute; top:0; right:clamp(18px,4vw,46px); height:64px; display:flex; align-items:center; gap:10px; background:none; border:none; cursor:pointer; pointer-events:auto; color:#fff; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; opacity:{{ menuIconOp }}; transition:opacity .2s ease;">
+      <span>{{ menuBtnLabel }}</span>
+      <div id="mgMenuLines" style="width:22px; display:flex; flex-direction:column; gap:5px;">
+        <span style="display:block; height:1.5px; background:currentColor; transform-origin:center; transform:{{ menuL1 }};"></span>
+        <span style="display:block; height:1.5px; background:currentColor; transform-origin:center; transform:{{ menuL2 }};"></span>
+      </div>
     </button>
+
   </div>
 
   <!-- ===== MENU (opens from bottom) ===== -->
@@ -97,13 +164,23 @@
   </nav>
 
   <!-- ===== 1 · HERO ===== -->
-  <section id="top" data-screen-label="Hero" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:1; background:#1c1b18;">
+  <div style="position:relative; height:300vh; z-index:1;">
+  <section id="top" data-screen-label="Hero" style="position:sticky; top:0; height:100vh; overflow:hidden; background:#1c1b18;">
     <img src="images/mauro-01.jpg" alt="Mauro Ghilardini" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:bottom 38%; filter:grayscale(1) contrast(1.05) brightness(.92); animation:slowzoom 26s ease-in-out infinite alternate;">
-    <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,19,17,.5) 0%,rgba(20,19,17,.08) 30%,rgba(20,19,17,.1) 55%,rgba(20,19,17,.78) 100%);"></div>
-    <div style="position:absolute; left:0; right:0; bottom:0; padding:0 clamp(10px,1.8vw,24px) clamp(4px,1vh,14px);">
-      <h1 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#e7e3d8; font-size:clamp(40px,12.2vw,250px); line-height:.88; letter-spacing:-.02em; white-space:nowrap;">Mauro Ghilardini</h1>
+    <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,19,17,.72) 0%,rgba(20,19,17,0) 28%,rgba(20,19,17,0) 60%,rgba(20,19,17,.80) 100%);"></div>
+
+    <!-- Nome: invisibile, entra allo scroll -->
+    <div id="heroName" style="position:absolute; left:0; right:0; bottom:clamp(6px,1.2vh,16px); overflow:hidden; opacity:0; transform:translateY(28px);">
+      <h1 id="heroH1" style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#e7e3d8; white-space:nowrap; line-height:.88; letter-spacing:-.02em; font-size:clamp(40px,12.2vw,250px); display:block; width:100%; text-align:center;">MAURO GHILARDINI</h1>
+    </div>
+
+    <!-- Scroll hint -->
+    <div id="heroScrollHint" style="position:absolute; bottom:clamp(24px,4vh,44px); left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; color:#e7e3d8; opacity:1;">
+      <span style="font-size:9px; font-weight:600; letter-spacing:.38em; text-transform:uppercase; color:rgba(231,227,216,.6);">Scroll</span>
+      <span class="scroll-arrow" style="font-size:16px; color:rgba(231,227,216,.5);">↓</span>
     </div>
   </section>
+  </div>
 
   <!-- ===== 2 · MANIFESTO ===== -->
   <section id="chi" data-screen-label="Manifesto" style="position:sticky; top:0; min-height:100vh; z-index:2; background:#d9d6cc; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(80px,12vh,150px) clamp(20px,5vw,40px); text-align:center;">
@@ -176,6 +253,34 @@
       </div>
     </section>
   </sc-for>
+
+  <!-- ===== 5b · SINGOLI ===== -->
+  <section id="singoli" data-screen-label="Singoli" style="position:relative; z-index:32; background:#1c1b18; color:#e7e3d8; padding:clamp(70px,10vh,120px) clamp(20px,5vw,72px);">
+    <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease;">
+      <div style="border-bottom:1px solid rgba(231,227,216,.25); padding-bottom:24px; margin-bottom:clamp(40px,6vh,70px);">
+        <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(231,227,216,.5); margin-bottom:10px;">{{ singLabel }}</span>
+        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+          <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(52px,9vw,140px); line-height:.88; letter-spacing:-.01em;">{{ singTitle }}</h2>
+          <span style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.7vw,22px); color:rgba(231,227,216,.8); max-width:30ch;">{{ singSubIt }}</span>
+        </div>
+      </div>
+      <div class="sing-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:clamp(16px,2vw,28px);">
+        <sc-for list="{{ singoli }}" as="s" hint-placeholder-count="0">
+          <a class="sing-card" href="{{ s.url }}" target="_blank" rel="noopener">
+            <img src="{{ s.cover }}" alt="{{ s.titolo }}" loading="lazy">
+            <div class="sing-overlay"><div class="sing-play"></div></div>
+            <div style="padding:12px 4px 0;">
+              <span style="display:block; font-family:'EB Garamond',serif; font-size:clamp(15px,1.3vw,18px); color:#e7e3d8;">{{ s.titolo }}</span>
+              <span style="display:block; font-family:'Archivo',sans-serif; font-size:10px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:rgba(231,227,216,.5); margin-top:4px;">{{ s.versione }}</span>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+      <div style="margin-top:clamp(40px,6vh,64px); text-align:center;">
+        <a href="https://open.spotify.com/artist/2S5nHjpLNALfAubXS4levr" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; border:1px solid rgba(231,227,216,.35); padding:14px 28px; color:#e7e3d8; transition:border-color .25s;">{{ singCta }} →</a>
+      </div>
+    </div>
+  </section>
 
   <section data-screen-label="Altre incisioni" style="position:relative; z-index:40; background:#d9d6cc; padding:clamp(50px,7vh,90px) clamp(20px,5vw,72px); text-align:center;">
     <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:#938c7f; margin-bottom:8px;">{{ otherLabel }}</span>
@@ -270,13 +375,23 @@
     <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease;">
       <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(48px,9vw,160px); line-height:.84; letter-spacing:-.01em; text-align:center;">{{ contactTitle }}</h2>
       <div style="display:flex; justify-content:center; gap:26px; flex-wrap:wrap; margin:clamp(34px,5vh,54px) 0; font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#68635a;">
-        <a href="#" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">YouTube</a>
-        <a href="#" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">Instagram</a>
-        <a href="#" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">Spotify</a>
-        <a href="#" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">Facebook</a>
+        <a href="https://www.youtube.com/@MauroGhilardiniOfficial" target="_blank" rel="noopener" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">YouTube</a>
+        <a href="https://www.instagram.com/mauroghilardini_official/" target="_blank" rel="noopener" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">Instagram</a>
+        <a href="https://open.spotify.com/artist/2S5nHjpLNALfAubXS4levr" target="_blank" rel="noopener" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">Spotify</a>
+        <a href="https://www.facebook.com/people/Mauro-Ghilardini/100094280127809/" target="_blank" rel="noopener" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">Facebook</a>
+        <a href="https://soundcloud.com/user-201202878" target="_blank" rel="noopener" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">SoundCloud</a>
       </div>
+      <form action="https://formspree.io/f/mwvzlvnp" method="POST" style="border:1px solid #bdb7a8; padding:clamp(24px,3vw,40px); margin-bottom:18px;">
+        <span style="display:block; font-size:10.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#938c7f; margin-bottom:20px;">{{ contactFormLabel }}</span>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-bottom:14px;">
+          <input type="text" name="nome" placeholder="{{ contactFieldName }}" required style="width:100%; border:none; border-bottom:1px solid #bdb7a8; padding:10px 0; background:transparent; font-family:'Archivo',sans-serif; font-size:13px; color:#2b2823; outline:none;">
+          <input type="email" name="email" placeholder="{{ contactFieldEmail }}" required style="width:100%; border:none; border-bottom:1px solid #bdb7a8; padding:10px 0; background:transparent; font-family:'Archivo',sans-serif; font-size:13px; color:#2b2823; outline:none;">
+        </div>
+        <textarea name="messaggio" placeholder="{{ contactFieldMsg }}" rows="4" required style="width:100%; border:none; border-bottom:1px solid #bdb7a8; padding:10px 0; background:transparent; font-family:'EB Garamond',serif; font-size:clamp(16px,1.4vw,19px); color:#2b2823; outline:none; resize:none; margin-bottom:20px;"></textarea>
+        <button type="submit" style="font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; background:#2b2823; color:#d9d6cc; border:none; padding:13px 28px; cursor:pointer;">{{ contactSend }} →</button>
+      </form>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px;">
-        <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="3">
+        <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="2">
           <div style="border:1px solid #bdb7a8; padding:24px;">
             <span style="display:block; font-size:10.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#938c7f; margin-bottom:10px;">{{ c.role }}</span>
             <span style="font-family:'EB Garamond',serif; font-size:clamp(20px,1.8vw,25px); color:#2b2823;">{{ c.name }}</span>
@@ -323,16 +438,76 @@ class Component extends DCLogic {
       this._safety = setTimeout(() => els.forEach((el) => { el.style.opacity = '1'; el.style.transform = 'none'; }), 2500);
     } else { els.forEach((el) => { el.style.opacity = '1'; el.style.transform = 'none'; }); }
 
-    // brand label appears on scroll
-    this._onScroll = () => {
-      const b = document.getElementById('brandLabel');
-      if (!b) return;
-      const show = window.scrollY > window.innerHeight * 0.6;
-      b.style.opacity = show ? '1' : '0';
-      b.style.transform = 'translateX(-50%) translateY(' + (show ? '0' : '-6px') + ')';
+    // music toggle — listener diretto, bypassa il framework
+    window._mgMusicPlaying = false;
+    const _setMusicState = function (on) {
+      window._mgMusicPlaying = on;
+      const btn  = document.getElementById('musicBtn');
+      const wrap = document.getElementById('vinylWrap');
+      const cap  = document.getElementById('musicCap');
+      if (btn)  btn.classList.toggle('is-playing', on);
+      if (wrap) wrap.classList.toggle('is-playing', on);
+      if (cap)  cap.textContent = on ? (btn ? btn.dataset.labelOn || 'Music on' : 'Music on') : (btn ? btn.dataset.labelOff || 'Music off' : 'Music off');
+      try { localStorage.setItem('mg-music', on ? '1' : '0'); } catch(e) {}
     };
-    window.addEventListener('scroll', this._onScroll, { passive: true });
-    this._onScroll();
+    const _musicBtn = document.getElementById('musicBtn');
+    if (_musicBtn) {
+      _musicBtn.addEventListener('click', function () {
+        const audio = document.getElementById('mgAudio');
+        if (!audio) return;
+        if (!window._mgMusicPlaying) {
+          audio.play().then(function () { _setMusicState(true); }).catch(function (err) { console.warn('Audio play failed:', err); });
+        } else {
+          audio.pause();
+          _setMusicState(false);
+        }
+      });
+    }
+    // ripristino visivo (audio parte solo al primo clic)
+    if (localStorage.getItem('mg-music') === '1') _setMusicState(true);
+
+
+    // Animazione hero: 0=nascosto, 1=nome snap, 2=ctrl attivi, 3=ctrl idle
+    let _heroPhase = 0;
+    this._heroAnim = () => {
+      const p = Math.min(1, window.scrollY / (0.9 * window.innerHeight));
+
+      const nameEl = document.getElementById('heroName');
+      const hintEl = document.getElementById('heroScrollHint');
+      const ctrls  = document.querySelectorAll('.nav-ctrl');
+
+      // Scroll hint scompare presto
+      if (hintEl) hintEl.style.opacity = Math.max(0, 1 - p / 0.06);
+
+      // Fase 0→1: nome snap
+      if (p > 0.06 && _heroPhase === 0) {
+        _heroPhase = 1;
+        if (nameEl) { nameEl.style.opacity = '1'; nameEl.style.transform = 'translateY(0)'; }
+      }
+
+      // Fase 1→2: controlli entrano come attivi
+      if (p > 0.20 && _heroPhase === 1) {
+        _heroPhase = 2;
+        ctrls.forEach(el => { el.classList.remove('is-hidden'); el.classList.add('is-active'); });
+      }
+
+      // Fase 2→3: controlli passano a idle
+      if (p > 0.40 && _heroPhase === 2) {
+        _heroPhase = 3;
+        ctrls.forEach(el => el.classList.remove('is-active'));
+      }
+
+      // Reset completo tornando in cima
+      if (p < 0.02 && _heroPhase > 0) {
+        _heroPhase = 0;
+        if (nameEl) { nameEl.style.opacity = '0'; nameEl.style.transform = 'translateY(28px)'; }
+        ctrls.forEach(el => { el.classList.add('is-hidden'); el.classList.remove('is-active'); });
+      }
+    };
+    window.addEventListener('scroll', this._heroAnim, { passive: true });
+    this._heroAnim();
+
+    this._onScroll = () => {};
   }
   componentWillUnmount() {
     if (this._raf) cancelAnimationFrame(this._raf);
@@ -341,6 +516,7 @@ class Component extends DCLogic {
     if (this._safety) clearTimeout(this._safety);
     if (this._t) clearTimeout(this._t);
     window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('scroll', this._heroAnim);
   }
 
   T() {
@@ -352,10 +528,11 @@ class Component extends DCLogic {
       manifestoSign: 'Molti mestieri, un solo strumento.',
       liveLabel: 'Prossima data',
       datesBtn: 'Tutte le date',
-      repTitle: 'Repertorio', repSub: 'Teatro, letture, concerti \u2014 il lavoro vivo, in scena.',
+      repTitle: 'Repertorio', repSub: 'Clicca su uno spettacolo per saperne di pi\u00f9.',
       repG1: 'Teatro e letture', repG2: 'Concerti e format',
-      discIntroLabel: 'Discografia', discIntro: 'Tre album con i Minstrel, lungo la stagione del progressive italiano. E qualche incisione di scena.',
-      otherLabel: 'Altre incisioni', otherText: 'In Viaggio (Teatro Minimo) · Toni Mannaro (musical) — fuori catalogo.',
+      discIntroLabel: 'Discografia', discIntro: 'Due album con i Minstrel, lungo la stagione del progressive italiano. E una nuova stagione di uscite digitali, in solo.',
+      singLabel: 'Uscite digitali', singTitle: 'Singoli', singSubIt: 'Reinterpretazioni orchestrali e al pianoforte, disponibili sugli store online.', singCta: 'Ascolta su Spotify',
+      otherLabel: 'Altre incisioni', otherText: 'New Life (Minstrel, 1997) · In Viaggio (Teatro Minimo) · Toni Mannaro (musical) — fuori catalogo.',
       writeLabel: 'Scrittura', writeTitle: 'La parola', writeLink1: 'Acquista il libro', writeLink2: 'Phronesis',
       writeBody: 'Studioso di metafisica e filosofia tomista, critico di colonne sonore. Nel 2024 pubblica con Phronesis «Dormono sulla Collina», testo teatrale che intreccia Spoon River di Masters e le canzoni di De André.',
       bookPlaceholder: '«Dormono sulla Collina» — copertina (placeholder)',
@@ -366,7 +543,10 @@ class Component extends DCLogic {
       bioLabel: 'Chi è', bioTitle: 'Il percorso',
       signQuote: 'Canto perché la parola, da sola, a un certo punto non basta più.',
       contactTitle: 'Contatti', footNote: 'Cantante · Compositore · Autore',
+      contactFormLabel: 'Booking & Management', contactFieldName: 'Nome', contactFieldEmail: 'Email', contactFieldMsg: 'Messaggio', contactSend: 'Invia',
       coverSoon: 'Copertina',
+      musicOn: 'Musica on', musicOff: 'Musica off',
+      menuBtnLabel: 'Menu',
       menuItems: ['Chi è','Dal vivo','Repertorio','Dischi','Scrittura','Insegnamento','Video','Contatti'],
     };
     const en = {
@@ -379,8 +559,9 @@ class Component extends DCLogic {
       datesBtn: 'All dates',
       repTitle: 'Repertoire', repSub: 'Theatre, readings, concerts \u2014 the living work, on stage.',
       repG1: 'Theatre & readings', repG2: 'Concerts & formats',
-      discIntroLabel: 'Discography', discIntro: 'Three albums with Minstrel, across the Italian progressive era. Plus a few stage recordings.',
-      otherLabel: 'Other recordings', otherText: 'In Viaggio (Teatro Minimo) · Toni Mannaro (musical) — out of print.',
+      discIntroLabel: 'Discography', discIntro: 'Two albums with Minstrel, across the Italian progressive era. And a new season of digital releases, as a solo artist.',
+      singLabel: 'Digital releases', singTitle: 'Singles', singSubIt: 'Orchestral and piano reinterpretations, available on all streaming platforms.', singCta: 'Listen on Spotify',
+      otherLabel: 'Other recordings', otherText: 'New Life (Minstrel, 1997) · In Viaggio (Teatro Minimo) · Toni Mannaro (musical) — out of print.',
       writeLabel: 'Writing', writeTitle: 'The word', writeLink1: 'Buy the book', writeLink2: 'Phronesis',
       writeBody: 'A scholar of metaphysics and Thomist philosophy, a film-score critic. In 2024 he published with Phronesis «Dormono sulla Collina», a theatre text weaving Masters\u2019 Spoon River with De André\u2019s songs.',
       bookPlaceholder: '«Dormono sulla Collina» — cover (placeholder)',
@@ -391,7 +572,10 @@ class Component extends DCLogic {
       bioLabel: 'About', bioTitle: 'The path',
       signQuote: 'I sing because the word, alone, at some point is no longer enough.',
       contactTitle: 'Contact', footNote: 'Singer · Composer · Author',
+      contactFormLabel: 'Booking & Management', contactFieldName: 'Name', contactFieldEmail: 'Email', contactFieldMsg: 'Message', contactSend: 'Send',
       coverSoon: 'Cover',
+      musicOn: 'Music on', musicOff: 'Music off',
+      menuBtnLabel: 'Menu',
       menuItems: ['About','Live','Repertoire','Records','Writing','Teaching','Video','Contact'],
     };
     return this.state.lang === 'en' ? en : it;
@@ -424,11 +608,9 @@ class Component extends DCLogic {
     ].map((r) => ({ name: r.name, href: 'repertorio/?slug=' + r.slug, meta: en ? r.mEn : r.mIt }));
 
     const dischi = [
-      { title: 'New Life', year: '1997', roleIt: 'Minstrel · LP', roleEn: 'Minstrel · LP', color: '#5f6f63', z: 30, cover: '',
-        dIt: 'L\u2019esordio bergamasco: progressive che muove i primi passi tra classica e rock sinfonico.', dEn: 'The Bergamo debut: progressive taking its first steps between classical and symphonic rock.' },
-      { title: 'Faust', year: '2000', roleIt: 'Minstrel · Kaliphonia', roleEn: 'Minstrel · Kaliphonia', color: '#6d7e84', z: 31, cover: 'images/cover-a.jpg',
+      { title: 'Faust', year: '2000', roleIt: 'Minstrel · Kaliphonia', roleEn: 'Minstrel · Kaliphonia', color: '#6d7e84', z: 30, cover: 'images/cover-a.jpg',
         dIt: 'Concept album dal Faust di Goethe: la voce incontra le strutture elaborate del prog.', dEn: 'A concept album from Goethe\u2019s Faust: the voice meets the elaborate structures of prog.' },
-      { title: 'Ahab', year: '2009', roleIt: 'Minstrel · BTF', roleEn: 'Minstrel · BTF', color: '#6e3d3f', z: 32, cover: 'images/cover-b.jpg',
+      { title: 'Ahab', year: '2009', roleIt: 'Minstrel · BTF', roleEn: 'Minstrel · BTF', color: '#6e3d3f', z: 31, cover: 'images/cover-b.jpg',
         dIt: 'Da Moby Dick: l\u2019ossessione del capitano diventa architettura sonora. Il lavoro più maturo.', dEn: 'From Moby Dick: the captain\u2019s obsession becomes sonic architecture. The most mature work.' },
     ].map((d) => ({ title: d.title, year: d.year, color: d.color, z: d.z,
       role: en ? d.roleEn : d.roleIt, desc: en ? d.dEn : d.dIt,
@@ -449,11 +631,11 @@ class Component extends DCLogic {
 
     const videos = [
       { title: 'Epic Gaming Music — Orchestral & Vocal Tributes', list: 'PLVGMuNVpBRevU5YQgfOrRBvWTRtaG-PzX', vid: 'iCmLCaempFQ' },
-      { title: 'Dormono sulla Collina – Audiobook & Original OST',  list: 'PLVGMuNVpBResBoixjKTfRfb36BiLZfHJ',  vid: '2Yit5eaOH9I' },
-      { title: 'OST Deepdive — Music, Games & Philosophy',           list: 'PLVGMuNVpBRevGAQA8Wx2Dj_R5tdYL9xgH',  vid: '2W9llRv7Mbk' },
-      { title: 'Original Compositions – Cinematic & Emotional Music', list: 'PLVGMuNVpBRev4ZYfYO2fYLYskfInxmdE',  vid: 'uaHlxSHMz5A' },
-      { title: 'Live Stage Performances – Band Sessions & Concerts',  list: 'PLVGMuNVpBResgNGd85d-r98EaCJe8wTX',  vid: 'OFymi1UmMCU' },
-      { title: 'Vocal Masterpieces – Orchestral & Acoustic Covers',   list: 'PLVGMuNVpBResKAGrHWlq1eJurzKUlqKGA', vid: 'OnnECM24mPM' },
+      { title: 'Dormono sulla Collina – Audiobook & Original OST',  list: 'PLVGMuNVpBResBoixjKTfRfb36BiLZfHJf', vid: 'pnYjG0ZT8xA' },
+      { title: 'OST Deepdive — Music, Games & Philosophy',           list: 'PLVGMuNVpBRevGAQA8Wx2Dj_R5tdYL9xgH', vid: '2W9llRv7Mbk' },
+      { title: 'Original Compositions – Cinematic & Emotional Music', list: 'PLVGMuNVpBRev4ZYfYO2fYLYskfInxmdE2', vid: 'uaHlxSHMz5A' },
+      { title: 'Live Stage Performances – Band Sessions & Concerts',  list: 'PLVGMuNVpBResgNGd85d-r98EaCJe8wTX0', vid: '6Q5Ba_W1TUk' },
+      { title: 'Vocal Masterpieces – Orchestral & Acoustic Covers',   list: 'PLVGMuNVpBResKAGrHWlq1eJurzKUlqKGA', vid: 'jIWEeDzYbO0' },
     ].map((v) => ({
       title: v.title,
       href: 'https://www.youtube.com/playlist?list=' + v.list,
@@ -468,19 +650,28 @@ class Component extends DCLogic {
     ].map((p) => ({ t: en ? p.tEn : p.tIt }));
 
     const contacts = [
-      { roleIt: 'Booking & Management', roleEn: 'Booking & Management', name: 'Mauro Ghilardini', contact: 'info@mauroghilardini.it', href: 'mailto:info@mauroghilardini.it' },
       { roleIt: 'Insegnamento', roleEn: 'Teaching', name: 'CDpM Bergamo', contact: 'cdpm.it', href: '#' },
       { roleIt: 'Editore', roleEn: 'Publisher', name: 'Phronesis', contact: 'phronesis.it', href: '#' },
     ].map((c) => ({ role: en ? c.roleEn : c.roleIt, name: c.name, contact: c.contact, href: c.href }));
 
+    const singoli = [
+      { titolo: 'Silent Lucidity', vIt: 'Versione orchestrale', vEn: 'Orchestral version', cover: 'images/single-silent-lucidity.jpg', spotify_url: 'https://open.spotify.com/album/3d82Qa2f7dsFBQECmYgiSi' },
+      { titolo: "Don't Be So Serious", vIt: 'Versione orchestrale', vEn: 'Orchestral version', cover: 'images/single-dont-be-so-serious.jpg', spotify_url: 'https://open.spotify.com/track/19s1eVWuTRXIhPEKinULA6' },
+      { titolo: 'To the Wilder', vIt: 'Versione orchestrale', vEn: 'Orchestral version', cover: 'images/single-to-the-wilder.jpg', spotify_url: 'https://open.spotify.com/track/6JMSrSNXA1uLQoZeXjxzFe' },
+      { titolo: 'Anna e Marco', vIt: 'Versione pianoforte', vEn: 'Piano version', cover: 'images/single-anna-e-marco.jpg', spotify_url: 'https://open.spotify.com/album/4McJBWbQoDIRRcl5HoFTm5' },
+      { titolo: 'Any Love of Any Kind', vIt: 'Singolo', vEn: 'Single', cover: 'images/single-any-love.jpg', spotify_url: 'https://open.spotify.com/track/5Vfgegw0X5UOTClL6Nk0ny' },
+    ].map((s) => ({ titolo: s.titolo, versione: en ? s.vEn : s.vIt, cover: s.cover, url: s.spotify_url }));
+
     return {
       ...t,
       nextTitle, nextWhere, nextWhen,
-      navItems, repTeatro, repConcerti, dischi, videos, bioPars, contacts,
+      navItems, repTeatro, repConcerti, dischi, singoli, videos, bioPars, contacts,
       itOp: en ? 0.45 : 1, enOp: en ? 1 : 0.45,
       menuY: this.state.menuOpen ? '0%' : '100%',
       menuPe: this.state.menuOpen ? 'auto' : 'none',
-      dotScale: this.state.menuOpen ? 2.4 : 1,
+      menuIconOp: this.state.menuOpen ? 1 : 0.42,
+      menuL1: this.state.menuOpen ? 'rotate(45deg) translate(3px,3px)' : 'none',
+      menuL2: this.state.menuOpen ? 'rotate(-45deg) translate(3px,-3px)' : 'none',
       setIt: () => this.setState({ lang: 'it' }),
       setEn: () => this.setState({ lang: 'en' }),
       toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
