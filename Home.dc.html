@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-font-smoothing:antialiased;}
+  body{font-family:'Archivo',system-ui,sans-serif;background:#d9d6cc;}
+  @keyframes heroUp{from{transform:translateY(112%)}to{transform:translateY(0)}}
+  @keyframes slowzoom{from{transform:scale(1.03)}to{transform:scale(1.12)}}
+  ::selection{background:#6e3d3f;color:#e7e3d8;}
+  a{color:inherit;text-decoration:none;}
+
+  @media (max-width:900px) {
+    /* BIO — passa a una colonna, foto sopra */
+    #bio > div {
+      grid-template-columns: 1fr !important;
+    }
+    #bio > div > div:last-child {
+      order: -1;
+    }
+    #bio > div > div:last-child > div {
+      position: static !important;
+      height: 60vh !important;
+    }
+
+    /* FIRMA — una colonna, foto sopra, altezza naturale */
+    section[data-screen-label="Firma"] {
+      position: static !important;
+      min-height: unset !important;
+      grid-template-columns: 1fr !important;
+    }
+    section[data-screen-label="Firma"] > div:last-child {
+      order: -1;
+      height: 45vh !important;
+    }
+    section[data-screen-label="Firma"] [data-reveal] {
+      padding: clamp(32px,6vh,60px) 20px !important;
+    }
+    section[data-screen-label="Firma"] [data-reveal] h2 {
+      font-size: clamp(28px,8vw,48px) !important;
+    }
+
+    /* Titoli Anton: consenti wrap ovunque tranne l'hero */
+    h1, h2, h3 { white-space: normal !important; }
+    #top h1 { white-space: nowrap !important; }
+
+    /* Tap target minimi */
+    button, a { min-height: 44px; display: inline-flex; align-items: center; }
+    nav a { display: flex !important; }
+  }
+</style>
+</helmet>
+<div style="position:relative; background:#d9d6cc; color:#2b2823;">
+
+  <!-- ===== NAV (full-screen invisible layer) ===== -->
+  <div style="position:fixed; inset:0; z-index:9000; pointer-events:none;">
+    <div id="brandLabel" style="position:absolute; top:22px; left:50%; transform:translateX(-50%) translateY(-6px); opacity:0; transition:opacity .4s ease, transform .4s ease; background:#1c1b18; color:#d9d6cc; padding:9px 15px; font-size:11px; font-weight:600; letter-spacing:.34em; text-transform:uppercase; pointer-events:auto;">Mauro Ghilardini</div>
+    <div style="position:absolute; top:22px; right:clamp(18px,4vw,46px); display:flex; gap:7px; font-size:11px; font-weight:600; letter-spacing:.14em; pointer-events:auto; mix-blend-mode:difference; color:#fff;">
+      <button onClick="{{ setIt }}" style="background:none;border:none;cursor:pointer;color:#fff;padding:4px 2px;opacity:{{ itOp }};">IT</button>
+      <span style="opacity:.5;">/</span>
+      <button onClick="{{ setEn }}" style="background:none;border:none;cursor:pointer;color:#fff;padding:4px 2px;opacity:{{ enOp }};">EN</button>
+    </div>
+    <button onClick="{{ toggleMenu }}" aria-label="Menu" style="position:absolute; bottom:30px; right:clamp(18px,4vw,46px); width:54px; height:54px; border-radius:50%; border:1px solid rgba(217,214,204,.4); background:#1c1b18; cursor:pointer; pointer-events:auto; display:grid; place-items:center;">
+      <span style="width:7px;height:7px;border-radius:50%;background:#d9d6cc;display:block;transform:scale({{ dotScale }});transition:transform .3s ease;"></span>
+    </button>
+  </div>
+
+  <!-- ===== MENU (opens from bottom) ===== -->
+  <nav style="position:fixed; left:0; right:0; bottom:0; z-index:9500; background:#1c1b18; color:#d9d6cc; transform:translateY({{ menuY }}); transition:transform .6s cubic-bezier(.7,0,.2,1); padding:clamp(40px,7vh,80px) clamp(20px,5vw,72px) clamp(30px,5vh,56px); pointer-events:{{ menuPe }};">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:24px;">
+      <span style="font-size:10px; font-weight:600; letter-spacing:.34em; text-transform:uppercase; color:#7a7469;">{{ menuLabel }}</span>
+      <button onClick="{{ toggleMenu }}" style="background:none;border:none;cursor:pointer;color:#d9d6cc;font-size:11px;letter-spacing:.2em;text-transform:uppercase;">{{ closeLabel }} ✕</button>
+    </div>
+    <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="8">
+      <a href="{{ n.href }}" onClick="{{ closeMenu }}" style="display:flex; align-items:baseline; gap:18px; padding:clamp(7px,1.3vh,14px) 0; border-top:1px solid rgba(122,116,105,.32); font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(30px,7vh,76px); line-height:1; letter-spacing:-.01em; color:#d9d6cc;">
+        <span style="font-family:'Archivo'; font-size:11px; font-weight:600; letter-spacing:.1em; color:#7a7469; transform:translateY(-.4em);">{{ n.num }}</span>
+        {{ n.label }}
+      </a>
+    </sc-for>
+  </nav>
+
+  <!-- ===== 1 · HERO ===== -->
+  <section id="top" data-screen-label="Hero" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:1; background:#1c1b18;">
+    <img src="images/mauro-01.jpg" alt="Mauro Ghilardini" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:bottom 38%; filter:grayscale(1) contrast(1.05) brightness(.92); animation:slowzoom 26s ease-in-out infinite alternate;">
+    <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,19,17,.5) 0%,rgba(20,19,17,.08) 30%,rgba(20,19,17,.1) 55%,rgba(20,19,17,.78) 100%);"></div>
+    <div style="position:absolute; left:0; right:0; bottom:0; padding:0 clamp(10px,1.8vw,24px) clamp(4px,1vh,14px);">
+      <h1 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#e7e3d8; font-size:clamp(40px,12.2vw,250px); line-height:.88; letter-spacing:-.02em; white-space:nowrap;">Mauro Ghilardini</h1>
+    </div>
+  </section>
+
+  <!-- ===== 2 · MANIFESTO ===== -->
+  <section id="chi" data-screen-label="Manifesto" style="position:sticky; top:0; min-height:100vh; z-index:2; background:#d9d6cc; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(80px,12vh,150px) clamp(20px,5vw,40px); text-align:center;">
+    <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; max-width:900px; display:flex; flex-direction:column; align-items:center; gap:28px;">
+      <span style="width:100%; max-width:520px; display:flex; align-items:center; gap:16px; color:#938c7f; font-size:11px; letter-spacing:.3em; text-transform:uppercase;"><span style="flex:1;height:1px;background:#bdb7a8;"></span>{{ manifestoLabel }}<span style="flex:1;height:1px;background:#bdb7a8;"></span></span>
+      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(38px,5.6vw,86px); line-height:.92; letter-spacing:-.01em;">{{ manifestoLead }}</h2>
+      <p style="font-family:'EB Garamond',serif; font-size:clamp(18px,1.6vw,23px); line-height:1.5; color:#68635a; max-width:58ch;">{{ manifestoBody }}</p>
+      <span style="font-family:'EB Garamond',serif; font-style:italic; font-size:15px; color:#938c7f;">{{ manifestoSign }}</span>
+    </div>
+  </section>
+
+  <!-- ===== 3 · PROSSIMA DATA ===== -->
+  <section id="dalvivo" data-screen-label="Prossima data" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:3; background:#201f1c;">
+    <img src="images/mauro-02.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position: left 0%; filter:grayscale(1) contrast(1.04) brightness(.62);">
+    <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(24,23,20,.55),rgba(24,23,20,.2) 40%,rgba(24,23,20,.85));"></div>
+    <div data-reveal style="opacity:0; transition:opacity 1s ease; position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:18px; padding:0 24px; color:#e7e3d8;">
+      <span style="font-size:11px; font-weight:600; letter-spacing:.34em; text-transform:uppercase; color:rgba(231,227,216,.7);">{{ liveLabel }}</span>
+      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(46px,9vw,150px); line-height:.9; letter-spacing:-.01em;">{{ nextTitle }}</h2>
+      <div style="font-family:'EB Garamond',serif; font-size:clamp(18px,2vw,26px);">{{ nextWhere }}</div>
+      <div style="font-size:12px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(231,227,216,.78);">{{ nextWhen }}</div>
+      <button onClick="{{ toggleDates }}" style="margin-top:18px; background:none; border:1px solid rgba(231,227,216,.5); color:#e7e3d8; cursor:pointer; padding:14px 26px; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase;">{{ datesBtn }}</button>
+    </div>
+  </section>
+
+  <!-- ===== 3b · TUTTE LE DATE (expand) ===== -->
+  <section data-screen-label="Date" style="position:relative; z-index:4; background:#1c1b18; color:#d9d6cc; overflow:hidden; max-height:{{ datesMax }}; transition:max-height .7s cubic-bezier(.6,0,.2,1);">
+    <div style="padding:clamp(60px,9vh,110px) clamp(20px,5vw,72px);">
+      <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:#7a7469; margin-bottom:30px;">{{ allDatesLabel }}</span>
+      <sc-for list="{{ dates }}" as="d" hint-placeholder-count="4">
+        <div style="display:grid; grid-template-columns:120px 1fr auto; gap:clamp(14px,3vw,40px); align-items:baseline; padding:22px 0; border-top:1px solid rgba(122,116,105,.3);">
+          <span style="font-family:'Anton',sans-serif; font-size:clamp(22px,2.4vw,34px); color:#c4bfb1;">{{ d.date }}</span>
+          <span style="font-family:'EB Garamond',serif; font-size:clamp(19px,1.8vw,26px);">{{ d.title }}<span style="display:block; font-family:'Archivo'; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#7a7469; margin-top:5px;">{{ d.place }}</span></span>
+          <span style="font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#938c7f;">{{ d.tag }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ===== 4 · REPERTORIO ===== -->
+  <section id="repertorio" data-screen-label="Repertorio" style="position:relative; z-index:5; background:#454e5b; color:#e7e3d8; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px);">
+    <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; border-bottom:1px solid rgba(231,227,216,.25); padding-bottom:24px; margin-bottom:clamp(30px,5vh,56px);">
+      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(46px,9vw,150px); line-height:.86; letter-spacing:-.01em;">{{ repTitle }}</h2>
+      <span style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.7vw,22px); color:rgba(231,227,216,.8); max-width:30ch;">{{ repSub }}</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(30px,5vw,70px);">
+      <div>
+        <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9; margin-bottom:10px;">{{ repG1 }}</span>
+        <sc-for list="{{ repTeatro }}" as="r" hint-placeholder-count="5">
+          <div data-reveal style="opacity:0; transform:translateY(16px); transition:opacity .7s ease,transform .7s ease; padding:15px 0; border-top:1px solid rgba(231,227,216,.16);">
+            <div style="font-family:'EB Garamond',serif; font-size:clamp(22px,2.2vw,30px); line-height:1.1;">{{ r.name }}</div>
+            <div style="font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#aab0b9; margin-top:5px;">{{ r.meta }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div>
+        <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9; margin-bottom:10px;">{{ repG2 }}</span>
+        <sc-for list="{{ repConcerti }}" as="r" hint-placeholder-count="5">
+          <div data-reveal style="opacity:0; transform:translateY(16px); transition:opacity .7s ease,transform .7s ease; padding:15px 0; border-top:1px solid rgba(231,227,216,.16);">
+            <div style="font-family:'EB Garamond',serif; font-size:clamp(22px,2.2vw,30px); line-height:1.1;">{{ r.name }}</div>
+            <div style="font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#aab0b9; margin-top:5px;">{{ r.meta }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 5 · DISCHI (album rooms) ===== -->
+  <section id="dischi" data-screen-label="Dischi intro" style="position:relative; z-index:6; background:#d9d6cc; padding:clamp(70px,10vh,120px) clamp(20px,5vw,72px); text-align:center;">
+    <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease;">
+      <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:#938c7f; margin-bottom:14px;">{{ discIntroLabel }}</span>
+      <p style="font-family:'EB Garamond',serif; font-size:clamp(20px,2.2vw,30px); line-height:1.45; color:#68635a; max-width:42ch; margin:0 auto;">{{ discIntro }}</p>
+    </div>
+  </section>
+
+  <sc-for list="{{ dischi }}" as="d" hint-placeholder-count="0">
+    <section data-screen-label="Disco" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:{{ d.z }}; background:{{ d.color }}; color:#e7e3d8; display:flex; align-items:center; justify-content:center;">
+      <span style="position:absolute; top:50%; left:0; right:0; transform:translateY(-50%); text-align:center; font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(64px,18vw,300px); line-height:.82; letter-spacing:-.02em; color:rgba(231,227,216,.13); white-space:nowrap; pointer-events:none;">{{ d.title }}</span>
+      <div data-reveal style="opacity:0; transform:translateY(22px); transition:opacity 1s ease,transform 1s ease; position:relative; display:flex; flex-direction:column; align-items:center; gap:22px; padding:24px;">
+        <div style="display:flex; justify-content:space-between; width:min(78vw,420px); font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(231,227,216,.8);"><span>{{ d.role }}</span><span>{{ d.year }}</span></div>
+        {{ d.coverEl }}
+        <h3 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(40px,7vw,90px); line-height:.9; letter-spacing:-.01em;">{{ d.title }}</h3>
+        <p style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(15px,1.4vw,19px); line-height:1.5; color:rgba(231,227,216,.85); max-width:38ch; text-align:center;">{{ d.desc }}</p>
+      </div>
+    </section>
+  </sc-for>
+
+  <section data-screen-label="Altre incisioni" style="position:relative; z-index:40; background:#d9d6cc; padding:clamp(50px,7vh,90px) clamp(20px,5vw,72px); text-align:center;">
+    <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:#938c7f; margin-bottom:8px;">{{ otherLabel }}</span>
+    <span style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.8vw,22px); color:#68635a;">{{ otherText }}</span>
+  </section>
+
+  <!-- ===== 6 · SCRITTURA ===== -->
+  <section id="scrittura" data-screen-label="Scrittura" style="position:relative; z-index:41; background:#6f6244; color:#efe9d8; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px);">
+    <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(34px,5vw,70px); align-items:center;">
+      <div>
+        <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(239,233,216,.7); margin-bottom:18px;">{{ writeLabel }}</span>
+        <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(44px,7vw,120px); line-height:.86; letter-spacing:-.01em;">{{ writeTitle }}</h2>
+        <p style="font-family:'EB Garamond',serif; font-size:clamp(18px,1.7vw,23px); line-height:1.55; color:rgba(239,233,216,.9); max-width:46ch; margin-top:26px;">{{ writeBody }}</p>
+        <div style="display:flex; gap:22px; flex-wrap:wrap; margin-top:30px;">
+          <a href="#" style="font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; border-bottom:1px solid rgba(239,233,216,.5); padding-bottom:5px;">{{ writeLink1 }} →</a>
+          <a href="#" style="font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; border-bottom:1px solid rgba(239,233,216,.5); padding-bottom:5px;">{{ writeLink2 }} →</a>
+        </div>
+      </div>
+      <div style="aspect-ratio:3/4; background:rgba(28,27,24,.22); border:1px solid rgba(239,233,216,.3); display:grid; place-items:center; font-family:'EB Garamond',serif; font-style:italic; color:rgba(239,233,216,.6); font-size:15px; text-align:center; padding:24px;">{{ bookPlaceholder }}</div>
+    </div>
+  </section>
+
+  <!-- ===== 7 · INSEGNAMENTO ===== -->
+  <section id="insegnamento" data-screen-label="Insegnamento" style="position:relative; z-index:42; background:#566159; color:#e7e3d8; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px);">
+    <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease;">
+      <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(231,227,216,.7); margin-bottom:18px;">{{ teachLabel }}</span>
+      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(44px,7vw,120px); line-height:.86; letter-spacing:-.01em; max-width:16ch;">{{ teachTitle }}</h2>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(24px,4vw,56px); margin-top:clamp(34px,5vh,56px);">
+        <p style="font-family:'EB Garamond',serif; font-size:clamp(18px,1.7vw,23px); line-height:1.55; color:rgba(231,227,216,.9);">{{ teachBody }}</p>
+        <div>
+          <div style="font-family:'EB Garamond',serif; font-size:clamp(20px,1.9vw,26px); padding:14px 0; border-top:1px solid rgba(231,227,216,.2);">CDpM Bergamo<span style="display:block; font-family:'Archivo'; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(231,227,216,.6); margin-top:5px;">{{ teachT1 }}</span></div>
+          <div style="font-family:'EB Garamond',serif; font-size:clamp(20px,1.9vw,26px); padding:14px 0; border-top:1px solid rgba(231,227,216,.2);">Reparto Elettroacustica<span style="display:block; font-family:'Archivo'; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(231,227,216,.6); margin-top:5px;">{{ teachT2 }}</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 8 · VIDEO ===== -->
+  <section id="video" data-screen-label="Video" style="position:relative; z-index:43; background:#d9d6cc; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px);">
+    <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:clamp(28px,4vh,46px);">
+      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(44px,7vw,120px); line-height:.86; letter-spacing:-.01em;">{{ videoTitle }}</h2>
+      <a href="#" style="font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#68635a; border-bottom:1px solid #bdb7a8; padding-bottom:5px;">{{ videoCta }} →</a>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:clamp(18px,2.5vw,32px);">
+      <sc-for list="{{ videos }}" as="v" hint-placeholder-count="3">
+        <a href="#" data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .8s ease,transform .8s ease; display:block;">
+          <div style="aspect-ratio:16/9; background:#c4bfb1; display:grid; place-items:center; position:relative; overflow:hidden;">
+            <span style="width:54px; height:54px; border-radius:50%; border:1px solid #514d46; display:grid; place-items:center; color:#514d46;">▶</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; gap:14px; margin-top:12px;">
+            <span style="font-family:'EB Garamond',serif; font-size:clamp(19px,1.7vw,24px); color:#2b2823;">{{ v.title }}</span>
+            <span style="font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#938c7f; white-space:nowrap; padding-top:6px;">{{ v.meta }}</span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ===== 9 · BIO (half/half sticky) ===== -->
+  <section id="bio" data-screen-label="Bio" style="position:relative; z-index:44; background:#d9d6cc;">
+    <div style="display:grid; grid-template-columns:1fr 1fr;">
+      <div style="padding:clamp(80px,12vh,160px) clamp(24px,4vw,64px); display:flex; flex-direction:column; gap:24px;">
+        <span style="font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:#938c7f;">{{ bioLabel }}</span>
+        <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(40px,5vw,80px); line-height:.9; letter-spacing:-.01em;">{{ bioTitle }}</h2>
+        <sc-for list="{{ bioPars }}" as="p" hint-placeholder-count="4">
+          <p style="font-family:'EB Garamond',serif; font-size:clamp(18px,1.45vw,22px); line-height:1.62; color:#5b5649;">{{ p.t }}</p>
+        </sc-for>
+      </div>
+      <div style="position:relative;">
+        <div style="position:sticky; top:0; height:100vh; overflow:hidden;">
+          <img src="images/mauro-03.png" alt="Mauro Ghilardini" style="width:100%; height:100%; object-fit:cover; object-position:center; filter:grayscale(1) contrast(1.04);">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 10 · FIRMA ===== -->
+  <section data-screen-label="Firma" style="position:sticky; top:0; min-height:100vh; z-index:45; background:#1c1b18; color:#e7e3d8; display:grid; grid-template-columns:1.3fr .7fr; align-items:center;">
+    <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1.1s ease,transform 1.1s ease; padding:clamp(60px,8vh,110px) clamp(24px,4vw,72px);">
+      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(34px,5.2vw,84px); line-height:.96; letter-spacing:-.01em;">{{ signQuote }}</h2>
+      <span style="display:block; font-family:'EB Garamond',serif; font-style:italic; font-size:18px; color:#938c7f; margin-top:28px;">— Mauro Ghilardini</span>
+    </div>
+    <div style="position:relative; height:100%; overflow:hidden;">
+      <img src="images/mauro-04.png" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center; filter:grayscale(1) contrast(1.05);">
+    </div>
+  </section>
+
+  <!-- ===== 11 · CONTATTI ===== -->
+  <footer id="contatti" data-screen-label="Contatti" style="position:relative; z-index:46; background:#d9d6cc; color:#2b2823; padding:clamp(70px,10vh,130px) clamp(20px,5vw,72px) 50px;">
+    <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease;">
+      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(48px,9vw,160px); line-height:.84; letter-spacing:-.01em; text-align:center;">{{ contactTitle }}</h2>
+      <div style="display:flex; justify-content:center; gap:26px; flex-wrap:wrap; margin:clamp(34px,5vh,54px) 0; font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#68635a;">
+        <a href="#" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">YouTube</a>
+        <a href="#" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">Instagram</a>
+        <a href="#" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">Spotify</a>
+        <a href="#" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">Facebook</a>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px;">
+        <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="3">
+          <div style="border:1px solid #bdb7a8; padding:24px;">
+            <span style="display:block; font-size:10.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#938c7f; margin-bottom:10px;">{{ c.role }}</span>
+            <span style="font-family:'EB Garamond',serif; font-size:clamp(20px,1.8vw,25px); color:#2b2823;">{{ c.name }}</span>
+            <a href="{{ c.href }}" style="display:block; font-size:12px; color:#68635a; margin-top:8px; border-bottom:1px solid #bdb7a8; padding-bottom:4px; width:fit-content;">{{ c.contact }}</a>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-top:clamp(40px,6vh,70px); padding-top:24px; border-top:1px solid #bdb7a8; font-size:10px; font-weight:500; letter-spacing:.26em; text-transform:uppercase; color:#938c7f;">
+        <span>Bergamo · MMXXVI</span>
+        <span>{{ footNote }}</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { lang: 'it', menuOpen: false, datesOpen: false };
+
+  componentDidMount() {
+    // Lenis smooth scroll
+    const startLenis = () => {
+      if (window.Lenis && !this._lenis) {
+        this._lenis = new window.Lenis({ duration: 1.15, smoothWheel: true });
+        const raf = (t) => { this._lenis.raf(t); this._raf = requestAnimationFrame(raf); };
+        this._raf = requestAnimationFrame(raf);
+      }
+    };
+    startLenis();
+    if (!window.Lenis) { this._t = setTimeout(startLenis, 600); }
+
+    // reveal on scroll
+    const els = document.querySelectorAll('[data-reveal]');
+    if ('IntersectionObserver' in window) {
+      this._io = new IntersectionObserver((ents) => {
+        ents.forEach((e) => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'none'; this._io.unobserve(e.target); } });
+      }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+      els.forEach((el) => this._io.observe(el));
+      this._safety = setTimeout(() => els.forEach((el) => { el.style.opacity = '1'; el.style.transform = 'none'; }), 2500);
+    } else { els.forEach((el) => { el.style.opacity = '1'; el.style.transform = 'none'; }); }
+
+    // brand label appears on scroll
+    this._onScroll = () => {
+      const b = document.getElementById('brandLabel');
+      if (!b) return;
+      const show = window.scrollY > window.innerHeight * 0.6;
+      b.style.opacity = show ? '1' : '0';
+      b.style.transform = 'translateX(-50%) translateY(' + (show ? '0' : '-6px') + ')';
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+  }
+  componentWillUnmount() {
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._lenis) this._lenis.destroy();
+    if (this._io) this._io.disconnect();
+    if (this._safety) clearTimeout(this._safety);
+    if (this._t) clearTimeout(this._t);
+    window.removeEventListener('scroll', this._onScroll);
+  }
+
+  T() {
+    const it = {
+      heroEyebrow: 'Cantante · Bergamo', heroTagline: 'Una voce, molte strade.',
+      menuLabel: 'Le pagine', closeLabel: 'Chiudi',
+      manifestoLabel: 'Chi è', manifestoLead: 'La musica come incontro',
+      manifestoBody: 'Da quasi trent\u2019anni la mia voce si muove tra il sacro e il rock, tra il palco teatrale e la cattedra, tra la parola scritta e la nota composta. Cantante, compositore, attore, insegnante, scrittore.',
+      manifestoSign: 'Molti mestieri, un solo strumento.',
+      liveLabel: 'Prossima data', nextTitle: 'Dal vivo', nextWhere: 'Teatro \u2014 da definire', nextWhen: 'Prossimamente',
+      datesBtn: 'Tutte le date', allDatesLabel: 'Calendario',
+      repTitle: 'Repertorio', repSub: 'Teatro, letture, concerti \u2014 il lavoro vivo, in scena.',
+      repG1: 'Teatro e letture', repG2: 'Concerti e format',
+      discIntroLabel: 'Discografia', discIntro: 'Tre album con i Minstrel, lungo la stagione del progressive italiano. E qualche incisione di scena.',
+      otherLabel: 'Altre incisioni', otherText: 'In Viaggio (Teatro Minimo) · Toni Mannaro (musical) — fuori catalogo.',
+      writeLabel: 'Scrittura', writeTitle: 'La parola', writeLink1: 'Acquista il libro', writeLink2: 'Phronesis',
+      writeBody: 'Studioso di metafisica e filosofia tomista, critico di colonne sonore. Nel 2024 pubblica con Phronesis «Dormono sulla Collina», testo teatrale che intreccia Spoon River di Masters e le canzoni di De André.',
+      bookPlaceholder: '«Dormono sulla Collina» — copertina (placeholder)',
+      teachLabel: 'Insegnamento', teachTitle: 'Trasmettere la voce',
+      teachBody: 'Insegna canto moderno e lirico, produzione musicale e musica d\u2019insieme. Con l\u2019ingegnere del suono Diego Bergamini ha fondato uno studio di registrazione ad Ardesio.',
+      teachT1: 'Canto · Produzione · Musica d\u2019insieme', teachT2: 'Studio di registrazione · Ardesio',
+      videoTitle: 'In rete', videoCta: 'Vai al canale',
+      bioLabel: 'Chi è', bioTitle: 'Il percorso',
+      signQuote: 'Canto perché la parola, da sola, a un certo punto non basta più.',
+      contactTitle: 'Contatti', footNote: 'Cantante · Compositore · Autore',
+      coverSoon: 'Copertina',
+      menuItems: ['Chi è','Dal vivo','Repertorio','Dischi','Scrittura','Insegnamento','Video','Contatti'],
+    };
+    const en = {
+      heroEyebrow: 'Singer · Bergamo', heroTagline: 'One voice, many roads.',
+      menuLabel: 'The pages', closeLabel: 'Close',
+      manifestoLabel: 'About', manifestoLead: 'The voice is the axis of it all.',
+      manifestoBody: 'For nearly thirty years my voice has moved between the sacred and rock, the theatre stage and the classroom, the written word and the composed note. Singer, composer, actor, teacher, writer.',
+      manifestoSign: 'Many crafts, one instrument.',
+      liveLabel: 'Next show', nextTitle: 'Live', nextWhere: 'Theatre \u2014 to be confirmed', nextWhen: 'Coming soon',
+      datesBtn: 'All dates', allDatesLabel: 'Calendar',
+      repTitle: 'Repertoire', repSub: 'Theatre, readings, concerts \u2014 the living work, on stage.',
+      repG1: 'Theatre & readings', repG2: 'Concerts & formats',
+      discIntroLabel: 'Discography', discIntro: 'Three albums with Minstrel, across the Italian progressive era. Plus a few stage recordings.',
+      otherLabel: 'Other recordings', otherText: 'In Viaggio (Teatro Minimo) · Toni Mannaro (musical) — out of print.',
+      writeLabel: 'Writing', writeTitle: 'The word', writeLink1: 'Buy the book', writeLink2: 'Phronesis',
+      writeBody: 'A scholar of metaphysics and Thomist philosophy, a film-score critic. In 2024 he published with Phronesis «Dormono sulla Collina», a theatre text weaving Masters\u2019 Spoon River with De André\u2019s songs.',
+      bookPlaceholder: '«Dormono sulla Collina» — cover (placeholder)',
+      teachLabel: 'Teaching', teachTitle: 'Passing on the voice',
+      teachBody: 'He teaches modern and classical singing, music production and ensemble music. With sound engineer Diego Bergamini he founded a recording studio in Ardesio.',
+      teachT1: 'Voice · Production · Ensemble', teachT2: 'Recording studio · Ardesio',
+      videoTitle: 'Online', videoCta: 'Go to channel',
+      bioLabel: 'About', bioTitle: 'The path',
+      signQuote: 'I sing because the word, alone, at some point is no longer enough.',
+      contactTitle: 'Contact', footNote: 'Singer · Composer · Author',
+      coverSoon: 'Cover',
+      menuItems: ['About','Live','Repertoire','Records','Writing','Teaching','Video','Contact'],
+    };
+    return this.state.lang === 'en' ? en : it;
+  }
+
+  renderVals() {
+    const en = this.state.lang === 'en';
+    const t = this.T();
+    const ROM = ['I','II','III','IV','V','VI','VII','VIII'];
+    const hrefs = ['#chi','#dalvivo','#repertorio','#dischi','#scrittura','#insegnamento','#video','#contatti'];
+    const navItems = t.menuItems.map((label, i) => ({ label, href: hrefs[i], num: ROM[i] }));
+
+    const repTeatro = [
+      { name: 'Parabole di un Clown', mIt: 'Teatro sacro · in repertorio', mEn: 'Sacred theatre · in repertoire' },
+      { name: 'Dormono sulla Collina', mIt: 'Lettura musicale · da cui il libro', mEn: 'Musical reading · became the book' },
+      { name: 'Sergente nella Neve', mIt: 'Lettura · Rigoni Stern', mEn: 'Reading · Rigoni Stern' },
+      { name: 'Vita da Cantautrice', mIt: 'Lettura-concerto', mEn: 'Reading-concert' },
+      { name: 'Là, dove nasce l\u2019acqua', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
+    ].map((r) => ({ name: r.name, meta: en ? r.mEn : r.mIt }));
+
+    const repConcerti = [
+      { name: 'Queen at Wembley', mIt: 'Tributo · con i Lydian', mEn: 'Tribute · with Lydian' },
+      { name: 'Live Aid Tribute', mIt: 'Tributo · con i Lydian', mEn: 'Tribute · with Lydian' },
+      { name: 'I Maestri Cantori d\u2019Italia', mIt: 'Voce e pianoforte', mEn: 'Voice and piano' },
+      { name: 'Sushi Cornucopia', mIt: 'Band · su richiesta', mEn: 'Band · on request' },
+      { name: 'Orizzonti Acustici', mIt: 'Chitarra e voce', mEn: 'Guitar and voice' },
+    ].map((r) => ({ name: r.name, meta: en ? r.mEn : r.mIt }));
+
+    const dischi = [
+      { title: 'New Life', year: '1997', roleIt: 'Minstrel · LP', roleEn: 'Minstrel · LP', color: '#5f6f63', z: 30, cover: '',
+        dIt: 'L\u2019esordio bergamasco: progressive che muove i primi passi tra classica e rock sinfonico.', dEn: 'The Bergamo debut: progressive taking its first steps between classical and symphonic rock.' },
+      { title: 'Faust', year: '2000', roleIt: 'Minstrel · Kaliphonia', roleEn: 'Minstrel · Kaliphonia', color: '#6d7e84', z: 31, cover: 'images/cover-a.jpg',
+        dIt: 'Concept album dal Faust di Goethe: la voce incontra le strutture elaborate del prog.', dEn: 'A concept album from Goethe\u2019s Faust: the voice meets the elaborate structures of prog.' },
+      { title: 'Ahab', year: '2009', roleIt: 'Minstrel · BTF', roleEn: 'Minstrel · BTF', color: '#6e3d3f', z: 32, cover: 'images/cover-b.jpg',
+        dIt: 'Da Moby Dick: l\u2019ossessione del capitano diventa architettura sonora. Il lavoro più maturo.', dEn: 'From Moby Dick: the captain\u2019s obsession becomes sonic architecture. The most mature work.' },
+    ].map((d) => ({ title: d.title, year: d.year, color: d.color, z: d.z,
+      role: en ? d.roleEn : d.roleIt, desc: en ? d.dEn : d.dIt,
+      coverEl: d.cover
+        ? React.createElement('img', { src: d.cover, alt: d.title, style: { width: 'min(58vw,300px)', aspectRatio: '1', objectFit: 'cover', boxShadow: '0 18px 50px rgba(0,0,0,.4)' } })
+        : React.createElement('div', { style: { width: 'min(58vw,300px)', aspectRatio: '1', border: '1px solid rgba(231,227,216,.4)', display: 'grid', placeItems: 'center', fontFamily: "'EB Garamond',serif", fontStyle: 'italic', fontSize: '15px', color: 'rgba(231,227,216,.55)' } }, t.coverSoon),
+    }));
+
+    const dates = [
+      { date: '—', titleIt: 'Data in definizione', titleEn: 'Date to be confirmed', place: 'Bergamo', tagIt: 'Concerto', tagEn: 'Concert' },
+      { date: '—', titleIt: 'Data in definizione', titleEn: 'Date to be confirmed', place: '—', tagIt: 'Teatro', tagEn: 'Theatre' },
+      { date: '—', titleIt: 'Data in definizione', titleEn: 'Date to be confirmed', place: '—', tagIt: 'Lettura', tagEn: 'Reading' },
+    ].map((d) => ({ date: d.date, place: d.place, title: en ? d.titleEn : d.titleIt, tag: en ? d.tagEn : d.tagIt }));
+
+    const videos = [
+      { title: 'Petzl Legend Tour', mIt: 'Colonna sonora', mEn: 'Score' },
+      { title: 'Live · Minstrel', mIt: 'Concerto', mEn: 'Live' },
+      { title: 'Il suono della vita', mIt: 'Corto · 2016', mEn: 'Short · 2016' },
+    ].map((v) => ({ title: v.title, meta: en ? v.mEn : v.mIt }));
+
+    const bioPars = [
+      { tIt: 'Il canto nasce nel 1998, con la vittoria al concorso nazionale Festagiovani e lo studio della vocalità antica: il madrigale di Monteverdi e Caccini, il sacro di Pergolesi e Mozart.', tEn: 'Singing began in 1998, winning the national Festagiovani competition and studying early vocality: the madrigal of Monteverdi and Caccini, the sacred of Pergolesi and Mozart.' },
+      { tIt: 'Parallelamente, il progressive rock: cantante e compositore dei Minstrel, tre album e un nome nel prog italiano tra gli anni Novanta e Duemila.', tEn: 'In parallel, progressive rock: singer and composer of Minstrel, three albums and a name in Italian prog between the Nineties and the 2000s.' },
+      { tIt: 'Dal 2001 il teatro musicale con il Teatro Minimo: ruoli da protagonista e da narratore, e le musiche di scena per il teatro e per il cinema.', tEn: 'From 2001, musical theatre with Teatro Minimo: lead and narrator roles, and original scores for theatre and cinema.' },
+      { tIt: 'Infine la parola: filosofia tomista, critica delle colonne sonore, e nel 2024 il primo libro. Una voce sola, che attraversa tutto.', tEn: 'Finally, the word: Thomist philosophy, film-score criticism, and in 2024 the first book. A single voice, running through it all.' },
+    ].map((p) => ({ t: en ? p.tEn : p.tIt }));
+
+    const contacts = [
+      { roleIt: 'Booking & Management', roleEn: 'Booking & Management', name: 'Mauro Ghilardini', contact: 'info@mauroghilardini.it', href: 'mailto:info@mauroghilardini.it' },
+      { roleIt: 'Insegnamento', roleEn: 'Teaching', name: 'CDpM Bergamo', contact: 'cdpm.it', href: '#' },
+      { roleIt: 'Editore', roleEn: 'Publisher', name: 'Phronesis', contact: 'phronesis.it', href: '#' },
+    ].map((c) => ({ role: en ? c.roleEn : c.roleIt, name: c.name, contact: c.contact, href: c.href }));
+
+    return {
+      ...t,
+      navItems, repTeatro, repConcerti, dischi, dates, videos, bioPars, contacts,
+      itOp: en ? 0.45 : 1, enOp: en ? 1 : 0.45,
+      menuY: this.state.menuOpen ? '0%' : '100%',
+      menuPe: this.state.menuOpen ? 'auto' : 'none',
+      dotScale: this.state.menuOpen ? 2.4 : 1,
+      datesMax: this.state.datesOpen ? '1400px' : '0px',
+      setIt: () => this.setState({ lang: 'it' }),
+      setEn: () => this.setState({ lang: 'en' }),
+      toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      toggleDates: () => this.setState((s) => ({ datesOpen: !s.datesOpen })),
+    };
+  }
+}
+</script>
+</body>
+</html>
