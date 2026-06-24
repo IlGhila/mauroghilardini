@@ -1,14 +1,55 @@
-﻿{
-    "slug":  "sergente-nella-neve",
-    "bozza":  true,
-    "titolo":  "Sergente nella Neve",
-    "eyebrow_it":  "Lettura · Rigoni Stern",
-    "eyebrow_en":  "Reading · Rigoni Stern",
-    "forma_it":  "Lettura",
-    "forma_en":  "Reading",
-    "durata":  "",
-    "organico_it":  "",
-    "organico_en":  "",
-    "hero_img":  "",
-    "cta_email":  "info@mauroghilardini.it"
+{
+  "slug": "sergente-nella-neve",
+  "bozza": false,
+  "titolo": "Sergente nella Neve",
+  "eyebrow_it": "Lettura musicale · Rigoni Stern",
+  "eyebrow_en": "Musical reading · Rigoni Stern",
+  "forma_it": "Lettura musicale",
+  "forma_en": "Musical reading",
+  "durata": "",
+  "organico_it": "Voce recitante · trio vocale e strumentale",
+  "organico_en": "Narrating voice · vocal and instrumental trio",
+  "hero_img": "images/REPERTORIO/sergente-nella-neve/hero.png",
+  "hero_position": "center 40%",
+  "sinossi_lead_it": "La scrittura asciutta di Rigoni Stern incontra l'eternità dei canti alpini.",
+  "sinossi_lead_en": "Rigoni Stern's spare prose meets the timelessness of Alpine songs.",
+  "sinossi_it": [
+    "Mario Rigoni Stern racconta la ritirata di Russia del gennaio 1943 con una prosa che non cerca l'eroismo ma lo trova, nella fatica, nel gelo, nella solidarietà silenziosa tra soldati semplici. Roberto Squinzi porta in scena quelle pagine con la voce di chi conosce il peso delle parole.",
+    "Ad accompagnare la lettura, i canti tradizionali alpini — Signore delle Cime, Ta-pum, Sul Ponte di Perati e altri — riarrangiati in chiave antica da Francesco Maffeis e Mauro Ghilardini, in uno stile che richiama la polifonia monteverdiana: voci che si intrecciano, armonie sospese nel tempo, lontane da ogni nostalgia retorica.",
+    "Il risultato è uno spettacolo che non illustra il libro ma lo abita: la potenza scarna della scrittura di Stern e l'atemporalità dei canti si sostengono a vicenda, lasciando il pubblico dentro un silenzio che parla."
+  ],
+  "sinossi_en": [
+    "Mario Rigoni Stern tells the story of the Russian retreat of January 1943 with prose that does not seek heroism but finds it — in exhaustion, in cold, in the quiet solidarity of ordinary soldiers. Roberto Squinzi brings those pages to life with the voice of someone who understands the weight of words.",
+    "Accompanying the reading, traditional Alpine songs — Signore delle Cime, Ta-pum, Sul Ponte di Perati and others — rearranged in an early-music style by Francesco Maffeis and Mauro Ghilardini, drawing on Monteverdi-era polyphony: intertwining voices, harmonies suspended in time, free of any rhetorical nostalgia.",
+    "The result is a show that does not illustrate the book but inhabits it: the spare power of Stern's writing and the timelessness of the songs sustain each other, leaving the audience inside a silence that speaks."
+  ],
+  "progetto_lead_it": "Voci antiche per una storia moderna. O forse il contrario.",
+  "progetto_lead_en": "Ancient voices for a modern story. Or perhaps the other way around.",
+  "progetto_it": "L'idea alla base è semplice e radicale: i canti alpini non come colonna sonora ma come testo parallelo. Riarrangiati secondo la grammatica della musica antica — contrappunto, modalità, ornamentazione vocale — perdono ogni patina folkloristica e tornano a essere quello che erano: musica colta di popolo, capace di reggere il confronto con le pagine di Stern senza schiacciarle. Francesco Maffeis (pianoforte e voce), Mauro Ghilardini (tastiere e voce) e Sara Scolari (voce) compongono un ensemble che canta e suona come un tutt'uno.",
+  "progetto_en": "The founding idea is simple and radical: Alpine songs not as a soundtrack but as a parallel text. Rearranged according to the grammar of early music — counterpoint, modality, vocal ornamentation — they shed every folkloristic varnish and return to what they always were: sophisticated music of the people, capable of standing alongside Stern's prose without being overshadowed. Francesco Maffeis (piano and voice), Mauro Ghilardini (keyboards and voice) and Sara Scolari (voice) form an ensemble that sings and plays as one.",
+  "foto": [
+    "images/REPERTORIO/sergente-nella-neve/WhatsApp Image 2024-01-21 at 10.36.20.jpeg",
+    "images/REPERTORIO/sergente-nella-neve/WhatsApp Image 2024-01-21 at 10.36.21.jpeg",
+    "images/REPERTORIO/sergente-nella-neve/WhatsApp Image 2024-01-21 at 12.15.26 (1).jpeg"
+  ],
+  "video": [],
+  "cast": [
+    { "nome": "Roberto Squinzi", "ruolo_it": "Voce recitante", "ruolo_en": "Narrating voice", "strumenti": "" },
+    { "nome": "Francesco Maffeis", "ruolo_it": "Musiche e arrangiamenti", "ruolo_en": "Music & arrangements", "strumenti": "Pianoforte · Voce" },
+    { "nome": "Mauro Ghilardini", "ruolo_it": "Musiche e arrangiamenti", "ruolo_en": "Music & arrangements", "strumenti": "Tastiere · Voce" },
+    { "nome": "Sara Scolari", "ruolo_it": "Soprano", "ruolo_en": "Soprano", "strumenti": "Voce" }
+  ],
+  "crew": [
+    { "ruolo_it": "Testo", "ruolo_en": "Text", "nome": "Mario Rigoni Stern" },
+    { "ruolo_it": "Arrangiamenti", "ruolo_en": "Arrangements", "nome": "Francesco Maffeis · Mauro Ghilardini" },
+    { "ruolo_it": "Produzione", "ruolo_en": "Production", "nome": "Alberto Girola" },
+    { "ruolo_it": "Tecnico luci e audio", "ruolo_en": "Lighting & sound", "nome": "Diego Bergamini" }
+  ],
+  "budget_it": "Su richiesta",
+  "budget_en": "On request",
+  "budget_nota_it": "Cachet, condizioni e scheda tecnica gestiti da Alberto Girola. Scrivimi per disponibilità.",
+  "budget_nota_en": "Fee, terms and technical rider handled by Alberto Girola. Write to me for availability.",
+  "scheda_tecnica_nota_it": "Scheda tecnica gestita da Alberto Girola — fornita su richiesta.",
+  "scheda_tecnica_nota_en": "Technical rider handled by Alberto Girola — provided on request.",
+  "cta_email": "info@mauroghilardini.it"
 }

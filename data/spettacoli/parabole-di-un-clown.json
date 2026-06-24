@@ -1,14 +1,63 @@
-﻿{
-    "slug":  "parabole-di-un-clown",
-    "bozza":  true,
-    "titolo":  "Parabole di un Clown",
-    "eyebrow_it":  "Teatro sacro · in repertorio",
-    "eyebrow_en":  "Sacred theatre · in repertoire",
-    "forma_it":  "Teatro sacro",
-    "forma_en":  "Sacred theatre",
-    "durata":  "",
-    "organico_it":  "",
-    "organico_en":  "",
-    "hero_img":  "",
-    "cta_email":  "info@mauroghilardini.it"
+{
+  "slug": "parabole-di-un-clown",
+  "bozza": false,
+  "titolo": "Parabole di un Clown",
+  "eyebrow_it": "Teatro Minimo · Teatro sacro",
+  "eyebrow_en": "Teatro Minimo · Sacred theatre",
+  "forma_it": "Teatro sacro",
+  "forma_en": "Sacred theatre",
+  "durata": "",
+  "organico_it": "Attore · trio musicale",
+  "organico_en": "Actor · music trio",
+  "hero_img": "images/REPERTORIO/parabole-di-un-clown/hero.jpg",
+  "hero_position": "center 40%",
+  "sinossi_lead_it": "In viaggio con una vecchia 500, tra fede e cadute da clown.",
+  "sinossi_lead_en": "On the road in an old Fiat 500, between faith and clown falls.",
+  "sinossi_it": [
+    "Un nonno, un tempo clown in un circo, e Stefano, suo nipote alle prese con la crisi dei suoi quarant'anni. A bordo di una vecchia 500, da Bologna alla Sardegna: non un itinerario dettato dalla fretta o dalla prudenza, ma le tappe di un cammino di fede, passando dai luoghi dove il nonno ha ricevuto i sacramenti.",
+    "Un viaggio anche nel tempo: dal presente fino al giorno in cui è diventato cristiano ricevendo il battesimo. Le vicende che il nonno racconta lungo il percorso scaturiscono da una vita che ha le caratteristiche di una caduta misurata di un clown — ma specchiandosi nelle pagine delle Sacre Scritture, diventano occasioni inaspettate per riflettere, commuoversi o sorridere.",
+    "Il copione è pubblicato da Pardes Edizioni (Bologna). Le musiche originali, scritte ed eseguite da Mauro Ghilardini, Francesco Maffeis e Jurij Roncan, sono raccolte nel CD «In Viaggio», colonna sonora dello spettacolo."
+  ],
+  "sinossi_en": [
+    "A grandfather, once a circus clown, and Stefano, his nephew facing the crisis of his forties. In an old Fiat 500 from Bologna to Sardinia — not an itinerary driven by haste or caution, but the stations of a journey of faith, passing through the places where the grandfather received his sacraments.",
+    "A journey through time as well: from the present back to the day he became Christian at his baptism. The stories the grandfather tells along the way spring from a life with all the hallmarks of a clown's measured fall — but seen through the pages of Scripture, they become unexpected occasions to reflect, to be moved, or to smile.",
+    "The script is published by Pardes Edizioni (Bologna). The original music, written and performed by Mauro Ghilardini, Francesco Maffeis and Jurij Roncan, is collected on the CD «In Viaggio», the show's soundtrack."
+  ],
+  "progetto_lead_it": "...e Dio nei cieli ride.",
+  "progetto_lead_en": "...and God in the heavens laughs.",
+  "progetto_it": "Uno spettacolo che attraversa il sacro con leggerezza e profondità insieme. La struttura del viaggio fisico — Bologna, le strade, la Sardegna — diventa metafora di un cammino interiore. Bruno Nataloni porta in scena un personaggio che conosce la caduta, il ridicolo, la grazia: un clown che ha incontrato Dio senza perdere il senso dell'umorismo. Le musiche originali accompagnano il racconto come una seconda voce, mai decorative.",
+  "progetto_en": "A show that crosses the sacred with lightness and depth at once. The structure of the physical journey — Bologna, the roads, Sardinia — becomes a metaphor for an inner path. Bruno Nataloni brings to life a character who knows falling, absurdity and grace: a clown who met God without losing his sense of humour. The original music accompanies the story like a second voice, never merely decorative.",
+  "locandina": "images/REPERTORIO/parabole-di-un-clown/locandina.jpg",
+  "locandina_titolo_it": "L'immagine dello spettacolo",
+  "locandina_titolo_en": "The image of the show",
+  "locandina_nota_it": "Teatro Minimo · regia di Umberto Zanoletti. La grafica ufficiale, pronta per la stampa e la comunicazione dell'evento.",
+  "locandina_nota_en": "Teatro Minimo · directed by Umberto Zanoletti. The official artwork, ready for print and event communication.",
+  "foto": [
+    "images/REPERTORIO/parabole-di-un-clown/2694015.jpg",
+    "images/REPERTORIO/parabole-di-un-clown/8817939.jpg",
+    "images/REPERTORIO/parabole-di-un-clown/9677933.jpg"
+  ],
+  "video": ["mPaIOB_qDM0"],
+  "cast": [
+    { "nome": "Bruno Nataloni", "ruolo_it": "Il nonno clown", "ruolo_en": "The clown grandfather", "strumenti": "" },
+    { "nome": "Mauro Ghilardini", "ruolo_it": "Musiche", "ruolo_en": "Music", "strumenti": "" },
+    { "nome": "Francesco Maffeis", "ruolo_it": "Musiche", "ruolo_en": "Music", "strumenti": "" },
+    { "nome": "Jurij Roncan", "ruolo_it": "Musiche", "ruolo_en": "Music", "strumenti": "" }
+  ],
+  "crew": [
+    { "ruolo_it": "Testo", "ruolo_en": "Text", "nome": "Bruno Nataloni e Umberto Zanoletti" },
+    { "ruolo_it": "Regia", "ruolo_en": "Direction", "nome": "Umberto Zanoletti" },
+    { "ruolo_it": "Musiche originali", "ruolo_en": "Original music", "nome": "Ghilardini · Maffeis · Roncan" },
+    { "ruolo_it": "Costumi", "ruolo_en": "Costumes", "nome": "Elisabetta Cosseddu" },
+    { "ruolo_it": "Foto di scena", "ruolo_en": "Photography", "nome": "Francesco Bellini" },
+    { "ruolo_it": "Coordinamento tecnico", "ruolo_en": "Technical coordination", "nome": "Diego Bergamini" },
+    { "ruolo_it": "Produzione", "ruolo_en": "Production", "nome": "Teatro Minimo" }
+  ],
+  "budget_it": "Su richiesta",
+  "budget_en": "On request",
+  "budget_nota_it": "Cachet e condizioni concordati con Teatro Minimo, che gestisce produzione e parte tecnica. Scrivimi per disponibilità e preventivo.",
+  "budget_nota_en": "Fee and terms agreed with Teatro Minimo, who handle production and the technical side. Write to me for availability and a quote.",
+  "scheda_tecnica_nota_it": "Scheda tecnica gestita da Teatro Minimo — fornita su richiesta.",
+  "scheda_tecnica_nota_en": "Technical rider handled by Teatro Minimo — provided on request.",
+  "cta_email": "info@mauroghilardini.it"
 }

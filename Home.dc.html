@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="date.js"></script>
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   html{-webkit-font-smoothing:antialiased;}
@@ -54,6 +55,11 @@
     /* Titoli Anton: consenti wrap ovunque tranne l'hero */
     h1, h2, h3 { white-space: normal !important; }
     #top h1 { white-space: nowrap !important; }
+
+    /* VIDEO — 2 colonne su mobile */
+    #video > div:last-child {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
 
     /* Tap target minimi */
     button, a { min-height: 44px; display: inline-flex; align-items: center; }
@@ -115,24 +121,11 @@
     <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(24,23,20,.55),rgba(24,23,20,.2) 40%,rgba(24,23,20,.85));"></div>
     <div data-reveal style="opacity:0; transition:opacity 1s ease; position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:18px; padding:0 24px; color:#e7e3d8;">
       <span style="font-size:11px; font-weight:600; letter-spacing:.34em; text-transform:uppercase; color:rgba(231,227,216,.7);">{{ liveLabel }}</span>
-      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(46px,9vw,150px); line-height:.9; letter-spacing:-.01em;">{{ nextTitle }}</h2>
-      <div style="font-family:'EB Garamond',serif; font-size:clamp(18px,2vw,26px);">{{ nextWhere }}</div>
+      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(46px,9vw,150px); line-height:.9; letter-spacing:-.01em;">Dal vivo</h2>
+      <div style="font-family:'EB Garamond',serif; font-size:clamp(18px,2vw,26px);">{{ nextTitle }}</div>
+      <div style="font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:rgba(231,227,216,.6);">{{ nextWhere }}</div>
       <div style="font-size:12px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(231,227,216,.78);">{{ nextWhen }}</div>
-      <button onClick="{{ toggleDates }}" style="margin-top:18px; background:none; border:1px solid rgba(231,227,216,.5); color:#e7e3d8; cursor:pointer; padding:14px 26px; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase;">{{ datesBtn }}</button>
-    </div>
-  </section>
-
-  <!-- ===== 3b · TUTTE LE DATE (expand) ===== -->
-  <section data-screen-label="Date" style="position:relative; z-index:4; background:#1c1b18; color:#d9d6cc; overflow:hidden; max-height:{{ datesMax }}; transition:max-height .7s cubic-bezier(.6,0,.2,1);">
-    <div style="padding:clamp(60px,9vh,110px) clamp(20px,5vw,72px);">
-      <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:#7a7469; margin-bottom:30px;">{{ allDatesLabel }}</span>
-      <sc-for list="{{ dates }}" as="d" hint-placeholder-count="4">
-        <div style="display:grid; grid-template-columns:120px 1fr auto; gap:clamp(14px,3vw,40px); align-items:baseline; padding:22px 0; border-top:1px solid rgba(122,116,105,.3);">
-          <span style="font-family:'Anton',sans-serif; font-size:clamp(22px,2.4vw,34px); color:#c4bfb1;">{{ d.date }}</span>
-          <span style="font-family:'EB Garamond',serif; font-size:clamp(19px,1.8vw,26px);">{{ d.title }}<span style="display:block; font-family:'Archivo'; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#7a7469; margin-top:5px;">{{ d.place }}</span></span>
-          <span style="font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#938c7f;">{{ d.tag }}</span>
-        </div>
-      </sc-for>
+      <a href="date/" style="margin-top:18px; display:inline-block; border:1px solid rgba(231,227,216,.5); color:#e7e3d8; padding:14px 26px; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; min-height:0;">{{ datesBtn }}</a>
     </div>
   </section>
 
@@ -224,17 +217,19 @@
   <section id="video" data-screen-label="Video" style="position:relative; z-index:43; background:#d9d6cc; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px);">
     <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:clamp(28px,4vh,46px);">
       <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(44px,7vw,120px); line-height:.86; letter-spacing:-.01em;">{{ videoTitle }}</h2>
-      <a href="#" style="font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#68635a; border-bottom:1px solid #bdb7a8; padding-bottom:5px;">{{ videoCta }} →</a>
+      <a href="https://www.youtube.com/@MauroGhilardiniOfficial" target="_blank" rel="noopener" style="font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#68635a; border-bottom:1px solid #bdb7a8; padding-bottom:5px;">{{ videoCta }} →</a>
     </div>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:clamp(18px,2.5vw,32px);">
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,2vw,28px);">
       <sc-for list="{{ videos }}" as="v" hint-placeholder-count="3">
-        <a href="#" data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .8s ease,transform .8s ease; display:block;">
-          <div style="aspect-ratio:16/9; background:#c4bfb1; display:grid; place-items:center; position:relative; overflow:hidden;">
-            <span style="width:54px; height:54px; border-radius:50%; border:1px solid #514d46; display:grid; place-items:center; color:#514d46;">▶</span>
+        <a href="{{ v.href }}" target="_blank" rel="noopener" data-reveal style="opacity:0; transform:translateY(18px); transition:opacity .8s ease,transform .8s ease; display:block; text-decoration:none; color:inherit;">
+          <div style="aspect-ratio:16/9; background:#c4bfb1; position:relative; overflow:hidden;">
+            <img src="{{ v.thumb }}" alt="{{ v.title }}" style="width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.25);">
+            <div style="position:absolute; inset:0; background:rgba(20,19,17,.28); display:grid; place-items:center;">
+              <span style="width:44px; height:44px; border-radius:50%; border:1px solid rgba(231,227,216,.8); background:rgba(20,19,17,.35); display:grid; place-items:center; color:#e7e3d8; font-size:15px;">▶</span>
+            </div>
           </div>
-          <div style="display:flex; justify-content:space-between; gap:14px; margin-top:12px;">
-            <span style="font-family:'EB Garamond',serif; font-size:clamp(19px,1.7vw,24px); color:#2b2823;">{{ v.title }}</span>
-            <span style="font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#938c7f; white-space:nowrap; padding-top:6px;">{{ v.meta }}</span>
+          <div style="margin-top:8px;">
+            <span style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:.04em; color:#68635a; line-height:1.4; text-transform:uppercase;">{{ v.title }}</span>
           </div>
         </a>
       </sc-for>
@@ -309,6 +304,10 @@ class Component extends DCLogic {
         this._lenis = new window.Lenis({ duration: 1.15, smoothWheel: true });
         const raf = (t) => { this._lenis.raf(t); this._raf = requestAnimationFrame(raf); };
         this._raf = requestAnimationFrame(raf);
+        if (location.hash) {
+          const target = document.querySelector(location.hash);
+          if (target) this._lenis.scrollTo(target, { immediate: true });
+        }
       }
     };
     startLenis();
@@ -351,8 +350,8 @@ class Component extends DCLogic {
       manifestoLabel: 'Chi è', manifestoLead: 'La musica come incontro',
       manifestoBody: 'Da quasi trent\u2019anni la mia voce si muove tra il sacro e il rock, tra il palco teatrale e la cattedra, tra la parola scritta e la nota composta. Cantante, compositore, attore, insegnante, scrittore.',
       manifestoSign: 'Molti mestieri, un solo strumento.',
-      liveLabel: 'Prossima data', nextTitle: 'Dal vivo', nextWhere: 'Teatro \u2014 da definire', nextWhen: 'Prossimamente',
-      datesBtn: 'Tutte le date', allDatesLabel: 'Calendario',
+      liveLabel: 'Prossima data',
+      datesBtn: 'Tutte le date',
       repTitle: 'Repertorio', repSub: 'Teatro, letture, concerti \u2014 il lavoro vivo, in scena.',
       repG1: 'Teatro e letture', repG2: 'Concerti e format',
       discIntroLabel: 'Discografia', discIntro: 'Tre album con i Minstrel, lungo la stagione del progressive italiano. E qualche incisione di scena.',
@@ -376,8 +375,8 @@ class Component extends DCLogic {
       manifestoLabel: 'About', manifestoLead: 'The voice is the axis of it all.',
       manifestoBody: 'For nearly thirty years my voice has moved between the sacred and rock, the theatre stage and the classroom, the written word and the composed note. Singer, composer, actor, teacher, writer.',
       manifestoSign: 'Many crafts, one instrument.',
-      liveLabel: 'Next show', nextTitle: 'Live', nextWhere: 'Theatre \u2014 to be confirmed', nextWhen: 'Coming soon',
-      datesBtn: 'All dates', allDatesLabel: 'Calendar',
+      liveLabel: 'Next show',
+      datesBtn: 'All dates',
       repTitle: 'Repertoire', repSub: 'Theatre, readings, concerts \u2014 the living work, on stage.',
       repG1: 'Theatre & readings', repG2: 'Concerts & formats',
       discIntroLabel: 'Discography', discIntro: 'Three albums with Minstrel, across the Italian progressive era. Plus a few stage recordings.',
@@ -417,9 +416,10 @@ class Component extends DCLogic {
 
     const repConcerti = [
       { name: 'Queen at Wembley', slug: 'queen-at-wembley', mIt: 'Tributo · con i Lydian', mEn: 'Tribute · with Lydian' },
-      { name: 'Live Aid Tribute', slug: 'live-aid-tribute', mIt: 'Tributo · con i Lydian', mEn: 'Tribute · with Lydian' },
-      { name: 'I Maestri Cantori d'Italia', slug: 'maestri-cantori-ditalia', mIt: 'Voce e pianoforte', mEn: 'Voice and piano' },
-      { name: 'Sushi Cornucopia', slug: 'sushi-cornucopia', mIt: 'Band · su richiesta', mEn: 'Band · on request' },
+      { name: 'Lydian - Five Aid', slug: 'live-aid-tribute', mIt: 'Tributo rock · con i Lydian', mEn: 'Rock tribute · with Lydian' },
+      { name: 'I Maestri Cantori d’Italia', slug: 'maestri-cantori-ditalia', mIt: 'Voce e pianoforte', mEn: 'Voice and piano' },
+      { name: 'Le Malelingue', slug: 'malelingue', mIt: 'Band · repertorio italiano · su richiesta', mEn: 'Band · Italian repertoire · on request' },
+      { name: 'Sushi Cornucopia', slug: 'sushi-cornucopia', mIt: 'Band · repertorio internazionale · su richiesta', mEn: 'Band · international repertoire · on request' },
       { name: 'Orizzonti Acustici', slug: 'orizzonti-acustici', mIt: 'Chitarra e voce', mEn: 'Guitar and voice' },
     ].map((r) => ({ name: r.name, href: 'repertorio/?slug=' + r.slug, meta: en ? r.mEn : r.mIt }));
 
@@ -437,17 +437,28 @@ class Component extends DCLogic {
         : React.createElement('div', { style: { width: 'min(58vw,300px)', aspectRatio: '1', border: '1px solid rgba(231,227,216,.4)', display: 'grid', placeItems: 'center', fontFamily: "'EB Garamond',serif", fontStyle: 'italic', fontSize: '15px', color: 'rgba(231,227,216,.55)' } }, t.coverSoon),
     }));
 
-    const dates = [
-      { date: '—', titleIt: 'Data in definizione', titleEn: 'Date to be confirmed', place: 'Bergamo', tagIt: 'Concerto', tagEn: 'Concert' },
-      { date: '—', titleIt: 'Data in definizione', titleEn: 'Date to be confirmed', place: '—', tagIt: 'Teatro', tagEn: 'Theatre' },
-      { date: '—', titleIt: 'Data in definizione', titleEn: 'Date to be confirmed', place: '—', tagIt: 'Lettura', tagEn: 'Reading' },
-    ].map((d) => ({ date: d.date, place: d.place, title: en ? d.titleEn : d.titleIt, tag: en ? d.tagEn : d.tagIt }));
+    const mesiIt = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+    const mesiEn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const fmtD = (str) => { const [y,m,d] = str.split('-').map(Number); return d + ' ' + (en ? mesiEn : mesiIt)[m-1] + ' ' + y; };
+    const today = new Date().toISOString().slice(0, 10);
+    const mgDates = (window.MG_DATE || []).slice().sort((a, b) => a.data < b.data ? -1 : 1);
+    const nextDate = mgDates.find(d => d.data >= today);
+    const nextTitle = nextDate ? nextDate.titolo : (en ? 'Coming soon' : 'Prossimamente');
+    const nextWhere = nextDate ? (nextDate.luogo || '—') : '—';
+    const nextWhen = nextDate ? (fmtD(nextDate.data) + (nextDate.ora ? ' · ' + nextDate.ora : '')) : '';
 
     const videos = [
-      { title: 'Petzl Legend Tour', mIt: 'Colonna sonora', mEn: 'Score' },
-      { title: 'Live · Minstrel', mIt: 'Concerto', mEn: 'Live' },
-      { title: 'Il suono della vita', mIt: 'Corto · 2016', mEn: 'Short · 2016' },
-    ].map((v) => ({ title: v.title, meta: en ? v.mEn : v.mIt }));
+      { title: 'Epic Gaming Music — Orchestral & Vocal Tributes', list: 'PLVGMuNVpBRevU5YQgfOrRBvWTRtaG-PzX', vid: 'iCmLCaempFQ' },
+      { title: 'Dormono sulla Collina – Audiobook & Original OST',  list: 'PLVGMuNVpBResBoixjKTfRfb36BiLZfHJ',  vid: '2Yit5eaOH9I' },
+      { title: 'OST Deepdive — Music, Games & Philosophy',           list: 'PLVGMuNVpBRevGAQA8Wx2Dj_R5tdYL9xgH',  vid: '2W9llRv7Mbk' },
+      { title: 'Original Compositions – Cinematic & Emotional Music', list: 'PLVGMuNVpBRev4ZYfYO2fYLYskfInxmdE',  vid: 'uaHlxSHMz5A' },
+      { title: 'Live Stage Performances – Band Sessions & Concerts',  list: 'PLVGMuNVpBResgNGd85d-r98EaCJe8wTX',  vid: 'OFymi1UmMCU' },
+      { title: 'Vocal Masterpieces – Orchestral & Acoustic Covers',   list: 'PLVGMuNVpBResKAGrHWlq1eJurzKUlqKGA', vid: 'OnnECM24mPM' },
+    ].map((v) => ({
+      title: v.title,
+      href: 'https://www.youtube.com/playlist?list=' + v.list,
+      thumb: 'https://i.ytimg.com/vi/' + v.vid + '/hqdefault.jpg',
+    }));
 
     const bioPars = [
       { tIt: 'Il canto nasce nel 1998, con la vittoria al concorso nazionale Festagiovani e lo studio della vocalità antica: il madrigale di Monteverdi e Caccini, il sacro di Pergolesi e Mozart.', tEn: 'Singing began in 1998, winning the national Festagiovani competition and studying early vocality: the madrigal of Monteverdi and Caccini, the sacred of Pergolesi and Mozart.' },
@@ -464,17 +475,16 @@ class Component extends DCLogic {
 
     return {
       ...t,
-      navItems, repTeatro, repConcerti, dischi, dates, videos, bioPars, contacts,
+      nextTitle, nextWhere, nextWhen,
+      navItems, repTeatro, repConcerti, dischi, videos, bioPars, contacts,
       itOp: en ? 0.45 : 1, enOp: en ? 1 : 0.45,
       menuY: this.state.menuOpen ? '0%' : '100%',
       menuPe: this.state.menuOpen ? 'auto' : 'none',
       dotScale: this.state.menuOpen ? 2.4 : 1,
-      datesMax: this.state.datesOpen ? '1400px' : '0px',
       setIt: () => this.setState({ lang: 'it' }),
       setEn: () => this.setState({ lang: 'en' }),
       toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
       closeMenu: () => this.setState({ menuOpen: false }),
-      toggleDates: () => this.setState((s) => ({ datesOpen: !s.datesOpen })),
     };
   }
 }

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dal vivo — Mauro Ghilardini</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="../date.js"></script>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-font-smoothing:antialiased;}
+  body{font-family:'Archivo',system-ui,sans-serif;background:#1c1b18;color:#d9d6cc;min-height:100vh;}
+  ::selection{background:#6e3d3f;color:#e7e3d8;}
+  a{color:inherit;text-decoration:none;}
+
+  #topbar{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(18px,4vw,56px);background:linear-gradient(180deg,rgba(20,19,17,.92) 0%,transparent 100%);pointer-events:none;}
+  #topbar a,#topbar button{pointer-events:auto;}
+  #backLink{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#d9d6cc;border:1px solid rgba(217,214,204,.35);padding:9px 18px;transition:background .2s,color .2s;}
+  #backLink:hover{background:#d9d6cc;color:#1c1b18;}
+  #langToggle{display:flex;gap:6px;font-size:11px;font-weight:600;letter-spacing:.14em;color:#d9d6cc;}
+  #langToggle button{background:none;border:none;cursor:pointer;color:#d9d6cc;padding:4px 2px;}
+
+  #hero{padding:clamp(120px,18vh,180px) clamp(20px,5vw,72px) clamp(40px,6vh,72px);}
+  #hero h1{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(60px,13vw,200px);line-height:.88;letter-spacing:-.01em;color:#e7e3d8;}
+  #hero p{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(16px,1.4vw,21px);color:#7a7469;margin-top:18px;}
+
+  .section-label{font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:#7a7469;margin-bottom:24px;padding-bottom:10px;border-bottom:1px solid rgba(122,116,105,.3);}
+
+  #upcoming{padding:0 clamp(20px,5vw,72px) clamp(60px,8vh,100px);}
+  #past{padding:clamp(40px,6vh,72px) clamp(20px,5vw,72px) clamp(80px,12vh,140px);border-top:1px solid rgba(122,116,105,.2);}
+
+  .date-row{display:grid;grid-template-columns:clamp(90px,12vw,160px) 1fr auto;gap:clamp(16px,3vw,48px);align-items:center;padding:clamp(16px,2.4vh,28px) 0;border-top:1px solid rgba(122,116,105,.22);position:relative;}
+  .date-col{font-family:'Anton',sans-serif;font-size:clamp(20px,2.6vw,38px);color:#c4bfb1;line-height:1;white-space:nowrap;}
+  .date-col .ora{display:block;font-family:'Archivo',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;color:#7a7469;margin-top:5px;}
+  .info-col .titolo{font-family:'EB Garamond',serif;font-size:clamp(18px,1.8vw,26px);line-height:1.2;color:#e7e3d8;}
+  .info-col .luogo{font-family:'Archivo',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a7469;margin-top:6px;}
+  .info-col .tipo{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#938c7f;border:1px solid rgba(122,116,105,.4);padding:3px 8px;margin-top:10px;}
+  .thumb-col{width:clamp(54px,7vw,90px);flex-shrink:0;}
+  .thumb-col img{width:100%;aspect-ratio:2/3;object-fit:cover;filter:grayscale(.3);display:block;cursor:pointer;transition:filter .2s,transform .2s;}
+  .thumb-col img:hover{filter:grayscale(0);transform:scale(1.04);}
+  .thumb-placeholder{width:clamp(54px,7vw,90px);aspect-ratio:2/3;background:rgba(122,116,105,.08);}
+
+  /* LIGHTBOX */
+  #lb{display:none;position:fixed;inset:0;z-index:999;background:rgba(10,9,8,.92);align-items:center;justify-content:center;cursor:zoom-out;}
+  #lb.open{display:flex;}
+  #lb img{max-width:min(88vw,520px);max-height:90vh;object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.7);cursor:default;}
+  #lbClose{position:absolute;top:22px;right:26px;background:none;border:none;color:#d9d6cc;font-size:28px;cursor:pointer;line-height:1;opacity:.7;}
+  #lbClose:hover{opacity:1;}
+
+  #past .date-row{opacity:.45;}
+  #past .date-col{color:#7a7469;}
+  #past .info-col .titolo{color:#938c7f;}
+
+  .empty{font-family:'EB Garamond',serif;font-style:italic;font-size:19px;color:#454e5b;padding:40px 0;}
+
+  @media(max-width:600px){
+    .date-row{grid-template-columns:80px 1fr;}
+    .thumb-col,.thumb-placeholder{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <a id="backLink" href="../Home.dc.html#dalvivo" onclick="event.preventDefault();location.href='../Home.dc.html?t='+Date.now()+'#dalvivo';">← Dal vivo</a>
+  <div id="langToggle">
+    <button id="btnIt">IT</button>
+    <span style="opacity:.4;">/</span>
+    <button id="btnEn">EN</button>
+  </div>
+</div>
+
+<div id="hero">
+  <h1 id="heroTitle">Dal vivo</h1>
+  <p id="heroSub">Concerti, teatro, letture — in giro per le valli.</p>
+</div>
+
+<section id="upcoming">
+  <div class="section-label" id="labelUpcoming">Prossime date</div>
+  <div id="listUpcoming"></div>
+</section>
+
+<div id="lb" role="dialog" aria-modal="true">
+  <button id="lbClose" aria-label="Chiudi">✕</button>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<section id="past">
+  <div class="section-label" id="labelPast">Date passate</div>
+  <div id="listPast"></div>
+</section>
+
+<script>
+const LOCANDINE = '../images/live/locandine/';
+
+const tipoIt = { sushi:'Sushi Cornucopia', lydian:'Lydian', teatro:'Teatro', acustico:'Acustico', festa:'Evento privato', concerto:'Concerto' };
+const tipoEn = { sushi:'Sushi Cornucopia', lydian:'Lydian', teatro:'Theatre', acustico:'Acoustic', festa:'Private event', concerto:'Concert' };
+
+const mesiIt = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+const mesiEn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+let lang = localStorage.getItem('mg_lang') || 'it';
+
+function fmtDate(str) {
+  const [y, m, d] = str.split('-').map(Number);
+  return d + ' ' + (lang === 'en' ? mesiEn : mesiIt)[m - 1];
+}
+
+function renderRow(d) {
+  const tipoMap = lang === 'en' ? tipoEn : tipoIt;
+  const tag = tipoMap[d.tipo] || d.tipo;
+  const thumb = d.locandina
+    ? '<img src="' + LOCANDINE + d.locandina + '" alt="" onclick="openLb(this.src)">'
+    : '<div class="thumb-placeholder"></div>';
+  return '<div class="date-row">'
+    + '<div class="date-col">' + fmtDate(d.data) + (d.ora ? '<span class="ora">' + d.ora + '</span>' : '') + '</div>'
+    + '<div class="info-col">'
+    +   '<div class="titolo">' + d.titolo + '</div>'
+    +   (d.luogo ? '<div class="luogo">' + d.luogo + '</div>' : '')
+    +   '<div class="tipo">' + tag + '</div>'
+    + '</div>'
+    + '<div class="thumb-col">' + thumb + '</div>'
+    + '</div>';
+}
+
+function render() {
+  const today = new Date().toISOString().slice(0, 10);
+  const all = (window.MG_DATE || []).slice().sort((a, b) => a.data < b.data ? -1 : 1);
+  const future = all.filter(d => d.data >= today);
+  const past = all.filter(d => d.data < today).reverse();
+
+  document.getElementById('heroTitle').textContent = lang === 'en' ? 'Live' : 'Dal vivo';
+  document.getElementById('heroSub').textContent = lang === 'en'
+    ? 'Concerts, theatre, readings — around the valleys.'
+    : 'Concerti, teatro, letture — in giro per le valli.';
+  document.getElementById('labelUpcoming').textContent = lang === 'en' ? 'Upcoming' : 'Prossime date';
+  document.getElementById('labelPast').textContent = lang === 'en' ? 'Past dates' : 'Date passate';
+  document.getElementById('backLink').textContent = lang === 'en' ? '← Live' : '← Dal vivo';
+
+  document.getElementById('btnIt').style.opacity = lang === 'it' ? '1' : '0.4';
+  document.getElementById('btnEn').style.opacity = lang === 'en' ? '1' : '0.4';
+
+  const empty = lang === 'en' ? 'No upcoming dates yet.' : 'Nessuna data in programma al momento.';
+  document.getElementById('listUpcoming').innerHTML = future.length
+    ? future.map(renderRow).join('')
+    : '<div class="empty">' + empty + '</div>';
+
+  document.getElementById('listPast').innerHTML = past.length
+    ? past.map(renderRow).join('')
+    : '';
+}
+
+document.getElementById('btnIt').addEventListener('click', () => { lang = 'it'; localStorage.setItem('mg_lang', lang); render(); });
+document.getElementById('btnEn').addEventListener('click', () => { lang = 'en'; localStorage.setItem('mg_lang', lang); render(); });
+
+const lb = document.getElementById('lb');
+const lbImg = document.getElementById('lbImg');
+function openLb(src) { lbImg.src = src; lb.classList.add('open'); }
+function closeLb() { lb.classList.remove('open'); lbImg.src = ''; }
+document.getElementById('lbClose').addEventListener('click', closeLb);
+lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+
+render();
+</script>
+</body>
+</html>

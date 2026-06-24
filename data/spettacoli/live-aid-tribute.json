@@ -1,14 +1,60 @@
-﻿{
-    "slug":  "live-aid-tribute",
-    "bozza":  true,
-    "titolo":  "Live Aid Tribute",
-    "eyebrow_it":  "Tributo · con i Lydian",
-    "eyebrow_en":  "Tribute · with Lydian",
-    "forma_it":  "Concerto tributo",
-    "forma_en":  "Tribute concert",
-    "durata":  "",
-    "organico_it":  "",
-    "organico_en":  "",
-    "hero_img":  "",
-    "cta_email":  "info@mauroghilardini.it"
+{
+  "slug": "live-aid-tribute",
+  "bozza": false,
+  "titolo": "Lydian - Five Aid",
+  "eyebrow_it": "Lydian · Tributo rock",
+  "eyebrow_en": "Lydian · Rock tribute",
+  "forma_it": "Concerto tributo",
+  "forma_en": "Tribute concert",
+  "durata": "circa 2h (2 × 60′)",
+  "organico_it": "Quintetto rock",
+  "organico_en": "Rock quintet",
+  "hero_img": "images/REPERTORIO/live-aid-tribute/hero.jpg",
+  "hero_position": "center 40%",
+  "sinossi_lead_it": "Lo spirito del Live Aid 1985 torna sul palco.",
+  "sinossi_lead_en": "The spirit of Live Aid 1985 returns to the stage.",
+  "sinossi_it": [
+    "Lydian è una band tributo di medley rock nata dalla passione per la grande musica e dall'idea di riportare sul palco lo spirito unico del Live Aid del 1985. Con un repertorio dedicato agli artisti che hanno segnato quell'evento leggendario, ogni serata fa rivivere la potenza emotiva e il sound inconfondibile di un'epoca irripetibile.",
+    "Il sound di Lydian si distingue per una ricerca musicale accurata e l'attenzione al dettaglio: arrangiamenti originali rispettati fedelmente per riprodurre i suoni iconici di Queen, Genesis, Toto, David Bowie e molti altri — con spazio a un'interpretazione viva e spontanea che rende ogni esibizione unica.",
+    "Il set completo è di circa due ore, suddivisibile in due blocchi da 60 minuti con una breve pausa. Adatto a concerti teatrali, festival, eventi privati e serate a tema."
+  ],
+  "sinossi_en": [
+    "Lydian is a rock medley tribute band born from a passion for great music and the idea of bringing back the unique spirit of Live Aid 1985. With a repertoire dedicated to the artists who defined that legendary event, every show revives the emotional power and unmistakable sound of an unrepeatable era.",
+    "Lydian's sound is defined by careful musical research and attention to detail: original arrangements faithfully reproduced to recreate the iconic sounds of Queen, Genesis, Toto, David Bowie and many more — with room for a live, spontaneous interpretation that makes every performance unique.",
+    "The full set is approximately two hours, divisible into two 60-minute sets with a short break. Suited to theatre concerts, festivals, private events and themed evenings."
+  ],
+  "progetto_lead_it": "Cinque musicisti per una collezione di capolavori senza tempo.",
+  "progetto_lead_en": "Five musicians for a collection of timeless masterpieces.",
+  "progetto_it": "Il repertorio di Lydian copre i brani e gli artisti che hanno reso unico il Live Aid del 1985: Queen (Medley Live Aid), Genesis (Firth of Fifth), Elton John (Don't Let the Sun Go Down on Me), David Bowie (Heroes), Status Quo, The Beatles, Toto, Yes, Led Zeppelin, The Who, Deep Purple, Ozzy Osbourne e altri ancora. Un viaggio musicale senza tempo, adatto a ogni tipo di pubblico.",
+  "progetto_en": "Lydian's repertoire covers the songs and artists that made Live Aid 1985 unique: Queen (Live Aid Medley), Genesis (Firth of Fifth), Elton John (Don't Let the Sun Go Down on Me), David Bowie (Heroes), Status Quo, The Beatles, Toto, Yes, Led Zeppelin, The Who, Deep Purple, Ozzy Osbourne and more. A timeless musical journey suited to every audience.",
+  "locandina": "images/REPERTORIO/live-aid-tribute/locandina.jpg",
+  "locandina_titolo_it": "L'immagine dello spettacolo",
+  "locandina_titolo_en": "The image of the show",
+  "locandina_nota_it": "Lydian · la grafica ufficiale, pronta per la stampa e la comunicazione dell'evento.",
+  "locandina_nota_en": "Lydian · the official artwork, ready for print and event communication.",
+  "foto": [
+    "images/REPERTORIO/live-aid-tribute/IMG-20240826-WA0013.jpg",
+    "images/REPERTORIO/live-aid-tribute/IMG-20240826-WA0023.jpg",
+    "images/REPERTORIO/live-aid-tribute/IMG-20240826-WA0030.jpg"
+  ],
+  "video": ["7vp-9OifOv4", "pvgp8VlpjuM"],
+  "cast": [
+    { "nome": "Mauro Ghilardini", "ruolo_it": "Voce lead", "ruolo_en": "Lead vocals", "strumenti": "Voce · Chitarra acustica" },
+    { "nome": "Giuseppe Garavana", "ruolo_it": "Chitarra", "ruolo_en": "Guitar", "strumenti": "Chitarra elettrica · Cori" },
+    { "nome": "Francesco Maffeis", "ruolo_it": "Tastiere", "ruolo_en": "Keys", "strumenti": "Tastiere · Cori" },
+    { "nome": "Andrea Fagiuoli", "ruolo_it": "Basso", "ruolo_en": "Bass", "strumenti": "Basso" },
+    { "nome": "Filippo Acquaviva", "ruolo_it": "Batteria", "ruolo_en": "Drums", "strumenti": "Batteria" }
+  ],
+  "crew": [],
+  "budget_it": "1.000 € netti",
+  "budget_en": "€1,000 net",
+  "budget_nota_it": "Comprensivi di tutte le spese di trasferta e backline standard. Eventuale tecnico audio personale a disposizione, non compreso nel budget. Scrivimi per disponibilità e preventivo.",
+  "budget_nota_en": "All travel expenses and standard backline included. A personal sound engineer is available on request, not included in the fee. Write to me for availability and a quote.",
+  "proposta_pdf": "images/REPERTORIO/live-aid-tribute/FIVE AID proposta.pdf",
+  "proposta_label_it": "Proposta commerciale",
+  "proposta_label_en": "Commercial proposal",
+  "scheda_tecnica_pdf": "images/REPERTORIO/live-aid-tribute/scheda tecnica.pdf",
+  "scheda_tecnica_nota_it": "Rider tecnico completo disponibile su richiesta.",
+  "scheda_tecnica_nota_en": "Full technical rider available on request.",
+  "cta_email": "info@mauroghilardini.it"
 }

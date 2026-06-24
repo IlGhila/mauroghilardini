@@ -35,8 +35,7 @@
 <body>
 
 <div id="topbar">
-  <a id="homeLink" href="../Home.dc.html" style="display:flex;align-items:center;gap:8px;">← <span id="backLabel">Home</span></a>
-  <span>Repertorio</span>
+  <a id="homeLink" href="../Home.dc.html#repertorio" onclick="event.preventDefault();location.href='../Home.dc.html?t='+Date.now()+'#repertorio';" style="display:flex;align-items:center;gap:8px;background:#1c1b18;color:#fff;padding:6px 14px 6px 10px;letter-spacing:.22em;mix-blend-mode:normal;">← <span id="backLabel">Repertorio</span></a>
   <div class="right">
     <button id="btnIt">IT</button>
     <span style="opacity:.5;">/</span>
@@ -147,7 +146,7 @@
       el('div', { style: 'position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,19,17,.5),rgba(20,19,17,.05) 32%,rgba(20,19,17,.2) 60%,rgba(20,19,17,.92));' }),
       el('div', { style: 'position:absolute;left:0;right:0;bottom:0;padding:0 clamp(16px,4vw,56px) clamp(34px,6vh,64px);display:flex;flex-direction:column;gap:16px;' },
         el('span', { style: 'font-size:11px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:#d9a06a;' }, t('eyebrow')),
-        el('h1', { style: 'font-family:\'Anton\',sans-serif;text-transform:uppercase;font-size:clamp(46px,11vw,180px);line-height:.86;letter-spacing:-.02em;color:#e7e3d8;' }, s.titolo),
+        el('h1', { style: 'font-family:\'Anton\',sans-serif;text-transform:uppercase;font-size:clamp(52px,12.5vw,200px);line-height:.88;letter-spacing:-.02em;color:#e7e3d8;' }, s.titolo),
         el('p', { style: 'font-family:\'EB Garamond\',serif;font-style:italic;font-size:clamp(16px,1.6vw,22px);color:rgba(231,227,216,.7);' },
           lang === 'it' ? 'Scheda in preparazione.' : 'Page coming soon.'
         )
@@ -178,7 +177,7 @@
       el('div', { style: 'position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,19,17,.5),rgba(20,19,17,.05) 32%,rgba(20,19,17,.2) 60%,rgba(20,19,17,.92));' }),
       el('div', { style: 'position:absolute;left:0;right:0;bottom:0;padding:0 clamp(16px,4vw,56px) clamp(34px,6vh,64px);display:flex;flex-direction:column;gap:16px;' },
         el('span', { style: 'font-size:11px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:#d9a06a;' }, t('eyebrow')),
-        el('h1', { style: 'font-family:\'Anton\',sans-serif;text-transform:uppercase;font-size:clamp(46px,11vw,180px);line-height:.86;letter-spacing:-.02em;color:#e7e3d8;' }, s.titolo),
+        el('h1', { style: 'font-family:\'Anton\',sans-serif;text-transform:uppercase;font-size:clamp(52px,12.5vw,200px);line-height:.88;letter-spacing:-.02em;color:#e7e3d8;' }, s.titolo),
         el('div', { style: 'display:flex;gap:clamp(16px,3vw,40px);flex-wrap:wrap;font-family:\'EB Garamond\',serif;font-size:clamp(15px,1.6vw,20px);color:rgba(231,227,216,.86);' },
           ...[t('forma'), s.durata, t('organico')].filter(Boolean).reduce((acc, item, i, arr) => {
             acc.push(el('span', {}, item));
@@ -304,6 +303,13 @@
           el('span', { style: 'font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#d9a06a;' }, '↓ ' + (lang === 'it' ? 'Scarica' : 'Download'))
         );
         matItems.push(locLink);
+      }
+      if (s.proposta_pdf) {
+        const propostaLabel = s['proposta_label_' + lang] || (lang === 'it' ? 'Proposta commerciale' : 'Commercial proposal');
+        matItems.push(el('a', { href: ROOT + s.proposta_pdf, download: '', style: 'display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border:1px solid rgba(231,227,216,.28);' },
+          el('span', { style: 'font-family:\'EB Garamond\',serif;font-size:clamp(17px,1.5vw,21px);' }, propostaLabel),
+          el('span', { style: 'font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#d9a06a;' }, '↓ ' + (lang === 'it' ? 'Scarica' : 'Download'))
+        ));
       }
       if (s.scheda_tecnica_pdf) {
         matItems.push(el('a', { href: ROOT + s.scheda_tecnica_pdf, download: '', style: 'display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border:1px solid rgba(231,227,216,.28);' },

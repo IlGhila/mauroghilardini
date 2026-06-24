@@ -1,14 +1,53 @@
-﻿{
-    "slug":  "sushi-cornucopia",
-    "bozza":  true,
-    "titolo":  "Sushi Cornucopia",
-    "eyebrow_it":  "Band · su richiesta",
-    "eyebrow_en":  "Band · on request",
-    "forma_it":  "Concerto",
-    "forma_en":  "Concert",
-    "durata":  "",
-    "organico_it":  "",
-    "organico_en":  "",
-    "hero_img":  "",
-    "cta_email":  "info@mauroghilardini.it"
+{
+  "slug": "sushi-cornucopia",
+  "bozza": false,
+  "titolo": "Sushi Cornucopia",
+  "eyebrow_it": "Band · repertorio internazionale · su richiesta",
+  "eyebrow_en": "Band · international repertoire · on request",
+  "forma_it": "Concerto",
+  "forma_en": "Concert",
+  "durata": "",
+  "organico_it": "Da duo acustico a settetto",
+  "organico_en": "From acoustic duo to septet",
+  "hero_img": "images/REPERTORIO/sushi-cornucopia/hero.png",
+  "hero_position": "center 40%",
+  "sinossi_lead_it": "Cover acustiche di brani conosciutissimi, rese — se possibile — assolutamente irriconoscibili.",
+  "sinossi_lead_en": "Acoustic covers of very famous songs, rendered — where possible — completely unrecognisable.",
+  "sinossi_it": [
+    "Il sodalizio «Ghila & Giorgio» nasce nel 2000 da Giorgio Sala e Mauro Ghilardini: due voci, due chitarre acustiche, una scaletta di brani noti al grande pubblico e la ferma intenzione di storpiarli con cognizione di causa. Con il tempo si unisce il bassista Alberto Bigoni, che accetta subito le prerogative artistiche del gruppo — inclusa la più celebre: la totale assenza di prove.",
+    "Pink Floyd, U2, Bob Marley, De André, Battiato: melodie conosciute (e spesso banali) trasformate in qualcosa di loro, reinterpretate, prese per i fondelli o trattate con rispetto fermandosi un attimo prima di rovinarle del tutto. Il tutto cantato spesso in Grammelot. Come dice Alberto Bigoni: «siamo dei veri cioccolatai». Ma lo sanno. È già qualcosa.",
+    "Nel 2017 Mauro e Giorgio suonano in acustico in cima al Pizzo Redorta (3.038 m), guadagnandosi il nuovo slogan «Sonorità in ascesa libera» — che si aggiunge all'esistente «Sonorità in caduta libera». Nel 2019 arriva «Sushi Plays Wall», omaggio a The Wall dei Pink Floyd. Nel 2023 «The Dark Side of The Sushi», per i cinquant'anni di The Dark Side of the Moon."
+  ],
+  "sinossi_en": [
+    "The «Ghila & Giorgio» partnership was born in 2000 between Giorgio Sala and Mauro Ghilardini: two voices, two acoustic guitars, a setlist of well-known songs and a firm intention to mangle them knowingly. In time, bassist Alberto Bigoni joined, immediately embracing the group's artistic principles — including the most celebrated: a total absence of rehearsals.",
+    "Pink Floyd, U2, Bob Marley, De André, Battiato: familiar (and often unremarkable) melodies transformed into something their own, reinterpreted, affectionately lampooned or treated with respect, stopping just short of ruining them entirely. Often sung in Grammelot. As Alberto Bigoni puts it: «we are true chocolatiers». But they know it. That's already something.",
+    "In 2017 Mauro and Giorgio performed acoustically on the summit of Pizzo Redorta (3,038 m), earning the new tagline «Sonorità in ascesa libera» — added to the existing «Sonorità in caduta libera». In 2019 came «Sushi Plays Wall», a tribute to Pink Floyd's The Wall. In 2023, «The Dark Side of The Sushi», marking fifty years of The Dark Side of the Moon."
+  ],
+  "progetto_lead_it": "Sonorità in caduta libera — e, dal 2017, anche in ascesa.",
+  "progetto_lead_en": "Sonorità in caduta libera — and, since 2017, in ascesa too.",
+  "progetto_it": "I Sushi Cornucopia sono una formazione capace di inserirsi nei contesti più distanti — dal vernissage alla festa popolare con migliaia di persone — mantenendo inalterato quel folle coraggio che serve quando ci si avvicina a brani di mostri sacri. La dimensione ludica della musica è sempre al centro: il pubblico riceve qualcosa che conosce ma non riconosce, e di solito apprezza. Nel tempo la band ha assunto nomi diversi a seconda del luogo e dell'occasione — «I tre maghi», «Il tre di picche», «Trì fa buna fì» — ma nessuno in sala l'ha mai saputo.",
+  "progetto_en": "Sushi Cornucopia is a group that can slot into the most contrasting contexts — from a vernissage to a popular festival with thousands of people — without ever losing the reckless courage required when approaching the work of legendary artists. The playful dimension of music is always central: the audience receives something they know but cannot recognise, and usually appreciates it. Over time the band has operated under various names depending on the venue and occasion — «I tre maghi», «Il tre di picche», «Trì fa buna fì» — but nobody in the room ever knew.",
+  "foto": [
+    "images/REPERTORIO/sushi-cornucopia/thewall-176.jpg",
+    "images/REPERTORIO/sushi-cornucopia/thewall-196.jpg",
+    "images/REPERTORIO/sushi-cornucopia/thewall-211.jpg"
+  ],
+  "video": ["GN9RfBArYdQ", "2bquElaZZjs"],
+  "cast": [
+    { "nome": "Mauro Ghilardini", "ruolo_it": "Voce e chitarra", "ruolo_en": "Vocals & guitar", "strumenti": "" },
+    { "nome": "Giorgio Sala", "ruolo_it": "Voce e chitarra", "ruolo_en": "Vocals & guitar", "strumenti": "" },
+    { "nome": "Alberto Bigoni", "ruolo_it": "Bassi e contrabbassi", "ruolo_en": "Bass & double bass", "strumenti": "" },
+    { "nome": "Alberto Gritti", "ruolo_it": "Batteria", "ruolo_en": "Drums", "strumenti": "" },
+    { "nome": "Luca Balduzzi", "ruolo_it": "Tastiere e voce", "ruolo_en": "Keys & vocals", "strumenti": "" },
+    { "nome": "Francesco Maffeis", "ruolo_it": "Tastiere e voce", "ruolo_en": "Keys & vocals", "strumenti": "" },
+    { "nome": "Jurij Roncan", "ruolo_it": "Percussioni", "ruolo_en": "Percussion", "strumenti": "" }
+  ],
+  "crew": [],
+  "budget_it": "Su richiesta",
+  "budget_en": "On request",
+  "budget_nota_it": "Budget e scheda tecnica gestiti da Alberto Bigoni per l'Associazione La Cornucopia. Scrivimi per disponibilità.",
+  "budget_nota_en": "Budget and technical rider handled by Alberto Bigoni for Associazione La Cornucopia. Write to me for availability.",
+  "scheda_tecnica_nota_it": "Scheda tecnica gestita da Alberto Bigoni — Associazione La Cornucopia.",
+  "scheda_tecnica_nota_en": "Technical rider handled by Alberto Bigoni — Associazione La Cornucopia.",
+  "cta_email": "info@mauroghilardini.it"
 }
