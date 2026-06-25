@@ -184,7 +184,7 @@ class Component extends DCLogic {
     const id = wrap.getAttribute('data-vid');
     wrap.innerHTML = '';
     const f = document.createElement('iframe');
-    f.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
+    f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
     f.title = 'Video';
     f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
     f.allowFullscreen = true;
