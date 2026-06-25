@@ -104,6 +104,7 @@
         </div>
       </sc-for>
     </div>
+    <p style="margin-top:18px; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#7a7469;">Video incorporati su youtube-nocookie.com · attivati al click · nessun cookie prima dell'interazione</p>
   </section>
 
   <!-- CREDITS -->
@@ -179,6 +180,7 @@ class Component extends DCLogic {
     if (this._raf) cancelAnimationFrame(this._raf);
     if (this._lenis) this._lenis.destroy();
   }
+  // Iframe creato solo al click (lazy) su youtube-nocookie.com → nessun cookie prima dell'interazione, nessun consenso richiesto.
   playVideo(e) {
     const wrap = e.currentTarget;
     const id = wrap.getAttribute('data-vid');

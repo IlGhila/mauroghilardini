@@ -117,6 +117,7 @@
     setTimeout(() => els.forEach(e => e.classList.add('visible')), 2500);
   }
 
+  // Iframe creato solo al click (lazy) su youtube-nocookie.com → nessun cookie prima dell'interazione, nessun consenso richiesto.
   function playVideo(e) {
     const wrap = e.currentTarget;
     const id = wrap.dataset.vid;
@@ -258,7 +259,7 @@
     if (s.video && s.video.length) {
       const videoEls = s.video.map(id => {
         const wrap = el('div', { style: 'cursor:pointer;position:relative;aspect-ratio:16/9;overflow:hidden;background:#000;' },
-          el('img', { src: 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg', alt: '', style: 'width:100%;height:100%;object-fit:cover;opacity:.62;' }),
+          el('img', { src: ROOT + 'images/thumb-' + id + '.jpg', alt: '', style: 'width:100%;height:100%;object-fit:cover;opacity:.62;' }),
           el('span', { style: 'position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;' },
             el('span', { style: 'width:66px;height:66px;border-radius:50%;border:1px solid rgba(231,227,216,.8);background:rgba(20,19,17,.35);display:grid;place-items:center;color:#e7e3d8;font-size:18px;' }, '▶')
           )
@@ -269,7 +270,8 @@
       });
       const vid = el('section', { style: 'background:#1c1b18;padding:0 clamp(16px,4vw,56px) clamp(50px,8vh,110px);' },
         el('span', { style: 'display:block;font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:#7a7469;margin-bottom:24px;' }, 'Video'),
-        el('div', { style: 'display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;' }, ...videoEls)
+        el('div', { style: 'display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;' }, ...videoEls),
+        el('p', { style: 'margin-top:18px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#7a7469;' }, 'Video incorporati su youtube-nocookie.com · attivati al click · nessun cookie prima dell\'interazione')
       );
       sections.push(vid);
     }
