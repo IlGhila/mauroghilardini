@@ -249,12 +249,13 @@
         {{ d.coverEl }}
         <h3 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(40px,7vw,90px); line-height:.9; letter-spacing:-.01em;">{{ d.title }}</h3>
         <p style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(15px,1.4vw,19px); line-height:1.5; color:rgba(231,227,216,.85); max-width:38ch; text-align:center;">{{ d.desc }}</p>
+        <a href="{{ d.progUrl }}" target="_blank" rel="noopener" style="font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(231,227,216,.55); border-bottom:1px solid rgba(231,227,216,.3); padding-bottom:3px;">Progarchives →</a>
       </div>
     </section>
   </sc-for>
 
   <!-- ===== 5b · SINGOLI ===== -->
-  <section id="singoli" data-screen-label="Singoli" style="position:relative; z-index:32; background:#1c1b18; color:#e7e3d8; padding:clamp(70px,10vh,120px) clamp(20px,5vw,72px);">
+  <section id="singoli" data-screen-label="Singoli" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:32; background:#1c1b18; color:#e7e3d8; padding:clamp(40px,6vh,80px) clamp(20px,5vw,72px);">
     <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease;">
       <div style="border-bottom:1px solid rgba(231,227,216,.25); padding-bottom:24px; margin-bottom:clamp(40px,6vh,70px);">
         <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(231,227,216,.5); margin-bottom:10px;">{{ singLabel }}</span>
@@ -310,8 +311,9 @@
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(24px,4vw,56px); margin-top:clamp(34px,5vh,56px);">
         <p style="font-family:'EB Garamond',serif; font-size:clamp(18px,1.7vw,23px); line-height:1.55; color:rgba(231,227,216,.9);">{{ teachBody }}</p>
         <div>
-          <div style="font-family:'EB Garamond',serif; font-size:clamp(20px,1.9vw,26px); padding:14px 0; border-top:1px solid rgba(231,227,216,.2);">CDpM Bergamo<span style="display:block; font-family:'Archivo'; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(231,227,216,.6); margin-top:5px;">{{ teachT1 }}</span></div>
-          <div style="font-family:'EB Garamond',serif; font-size:clamp(20px,1.9vw,26px); padding:14px 0; border-top:1px solid rgba(231,227,216,.2);">Reparto Elettroacustica<span style="display:block; font-family:'Archivo'; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(231,227,216,.6); margin-top:5px;">{{ teachT2 }}</span></div>
+          <div style="padding:14px 0; border-top:1px solid rgba(231,227,216,.2);"><a href="https://www.cdpm.it/didattica/docenti/mauro-ghilardini/" target="_blank" rel="noopener" style="font-family:'EB Garamond',serif; font-size:clamp(20px,1.9vw,26px); display:inline-flex; align-items:baseline; gap:10px; color:#e7e3d8;">CDpM Bergamo <span style="font-size:.7em; opacity:.6;">→</span></a><span style="display:block; font-family:'Archivo'; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(231,227,216,.6); margin-top:5px;">{{ teachT1 }}</span></div>
+          <div style="padding:14px 0; border-top:1px solid rgba(231,227,216,.2);"><a href="https://repartoelettroacustica.weebly.com/" target="_blank" rel="noopener" style="font-family:'EB Garamond',serif; font-size:clamp(20px,1.9vw,26px); display:inline-flex; align-items:baseline; gap:10px; color:#e7e3d8;">Reparto Elettroacustica <span style="font-size:.7em; opacity:.6;">→</span></a><span style="display:block; font-family:'Archivo'; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(231,227,216,.6); margin-top:5px;">{{ teachT2 }}</span></div>
+          <div style="padding:14px 0; border-top:1px solid rgba(231,227,216,.2);"><a href="#contatti" style="font-family:'EB Garamond',serif; font-size:clamp(20px,1.9vw,26px); display:inline-flex; align-items:baseline; gap:10px; color:#e7e3d8;">Masterclass <span style="font-size:.7em; opacity:.6;">→</span></a><span style="display:block; font-family:'Archivo'; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(231,227,216,.6); margin-top:5px;">{{ teachT3 }}</span></div>
         </div>
       </div>
     </div>
@@ -340,23 +342,23 @@
     </div>
   </section>
 
-  <!-- ===== 9 · BIO (half/half sticky) ===== -->
-  <section id="bio" data-screen-label="Bio" style="position:relative; z-index:44; background:#d9d6cc;">
-    <div style="display:grid; grid-template-columns:1fr 1fr;">
-      <div style="padding:clamp(80px,12vh,160px) clamp(24px,4vw,64px); display:flex; flex-direction:column; gap:24px;">
-        <span style="font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:#938c7f;">{{ bioLabel }}</span>
-        <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(40px,5vw,80px); line-height:.9; letter-spacing:-.01em;">{{ bioTitle }}</h2>
-        <sc-for list="{{ bioPars }}" as="p" hint-placeholder-count="4">
-          <p style="font-family:'EB Garamond',serif; font-size:clamp(18px,1.45vw,22px); line-height:1.62; color:#5b5649;">{{ p.t }}</p>
-        </sc-for>
-      </div>
-      <div style="position:relative;">
-        <div style="position:sticky; top:0; height:100vh; overflow:hidden;">
-          <img src="images/mauro-03.png" alt="Mauro Ghilardini" style="width:100%; height:100%; object-fit:cover; object-position:center; filter:grayscale(1) contrast(1.04);">
-        </div>
-      </div>
+  <!-- ===== 9 · BIO (scroll-animated) ===== -->
+  <div id="bioScroll" style="position:relative; height:400vh; z-index:44;">
+  <section id="bio" data-screen-label="Bio" style="position:sticky; top:0; height:100vh; overflow:hidden; background:#d9d6cc;">
+    <!-- Immagine: parte full-width, si stringe a destra -->
+    <div id="bioImg" style="position:absolute; top:0; left:0; right:0; bottom:0; opacity:0;">
+      <img src="images/mauro-03.png" alt="Mauro Ghilardini" style="width:100%; height:100%; object-fit:cover; object-position:center; filter:grayscale(1) contrast(1.04);">
+    </div>
+    <!-- Testo: entra da sinistra -->
+    <div id="bioText" style="position:absolute; top:0; left:0; bottom:0; width:50%; background:#d9d6cc; padding:clamp(60px,8vh,120px) clamp(24px,4vw,64px); display:flex; flex-direction:column; justify-content:center; gap:24px; transform:translateX(-100%); opacity:0; overflow-y:auto;">
+      <span style="font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:#938c7f;">{{ bioLabel }}</span>
+      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(32px,3.5vw,64px); line-height:.9; letter-spacing:-.01em;">{{ bioTitle }}</h2>
+      <sc-for list="{{ bioPars }}" as="p" hint-placeholder-count="4">
+        <p style="font-family:'EB Garamond',serif; font-size:clamp(16px,1.3vw,20px); line-height:1.62; color:#5b5649;">{{ p.t }}</p>
+      </sc-for>
     </div>
   </section>
+  </div>
 
   <!-- ===== 10 · FIRMA ===== -->
   <section data-screen-label="Firma" style="position:sticky; top:0; min-height:100vh; z-index:45; background:#1c1b18; color:#e7e3d8; display:grid; grid-template-columns:1.3fr .7fr; align-items:center;">
@@ -365,7 +367,7 @@
       <span style="display:block; font-family:'EB Garamond',serif; font-style:italic; font-size:18px; color:#938c7f; margin-top:28px;">— Mauro Ghilardini</span>
     </div>
     <div style="position:relative; height:100%; overflow:hidden;">
-      <img src="images/mauro-04.png" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center; filter:grayscale(1) contrast(1.05);">
+      <img src="images/mauro-04.jpeg" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center; filter:grayscale(1) contrast(1.05);">
     </div>
   </section>
 
@@ -508,6 +510,34 @@ class Component extends DCLogic {
     window.addEventListener('scroll', this._heroAnim, { passive: true });
     this._heroAnim();
 
+    // Bio scroll animation
+    this._bioAnim = () => {
+      const container = document.getElementById('bioScroll');
+      const imgEl = document.getElementById('bioImg');
+      const textEl = document.getElementById('bioText');
+      if (!container || !imgEl || !textEl) return;
+
+      const rect = container.getBoundingClientRect();
+      const totalScroll = container.offsetHeight - window.innerHeight;
+      const scrolled = -rect.top;
+      const p = Math.max(0, Math.min(1, scrolled / totalScroll));
+
+      const vh = window.innerHeight;
+      // Pre-pin: 0→70% mentre la sezione entra (rect.top: 0.9vh→0)
+      const prePinFade = Math.max(0, Math.min(0.7, (vh * 0.9 - rect.top) / (vh * (0.9 / 0.7))));
+      // Post-pin: 70→100% molto lentamente (p 0→0.45)
+      const postPinFade = 0.3 * Math.min(1, p / 0.45);
+      imgEl.style.opacity = prePinFade + postPinFade;
+
+      // Testo entra da sinistra (p 0.45→0.90)
+      const t = Math.max(0, Math.min(1, (p - 0.45) / 0.45));
+      imgEl.style.left = (t * 50) + '%';
+      textEl.style.opacity = t;
+      textEl.style.transform = `translateX(${(1 - t) * -100}%)`;
+    };
+    window.addEventListener('scroll', this._bioAnim, { passive: true });
+    this._bioAnim();
+
     this._onScroll = () => {};
   }
   componentWillUnmount() {
@@ -518,6 +548,7 @@ class Component extends DCLogic {
     if (this._t) clearTimeout(this._t);
     window.removeEventListener('scroll', this._onScroll);
     window.removeEventListener('scroll', this._heroAnim);
+    window.removeEventListener('scroll', this._bioAnim);
   }
 
   T() {
@@ -539,10 +570,10 @@ class Component extends DCLogic {
       bookPlaceholder: '«Dormono sulla Collina» — copertina (placeholder)',
       teachLabel: 'Insegnamento', teachTitle: 'Trasmettere la voce',
       teachBody: 'Insegna canto moderno e lirico, produzione musicale e musica d\u2019insieme. Con l\u2019ingegnere del suono Diego Bergamini ha fondato uno studio di registrazione ad Ardesio.',
-      teachT1: 'Canto · Produzione · Musica d\u2019insieme', teachT2: 'Studio di registrazione · Ardesio',
+      teachT1: 'Canto · Produzione · Musica d\u2019insieme', teachT2: 'Studio di registrazione · Ardesio', teachT3: 'Voce · Tecnica · Interpretazione', teachContact: 'Scrivimi',
       videoTitle: 'In rete', videoCta: 'Vai al canale',
       bioLabel: 'Chi è', bioTitle: 'Il percorso',
-      signQuote: 'Canto perché la parola, da sola, a un certo punto non basta più.',
+      signQuote: 'Raro concedit, numquam negat, semper distinguit.',
       contactTitle: 'Contatti', footNote: 'Cantante · Compositore · Autore',
       contactFormLabel: 'Booking & Management', contactFieldName: 'Nome', contactFieldEmail: 'Email', contactFieldMsg: 'Messaggio', contactSend: 'Invia',
       coverSoon: 'Copertina',
@@ -571,7 +602,7 @@ class Component extends DCLogic {
       teachT1: 'Voice · Production · Ensemble', teachT2: 'Recording studio · Ardesio',
       videoTitle: 'Online', videoCta: 'Go to channel',
       bioLabel: 'About', bioTitle: 'The path',
-      signQuote: 'I sing because the word, alone, at some point is no longer enough.',
+      signQuote: 'Raro concedit, numquam negat, semper distinguit.',
       contactTitle: 'Contact', footNote: 'Singer · Composer · Author',
       contactFormLabel: 'Booking & Management', contactFieldName: 'Name', contactFieldEmail: 'Email', contactFieldMsg: 'Message', contactSend: 'Send',
       coverSoon: 'Cover',
@@ -613,7 +644,9 @@ class Component extends DCLogic {
         dIt: 'Concept album dal Faust di Goethe: la voce incontra le strutture elaborate del prog.', dEn: 'A concept album from Goethe\u2019s Faust: the voice meets the elaborate structures of prog.' },
       { title: 'Ahab', year: '2009', roleIt: 'Minstrel · BTF', roleEn: 'Minstrel · BTF', color: '#6e3d3f', z: 31, cover: 'images/cover-b.jpg',
         dIt: 'Da Moby Dick: l\u2019ossessione del capitano diventa architettura sonora. Il lavoro più maturo.', dEn: 'From Moby Dick: the captain\u2019s obsession becomes sonic architecture. The most mature work.' },
-    ].map((d) => ({ title: d.title, year: d.year, color: d.color, z: d.z,
+    ];
+    const progUrls = ['https://www.progarchives.com/album.asp?id=6796','https://www.progarchives.com/album.asp?id=25892'];
+    const dischiMapped = dischi.map((d, i) => ({ title: d.title, year: d.year, color: d.color, z: d.z, progUrl: progUrls[i],
       role: en ? d.roleEn : d.roleIt, desc: en ? d.dEn : d.dIt,
       coverEl: d.cover
         ? React.createElement('img', { src: d.cover, alt: d.title, style: { width: 'min(58vw,300px)', aspectRatio: '1', objectFit: 'cover', boxShadow: '0 18px 50px rgba(0,0,0,.4)' } })
@@ -666,7 +699,7 @@ class Component extends DCLogic {
     return {
       ...t,
       nextTitle, nextWhere, nextWhen,
-      navItems, repTeatro, repConcerti, dischi, singoli, videos, bioPars, contacts,
+      navItems, repTeatro, repConcerti, dischi: dischiMapped, singoli, videos, bioPars, contacts,
       itOp: en ? 0.45 : 1, enOp: en ? 1 : 0.45,
       menuY: this.state.menuOpen ? '0%' : '100%',
       menuPe: this.state.menuOpen ? 'auto' : 'none',
@@ -684,3 +717,4 @@ class Component extends DCLogic {
 </script>
 </body>
 </html>
+
