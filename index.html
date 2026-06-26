@@ -117,11 +117,12 @@
       font-size: clamp(28px,8vw,48px) !important;
     }
 
-    /* ── HERO NOME: scala font su schermi stretti ── */
+    /* ── HERO NOME: più grande e su due righe su mobile ── */
     h1, h2, h3 { white-space: normal !important; }
     #top h1 {
-      white-space: nowrap !important;
-      font-size: clamp(28px,9.5vw,250px) !important;
+      white-space: normal !important;
+      font-size: clamp(56px,16vw,120px) !important;
+      line-height: .9 !important;
     }
 
     /* ── MENU: riduci font su schermi bassi ── */
@@ -137,6 +138,16 @@
 
     /* ── SINGOLI — 2 colonne su mobile ── */
     #singoli .sing-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+    /* ── DISCHI: rimuovi sticky così Ahab non riappare in fondo al percorso ── */
+    section[data-screen-label="Disco"] {
+      position: relative !important;
+      height: auto !important;
+      min-height: 100vh !important;
+    }
+
+    /* ── DAL VIVO: immagine centrata su mobile ── */
+    #dalvivo > img { object-position: center bottom !important; }
   }
 
   /* Musica — contenitore disco + etichetta */
@@ -551,6 +562,9 @@ class Component extends DCLogic {
       if (window.innerWidth <= 900) {
         const nameEl = document.getElementById('heroName');
         if (nameEl) { nameEl.style.opacity = '1'; nameEl.style.transform = 'translateY(0)'; }
+        // Lo scroll hint scompare appena si inizia a scorrere
+        const hintEl = document.getElementById('heroScrollHint');
+        if (hintEl) hintEl.style.opacity = window.scrollY > 24 ? '0' : '1';
         return;
       }
       const p = Math.min(1, window.scrollY / (0.9 * window.innerHeight));
