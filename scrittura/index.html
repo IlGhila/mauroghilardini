@@ -120,6 +120,16 @@
   <div class="academia-list" id="academiaList"></div>
 </section>
 
+<!-- CINEMA -->
+<section class="pad" style="background:#232118;">
+  <div data-reveal>
+    <span class="eyebrow" style="color:#938c7f;" id="cinemaEyebrow">Critica cinematografica</span>
+    <h2 class="section-title" style="color:#e7e3d8;" id="cinemaTitle">Cinema</h2>
+    <p style="font-family:'EB Garamond',serif;font-size:clamp(17px,1.5vw,21px);line-height:1.6;color:rgba(231,227,216,.7);max-width:52ch;margin-top:22px;" id="cinemaBody">Critico per il Chiaroscuro Film Festival. Le mie recensioni arriveranno a breve.</p>
+    <a id="cinemaCta" href="https://chiaroscuro-film-fest.vercel.app/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;margin-top:26px;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#d9a06a;border-bottom:1px solid rgba(217,160,106,.4);padding-bottom:3px;">Chiaroscuro Film Festival →</a>
+  </div>
+</section>
+
 <!-- FOOTER BACK -->
 <div style="padding:clamp(40px,6vh,80px) clamp(20px,5vw,72px);background:#13110f;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;">
   <span style="font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(15px,1.4vw,19px);color:rgba(231,227,216,.5);" id="footerQuote">Raro concedit, numquam negat, semper distinguit.</span>
@@ -143,6 +153,9 @@
       academiaEyebrow: 'Academia.edu',
       academiaTitle: 'Saggi',
       academiaBody: 'Contributi redatti durante lo studio con Fulvio Di Blasi al Thomas International Center. Filosofia antica, metafisica e tomismo.',
+      cinemaEyebrow: 'Critica cinematografica',
+      cinemaTitle: 'Cinema',
+      cinemaBody: 'Critico per il Chiaroscuro Film Festival. Le mie recensioni arriveranno a breve.',
       footerBack: '← Torna alla home',
       backLabel: 'Scrittura',
       readIt: 'Leggi',
@@ -160,6 +173,9 @@
       academiaEyebrow: 'Academia.edu',
       academiaTitle: 'Essays',
       academiaBody: 'Papers written during studies with Fulvio Di Blasi at the Thomas International Center. Ancient philosophy, metaphysics, and Thomism.',
+      cinemaEyebrow: 'Film criticism',
+      cinemaTitle: 'Cinema',
+      cinemaBody: 'Critic for the Chiaroscuro Film Festival. My reviews are coming soon.',
       footerBack: '← Back to home',
       backLabel: 'Writing',
       readIt: 'Read',
@@ -273,7 +289,7 @@
 
     ['heroEyebrow','heroTitle','heroBody','booksEyebrow','booksTitle',
      'blogsEyebrow','blogsTitle','blogsBody','academiaEyebrow','academiaTitle',
-     'academiaBody','footerBack'].forEach(id => {
+     'academiaBody','cinemaEyebrow','cinemaTitle','cinemaBody','footerBack'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.textContent = s[id];
     });
