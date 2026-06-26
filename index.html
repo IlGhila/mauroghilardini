@@ -117,6 +117,9 @@
       font-size: clamp(28px,8vw,48px) !important;
     }
 
+    /* ── REPERTORIO: foto solo desktop ── */
+    .rep-photo-wrap { display: none !important; }
+
     /* ── HERO: solo immagine + nome su due righe, poi parte il sito ── */
     #heroWrap { height: 100vh !important; }
     h1, h2, h3 { white-space: normal !important; }
@@ -302,6 +305,10 @@
     </div>
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(30px,5vw,70px);">
       <div>
+        <!-- foto Teatro — solo desktop -->
+        <div class="rep-photo-wrap" style="margin-bottom:20px;">
+          <img id="repPhotoTeatro" src="images/teatro.webp" alt="Teatro" class="rep-photo" style="width:100%; height:clamp(220px,28vh,320px); object-fit:cover; object-position:center; display:block; filter:grayscale(1) contrast(1.04) brightness(1.1); will-change:filter;">
+        </div>
         <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9; margin-bottom:10px;">{{ repG1 }}</span>
         <sc-for list="{{ repTeatro }}" as="r" hint-placeholder-count="5">
           <div data-reveal style="opacity:0; transform:translateY(16px); transition:opacity .7s ease,transform .7s ease; padding:15px 0; border-top:1px solid rgba(231,227,216,.16);">
@@ -311,6 +318,10 @@
         </sc-for>
       </div>
       <div>
+        <!-- foto Concerti — solo desktop -->
+        <div class="rep-photo-wrap" style="margin-bottom:20px;">
+          <img id="repPhotoCon" src="images/live.webp" alt="Concerti" class="rep-photo" style="width:100%; height:clamp(220px,28vh,320px); object-fit:cover; object-position:center; display:block; filter:grayscale(1) contrast(1.04) brightness(1.1); will-change:filter;">
+        </div>
         <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9; margin-bottom:10px;">{{ repG2 }}</span>
         <sc-for list="{{ repConcerti }}" as="r" hint-placeholder-count="5">
           <div data-reveal style="opacity:0; transform:translateY(16px); transition:opacity .7s ease,transform .7s ease; padding:15px 0; border-top:1px solid rgba(231,227,216,.16);">
@@ -642,6 +653,25 @@ class Component extends DCLogic {
     window.addEventListener('scroll', this._heroAnim, { passive: true });
     this._heroAnim();
 
+    // Repertorio: scroll-driven brightness sulle foto (solo desktop)
+    this._repAnim = () => {
+      if (window.innerWidth <= 900) return;
+      const sec = document.getElementById('repertorio');
+      if (!sec) return;
+      const rect = sec.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // progress 0 = sezione entra dall'alto, 1 = sezione ha scrollato via verso l'alto
+      const progress = Math.min(1, Math.max(0, 1 - (rect.top / vh)));
+      const br = 1.1 - progress * 0.65; // da 1.1 a 0.45
+      const f = 'grayscale(1) contrast(1.04) brightness(' + br.toFixed(3) + ')';
+      const t = document.getElementById('repPhotoTeatro');
+      const c = document.getElementById('repPhotoCon');
+      if (t) t.style.filter = f;
+      if (c) c.style.filter = f;
+    };
+    window.addEventListener('scroll', this._repAnim, { passive: true });
+    this._repAnim();
+
     // Bio scroll animation
     this._bioAnim = () => {
       if (window.innerWidth <= 900) return;
@@ -681,6 +711,7 @@ class Component extends DCLogic {
     if (this._t) clearTimeout(this._t);
     window.removeEventListener('scroll', this._onScroll);
     window.removeEventListener('scroll', this._heroAnim);
+    window.removeEventListener('scroll', this._repAnim);
     window.removeEventListener('scroll', this._bioAnim);
   }
 
