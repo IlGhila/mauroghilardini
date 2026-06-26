@@ -117,13 +117,16 @@
       font-size: clamp(28px,8vw,48px) !important;
     }
 
-    /* ── HERO NOME: più grande e su due righe su mobile ── */
+    /* ── HERO: solo immagine + nome su due righe, poi parte il sito ── */
+    #heroWrap { height: 100vh !important; }
     h1, h2, h3 { white-space: normal !important; }
     #top h1 {
       white-space: normal !important;
       font-size: clamp(56px,16vw,120px) !important;
       line-height: .9 !important;
     }
+    /* Nome alzato per non sovrapporsi allo scroll hint */
+    #heroName { bottom: 13vh !important; }
 
     /* ── MENU: riduci font su schermi bassi ── */
     nav a { display: flex !important; font-size: clamp(24px,5vh,56px) !important; }
@@ -247,7 +250,7 @@
   </div>
 
   <!-- ===== 1 · HERO ===== -->
-  <div style="position:relative; height:160vh; z-index:1;">
+  <div id="heroWrap" style="position:relative; height:160vh; z-index:1;">
   <section id="top" data-screen-label="Hero" style="position:sticky; top:0; height:100vh; background:transparent;">
 
     <!-- Nome: invisibile, entra allo scroll, incollato al bordo inferiore -->
@@ -565,6 +568,11 @@ class Component extends DCLogic {
         // Lo scroll hint scompare appena si inizia a scorrere
         const hintEl = document.getElementById('heroScrollHint');
         if (hintEl) hintEl.style.opacity = window.scrollY > 24 ? '0' : '1';
+        // Controlli nav (musica, lingua, menu) sempre attivi e cliccabili su mobile
+        document.querySelectorAll('.nav-ctrl').forEach(el => {
+          el.classList.remove('is-hidden');
+          el.classList.add('is-active');
+        });
         return;
       }
       const p = Math.min(1, window.scrollY / (0.9 * window.innerHeight));
