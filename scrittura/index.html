@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scrittura — Mauro Ghilardini</title>
+<meta name="description" content="Libri, articoli e saggi di Mauro Ghilardini: traduzioni, illustrazioni AI, filosofia tomista e critica delle colonne sonore.">
+<link rel="canonical" href="https://mauroghilardini.netlify.app/scrittura/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mauro Ghilardini">
+<meta property="og:locale" content="it_IT">
+<meta property="og:title" content="Scrittura — Mauro Ghilardini">
+<meta property="og:description" content="Libri, articoli e saggi di Mauro Ghilardini: traduzioni, illustrazioni AI, filosofia tomista e critica delle colonne sonore.">
+<meta property="og:url" content="https://mauroghilardini.netlify.app/scrittura/">
+<meta property="og:image" content="https://mauroghilardini.netlify.app/images/mauro-01.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Scrittura — Mauro Ghilardini">
+<meta name="twitter:description" content="Libri, articoli e saggi di Mauro Ghilardini: traduzioni, illustrazioni AI, filosofia tomista e critica delle colonne sonore.">
+<meta name="twitter:image" content="https://mauroghilardini.netlify.app/images/mauro-01.webp">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Archivo',system-ui,sans-serif;background:#1c1b18;color:#e7e3d8;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:#c2543a;color:#1c1b18;}
+  [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity 1s ease,transform 1s ease;}
+  [data-reveal].visible{opacity:1;transform:none;}
+
+  #topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(16px,4vw,44px);mix-blend-mode:difference;color:#fff;}
+  #topbar a,#topbar span,#topbar button{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;}
+  #topbar .right{display:flex;align-items:center;gap:14px;}
+  #topbar button{background:none;border:none;cursor:pointer;color:#fff;padding:4px 2px;}
+
+  .pad{padding:clamp(72px,11vh,140px) clamp(20px,5vw,72px);}
+  .eyebrow{display:block;font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;margin-bottom:20px;}
+  .section-title{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(36px,5vw,80px);line-height:.9;letter-spacing:-.01em;}
+  .divider{border:none;border-top:1px solid currentColor;opacity:.15;margin:clamp(56px,9vh,120px) 0;}
+
+  /* Books grid */
+  .books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:clamp(24px,3vw,44px);margin-top:clamp(36px,5vh,60px);}
+  @media(max-width:520px){.books-grid{grid-template-columns:repeat(2,1fr);}}
+  .book-card{display:flex;flex-direction:column;gap:12px;}
+  .book-cover{aspect-ratio:6/9;width:100%;object-fit:cover;display:block;background:#2b2823;}
+  .book-cover-placeholder{aspect-ratio:6/9;width:100%;background:#2b2823;display:grid;place-items:center;font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:rgba(231,227,216,.35);}
+  .book-year{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#938c7f;}
+  .book-title{font-family:'EB Garamond',serif;font-size:clamp(15px,1.4vw,18px);line-height:1.35;color:#e7e3d8;}
+  .book-role{font-size:10px;letter-spacing:.08em;color:rgba(231,227,216,.5);line-height:1.5;}
+  .book-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px;}
+  .book-link{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#d9a06a;border-bottom:1px solid rgba(217,160,106,.4);padding-bottom:3px;white-space:nowrap;}
+  .book-link:hover{color:#e7b97a;}
+
+  /* Blog cards */
+  .blogs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(24px,3vw,44px);margin-top:clamp(36px,5vh,60px);}
+  .blog-card{display:flex;flex-direction:column;gap:16px;border:1px solid rgba(231,227,216,.1);padding:28px;background:#232118;}
+  .blog-logo{width:auto;height:52px;object-fit:contain;object-position:left;display:block;filter:brightness(.9);}
+  .blog-logo-placeholder{height:52px;display:flex;align-items:center;font-family:'Anton',sans-serif;font-size:22px;letter-spacing:.04em;color:rgba(231,227,216,.6);}
+  .blog-name{font-family:'Anton',sans-serif;font-size:clamp(20px,2.2vw,30px);line-height:1;letter-spacing:.01em;}
+  .blog-sub{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#938c7f;margin-top:4px;}
+  .blog-desc{font-family:'EB Garamond',serif;font-size:clamp(16px,1.4vw,19px);line-height:1.55;color:rgba(231,227,216,.75);}
+  .blog-cta{display:inline-flex;align-items:center;gap:8px;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#d9a06a;border-bottom:1px solid rgba(217,160,106,.4);padding-bottom:3px;align-self:flex-start;margin-top:auto;}
+
+  /* Academia */
+  .academia-list{display:flex;flex-direction:column;gap:0;margin-top:clamp(36px,5vh,60px);}
+  .academia-item{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:20px 0;border-top:1px solid rgba(231,227,216,.12);}
+  .academia-item:last-child{border-bottom:1px solid rgba(231,227,216,.12);}
+  .academia-title{font-family:'EB Garamond',serif;font-size:clamp(18px,1.7vw,24px);line-height:1.35;color:#e7e3d8;}
+  .academia-link{flex-shrink:0;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#d9a06a;border-bottom:1px solid rgba(217,160,106,.4);padding-bottom:3px;}
+  @media(max-width:560px){.academia-item{flex-direction:column;gap:12px;}}
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <a href="../index.html#scrittura" onclick="event.preventDefault();location.href='../index.html?t='+Date.now()+'#scrittura';" style="display:flex;align-items:center;gap:8px;background:#1c1b18;color:#fff;padding:6px 14px 6px 10px;letter-spacing:.22em;mix-blend-mode:normal;">← <span id="backLabel">Scrittura</span></a>
+  <div class="right">
+    <button id="btnIt">IT</button>
+    <span style="opacity:.5;">/</span>
+    <button id="btnEn">EN</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section style="position:relative;background:#6f6244;padding:clamp(120px,18vh,200px) clamp(20px,5vw,72px) clamp(72px,10vh,120px);">
+  <div data-reveal>
+    <span class="eyebrow" style="color:rgba(239,233,216,.6);" id="heroEyebrow">Scrittura</span>
+    <h1 class="section-title" style="color:#efe9d8;font-size:clamp(60px,12vw,180px);line-height:.85;" id="heroTitle">La parola</h1>
+    <p style="font-family:'EB Garamond',serif;font-size:clamp(18px,1.7vw,24px);line-height:1.55;color:rgba(239,233,216,.85);max-width:52ch;margin-top:28px;" id="heroBody">Studioso di metafisica e filosofia tomista. Traduttore, illustratore con AI, autore. Dal 2019 una serie di libri tra classici illustrati, teatro e saggistica. E prima ancora, gli articoli sui blog e i contributi accademici.</p>
+  </div>
+</section>
+
+<!-- LIBRI -->
+<section class="pad" style="background:#1c1b18;">
+  <div data-reveal>
+    <span class="eyebrow" style="color:#938c7f;" id="booksEyebrow">Libri</span>
+    <h2 class="section-title" style="color:#e7e3d8;" id="booksTitle">Pubblicazioni</h2>
+  </div>
+  <div class="books-grid" id="booksGrid"></div>
+</section>
+
+<!-- BLOG -->
+<section class="pad" style="background:#232118;">
+  <div data-reveal>
+    <span class="eyebrow" style="color:#938c7f;" id="blogsEyebrow">Blog</span>
+    <h2 class="section-title" style="color:#e7e3d8;" id="blogsTitle">Articoli</h2>
+    <p style="font-family:'EB Garamond',serif;font-size:clamp(17px,1.5vw,21px);line-height:1.6;color:rgba(231,227,216,.7);max-width:52ch;margin-top:22px;" id="blogsBody">Due blog aperti in anni diversi: uno dedicato alla filosofia e alla teologia, l'altro alla critica musicale e lirica. I migliori articoli sono raggiungibili dai link qui sotto.</p>
+  </div>
+  <div class="blogs-grid" id="blogsGrid"></div>
+</section>
+
+<!-- ACADEMIA -->
+<section class="pad" style="background:#1c1b18;">
+  <div data-reveal>
+    <span class="eyebrow" style="color:#938c7f;" id="academiaEyebrow">Academia.edu</span>
+    <h2 class="section-title" style="color:#e7e3d8;" id="academiaTitle">Saggi</h2>
+    <p style="font-family:'EB Garamond',serif;font-size:clamp(17px,1.5vw,21px);line-height:1.6;color:rgba(231,227,216,.7);max-width:52ch;margin-top:22px;" id="academiaBody">Contributi redatti durante lo studio con Fulvio Di Blasi al Thomas International Center. Filosofia antica, metafisica e tomismo.</p>
+  </div>
+  <div class="academia-list" id="academiaList"></div>
+</section>
+
+<!-- FOOTER BACK -->
+<div style="padding:clamp(40px,6vh,80px) clamp(20px,5vw,72px);background:#13110f;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;">
+  <span style="font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(15px,1.4vw,19px);color:rgba(231,227,216,.5);" id="footerQuote">Raro concedit, numquam negat, semper distinguit.</span>
+  <a href="../index.html?t=0#scrittura" onclick="event.preventDefault();location.href='../index.html?t='+Date.now()+'#scrittura';" style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#938c7f;border-bottom:1px solid rgba(147,140,127,.4);padding-bottom:3px;" id="footerBack">← Torna alla home</a>
+</div>
+
+<script>
+(function () {
+  let lang = localStorage.getItem('mgh-lang') || 'it';
+
+  const strings = {
+    it: {
+      heroEyebrow: 'Scrittura',
+      heroTitle: 'La parola',
+      heroBody: 'Studioso di metafisica e filosofia tomista. Traduttore, illustratore con AI, autore. Dal 2019 una serie di libri tra classici illustrati, teatro e saggistica. E prima ancora, gli articoli sui blog e i contributi accademici.',
+      booksEyebrow: 'Libri',
+      booksTitle: 'Pubblicazioni',
+      blogsEyebrow: 'Blog',
+      blogsTitle: 'Articoli',
+      blogsBody: 'Due blog aperti in anni diversi: uno dedicato alla filosofia e alla teologia, l’altro alla critica musicale e lirica. I migliori articoli sono raggiungibili dai link qui sotto.',
+      academiaEyebrow: 'Academia.edu',
+      academiaTitle: 'Saggi',
+      academiaBody: 'Contributi redatti durante lo studio con Fulvio Di Blasi al Thomas International Center. Filosofia antica, metafisica e tomismo.',
+      footerBack: '← Torna alla home',
+      backLabel: 'Scrittura',
+      readIt: 'Leggi',
+      buyIt: 'Acquista',
+    },
+    en: {
+      heroEyebrow: 'Writing',
+      heroTitle: 'The word',
+      heroBody: 'Scholar of metaphysics and Thomist philosophy. Translator, AI illustrator, author. Since 2019 a series of books spanning illustrated classics, theatre, and essays. And before that, blog articles and academic contributions.',
+      booksEyebrow: 'Books',
+      booksTitle: 'Publications',
+      blogsEyebrow: 'Blog',
+      blogsTitle: 'Articles',
+      blogsBody: 'Two blogs started at different times: one on philosophy and theology, the other on musical and operatic criticism. The best articles are linked below.',
+      academiaEyebrow: 'Academia.edu',
+      academiaTitle: 'Essays',
+      academiaBody: 'Papers written during studies with Fulvio Di Blasi at the Thomas International Center. Ancient philosophy, metaphysics, and Thomism.',
+      footerBack: '← Back to home',
+      backLabel: 'Writing',
+      readIt: 'Read',
+      buyIt: 'Buy',
+    }
+  };
+
+  const books = [
+    {
+      year: '2024',
+      title: 'Dormono sulla Collina',
+      role_it: 'Autore · Traduttore · Illustratore AI',
+      role_en: 'Author · Translator · AI Illustrator',
+      img: '../images/scrittura/image_28.jpg',
+      links: [{ label_it: 'Acquista su Amazon', label_en: 'Buy on Amazon', href: 'https://amzn.to/3PNGael' }],
+    },
+    {
+      year: '2023',
+      title: 'Poe — Racconti del Mistero',
+      role_it: 'Traduttore · Illustratore AI · Grafica',
+      role_en: 'Translator · AI Illustrator · Graphic design',
+      img: '../images/scrittura/image_29.jpg',
+      links: [{ label_it: 'Acquista su Amazon', label_en: 'Buy on Amazon', href: 'https://amzn.to/4tWxYqk' }],
+    },
+    {
+      year: '2023',
+      title: 'Wilde — Il fantasma di Canterville e altri racconti',
+      role_it: 'Traduttore · Illustratore AI · Grafica',
+      role_en: 'Translator · AI Illustrator · Graphic design',
+      img: '../images/scrittura/image_34.jpg',
+      links: [{ label_it: 'Acquista su Amazon', label_en: 'Buy on Amazon', href: 'https://amzn.to/3PBWi2l' }],
+    },
+    {
+      year: '2023',
+      title: 'Gozzano — La danza degli gnomi e altre fiabe',
+      role_it: 'Illustratore AI · Grafica',
+      role_en: 'AI Illustrator · Graphic design',
+      img: '../images/scrittura/image_32.jpg',
+      links: [{ label_it: 'Acquista su Amazon', label_en: 'Buy on Amazon', href: 'https://amzn.to/43hF8dB' }],
+    },
+    {
+      year: '2023',
+      title: 'Cantico di Natale',
+      role_it: 'Traduttore · Grafica copertina',
+      role_en: 'Translator · Cover design',
+      img: '../images/scrittura/image_30.jpg',
+      links: [
+        { label_it: 'Edizione lusso', label_en: 'Deluxe edition', href: 'https://amzn.to/3PwbNcg' },
+        { label_it: 'Edizione economica', label_en: 'Standard edition', href: 'https://amzn.to/4dzHU2J' },
+      ],
+    },
+    {
+      year: '2022',
+      title: 'Oltre il Grande Reset',
+      role_it: 'Prefazione & Intervista all’autore',
+      role_en: 'Preface & Interview with the author',
+      img: '../images/scrittura/image_31.jpg',
+      links: [{ label_it: 'Acquista su Amazon', label_en: 'Buy on Amazon', href: 'https://amzn.to/4wEWvCv' }],
+    },
+    {
+      year: '2019',
+      title: 'Controcorrente n. 7',
+      role_it: 'Intervista saggio con Stefano Nembrini',
+      role_en: 'Essay interview with Stefano Nembrini',
+      img: '../images/scrittura/image_33.jpg',
+      links: [{ label_it: 'Acquista su Amazon', label_en: 'Buy on Amazon', href: 'https://amzn.to/49KkiqV' }],
+    },
+  ];
+
+  const blogs = [
+    {
+      name: 'Crocevia',
+      sub_it: 'Pellegrini nella verità',
+      sub_en: 'Pilgrims in truth',
+      desc_it: 'Filosofia, teologia, metafisica e musica. Il blog più longevo, ancora attivo.',
+      desc_en: 'Philosophy, theology, metaphysics and music. The longest-running blog, still active.',
+      img: '../images/scrittura/Crocevia.png',
+      href: 'https://pellegrininellaverita.com/author/kerygmatico/',
+      cta_it: 'Leggi gli articoli',
+      cta_en: 'Read the articles',
+    },
+    {
+      name: 'Contrappunti Critici',
+      sub_it: 'Critica musicale e lirica',
+      sub_en: 'Musical and operatic criticism',
+      desc_it: 'Iniziato durante gli anni di studio del canto lirico. Una selezione dei migliori pezzi è raccolta nella pagina Links.',
+      desc_en: 'Started during the years of classical singing studies. A selection of the best pieces is collected in the Links page.',
+      img: '../images/scrittura/cc.png',
+      href: 'https://ilghila.wordpress.com/links/',
+      cta_it: 'Leggi i migliori articoli',
+      cta_en: 'Read the best articles',
+    },
+  ];
+
+  const academia = [
+    {
+      title: 'Talete, primo filosofo',
+      href: 'https://www.academia.edu/36391817/Talete_primo_filosofo',
+    },
+    {
+      title: 'Parmenide: metafisica della non contraddizione',
+      href: 'https://www.academia.edu/41850462/Parmenide_metafisica_della_non_contraddizione',
+    },
+  ];
+
+  function applyLang() {
+    const s = strings[lang];
+    document.getElementById('btnIt').style.opacity = lang === 'it' ? '1' : '0.45';
+    document.getElementById('btnEn').style.opacity = lang === 'en' ? '1' : '0.45';
+    document.getElementById('backLabel').textContent = s.backLabel;
+
+    ['heroEyebrow','heroTitle','heroBody','booksEyebrow','booksTitle',
+     'blogsEyebrow','blogsTitle','blogsBody','academiaEyebrow','academiaTitle',
+     'academiaBody','footerBack'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = s[id];
+    });
+
+    renderBooks(s);
+    renderBlogs(s);
+    renderAcademia(s);
+  }
+
+  function renderBooks(s) {
+    const grid = document.getElementById('booksGrid');
+    grid.innerHTML = '';
+    books.forEach((b, i) => {
+      const card = document.createElement('div');
+      card.className = 'book-card';
+      card.setAttribute('data-reveal', '');
+
+      const imgEl = document.createElement('img');
+      imgEl.className = 'book-cover';
+      imgEl.src = b.img;
+      imgEl.alt = b.title;
+      imgEl.onerror = function () {
+        const ph = document.createElement('div');
+        ph.className = 'book-cover-placeholder';
+        ph.textContent = b.title;
+        card.replaceChild(ph, imgEl);
+      };
+
+      const year = document.createElement('span');
+      year.className = 'book-year';
+      year.textContent = b.year;
+
+      const title = document.createElement('span');
+      title.className = 'book-title';
+      title.textContent = b.title;
+
+      const role = document.createElement('span');
+      role.className = 'book-role';
+      role.textContent = lang === 'it' ? b.role_it : b.role_en;
+
+      const linksEl = document.createElement('div');
+      linksEl.className = 'book-links';
+      b.links.forEach(lk => {
+        const a = document.createElement('a');
+        a.className = 'book-link';
+        a.href = lk.href;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = (lang === 'it' ? lk.label_it : lk.label_en) + ' →';
+        linksEl.appendChild(a);
+      });
+
+      card.appendChild(imgEl);
+      card.appendChild(year);
+      card.appendChild(title);
+      card.appendChild(role);
+      card.appendChild(linksEl);
+      grid.appendChild(card);
+    });
+    initReveal();
+  }
+
+  function renderBlogs(s) {
+    const grid = document.getElementById('blogsGrid');
+    grid.innerHTML = '';
+    blogs.forEach(b => {
+      const card = document.createElement('div');
+      card.className = 'blog-card';
+      card.setAttribute('data-reveal', '');
+
+      const logoEl = document.createElement('img');
+      logoEl.className = 'blog-logo';
+      logoEl.src = b.img;
+      logoEl.alt = b.name;
+      logoEl.onerror = function () {
+        const ph = document.createElement('div');
+        ph.className = 'blog-logo-placeholder';
+        ph.textContent = b.name;
+        card.replaceChild(ph, logoEl);
+      };
+
+      const name = document.createElement('div');
+      const nameEl = document.createElement('span');
+      nameEl.className = 'blog-name';
+      nameEl.textContent = b.name;
+      const subEl = document.createElement('span');
+      subEl.className = 'blog-sub';
+      subEl.style.display = 'block';
+      subEl.textContent = lang === 'it' ? b.sub_it : b.sub_en;
+      name.appendChild(nameEl);
+      name.appendChild(subEl);
+
+      const desc = document.createElement('p');
+      desc.className = 'blog-desc';
+      desc.textContent = lang === 'it' ? b.desc_it : b.desc_en;
+
+      const cta = document.createElement('a');
+      cta.className = 'blog-cta';
+      cta.href = b.href;
+      cta.target = '_blank';
+      cta.rel = 'noopener';
+      cta.textContent = (lang === 'it' ? b.cta_it : b.cta_en) + ' →';
+
+      card.appendChild(logoEl);
+      card.appendChild(name);
+      card.appendChild(desc);
+      card.appendChild(cta);
+      grid.appendChild(card);
+    });
+    initReveal();
+  }
+
+  function renderAcademia(s) {
+    const list = document.getElementById('academiaList');
+    list.innerHTML = '';
+    academia.forEach(a => {
+      const item = document.createElement('div');
+      item.className = 'academia-item';
+      item.setAttribute('data-reveal', '');
+
+      const title = document.createElement('span');
+      title.className = 'academia-title';
+      title.textContent = a.title;
+
+      const link = document.createElement('a');
+      link.className = 'academia-link';
+      link.href = a.href;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = (lang === 'it' ? strings.it.readIt : strings.en.readIt) + ' →';
+
+      item.appendChild(title);
+      item.appendChild(link);
+      list.appendChild(item);
+    });
+    initReveal();
+  }
+
+  function initReveal() {
+    const els = document.querySelectorAll('[data-reveal]:not(.visible)');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(e => e.classList.add('visible'));
+      return;
+    }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -4% 0px' });
+    els.forEach(e => io.observe(e));
+    setTimeout(() => els.forEach(e => e.classList.add('visible')), 2500);
+  }
+
+  function setLang(l) {
+    lang = l;
+    localStorage.setItem('mgh-lang', l);
+    applyLang();
+  }
+
+  document.getElementById('btnIt').addEventListener('click', () => setLang('it'));
+  document.getElementById('btnEn').addEventListener('click', () => setLang('en'));
+
+  applyLang();
+  initReveal();
+})();
+</script>
+</body>
+</html>

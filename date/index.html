@@ -50,7 +50,9 @@
   .date-col{font-family:'Anton',sans-serif;font-size:clamp(20px,2.6vw,38px);color:#c4bfb1;line-height:1;white-space:nowrap;}
   .date-col .ora{display:block;font-family:'Archivo',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;color:#7a7469;margin-top:5px;}
   .info-col .titolo{font-family:'EB Garamond',serif;font-size:clamp(18px,1.8vw,26px);line-height:1.2;color:#e7e3d8;}
-  .info-col .luogo{font-family:'Archivo',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a7469;margin-top:6px;}
+  .info-col .luogo{font-family:'Archivo',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7a7469;margin-top:6px;display:flex;align-items:center;gap:8px;}
+  .maps-link{font-size:10px;letter-spacing:.1em;color:#938c7f;border-bottom:1px solid rgba(147,140,127,.35);padding-bottom:1px;white-space:nowrap;flex-shrink:0;}
+  .maps-link:hover{color:#c4bfb1;}
   .info-col .tipo{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#938c7f;border:1px solid rgba(122,116,105,.4);padding:3px 8px;margin-top:10px;}
   .thumb-col{width:clamp(54px,7vw,90px);flex-shrink:0;}
   .thumb-col img{width:100%;aspect-ratio:2/3;object-fit:cover;filter:grayscale(.3);display:block;cursor:pointer;transition:filter .2s,transform .2s;}
@@ -123,17 +125,25 @@ function fmtDate(str) {
   return d + ' ' + (lang === 'en' ? mesiEn : mesiIt)[m - 1];
 }
 
+function mapsUrl(luogo) {
+  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(luogo);
+}
+
 function renderRow(d) {
   const tipoMap = lang === 'en' ? tipoEn : tipoIt;
   const tag = tipoMap[d.tipo] || d.tipo;
   const thumb = d.locandina
     ? '<img src="' + LOCANDINE + d.locandina + '" alt="" onclick="openLb(this.src)">'
     : '<div class="thumb-placeholder"></div>';
+  const luogoHtml = d.luogo
+    ? '<div class="luogo"><span>' + d.luogo + '</span>'
+      + '<a class="maps-link" href="' + mapsUrl(d.luogo) + '" target="_blank" rel="noopener">Maps →</a></div>'
+    : '';
   return '<div class="date-row">'
     + '<div class="date-col">' + fmtDate(d.data) + (d.ora ? '<span class="ora">' + d.ora + '</span>' : '') + '</div>'
     + '<div class="info-col">'
     +   '<div class="titolo">' + d.titolo + '</div>'
-    +   (d.luogo ? '<div class="luogo">' + d.luogo + '</div>' : '')
+    +   luogoHtml
     +   '<div class="tipo">' + tag + '</div>'
     + '</div>'
     + '<div class="thumb-col">' + thumb + '</div>'
@@ -142,7 +152,7 @@ function renderRow(d) {
 
 function render() {
   const today = new Date().toISOString().slice(0, 10);
-  const all = (window.MG_DATE || []).slice().sort((a, b) => a.data < b.data ? -1 : 1);
+  const all = (window.MG_DATE || []).filter(d => !d.nascosta).slice().sort((a, b) => a.data < b.data ? -1 : 1);
   const future = all.filter(d => d.data >= today);
   const past = all.filter(d => d.data < today).reverse();
 

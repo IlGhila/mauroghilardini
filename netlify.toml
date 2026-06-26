@@ -14,7 +14,8 @@
     Permissions-Policy = "geolocation=(), camera=(), microphone=(), browsing-topics=()"
     # Content Security Policy: limita da dove possono arrivare script, stili, frame, ecc.
     # 'unsafe-inline' è necessario perché il sito usa stili e script inline (runtime React + JSON-LD).
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https:; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://soundcloud.com https://w.soundcloud.com https://www.instagram.com https://www.facebook.com; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; frame-ancestors 'none'"
+    # 'unsafe-eval' è necessario perché il runtime (support.js) compila la logica dei componenti con new Function().
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https:; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://soundcloud.com https://w.soundcloud.com https://www.instagram.com https://www.facebook.com; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; frame-ancestors 'none'"
 
 # ── Blocca il pannello CMS sul sito pubblico ──
 # L'editing avviene in locale (local_backend in admin/config.yml), quindi /admin/

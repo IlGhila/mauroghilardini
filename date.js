@@ -40,7 +40,7 @@ window.MG_DATE = [
     locandina: "acqua.webp",
     nota:      "" },
 
-  { titolo:    "'Al primo accordo' Simone Trevisan & Ghila",
+  { titolo:    "'Al primo accordo' Duo Ghilardini / Trevisan",
     data:      "2026-07-04",
     ora:       "",
     luogo:     "Cerete (BG)",
@@ -70,7 +70,8 @@ window.MG_DATE = [
     luogo:     "Gromo (BG)",
     tipo:      "concerto",
     locandina: "",
-    nota:      "" },
+    nota:      "",
+    nascosta:  true },
 
   { titolo:    "Sushi Pradalunga",
     data:      "2026-07-25",
@@ -102,7 +103,8 @@ window.MG_DATE = [
     luogo:     "Gromo (BG)",
     tipo:      "concerto",
     locandina: "",
-    nota:      "" },
+    nota:      "",
+    nascosta:  true },
 
   { titolo:    "Presentatore Concerto bandistico",
     data:      "2026-08-09",
@@ -110,7 +112,8 @@ window.MG_DATE = [
     luogo:     "Gromo (BG)",
     tipo:      "concerto",
     locandina: "",
-    nota:      "" },
+    nota:      "",
+    nascosta:  true },
 
   { titolo:    "Sushi Cornucopia",
     data:      "2026-08-25",
