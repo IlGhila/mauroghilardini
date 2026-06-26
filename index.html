@@ -466,6 +466,7 @@
         </div>
         <textarea name="messaggio" placeholder="{{ contactFieldMsg }}" rows="4" required style="width:100%; border:none; border-bottom:1px solid #bdb7a8; padding:10px 0; background:transparent; font-family:'EB Garamond',serif; font-size:clamp(16px,1.4vw,19px); color:#2b2823; outline:none; resize:none; margin-bottom:20px;"></textarea>
         <button type="submit" style="font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; background:#2b2823; color:#d9d6cc; border:none; padding:13px 28px; cursor:pointer;">{{ contactSend }} →</button>
+        <p style="margin-top:18px; font-size:11px; line-height:1.5; color:#938c7f; font-family:'Archivo',sans-serif;">{{ contactPrivacy }}</p>
       </form>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px;">
         <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="2">
@@ -687,6 +688,7 @@ class Component extends DCLogic {
       signQuote: 'Raro concedit, numquam negat, semper distinguit.',
       contactTitle: 'Contatti', footNote: 'Cantante · Compositore · Autore',
       contactFormLabel: 'Booking & Management', contactFieldName: 'Nome', contactFieldEmail: 'Email', contactFieldMsg: 'Messaggio', contactSend: 'Invia',
+      contactPrivacy: 'Inviando accetti che i dati siano usati per rispondere alla tua richiesta. Il modulo è gestito tramite Formspree; i dati non vengono usati per altri scopi né ceduti a terzi.',
       coverSoon: 'Copertina',
       musicOn: 'Musica on', musicOff: 'Musica off',
       liveTitle: 'Dal vivo',
@@ -717,6 +719,7 @@ class Component extends DCLogic {
       signQuote: 'Raro concedit, numquam negat, semper distinguit.',
       contactTitle: 'Contact', footNote: 'Singer · Composer · Author',
       contactFormLabel: 'Booking & Management', contactFieldName: 'Name', contactFieldEmail: 'Email', contactFieldMsg: 'Message', contactSend: 'Send',
+      contactPrivacy: 'By submitting you agree that your data is used to reply to your request. The form is handled via Formspree; data is not used for other purposes nor shared with third parties.',
       coverSoon: 'Cover',
       musicOn: 'Music on', musicOff: 'Music off',
       liveTitle: 'Live',
