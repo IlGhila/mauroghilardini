@@ -1,0 +1,27 @@
+# Configurazione Netlify — sicurezza
+
+# ── Header di sicurezza applicati a tutte le pagine ──
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Impedisce che il sito venga incorniciato in iframe da terzi (anti-clickjacking)
+    X-Frame-Options = "DENY"
+    # Impedisce al browser di "indovinare" il tipo dei file (anti-MIME-sniffing)
+    X-Content-Type-Options = "nosniff"
+    # Limita le informazioni di provenienza inviate ad altri siti
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Disattiva permessi sensibili che il sito non usa
+    Permissions-Policy = "geolocation=(), camera=(), microphone=(), browsing-topics=()"
+    # Content Security Policy: limita da dove possono arrivare script, stili, frame, ecc.
+    # 'unsafe-inline' è necessario perché il sito usa stili e script inline (runtime React + JSON-LD).
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https:; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://soundcloud.com https://w.soundcloud.com https://www.instagram.com https://www.facebook.com; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; frame-ancestors 'none'"
+
+# ── Blocca il pannello CMS sul sito pubblico ──
+# L'editing avviene in locale (local_backend in admin/config.yml), quindi /admin/
+# non serve online. Per riattivare l'editing online, rimuovi questo blocco e
+# configura il backend GitHub con OAuth in admin/config.yml.
+[[redirects]]
+  from = "/admin/*"
+  to = "/"
+  status = 404
+  force = true
