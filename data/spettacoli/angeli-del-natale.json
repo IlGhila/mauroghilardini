@@ -1,14 +1,48 @@
-﻿{
-    "slug":  "angeli-del-natale",
-    "bozza":  true,
-    "titolo":  "Gli angeli del Natale",
-    "eyebrow_it":  "Lettura · con Luca Giudici",
-    "eyebrow_en":  "Reading · with Luca Giudici",
-    "forma_it":  "Lettura",
-    "forma_en":  "Reading",
-    "durata":  "",
-    "organico_it":  "",
-    "organico_en":  "",
-    "hero_img":  "",
-    "cta_email":  "info@mauroghilardini.it"
+{
+  "slug": "angeli-del-natale",
+  "bozza": false,
+  "titolo": "Gli Angeli del Natale",
+  "eyebrow_it": "Lettura teatrale · con Luca Giudici",
+  "eyebrow_en": "Theatrical reading · with Luca Giudici",
+  "forma_it": "Lettura teatrale",
+  "forma_en": "Theatrical reading",
+  "durata": "circa 60′",
+  "organico_it": "Duo · voce recitante e chitarra",
+  "organico_en": "Duo · narrating voice and guitar",
+  "hero_img": "images/REPERTORIO/angeli-del-natale/locandina.jpg",
+  "hero_position": "center 40%",
+  "sinossi_lead_it": "La storia del Natale raccontata da un angelo che non sa volare — ma che custodisce la stella più importante del cielo.",
+  "sinossi_lead_en": "The story of Christmas told by an angel who cannot fly — but who holds the most important star in the sky.",
+  "sinossi_it": [
+    "Astro è l'ultimo della lista degli angeli: non sa volare bene, cade continuamente, e Dio gli affida una stella da tenere in mano. Passa così buona parte della Creazione — secoli e secoli — seduto, con quella stella sulle ginocchia, mentre il mondo nasce e si agita intorno a lui.",
+    "Poi arriva la notte del primo Natale. E Dio, che aveva dimenticato tutti gli altri, chiede di Astro.",
+    "Una lettura teatrale che intreccia la cosmogonia biblica, l'Annunciazione, la nascita di Gesù a Betlemme e la leggenda del quarto Re Magio. Luca Giudici racconta, Mauro Ghilardini canta brani di Venditti, De Gregori, Battisti, De André e un testo originale scritto a quattro mani per lo spettacolo."
+  ],
+  "sinossi_en": [
+    "Astro is the last angel on the list: he cannot fly properly, he keeps falling, and God entrusts him with a star to hold in his hands. He spends much of the Creation — centuries and centuries — sitting with that star on his knees, while the world is born and stirs around him.",
+    "Then comes the night of the first Christmas. And God, who had forgotten all the others, asks after Astro.",
+    "A theatrical reading that weaves together the biblical cosmogony, the Annunciation, the birth of Jesus in Bethlehem and the legend of the fourth Wise Man. Luca Giudici narrates while Mauro Ghilardini sings songs by Venditti, De Gregori, Battisti, De André and an original text written together for the show."
+  ],
+  "progetto_lead_it": "Il Natale dal punto di vista di chi lo aspettava da sempre senza saperlo.",
+  "progetto_lead_en": "Christmas from the point of view of someone who had always been waiting for it without knowing.",
+  "progetto_it": "Lo spettacolo nasce dalla collaborazione tra Luca Giudici e Mauro Ghilardini, liberamente ispirato al romanzo «Rastro de Dios» di Montserrat del Amo e alle Sacre Scritture. La struttura narrativa attraversa la Genesi, l'Annunciazione, il viaggio verso Betlemme e i Re Magi, tenendo il filo di Astro come bussola emotiva. Le canzoni non sono ornamentali: aprono squarci, spostano il punto di vista, portano il Natale dove le parole non arrivano. Un formato leggero ma profondo, adatto a parrocchie, oratori, centri culturali e rassegne natalizie.",
+  "progetto_en": "The show was born from the collaboration between Luca Giudici and Mauro Ghilardini, freely inspired by Montserrat del Amo's novel «Rastro de Dios» and the Scriptures. The narrative structure moves through Genesis, the Annunciation, the journey to Bethlehem and the Magi, keeping Astro's thread as an emotional compass. The songs are not ornamental: they open windows, shift perspective, carry Christmas where words cannot reach. A light but deep format, suited to parishes, oratories, cultural centres and Christmas festivals.",
+  "locandina": "images/REPERTORIO/angeli-del-natale/locandina.jpg",
+  "locandina_titolo_it": "La locandina dello spettacolo",
+  "locandina_titolo_en": "The show poster",
+  "locandina_nota_it": "Grafica ufficiale, pronta per la stampa e la comunicazione dell'evento.",
+  "locandina_nota_en": "Official artwork, ready for print and event communication.",
+  "cast": [
+    { "nome": "Mauro Ghilardini", "ruolo_it": "Voce recitante · musica", "ruolo_en": "Narrating voice · music", "strumenti": "Chitarra · Canto" },
+    { "nome": "Luca Giudici", "ruolo_it": "Voce recitante · narratore", "ruolo_en": "Narrating voice · narrator", "strumenti": "" }
+  ],
+  "crew": [
+    { "ruolo_it": "Testo originale", "ruolo_en": "Original text", "nome": "Luca Giudici e Mauro Ghilardini" },
+    { "ruolo_it": "Liberamente tratto da", "ruolo_en": "Freely inspired by", "nome": "«Rastro de Dios» di Montserrat del Amo" }
+  ],
+  "budget_it": "Su richiesta",
+  "budget_en": "On request",
+  "budget_nota_it": "Cachet e condizioni concordati direttamente con Mauro Ghilardini. Scrivimi per disponibilità e preventivo.",
+  "budget_nota_en": "Fee and terms agreed directly with Mauro Ghilardini. Write to me for availability and a quote.",
+  "cta_email": "info@mauroghilardini.it"
 }

@@ -1,14 +1,48 @@
-﻿{
-    "slug":  "robin-hood",
-    "bozza":  true,
-    "titolo":  "Robin Hood",
-    "eyebrow_it":  "Lettura · con Luca Giudici",
-    "eyebrow_en":  "Reading · with Luca Giudici",
-    "forma_it":  "Lettura",
-    "forma_en":  "Reading",
-    "durata":  "",
-    "organico_it":  "",
-    "organico_en":  "",
-    "hero_img":  "",
-    "cta_email":  "info@mauroghilardini.it"
+{
+  "slug": "robin-hood",
+  "bozza": false,
+  "titolo": "Robin Hood",
+  "eyebrow_it": "Lettura teatrale · per le scuole",
+  "eyebrow_en": "Theatrical reading · for schools",
+  "forma_it": "Lettura teatrale",
+  "forma_en": "Theatrical reading",
+  "durata": "circa 60′",
+  "organico_it": "Duo · voce recitante e chitarra",
+  "organico_en": "Duo · narrating voice and guitar",
+  "hero_img": "images/REPERTORIO/robin-hood/hero.webp",
+  "hero_position": "center 40%",
+  "sinossi_lead_it": "La leggenda di Robin Hood raccontata e cantata, con un pizzico di magia interattiva.",
+  "sinossi_lead_en": "The legend of Robin Hood told and sung, with a touch of interactive magic.",
+  "sinossi_it": [
+    "Re Riccardo Cuor di Leone è partito per le Crociate, lo Sceriffo di Nottingham opprime il popolo, e nella foresta di Sherwood si nasconde un fuorilegge dal cuore puro: Robin Hood. Con l'amico Little John e il bizzarro Fra Tuck, Robin ruba ai ricchi e ridà ai poveri, sfida il Principe Giovanni e alla fine — grazie anche al pubblico in sala — salva l'amico, vince il torneo e ritrova il suo re.",
+    "Una lettura teatrale in forma di duo: Luca Giudici racconta, Mauro Ghilardini canta e accompagna con la chitarra le canzoni originali scritte apposta per questo spettacolo. Il tutto condito da gag, personaggi strampalati e un ritornello che — come avverte Ghila — «alla fine lo conoscete tutti».",
+    "Lo spettacolo include momenti di partecipazione attiva. Nella versione in un atto: l'«Applauso Incantato», in cui il pubblico impara un ritmo magico che guida le frecce di Robin verso il bersaglio. Nella versione in due atti si aggiunge «Il Coro di Sherwood»: ogni personaggio principale ha la sua risposta corale, e la sala diventa parte viva della storia dall'inizio alla fine. Adatto a primaria e secondaria di primo grado."
+  ],
+  "sinossi_en": [
+    "King Richard the Lionheart has left for the Crusades, the Sheriff of Nottingham is oppressing the people, and in Sherwood Forest a pure-hearted outlaw is hiding: Robin Hood. With his friend Little John and the eccentric Friar Tuck, Robin steals from the rich and gives back to the poor, defies Prince John and — thanks to the audience in the hall — eventually saves his friend, wins the tournament and finds his king again.",
+    "A theatrical reading for two: Luca Giudici narrates while Mauro Ghilardini sings and accompanies on guitar with original songs written specially for this show. The whole thing is seasoned with gags, quirky characters and a chorus that — as Ghila warns — «you'll all know by the end».",
+    "The show includes moments of active participation. In the one-act version: the «Enchanted Applause», in which the audience learns a magic rhythm that guides Robin's arrows to the target. In the two-act version «Il Coro di Sherwood» is added: each main character has its own collective response, and the hall becomes a living part of the story from beginning to end. Suitable for primary and lower secondary school."
+  ],
+  "progetto_lead_it": "Una storia di quasi 1000 anni che ha ancora tutto da insegnare.",
+  "progetto_lead_en": "A story nearly 1000 years old that still has everything to teach.",
+  "progetto_it": "Pensato per il pubblico delle scuole, lo spettacolo mantiene la struttura narrativa della leggenda medievale ma la attraversa con leggerezza e ritmo. Il duo Ghilardini–Giudici alterna dialogo comico e narrazione epica, tenendo il pubblico costantemente coinvolto: dall'arrivo in piazza fino al finale in auditorium, è uno spettacolo che si costruisce insieme agli spettatori. Le canzoni originali — scritte da Mauro Ghilardini — non illustrano la storia: la portano avanti, come facevano i trovatori. Lo spettacolo è disponibile in due versioni: un atto unico (con l'«Applauso Incantato» come momento interattivo) o due atti (con l'aggiunta de «Il Coro di Sherwood», in cui la platea impara a rispondere a ogni personaggio con la sua reazione caratteristica).",
+  "progetto_en": "Designed for school audiences, the show keeps the narrative structure of the medieval legend but crosses it with lightness and pace. The Ghilardini–Giudici duo alternates comic dialogue with epic narration, keeping the audience constantly engaged: from the arrival in the square to the finale in the auditorium, it is a show built together with its audience. The original songs — written by Mauro Ghilardini — do not illustrate the story: they carry it forward, as troubadours once did. The show is available in two versions: a single act (with the «Enchanted Applause» as the interactive moment) or two acts (adding «Il Coro di Sherwood», in which the audience learns a distinctive response for each character).",
+  "locandina": "images/REPERTORIO/robin-hood/locandina.webp",
+  "locandina_titolo_it": "La locandina dello spettacolo",
+  "locandina_titolo_en": "The show poster",
+  "locandina_nota_it": "Grafica ufficiale, pronta per la stampa e la comunicazione dell'evento.",
+  "locandina_nota_en": "Official artwork, ready for print and event communication.",
+  "cast": [
+    { "nome": "Mauro Ghilardini", "ruolo_it": "Voce recitante · menestrello", "ruolo_en": "Narrating voice · minstrel", "strumenti": "Chitarra · Canto" },
+    { "nome": "Luca Giudici", "ruolo_it": "Voce recitante · narratore", "ruolo_en": "Narrating voice · narrator", "strumenti": "" }
+  ],
+  "crew": [
+    { "ruolo_it": "Testo e regia", "ruolo_en": "Text & direction", "nome": "Luca Giudici e Mauro Ghilardini" },
+    { "ruolo_it": "Canzoni originali", "ruolo_en": "Original songs", "nome": "Mauro Ghilardini" }
+  ],
+  "budget_it": "Su richiesta",
+  "budget_en": "On request",
+  "budget_nota_it": "Cachet e condizioni concordati direttamente con Mauro Ghilardini. Scrivimi per disponibilità e preventivo.",
+  "budget_nota_en": "Fee and terms agreed directly with Mauro Ghilardini. Write to me for availability and a quote.",
+  "cta_email": "info@mauroghilardini.it"
 }

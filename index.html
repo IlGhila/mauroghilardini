@@ -165,7 +165,9 @@
   .lang-ctl button, .lang-sep { transition:opacity .3s ease; }
   .lang-ctl:not(:hover) button { opacity:.38 !important; }
   .lang-ctl:not(:hover) .lang-sep { opacity:.25 !important; }
-  .music-cap { font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#fff; white-space:nowrap; mix-blend-mode:difference; opacity:0; transition:opacity .3s ease; pointer-events:none; }
+  .music-cap { font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#e7e3d8; white-space:nowrap; opacity:0; transition:opacity .3s ease; pointer-events:none; }
+  #navBar { background:rgba(20,19,17,0); backdrop-filter:blur(0px); -webkit-backdrop-filter:blur(0px); transition:background .3s ease, backdrop-filter .3s ease, -webkit-backdrop-filter .3s ease; }
+  #navBar:has(.music-ctl:hover), #navBar:has(.lang-ctl:hover) { background:rgba(20,19,17,.70); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
   .music-ctl:hover .music-cap { opacity:1; }
 
   /* Disco vinile */
@@ -219,13 +221,7 @@
 
   <!-- ===== NAV (barra fissa in alto) ===== -->
   <audio id="mgAudio" loop src="audio/tema.mp3" preload="none"></audio>
-  <!-- backdrop pills: layer senza mix-blend-mode, dietro la nav -->
-  <div style="position:fixed; top:0; left:0; right:0; z-index:8999; pointer-events:none; height:64px;">
-    <!-- pillola solo dietro la scritta: il disco resta fuori (in difference, continua a girare e a vedersi) -->
-    <div id="navBdMusic" style="position:absolute; top:6px; left:calc(clamp(18px,4vw,46px) + 58px); height:52px; width:150px; border-radius:40px; background:#000; opacity:0; transition:opacity .3s ease;"></div>
-    <div id="navBdLang"  style="position:absolute; top:6px; left:50%; height:52px; width:80px; border-radius:40px; background:#000; opacity:0; transition:opacity .3s ease; transform:translateX(-50%);"></div>
-  </div>
-  <div style="position:fixed; top:0; left:0; right:0; z-index:9000; pointer-events:none; height:64px; mix-blend-mode:difference; color:#fff;">
+  <div id="navBar" style="position:fixed; top:0; left:0; right:0; z-index:9100; pointer-events:none; height:64px; color:#e7e3d8;">
 
     <!-- SINISTRA: disco vinile + etichetta musica -->
     <div class="music-ctl nav-ctrl is-hidden" style="position:absolute; top:0; left:clamp(18px,4vw,46px); height:64px;">
@@ -237,13 +233,13 @@
 
     <!-- CENTRO: IT / EN -->
     <div class="lang-ctl nav-ctrl is-hidden" style="position:absolute; top:0; left:50%; transform:translateX(-50%); height:64px; display:flex; align-items:center; gap:7px; font-size:11px; font-weight:600; letter-spacing:.14em; pointer-events:auto;">
-      <button onClick="{{ setIt }}" style="background:none;border:none;cursor:pointer;color:#fff;padding:4px 2px;opacity:{{ itOp }};">IT</button>
+      <button onClick="{{ setIt }}" style="background:none;border:none;cursor:pointer;color:#e7e3d8;padding:4px 2px;opacity:{{ itOp }};">IT</button>
       <span class="lang-sep" style="opacity:.5;">/</span>
-      <button onClick="{{ setEn }}" style="background:none;border:none;cursor:pointer;color:#fff;padding:4px 2px;opacity:{{ enOp }};">EN</button>
+      <button onClick="{{ setEn }}" style="background:none;border:none;cursor:pointer;color:#e7e3d8;padding:4px 2px;opacity:{{ enOp }};">EN</button>
     </div>
 
     <!-- DESTRA: MENU -->
-    <button class="nav-ctrl is-hidden" onClick="{{ toggleMenu }}" aria-label="Menu" style="position:absolute; top:0; right:clamp(18px,4vw,46px); height:64px; display:flex; align-items:center; gap:10px; background:none; border:none; cursor:pointer; pointer-events:auto; color:#fff; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; opacity:{{ menuIconOp }}; transition:opacity .2s ease;">
+    <button class="nav-ctrl is-hidden" onClick="{{ toggleMenu }}" aria-label="Menu" style="position:absolute; top:0; right:clamp(18px,4vw,46px); height:64px; display:flex; align-items:center; gap:10px; background:none; border:none; cursor:pointer; pointer-events:auto; color:#e7e3d8; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; opacity:{{ menuIconOp }}; transition:opacity .2s ease;">
       <div id="mgMenuLines" style="width:22px; display:flex; flex-direction:column; gap:5px;">
         <span style="display:block; height:1.5px; background:currentColor; transform-origin:center; transform:{{ menuL1 }};"></span>
         <span style="display:block; height:1.5px; background:currentColor; transform-origin:center; transform:{{ menuL2 }};"></span>
@@ -591,29 +587,6 @@ class Component extends DCLogic {
       if (cap)  cap.textContent = on ? (btn ? btn.dataset.labelOn || 'Music on' : 'Music on') : (btn ? btn.dataset.labelOff || 'Music off' : 'Music off');
       try { localStorage.setItem('mg-music', on ? '1' : '0'); } catch(e) {}
     };
-    // backdrop pills per music e lang (layer senza mix-blend-mode)
-    const _bdMusic = document.getElementById('navBdMusic');
-    const _bdLang  = document.getElementById('navBdLang');
-    const _musicCtl = document.querySelector('.music-ctl');
-    const _langCtl  = document.querySelector('.lang-ctl');
-    const _musicCap = document.getElementById('musicCap');
-    if (_musicCtl && _bdMusic) {
-      _musicCtl.addEventListener('mouseenter', () => {
-        // dimensiona la pillola esattamente sulla scritta (qualunque sia: Musica off/on, IT/EN)
-        if (_musicCap) {
-          const r = _musicCap.getBoundingClientRect();
-          const pad = 16;
-          _bdMusic.style.left  = (r.left - pad) + 'px';
-          _bdMusic.style.width = (r.width + pad * 2) + 'px';
-        }
-        _bdMusic.style.opacity = '.85';
-      });
-      _musicCtl.addEventListener('mouseleave', () => { _bdMusic.style.opacity = '0'; });
-    }
-    if (_langCtl && _bdLang) {
-      _langCtl.addEventListener('mouseenter', () => { _bdLang.style.opacity = '.85'; });
-      _langCtl.addEventListener('mouseleave', () => { _bdLang.style.opacity = '0'; });
-    }
 
     const _musicBtn = document.getElementById('musicBtn');
     if (_musicBtn) {

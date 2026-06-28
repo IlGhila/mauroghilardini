@@ -29,10 +29,10 @@
   [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity 1s ease,transform 1s ease;}
   [data-reveal].visible{opacity:1;transform:none;}
 
-  #topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(16px,4vw,44px);mix-blend-mode:difference;color:#fff;}
+  #topbar{position:fixed;top:0;left:0;right:0;z-index:9100;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(16px,4vw,44px);background:rgba(20,19,17,.70);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#e7e3d8;}
   #topbar a,#topbar span,#topbar button{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;}
   #topbar .right{display:flex;align-items:center;gap:14px;}
-  #topbar button{background:none;border:none;cursor:pointer;color:#fff;padding:4px 2px;}
+  #topbar button{background:none;border:none;cursor:pointer;color:#e7e3d8;padding:4px 2px;}
 
   .pad{padding:clamp(72px,11vh,140px) clamp(20px,5vw,72px);}
   .eyebrow{display:block;font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;margin-bottom:20px;}
@@ -69,12 +69,20 @@
   .academia-title{font-family:'EB Garamond',serif;font-size:clamp(18px,1.7vw,24px);line-height:1.35;color:#e7e3d8;}
   .academia-link{flex-shrink:0;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#d9a06a;border-bottom:1px solid rgba(217,160,106,.4);padding-bottom:3px;}
   @media(max-width:560px){.academia-item{flex-direction:column;gap:12px;}}
+
+  /* Book covers marquee */
+  .covers-track-wrap{overflow:hidden;background:#5a4e35;padding:20px 0;}
+  .covers-track{display:flex;gap:16px;width:max-content;animation:marqueeCov 28s linear infinite;}
+  .covers-track:hover{animation-play-state:paused;}
+  .covers-track img{height:160px;width:auto;object-fit:cover;display:block;flex-shrink:0;box-shadow:0 8px 24px rgba(0,0,0,.35);}
+  @keyframes marqueeCov{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media(max-width:600px){.covers-track img{height:110px;}}
 </style>
 </head>
 <body>
 
 <div id="topbar">
-  <a href="../index.html#scrittura" onclick="event.preventDefault();location.href='../index.html?t='+Date.now()+'#scrittura';" style="display:flex;align-items:center;gap:8px;background:#1c1b18;color:#fff;padding:6px 14px 6px 10px;letter-spacing:.22em;mix-blend-mode:normal;">← <span id="backLabel">Scrittura</span></a>
+  <a href="../index.html#scrittura" onclick="event.preventDefault();location.href='../index.html?t='+Date.now()+'#scrittura';" style="display:flex;align-items:center;gap:8px;color:#e7e3d8;letter-spacing:.22em;">← <span id="backLabel">Scrittura</span></a>
   <div class="right">
     <button id="btnIt">IT</button>
     <span style="opacity:.5;">/</span>
@@ -90,6 +98,26 @@
     <p style="font-family:'EB Garamond',serif;font-size:clamp(18px,1.7vw,24px);line-height:1.55;color:rgba(239,233,216,.85);max-width:52ch;margin-top:28px;" id="heroBody">Studioso di metafisica e filosofia tomista. Traduttore, illustratore con AI, autore. Dal 2019 una serie di libri tra classici illustrati, teatro e saggistica. E prima ancora, gli articoli sui blog e i contributi accademici.</p>
   </div>
 </section>
+
+<!-- COVERS MARQUEE -->
+<div class="covers-track-wrap">
+  <div class="covers-track">
+    <img src="../images/scrittura/image_28.jpg" alt="">
+    <img src="../images/scrittura/image_29.jpg" alt="">
+    <img src="../images/scrittura/image_30.jpg" alt="">
+    <img src="../images/scrittura/image_31.jpg" alt="">
+    <img src="../images/scrittura/image_32.jpg" alt="">
+    <img src="../images/scrittura/image_33.jpg" alt="">
+    <img src="../images/scrittura/image_34.jpg" alt="">
+    <img src="../images/scrittura/image_28.jpg" alt="">
+    <img src="../images/scrittura/image_29.jpg" alt="">
+    <img src="../images/scrittura/image_30.jpg" alt="">
+    <img src="../images/scrittura/image_31.jpg" alt="">
+    <img src="../images/scrittura/image_32.jpg" alt="">
+    <img src="../images/scrittura/image_33.jpg" alt="">
+    <img src="../images/scrittura/image_34.jpg" alt="">
+  </div>
+</div>
 
 <!-- LIBRI -->
 <section class="pad" style="background:#1c1b18;">
