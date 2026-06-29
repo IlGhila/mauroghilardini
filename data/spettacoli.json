@@ -209,16 +209,20 @@
   },
   {
     "slug": "orizzonti-acustici",
-    "bozza": true,
+    "bozza": false,
     "titolo": "Orizzonti Acustici",
-    "eyebrow_it": "Chitarra e voce",
-    "eyebrow_en": "Guitar and voice",
+    "eyebrow_it": "Concerto acustico · Giorgio & Ghila \"Duo\"",
+    "eyebrow_en": "Acoustic concert · Giorgio & Ghila \"Duo\"",
     "forma_it": "Concerto acustico",
     "forma_en": "Acoustic concert",
-    "durata": "",
-    "organico_it": "",
-    "organico_en": "",
-    "hero_img": "",
+    "durata": "circa 90′",
+    "organico_it": "Duo · due chitarre acustiche e voci in coro",
+    "organico_en": "Duo · two acoustic guitars and harmony vocals",
+    "hero_img": "images/REPERTORIO/orizzonti-acustici/hero.webp",
+    "hero_position": "center 40%",
+    "hero_titolo_break": true,
+    "sinossi_lead_it": "Il cantautorato italiano riletto per due chitarre acustiche e voci in coro.",
+    "sinossi_lead_en": "Italian songwriting reimagined for two acoustic guitars and harmony vocals.",
     "cta_email": "info@mauroghilardini.it"
   }
 ]

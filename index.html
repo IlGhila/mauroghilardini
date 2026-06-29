@@ -117,11 +117,9 @@
       font-size: clamp(28px,8vw,48px) !important;
     }
 
-    /* ── REPERTORIO: sipario solo desktop — su mobile tutto in flow normale ── */
-    .rep-curtain { display: none !important; }
-    #repScroll { height: auto !important; }
+    /* ── REPERTORIO ── */
     #repHeader { padding-bottom: clamp(20px,3vh,36px) !important; }
-    #repertorio { position: relative !important; height: auto !important; overflow: visible !important; padding-top: 0 !important; }
+    #repertorio { padding-top: 0 !important; }
 
     /* ── HERO: solo immagine + nome su due righe, poi parte il sito ── */
     #heroWrap { height: 100vh !important; }
@@ -158,6 +156,11 @@
     /* ── DAL VIVO: immagine centrata su mobile ── */
     #dalvivo > img { object-position: center bottom !important; }
   }
+
+  /* ── REPERTORIO — piastre orizzontali che richiamano l'hero della scheda ── */
+  /* --lit (0→1) guidato da JS sulla vicinanza al centro viewport / hover */
+  .rep-plate-img { --lit:.12; filter: grayscale(calc(.9 - var(--lit)*.75)) brightness(calc(.30 + var(--lit)*.62)) contrast(1.06); transform: scale(calc(1 + var(--lit)*.045)); transition: filter .5s ease, transform .7s ease; will-change: filter, transform; }
+  @media (prefers-reduced-motion: reduce){ .rep-plate-img{ transition:none; transform:none; } }
 
   /* Musica — contenitore disco + etichetta */
   .music-ctl { display:flex; align-items:center; gap:13px; pointer-events:auto; }
@@ -310,10 +313,9 @@
   </section>
 
   <!-- ===== 4 · REPERTORIO ===== -->
-  <!-- wrapper: altezza impostata via JS (header + sezione + vh) -->
   <div id="repScroll" style="position:relative; z-index:5;">
 
-    <!-- TITOLO: scorre via normalmente prima che la sezione si inchiodi -->
+    <!-- TITOLO -->
     <div id="repHeader" style="background:#454e5b; color:#e7e3d8; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px) clamp(30px,4vh,48px);">
       <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; border-bottom:1px solid rgba(231,227,216,.25); padding-bottom:24px;">
         <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(46px,9vw,150px); line-height:.86; letter-spacing:-.01em;">{{ repTitle }}</h2>
@@ -321,46 +323,48 @@
       </div>
     </div>
 
-    <!-- SEZIONE STICKY: label + foto/liste, si inchioda dopo che il titolo è uscito -->
-    <section id="repertorio" data-screen-label="Repertorio" style="position:sticky; top:0; overflow:hidden; background:#454e5b; color:#e7e3d8; padding:clamp(24px,3vh,40px) clamp(20px,5vw,72px) clamp(30px,4vh,56px);">
+    <!-- SEZIONE: piastre orizzontali, ognuna richiama l'hero della propria scheda -->
+    <section id="repertorio" data-screen-label="Repertorio" style="position:relative; background:#454e5b; color:#e7e3d8; padding:clamp(24px,3vh,40px) clamp(20px,5vw,72px) clamp(50px,7vh,90px);">
 
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(30px,5vw,70px);">
 
         <!-- colonna Teatro -->
-        <div style="display:flex; flex-direction:column; height:100%;">
-          <!-- label sempre visibile sopra il sipario -->
-          <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9; margin-bottom:10px; position:relative; z-index:1;">{{ repG1 }}</span>
-          <!-- area coperta dal sipario: si allunga per pareggiare l'altra colonna -->
-          <div style="position:relative; flex:1;">
-            <sc-for list="{{ repTeatro }}" as="r" hint-placeholder-count="5">
-              <div style="padding:15px 0; border-top:1px solid rgba(231,227,216,.16);">
-                <a href="{{ r.href }}" style="font-family:'EB Garamond',serif; font-size:clamp(22px,2.2vw,30px); line-height:1.1; display:inline-flex; align-items:baseline; gap:10px; color:inherit;">{{ r.name }}<span style="font-size:.65em; opacity:.55;">{{ r.arrow }}</span></a>
-                <div style="font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#aab0b9; margin-top:5px;">{{ r.meta }}</div>
-              </div>
+        <div style="display:flex; flex-direction:column; gap:clamp(10px,1.4vw,14px);">
+          <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9;">{{ repG1 }}</span>
+          <div style="display:flex; flex-direction:column; gap:clamp(8px,1vw,12px);">
+            <sc-for list="{{ repTeatro }}" as="r" hint-placeholder-count="7">
+              <a href="{{ r.href }}" style="position:relative; display:block; overflow:hidden; height:clamp(74px,9vh,112px); border-radius:2px; background:#2c333c; color:#e7e3d8;">
+                {{ r.imgEl }}
+                <div style="position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,rgba(20,19,17,.84),rgba(20,19,17,.46) 52%,rgba(20,19,17,.10));"></div>
+                <div style="position:absolute; left:0; right:0; bottom:0; display:flex; align-items:flex-end; justify-content:space-between; gap:10px; padding:clamp(10px,1.4vw,16px) clamp(13px,1.6vw,20px); pointer-events:none;">
+                  <span style="display:block;">
+                    <span style="display:block; font-family:'EB Garamond',serif; font-size:clamp(20px,2vw,28px); line-height:1.05; text-shadow:0 1px 12px rgba(0,0,0,.55);">{{ r.name }}</span>
+                    <span style="display:block; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#cdd2d9; margin-top:4px; text-shadow:0 1px 8px rgba(0,0,0,.6);">{{ r.meta }}</span>
+                  </span>
+                  <span style="font-size:18px; color:#d9a06a;">{{ r.arrow }}</span>
+                </div>
+              </a>
             </sc-for>
-            <!-- sipario Teatro: scivola a sinistra -->
-            <div id="repCurtainL" class="rep-curtain" style="position:absolute; inset:0; will-change:transform;">
-              <img src="images/teatro.webp" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block; filter:grayscale(1) contrast(1.05);">
-            </div>
           </div>
         </div>
 
         <!-- colonna Concerti -->
-        <div style="display:flex; flex-direction:column; height:100%;">
-          <!-- label sempre visibile sopra il sipario -->
-          <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9; margin-bottom:10px; position:relative; z-index:1;">{{ repG2 }}</span>
-          <!-- area coperta dal sipario: si allunga per pareggiare l'altra colonna -->
-          <div style="position:relative; flex:1;">
-            <sc-for list="{{ repConcerti }}" as="r" hint-placeholder-count="5">
-              <div style="padding:15px 0; border-top:1px solid rgba(231,227,216,.16);">
-                <a href="{{ r.href }}" style="font-family:'EB Garamond',serif; font-size:clamp(22px,2.2vw,30px); line-height:1.1; display:inline-flex; align-items:baseline; gap:10px; color:inherit;">{{ r.name }}<span style="font-size:.65em; opacity:.55;">{{ r.arrow }}</span></a>
-                <div style="font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:#aab0b9; margin-top:5px;">{{ r.meta }}</div>
-              </div>
+        <div style="display:flex; flex-direction:column; gap:clamp(10px,1.4vw,14px);">
+          <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9;">{{ repG2 }}</span>
+          <div style="display:flex; flex-direction:column; gap:clamp(8px,1vw,12px);">
+            <sc-for list="{{ repConcerti }}" as="r" hint-placeholder-count="6">
+              <a href="{{ r.href }}" style="position:relative; display:block; overflow:hidden; height:clamp(74px,9vh,112px); border-radius:2px; background:#2c333c; color:#e7e3d8;">
+                {{ r.imgEl }}
+                <div style="position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,rgba(20,19,17,.84),rgba(20,19,17,.46) 52%,rgba(20,19,17,.10));"></div>
+                <div style="position:absolute; left:0; right:0; bottom:0; display:flex; align-items:flex-end; justify-content:space-between; gap:10px; padding:clamp(10px,1.4vw,16px) clamp(13px,1.6vw,20px); pointer-events:none;">
+                  <span style="display:block;">
+                    <span style="display:block; font-family:'EB Garamond',serif; font-size:clamp(20px,2vw,28px); line-height:1.05; text-shadow:0 1px 12px rgba(0,0,0,.55);">{{ r.name }}</span>
+                    <span style="display:block; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#cdd2d9; margin-top:4px; text-shadow:0 1px 8px rgba(0,0,0,.6);">{{ r.meta }}</span>
+                  </span>
+                  <span style="font-size:18px; color:#d9a06a;">{{ r.arrow }}</span>
+                </div>
+              </a>
             </sc-for>
-            <!-- sipario Concerti: scivola a destra -->
-            <div id="repCurtainR" class="rep-curtain" style="position:absolute; inset:0; will-change:transform;">
-              <img src="images/live.webp" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block; filter:grayscale(1) contrast(1.05);">
-            </div>
           </div>
         </div>
 
@@ -689,48 +693,36 @@ class Component extends DCLogic {
     window.addEventListener('scroll', this._heroAnim, { passive: true });
     this._heroAnim();
 
-    // Repertorio sipario: dimensiona wrapper e anima curtain sullo scroll (solo desktop)
-    const _repInit = () => {
-      if (window.innerWidth <= 900) return;
-      const wrap = document.getElementById('repScroll');
-      const hdr  = document.getElementById('repHeader');
-      const sec  = document.getElementById('repertorio');
-      if (!wrap || !hdr || !sec) return;
-      // wrapper = titolo (scorre via) + sezione (sticky) + vh per aprire il sipario + vh di dwell (sipario aperto, fermo)
-      wrap.style.height = (hdr.offsetHeight + sec.scrollHeight + window.innerHeight * 1.5) + 'px';
-    };
+    // Repertorio: ogni piastra richiama l'hero della propria scheda — si illumina
+    // (--lit 0→1) in base alla vicinanza al centro del viewport, e in hover su desktop.
+    const repImgs = () => Array.prototype.slice.call(document.querySelectorAll('#repertorio .rep-plate-img'));
     this._repAnim = () => {
-      if (window.innerWidth <= 900) return;
-      const wrap = document.getElementById('repScroll');
-      const hdr  = document.getElementById('repHeader');
-      if (!wrap || !hdr) return;
-      const rect = wrap.getBoundingClientRect();
-      // il sipario inizia ad aprirsi solo dopo che il titolo è uscito dal viewport
-      const scrolledPastHeader = -rect.top - hdr.offsetHeight;
-      // fase 1: il sipario scivola via (0→vh); fase 2: dissolvenza (vh→1.4vh); pausa (1.4→1.5vh)
-      const slideP = Math.min(1, Math.max(0, scrolledPastHeader / window.innerHeight));
-      const fadeP  = Math.min(1, Math.max(0, (scrolledPastHeader - window.innerHeight) / (window.innerHeight * 0.4)));
-      const pct = (slideP * 100).toFixed(2);
-      const l = document.getElementById('repCurtainL');
-      const r = document.getElementById('repCurtainR');
-      if (l) { l.style.transform = 'translateX(-' + pct + '%)'; l.style.opacity = (1 - fadeP).toFixed(3); }
-      if (r) { r.style.transform = 'translateX(' + pct + '%)'; r.style.opacity = (1 - fadeP).toFixed(3); }
+      const vh = window.innerHeight, cy = vh / 2;
+      repImgs().forEach((img) => {
+        if (img._hover) { img.style.setProperty('--lit', '1'); return; }
+        const r = img.getBoundingClientRect();
+        if (r.bottom <= 0 || r.top >= vh) { img.style.setProperty('--lit', '0.12'); return; }
+        const mid = r.top + r.height / 2;
+        const d = Math.min(1, Math.abs(mid - cy) / (vh * 0.5));
+        img.style.setProperty('--lit', Math.max(0.12, 1 - d * 0.92).toFixed(3));
+      });
     };
-    // init dopo che sc-for ha renderizzato la lista
+    // bind hover + ripristino scroll dopo che sc-for ha renderizzato le piastre
     setTimeout(() => {
-      _repInit();
-      // al ritorno da una scheda spettacolo, porta alla posizione "pausa" (testi visibili)
+      repImgs().forEach((img) => {
+        const a = img.closest('a');
+        if (!a || a._repBound) return;
+        a._repBound = true;
+        a.addEventListener('mouseenter', () => { img._hover = true; img.style.setProperty('--lit', '1'); });
+        a.addEventListener('mouseleave', () => { img._hover = false; });
+      });
+      this._repAnim();
+      // al ritorno da una scheda spettacolo, riporta alla sezione repertorio
       if (sessionStorage.getItem('repReturnScroll') === '1') {
         sessionStorage.removeItem('repReturnScroll');
-        const wrap = document.getElementById('repScroll');
-        const hdr  = document.getElementById('repHeader');
-        if (wrap && hdr) {
-          const pauseY = wrap.offsetTop + hdr.offsetHeight + window.innerHeight * 1.4;
-          window.scrollTo({ top: pauseY, behavior: 'instant' });
-        }
+        document.getElementById('repertorio')?.scrollIntoView({ behavior: 'instant', block: 'start' });
       }
-    }, 120);
-    window.addEventListener('resize', _repInit);
+    }, 140);
     window.addEventListener('scroll', this._repAnim, { passive: true });
     this._repAnim();
 
@@ -859,24 +851,29 @@ class Component extends DCLogic {
     const hrefs = ['#top','#dalvivo','#repertorio','#dischi','#scrittura','#insegnamento','#video','#contatti'];
     const navItems = t.menuItems.map((label, i) => ({ label, href: hrefs[i], num: ROM[i] }));
 
+    // piastra hero: img della scheda (o fallback slate) — luminosità guidata da --lit (JS)
+    const repImg = (r) => r.hero
+      ? React.createElement('img', { src: r.hero, alt: '', className: 'rep-plate-img', loading: 'lazy', style: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: r.pos || 'center 38%' } })
+      : React.createElement('div', { className: 'rep-plate-img', style: { position: 'absolute', inset: 0, background: 'linear-gradient(135deg,#3c444f,#2b323b)' } });
+
     const repTeatro = [
-      { name: 'Parabole di un Clown', slug: 'parabole-di-un-clown', mIt: 'Teatro sacro · in repertorio', mEn: 'Sacred theatre · in repertoire' },
-      { name: 'Dormono sulla Collina', slug: 'dormono-sulla-collina', mIt: 'Lettura musicale · da cui il libro', mEn: 'Musical reading · became the book' },
-      { name: 'Sergente nella Neve', slug: 'sergente-nella-neve', mIt: 'Lettura · Rigoni Stern', mEn: 'Reading · Rigoni Stern' },
+      { name: 'Parabole di un Clown', slug: 'parabole-di-un-clown', hero: 'images/REPERTORIO/parabole-di-un-clown/hero.jpg', pos: 'center 30%', mIt: 'Teatro sacro · in repertorio', mEn: 'Sacred theatre · in repertoire' },
+      { name: 'Dormono sulla Collina', slug: 'dormono-sulla-collina', hero: 'images/REPERTORIO/dormono/scena-03.jpg', pos: 'center 40%', mIt: 'Lettura musicale · da cui il libro', mEn: 'Musical reading · became the book' },
+      { name: 'Sergente nella Neve', slug: 'sergente-nella-neve', hero: 'images/REPERTORIO/sergente-nella-neve/hero.webp', pos: 'center 40%', mIt: 'Lettura · Rigoni Stern', mEn: 'Reading · Rigoni Stern' },
       { name: 'Vita da Cantautrice', slug: 'vita-da-cantautrice', mIt: 'Lettura-concerto', mEn: 'Reading-concert' },
-      { name: 'Robin Hood', slug: 'robin-hood', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
-      { name: 'Gli angeli del Natale', slug: 'angeli-del-natale', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
+      { name: 'Robin Hood', slug: 'robin-hood', hero: 'images/REPERTORIO/robin-hood/hero.webp', pos: 'center 40%', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
+      { name: 'Gli angeli del Natale', slug: 'angeli-del-natale', hero: 'images/REPERTORIO/angeli-del-natale/locandina.jpg', pos: 'center 25%', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
       { name: 'Luca', slug: 'luca', bozza: true, mIt: 'Teatro profano · coming soon', mEn: 'Profane theatre · coming soon' },
-    ].map((r) => ({ name: r.name, href: 'repertorio/?slug=' + r.slug, arrow: r.bozza ? '' : '→', meta: en ? r.mEn : r.mIt }));
+    ].map((r) => ({ name: r.name, href: 'repertorio/?slug=' + r.slug, arrow: r.bozza ? '' : '→', meta: en ? r.mEn : r.mIt, imgEl: repImg(r) }));
 
     const repConcerti = [
       { name: 'Queen at Wembley', slug: 'queen-at-wembley', mIt: 'Tributo · con i Lydian', mEn: 'Tribute · with Lydian' },
-      { name: 'Lydian - Five Aid', slug: 'live-aid-tribute', mIt: 'Tributo rock · con i Lydian', mEn: 'Rock tribute · with Lydian' },
+      { name: 'Lydian - Five Aid', slug: 'live-aid-tribute', hero: 'images/REPERTORIO/live-aid-tribute/hero.jpg', pos: 'center 35%', mIt: 'Tributo rock · con i Lydian', mEn: 'Rock tribute · with Lydian' },
       { name: 'I Maestri Cantori d’Italia', slug: 'maestri-cantori-ditalia', mIt: 'Voce e pianoforte', mEn: 'Voice and piano' },
       { name: 'Le Malelingue', slug: 'malelingue', mIt: 'Band · repertorio italiano · su richiesta', mEn: 'Band · Italian repertoire · on request' },
-      { name: 'Sushi Cornucopia', slug: 'sushi-cornucopia', mIt: 'Band · repertorio internazionale · su richiesta', mEn: 'Band · international repertoire · on request' },
-      { name: 'Orizzonti Acustici', slug: 'orizzonti-acustici', mIt: 'Chitarra e voce', mEn: 'Guitar and voice' },
-    ].map((r) => ({ name: r.name, href: 'repertorio/?slug=' + r.slug, arrow: '→', meta: en ? r.mEn : r.mIt }));
+      { name: 'Sushi Cornucopia', slug: 'sushi-cornucopia', hero: 'images/REPERTORIO/sushi-cornucopia/hero.png', pos: 'center 35%', mIt: 'Band · repertorio internazionale · su richiesta', mEn: 'Band · international repertoire · on request' },
+      { name: 'Orizzonti Acustici', slug: 'orizzonti-acustici', hero: 'images/REPERTORIO/orizzonti-acustici/hero.webp', pos: 'right 38%', mIt: 'Chitarra e voce', mEn: 'Guitar and voice' },
+    ].map((r) => ({ name: r.name, href: 'repertorio/?slug=' + r.slug, arrow: '→', meta: en ? r.mEn : r.mIt, imgEl: repImg(r) }));
 
     const dischi = [
       { title: 'Faust', year: '2000', roleIt: 'Minstrel · Kaliphonia', roleEn: 'Minstrel · Kaliphonia', color: '#6d7e84', z: 30, cover: 'images/cover-a.jpg',

@@ -1,14 +1,49 @@
-﻿{
-    "slug":  "orizzonti-acustici",
-    "bozza":  true,
-    "titolo":  "Orizzonti Acustici",
-    "eyebrow_it":  "Chitarra e voce",
-    "eyebrow_en":  "Guitar and voice",
-    "forma_it":  "Concerto acustico",
-    "forma_en":  "Acoustic concert",
-    "durata":  "",
-    "organico_it":  "",
-    "organico_en":  "",
-    "hero_img":  "",
-    "cta_email":  "info@mauroghilardini.it"
+{
+  "slug": "orizzonti-acustici",
+  "bozza": false,
+  "titolo": "Orizzonti Acustici",
+  "eyebrow_it": "Concerto acustico · Giorgio & Ghila \"Duo\"",
+  "eyebrow_en": "Acoustic concert · Giorgio & Ghila \"Duo\"",
+  "forma_it": "Concerto acustico",
+  "forma_en": "Acoustic concert",
+  "durata": "circa 90′",
+  "organico_it": "Duo · due chitarre acustiche e voci in coro",
+  "organico_en": "Duo · two acoustic guitars and harmony vocals",
+  "hero_img": "images/REPERTORIO/orizzonti-acustici/hero.webp",
+  "hero_position": "center 40%",
+  "hero_titolo_break": true,
+  "sinossi_lead_it": "Il cantautorato italiano riletto per due chitarre acustiche e voci in coro.",
+  "sinossi_lead_en": "Italian songwriting reimagined for two acoustic guitars and harmony vocals.",
+  "sinossi_it": [
+    "Musica leggera in un live vivace e partecipativo: un repertorio di classici del cantautorato italiano riletti attraverso due chitarre acustiche e voci in coro.",
+    "L'energia folk e le improvvisazioni rendono ogni esibizione unica, perfetta per coinvolgere il pubblico in un'esperienza collettiva ed emozionante.",
+    "Un concerto che vive del rapporto diretto con la platea: brani noti che tutti conoscono, riportati alla loro forma più essenziale e cantati insieme, dove la voce del pubblico diventa parte dell'arrangiamento."
+  ],
+  "sinossi_en": [
+    "Pop music in a lively, participatory live show: a repertoire of Italian songwriting classics reimagined through two acoustic guitars and harmony vocals.",
+    "Folk energy and improvisation make every performance unique, perfect for drawing the audience into a collective and moving shared experience.",
+    "A concert that thrives on its direct rapport with the audience: well-loved songs brought back to their most essential form and sung together, where the crowd's voice becomes part of the arrangement."
+  ],
+  "progetto_lead_it": "«Giorgio & Ghila \"Duo\"»: un progetto nato 28 anni fa.",
+  "progetto_lead_en": "«Giorgio & Ghila \"Duo\"»: a project born 28 years ago.",
+  "progetto_it": "Il «Giorgio & Ghila \"Duo\"», composto da Giorgio Sala e Mauro Ghilardini, è un progetto nato 28 anni fa, che propone brani noti del cantautorato italiano in una veste acustica e corale. Con due chitarre acustiche, voci intrecciate e influenze folk, il concerto include momenti di improvvisazione vocale e musicale, creando un'atmosfera calda e coinvolgente. Una formula essenziale e collaudata, pensata per adattarsi tanto a una piazza quanto a un locale o a una serata privata.",
+  "progetto_en": "«Giorgio & Ghila \"Duo\"», made up of Giorgio Sala and Mauro Ghilardini, is a project born 28 years ago that brings well-known Italian songwriting into an acoustic, choral guise. With two acoustic guitars, interwoven voices and folk influences, the concert includes moments of vocal and musical improvisation, creating a warm and engaging atmosphere. An essential, time-tested format, designed to suit a town square, a club or a private evening alike.",
+  "locandina": "images/REPERTORIO/orizzonti-acustici/locandina 2026.webp",
+  "locandina_titolo_it": "La locandina del concerto",
+  "locandina_titolo_en": "The concert poster",
+  "locandina_nota_it": "Locandina della stagione in corso, in attesa di una grafica dedicata costruita sull'immagine di copertina.",
+  "locandina_nota_en": "Current-season poster, pending a dedicated artwork built on the cover image.",
+  "video": [{ "id": "qO8HKQNfjUo", "thumb": "images/REPERTORIO/orizzonti-acustici/thumb giorgio ghila.webp" }],
+  "cast": [
+    { "nome": "Giorgio Sala", "ruolo_it": "Chitarra acustica · voce", "ruolo_en": "Acoustic guitar · vocals", "strumenti": "Chitarra · Canto" },
+    { "nome": "Mauro Ghilardini", "ruolo_it": "Chitarra acustica · voce", "ruolo_en": "Acoustic guitar · vocals", "strumenti": "Chitarra · Canto" }
+  ],
+  "crew": [
+    { "ruolo_it": "Arrangiamenti", "ruolo_en": "Arrangements", "nome": "Giorgio Sala e Mauro Ghilardini" }
+  ],
+  "budget_it": "Su richiesta",
+  "budget_en": "On request",
+  "budget_nota_it": "Cachet e condizioni concordati direttamente con Mauro Ghilardini. Scrivimi per disponibilità e preventivo.",
+  "budget_nota_en": "Fee and terms agreed directly with Mauro Ghilardini. Write to me for availability and a quote.",
+  "cta_email": "info@mauroghilardini.it"
 }
