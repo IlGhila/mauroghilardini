@@ -26,8 +26,11 @@
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Archivo',system-ui,sans-serif;background:#1c1b18;color:#e7e3d8;-webkit-font-smoothing:antialiased;}
+  /* Entrata morbida della scheda (crossfade con la home) */
+  #page{opacity:0;transition:opacity .5s ease;}
+  @media(prefers-reduced-motion:reduce){ #page{opacity:1;transition:none;} }
   a{color:inherit;text-decoration:none;}
-  @keyframes slowzoom{from{transform:scale(1.03)}to{transform:scale(1.12)}}
+  @keyframes slowzoom{from{transform:scale(1)}to{transform:scale(1.09)}}
   ::selection{background:#c2543a;color:#1c1b18;}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(34px,6vw,90px);}
   @media(max-width:860px){.two{grid-template-columns:1fr;}}
@@ -70,6 +73,10 @@
   const ROOT = '../';
   const params = new URLSearchParams(location.search);
   const slug = params.get('slug') || '';
+
+  // Entrata in dissolvenza della scheda: #page sfuma da 0 a 1 a render avvenuto (vedi CSS).
+  function revealPage() { const p = document.getElementById('page'); if (p) requestAnimationFrame(() => { p.style.opacity = '1'; }); }
+  setTimeout(revealPage, 1500); // safety: non lasciare mai la pagina invisibile
 
   let lang = localStorage.getItem('mgh-lang') || 'it';
   let show = null;
@@ -178,6 +185,7 @@
     ctaBtn.textContent = (lang === 'it' ? 'Contattami' : 'Get in touch') + ' →';
     ctaBtn.href = 'mailto:' + s.cta_email + '?subject=' + encodeURIComponent(s.titolo);
     ctaBar.style.display = 'flex';
+    revealPage();
   }
 
   function render(s) {
@@ -372,6 +380,7 @@
     ctaBtn.href = 'mailto:' + s.cta_email + '?subject=' + encodeURIComponent(s.titolo);
     ctaBar.style.display = 'flex';
 
+    revealPage();
     setTimeout(() => { initReveal(); initLenis(); }, 50);
   }
 
@@ -391,7 +400,8 @@
         render(s);
       })
       .catch(() => {
-        document.getElementById('page').innerHTML = '<div style="padding:200px 40px;text-align:center;font-family:\'EB Garamond\',serif;font-size:24px;color:#7a7469;">Spettacolo non trovato.</div>';
+        revealPage();
+        document.getElementById('page').innerHTML ='<div style="padding:200px 40px;text-align:center;font-family:\'EB Garamond\',serif;font-size:24px;color:#7a7469;">Spettacolo non trovato.</div>';
       });
   }
 

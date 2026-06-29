@@ -157,6 +157,9 @@
     #dalvivo > img { object-position: center bottom !important; }
   }
 
+  /* Dissolvenza in uscita verso una scheda (crossfade con l'entrata della scheda) */
+  body.page-leaving{ opacity:0; transition:opacity .24s ease; }
+
   /* ── REPERTORIO — piastre orizzontali che richiamano l'hero della scheda ── */
   /* --lit (0→1) guidato da JS sulla vicinanza al centro viewport / hover */
   .rep-plate-img { --lit:.12; filter: grayscale(calc(.9 - var(--lit)*.75)) brightness(calc(.30 + var(--lit)*.62)) contrast(1.06); transform: scale(calc(1 + var(--lit)*.045)); transition: filter .5s ease, transform .7s ease; will-change: filter, transform; }
@@ -331,7 +334,7 @@
         <!-- colonna Teatro -->
         <div style="display:flex; flex-direction:column; gap:clamp(10px,1.4vw,14px);">
           <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9;">{{ repG1 }}</span>
-          <div style="display:flex; flex-direction:column; gap:clamp(8px,1vw,12px);">
+          <div style="display:flex; flex-direction:column; gap:clamp(3px,0.4vw,5px);">
             <sc-for list="{{ repTeatro }}" as="r" hint-placeholder-count="7">
               <a href="{{ r.href }}" style="position:relative; display:block; overflow:hidden; height:clamp(74px,9vh,112px); border-radius:2px; background:#2c333c; color:#e7e3d8;">
                 {{ r.imgEl }}
@@ -351,7 +354,7 @@
         <!-- colonna Concerti -->
         <div style="display:flex; flex-direction:column; gap:clamp(10px,1.4vw,14px);">
           <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9;">{{ repG2 }}</span>
-          <div style="display:flex; flex-direction:column; gap:clamp(8px,1vw,12px);">
+          <div style="display:flex; flex-direction:column; gap:clamp(3px,0.4vw,5px);">
             <sc-for list="{{ repConcerti }}" as="r" hint-placeholder-count="6">
               <a href="{{ r.href }}" style="position:relative; display:block; overflow:hidden; height:clamp(74px,9vh,112px); border-radius:2px; background:#2c333c; color:#e7e3d8;">
                 {{ r.imgEl }}
@@ -714,7 +717,7 @@ class Component extends DCLogic {
         if (!a || a._repBound) return;
         a._repBound = true;
         a.addEventListener('mouseenter', () => { img._hover = true; img.style.setProperty('--lit', '1'); });
-        a.addEventListener('mouseleave', () => { img._hover = false; });
+        a.addEventListener('mouseleave', () => { img._hover = false; this._repAnim(); });
       });
       this._repAnim();
       // al ritorno da una scheda spettacolo, riporta alla sezione repertorio
@@ -726,13 +729,20 @@ class Component extends DCLogic {
     window.addEventListener('scroll', this._repAnim, { passive: true });
     this._repAnim();
 
-    // salva il flag quando si clicca un link del repertorio
+    // Click su una piastra: salva ritorno + dissolvenza in uscita, poi naviga (crossfade)
     document.getElementById('repertorio')?.addEventListener('click', (e) => {
       const a = e.target.closest('a[href]');
-      if (a && a.getAttribute('href')?.startsWith('repertorio/')) {
-        sessionStorage.setItem('repReturnScroll', '1');
-      }
+      if (!a || !(a.getAttribute('href') || '').startsWith('repertorio/')) return;
+      sessionStorage.setItem('repReturnScroll', '1');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      const href = a.getAttribute('href');
+      document.body.classList.add('page-leaving');
+      setTimeout(() => { location.href = href; }, 210);
     });
+    // tornando indietro (anche da bfcache) la home non deve restare sfumata
+    window.addEventListener('pageshow', () => document.body.classList.remove('page-leaving'));
 
     // Bio scroll animation
     this._bioAnim = () => {
@@ -854,25 +864,25 @@ class Component extends DCLogic {
     // piastra hero: img della scheda (o fallback slate) — luminosità guidata da --lit (JS)
     const repImg = (r) => r.hero
       ? React.createElement('img', { src: r.hero, alt: '', className: 'rep-plate-img', loading: 'lazy', style: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: r.pos || 'center 38%' } })
-      : React.createElement('div', { className: 'rep-plate-img', style: { position: 'absolute', inset: 0, background: 'linear-gradient(135deg,#3c444f,#2b323b)' } });
+      : React.createElement('div', { className: 'rep-plate-img', style: { position: 'absolute', inset: 0, background: r.tint || 'linear-gradient(135deg,#3c444f,#2b323b)' } });
 
     const repTeatro = [
       { name: 'Parabole di un Clown', slug: 'parabole-di-un-clown', hero: 'images/REPERTORIO/parabole-di-un-clown/hero.jpg', pos: 'center 30%', mIt: 'Teatro sacro · in repertorio', mEn: 'Sacred theatre · in repertoire' },
-      { name: 'Dormono sulla Collina', slug: 'dormono-sulla-collina', hero: 'images/REPERTORIO/dormono/scena-03.jpg', pos: 'center 40%', mIt: 'Lettura musicale · da cui il libro', mEn: 'Musical reading · became the book' },
+      { name: 'Dormono sulla Collina', slug: 'dormono-sulla-collina', hero: 'images/REPERTORIO/dormono/scena-03.jpg', pos: 'center 58%', mIt: 'Lettura musicale · da cui il libro', mEn: 'Musical reading · became the book' },
       { name: 'Sergente nella Neve', slug: 'sergente-nella-neve', hero: 'images/REPERTORIO/sergente-nella-neve/hero.webp', pos: 'center 40%', mIt: 'Lettura · Rigoni Stern', mEn: 'Reading · Rigoni Stern' },
-      { name: 'Vita da Cantautrice', slug: 'vita-da-cantautrice', mIt: 'Lettura-concerto', mEn: 'Reading-concert' },
-      { name: 'Robin Hood', slug: 'robin-hood', hero: 'images/REPERTORIO/robin-hood/hero.webp', pos: 'center 40%', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
+      { name: 'Vita da Cantautrice', slug: 'vita-da-cantautrice', tint: 'linear-gradient(135deg,#4b4650,#2f2b34)', mIt: 'Lettura-concerto', mEn: 'Reading-concert' },
+      { name: 'Robin Hood', slug: 'robin-hood', hero: 'images/REPERTORIO/robin-hood/hero.webp', pos: 'center 28%', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
       { name: 'Gli angeli del Natale', slug: 'angeli-del-natale', hero: 'images/REPERTORIO/angeli-del-natale/locandina.jpg', pos: 'center 25%', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
-      { name: 'Luca', slug: 'luca', bozza: true, mIt: 'Teatro profano · coming soon', mEn: 'Profane theatre · coming soon' },
+      { name: 'Luca', slug: 'luca', bozza: true, tint: 'linear-gradient(135deg,#3f4a46,#28302d)', mIt: 'Teatro profano · coming soon', mEn: 'Profane theatre · coming soon' },
     ].map((r) => ({ name: r.name, href: 'repertorio/?slug=' + r.slug, arrow: r.bozza ? '' : '→', meta: en ? r.mEn : r.mIt, imgEl: repImg(r) }));
 
     const repConcerti = [
-      { name: 'Queen at Wembley', slug: 'queen-at-wembley', mIt: 'Tributo · con i Lydian', mEn: 'Tribute · with Lydian' },
-      { name: 'Lydian - Five Aid', slug: 'live-aid-tribute', hero: 'images/REPERTORIO/live-aid-tribute/hero.jpg', pos: 'center 35%', mIt: 'Tributo rock · con i Lydian', mEn: 'Rock tribute · with Lydian' },
-      { name: 'I Maestri Cantori d’Italia', slug: 'maestri-cantori-ditalia', mIt: 'Voce e pianoforte', mEn: 'Voice and piano' },
-      { name: 'Le Malelingue', slug: 'malelingue', mIt: 'Band · repertorio italiano · su richiesta', mEn: 'Band · Italian repertoire · on request' },
-      { name: 'Sushi Cornucopia', slug: 'sushi-cornucopia', hero: 'images/REPERTORIO/sushi-cornucopia/hero.png', pos: 'center 35%', mIt: 'Band · repertorio internazionale · su richiesta', mEn: 'Band · international repertoire · on request' },
-      { name: 'Orizzonti Acustici', slug: 'orizzonti-acustici', hero: 'images/REPERTORIO/orizzonti-acustici/hero.webp', pos: 'right 38%', mIt: 'Chitarra e voce', mEn: 'Guitar and voice' },
+      { name: 'Queen at Wembley', slug: 'queen-at-wembley', tint: 'linear-gradient(135deg,#3a4654,#252d37)', mIt: 'Tributo · con i Lydian', mEn: 'Tribute · with Lydian' },
+      { name: 'Lydian - Five Aid', slug: 'live-aid-tribute', hero: 'images/REPERTORIO/live-aid-tribute/hero.jpg', pos: 'center 24%', mIt: 'Tributo rock · con i Lydian', mEn: 'Rock tribute · with Lydian' },
+      { name: 'I Maestri Cantori d’Italia', slug: 'maestri-cantori-ditalia', tint: 'linear-gradient(135deg,#4d473a,#2f2b22)', mIt: 'Voce e pianoforte', mEn: 'Voice and piano' },
+      { name: 'Le Malelingue', slug: 'malelingue', tint: 'linear-gradient(135deg,#4e3f3c,#2f2624)', mIt: 'Band · repertorio italiano · su richiesta', mEn: 'Band · Italian repertoire · on request' },
+      { name: 'Sushi Cornucopia', slug: 'sushi-cornucopia', hero: 'images/REPERTORIO/sushi-cornucopia/hero.png', pos: 'center 52%', mIt: 'Band · repertorio internazionale · su richiesta', mEn: 'Band · international repertoire · on request' },
+      { name: 'Orizzonti Acustici', slug: 'orizzonti-acustici', hero: 'images/REPERTORIO/orizzonti-acustici/hero.webp', pos: 'right 62%', mIt: 'Chitarra e voce', mEn: 'Guitar and voice' },
     ].map((r) => ({ name: r.name, href: 'repertorio/?slug=' + r.slug, arrow: '→', meta: en ? r.mEn : r.mIt, imgEl: repImg(r) }));
 
     const dischi = [
