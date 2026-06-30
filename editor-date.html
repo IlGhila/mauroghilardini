@@ -39,8 +39,12 @@
   .date-card {
     border: 1px solid #2f2e2a; border-radius: 4px; padding: 14px 16px; margin-bottom: 10px;
     display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+    cursor: pointer; transition: border-color .15s, background .15s;
   }
+  .date-card:hover { border-color: #c2543a; background: #232220; }
+  .date-card.editing { border-color: #c2543a; background: #2a201d; }
   .date-card.past { opacity: .45; }
+  .date-card .date-info { flex: 1; }
   .date-info .d-data { font-weight: 700; font-size: 15px; color: #d9a06a; }
   .date-info .d-titolo { font-size: 14px; margin-top: 3px; }
   .date-info .d-luogo  { font-size: 12px; color: #7a7469; margin-top: 2px; }
@@ -63,7 +67,7 @@
 <div id="main">
   <!-- FORM AGGIUNGI -->
   <div id="formPane">
-    <h2>Aggiungi una data</h2>
+    <h2 id="formTitle">Aggiungi una data</h2>
 
     <div class="field">
       <label>Titolo *</label>
@@ -138,7 +142,7 @@
 
     <div style="margin-top:8px;display:flex;gap:10px;">
       <button class="btn-primary" id="btnAdd" disabled>+ Aggiungi data</button>
-      <button class="btn-ghost btn-sm" id="btnReset">Reset</button>
+      <button class="btn-ghost btn-sm" id="btnReset">Annulla</button>
     </div>
   </div>
 
@@ -156,8 +160,46 @@ let fileHandle = null;
 let dirHandle  = null;
 let locFile    = null;
 let dates      = [];
+let editIndex  = null;   // indice della data in modifica (null = nuova)
+let rememberedHandle = null; // ultimo date.js usato, in attesa di riconferma permesso
 
 const today = new Date().toISOString().slice(0, 10);
+
+// ── memorizza l'handle del file in IndexedDB (così riapre lo stesso date.js) ──
+function idbHandle(value) {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open('mg-editor-date', 1);
+    req.onupgradeneeded = () => req.result.createObjectStore('handles');
+    req.onerror = () => reject(req.error);
+    req.onsuccess = () => {
+      const db = req.result;
+      const tx = db.transaction('handles', 'readwrite');
+      const store = tx.objectStore('handles');
+      if (value === undefined) {
+        const g = store.get('dateJs');
+        g.onsuccess = () => resolve(g.result || null);
+        g.onerror = () => reject(g.error);
+      } else {
+        store.put(value, 'dateJs');
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      }
+    };
+  });
+}
+
+// ── carica le date da un fileHandle già aperto ───────────────────────────────
+async function loadFromHandle(fh) {
+  const file = await fh.getFile();
+  const src  = await file.text();
+  dates = parseDateJs(src);
+  fileHandle = fh;
+  document.getElementById('fileName').textContent = file.name;
+  document.getElementById('btnSave').disabled = false;
+  document.getElementById('btnAdd').disabled  = false;
+  renderList();
+  status('File caricato: ' + dates.length + ' date.');
+}
 
 // ── parse date.js (eval sicuro: solo dati) ──────────────────────────────────
 function parseDateJs(src) {
@@ -209,7 +251,8 @@ function renderList() {
     const realIdx = dates.indexOf(d);
     const past = d.data < today;
     const card = document.createElement('div');
-    card.className = 'date-card' + (past ? ' past' : '');
+    card.className = 'date-card' + (past ? ' past' : '') + (realIdx === editIndex ? ' editing' : '');
+    card.title = 'Clicca per modificare';
     card.innerHTML = `
       <div class="date-info">
         <div class="d-data">${d.data}${d.ora ? ' · ' + d.ora : ''}${past ? ' <span style="color:#5b5649;font-size:11px;">(passata)</span>' : ''}</div>
@@ -222,40 +265,90 @@ function renderList() {
     list.appendChild(card);
   });
   list.querySelectorAll('.del-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (ev) => {
+      ev.stopPropagation();
       const i = parseInt(btn.dataset.idx);
       if (confirm('Eliminare: ' + dates[i].titolo + ' (' + dates[i].data + ')?')) {
         dates.splice(i, 1);
+        if (editIndex === i) resetForm();
+        else if (editIndex !== null && i < editIndex) editIndex--;
         renderList();
         document.getElementById('btnSave').disabled = false;
       }
     });
   });
+  list.querySelectorAll('.date-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const i = parseInt(card.querySelector('.del-btn').dataset.idx);
+      loadForEdit(i);
+    });
+  });
+}
+
+// ── carica una data nel form per modificarla ──────────────────────────────────
+function loadForEdit(i) {
+  const d = dates[i];
+  editIndex = i;
+  document.getElementById('fTitolo').value = d.titolo || '';
+  document.getElementById('fData').value   = d.data || '';
+  document.getElementById('fOra').value    = d.ora || '';
+  document.getElementById('fLuogo').value  = d.luogo || '';
+  document.getElementById('fTipo').value   = d.tipo || 'teatro';
+  document.getElementById('fSlug').value   = d.slug || '';
+  document.getElementById('fLocandina').value = d.locandina || '';
+  document.getElementById('fNota').value   = d.nota || '';
+  document.getElementById('fNascosta').checked = !!d.nascosta;
+  document.getElementById('locPreview').style.display = 'none';
+  locFile = null;
+  document.getElementById('formTitle').textContent = 'Modifica data';
+  document.getElementById('btnAdd').textContent = '✓ Salva modifiche';
+  renderList();
+  document.getElementById('formPane').scrollTop = 0;
 }
 
 // ── apri file ────────────────────────────────────────────────────────────────
 document.getElementById('btnOpen').addEventListener('click', async () => {
   try {
-    [fileHandle] = await window.showOpenFilePicker({
+    // se c'è un file ricordato, riusalo senza ripassare dal selettore
+    if (rememberedHandle) {
+      const fh = rememberedHandle;
+      rememberedHandle = null;
+      if (await fh.requestPermission({ mode: 'readwrite' }) === 'granted') {
+        await loadFromHandle(fh);
+        return;
+      }
+    }
+    const [fh] = await window.showOpenFilePicker({
       types: [{ description: 'JavaScript', accept: { 'application/javascript': ['.js'] } }],
       startIn: 'documents',
     });
-    const file = await fileHandle.getFile();
-    const src  = await file.text();
-    dates = parseDateJs(src);
-    document.getElementById('fileName').textContent = file.name;
-    document.getElementById('btnSave').disabled = false;
-    document.getElementById('btnAdd').disabled  = false;
-    renderList();
-    status('File caricato: ' + dates.length + ' date.');
+    await loadFromHandle(fh);
+    try { await idbHandle(fh); } catch (_) {}
   } catch (e) {
     if (e.name !== 'AbortError') alert('Errore: ' + e.message);
   }
 });
 
 // ── salva file + copia locandina ─────────────────────────────────────────────
+let needRepick = false;  // un salvataggio è fallito: il prossimo click riseleziona il file
 document.getElementById('btnSave').addEventListener('click', async () => {
   if (!fileHandle) return;
+
+  // Se il salvataggio precedente è fallito, riaggancia il file (PRIMA istruzione = gesto valido)
+  if (needRepick) {
+    try {
+      [fileHandle] = await window.showOpenFilePicker({
+        types: [{ description: 'JavaScript', accept: { 'application/javascript': ['.js'] } }],
+        startIn: 'documents',
+      });
+      try { await idbHandle(fileHandle); } catch (_) {}
+      document.getElementById('fileName').textContent = (await fileHandle.getFile()).name;
+      needRepick = false;
+    } catch (e) {
+      if (e.name !== 'AbortError') alert('Errore: ' + e.message);
+      return;
+    }
+  }
 
   // Copia locandina se scelta
   if (locFile) {
@@ -273,17 +366,39 @@ document.getElementById('btnSave').addEventListener('click', async () => {
     }
   }
 
-  // Scrivi date.js
-  try {
+  // Scrivi date.js (con riconferma permesso e un retry se lo stato è "stantio")
+  const content = serializeDateJs(dates);
+  async function writeOut() {
+    if (fileHandle.queryPermission) {
+      const opts = { mode: 'readwrite' };
+      if (await fileHandle.queryPermission(opts) !== 'granted') {
+        await fileHandle.requestPermission(opts);
+      }
+    }
+    // rinfresca lo stato in cache dell'handle (evita "state had changed since read")
+    await fileHandle.getFile();
     const writable = await fileHandle.createWritable();
-    await writable.write(serializeDateJs(dates));
+    await writable.write(content);
     await writable.close();
-    locFile = null;
-    document.getElementById('locPreview').style.display = 'none';
-    status('Salvato! ✓');
-  } catch (e) {
-    alert('Errore nel salvataggio: ' + e.message);
   }
+
+  try {
+    await writeOut();
+  } catch (e) {
+    // Stato del file cambiato dopo l'apertura: rinfresca e riprova una volta.
+    try {
+      await writeOut();
+    } catch (e2) {
+      needRepick = true;
+      alert('Errore nel salvataggio: ' + e2.message +
+        '\n\nIl file è stato modificato fuori dall\'editor.' +
+        '\nClicca di nuovo "Salva date.js": ti chiederà di riselezionare date.js, poi salverà.');
+      return;
+    }
+  }
+  locFile = null;
+  document.getElementById('locPreview').style.display = 'none';
+  status('Salvato! ✓');
 });
 
 // ── pick locandina ───────────────────────────────────────────────────────────
@@ -323,11 +438,19 @@ document.getElementById('btnAdd').addEventListener('click', () => {
   if (nota)      entry.nota      = nota;
   if (nascosta)  entry.nascosta  = true;
 
-  dates.push(entry);
-  renderList();
-  document.getElementById('btnSave').disabled = false;
-  resetForm();
-  status('Data aggiunta — ricordati di salvare!');
+  if (editIndex !== null) {
+    dates[editIndex] = entry;
+    resetForm();
+    renderList();
+    document.getElementById('btnSave').disabled = false;
+    status('Data modificata — ricordati di salvare!');
+  } else {
+    dates.push(entry);
+    resetForm();
+    renderList();
+    document.getElementById('btnSave').disabled = false;
+    status('Data aggiunta — ricordati di salvare!');
+  }
 });
 
 // ── reset form ────────────────────────────────────────────────────────────────
@@ -339,8 +462,11 @@ function resetForm() {
   document.getElementById('locPreview').style.display = 'none';
   document.getElementById('locHint').textContent = 'Il file verrà copiato in images/live/locandine/ — scegli una cartella prima del salvataggio.';
   locFile = null;
+  editIndex = null;
+  document.getElementById('formTitle').textContent = 'Aggiungi una data';
+  document.getElementById('btnAdd').textContent = '+ Aggiungi data';
 }
-document.getElementById('btnReset').addEventListener('click', resetForm);
+document.getElementById('btnReset').addEventListener('click', () => { resetForm(); renderList(); });
 
 // ── status toast ──────────────────────────────────────────────────────────────
 function status(msg) {
@@ -355,6 +481,23 @@ if (!window.showOpenFilePicker) {
   document.getElementById('btnOpen').disabled = true;
   document.getElementById('btnSave').disabled = true;
   alert('Questo editor richiede Chrome o Edge aggiornato. Safari e Firefox non supportano la File System Access API.');
+} else {
+  // Riapri automaticamente l'ultimo date.js usato
+  (async () => {
+    try {
+      const fh = await idbHandle();
+      if (!fh) return;
+      // serve un permesso già concesso o ri-concedibile senza gesto utente
+      if (fh.queryPermission && await fh.queryPermission({ mode: 'readwrite' }) === 'granted') {
+        await loadFromHandle(fh);
+      } else {
+        // il browser richiede un gesto utente per riconcedere il permesso:
+        // riapre lo stesso file al primo click sul pulsante "Apri date.js"
+        rememberedHandle = fh;
+        document.getElementById('fileName').textContent = '▶ clicca "Apri date.js" per riaprire ' + fh.name;
+      }
+    } catch (_) {}
+  })();
 }
 </script>
 </body>
