@@ -106,7 +106,7 @@
   // Normalizza un testo per il confronto: minuscolo, senza accenti/punteggiatura
   function norm(s) {
     return String(s || '').toLowerCase()
-      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
       .replace(/[^a-z0-9]+/g, ' ').trim();
   }
 
