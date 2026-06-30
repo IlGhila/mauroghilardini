@@ -23,6 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" integrity="sha384-li4UtcFCH6QeUqR4JyV58/VgTprMuz9aauj+oWtew7V4Y7ZVjnvz5px9Y3UCG0Ea" crossorigin="anonymous"></script>
+<script src="../date.js"></script>
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'Archivo',system-ui,sans-serif;background:#1c1b18;color:#e7e3d8;-webkit-font-smoothing:antialiased;}
@@ -100,6 +101,39 @@
 
   function esc(s) {
     return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // Normalizza un testo per il confronto: minuscolo, senza accenti/punteggiatura
+  function norm(s) {
+    return String(s || '').toLowerCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+
+  // Una data appartiene allo spettacolo se: ha lo slug esplicito (override),
+  // oppure il titolo dello spettacolo è contenuto nel titolo della data (o viceversa).
+  function dateMatchesShow(d, sh) {
+    if (d.slug) return d.slug === sh.slug;
+    const dt = norm(d.titolo), st = norm(sh.titolo);
+    if (!dt || !st) return false;
+    return dt.indexOf(st) !== -1 || st.indexOf(dt) !== -1;
+  }
+
+  // Prossima data dal vivo futura per questo spettacolo (collegamento automatico)
+  function nextLiveDate(sh) {
+    const today = new Date().toISOString().slice(0, 10);
+    const all = (window.MG_DATE || [])
+      .filter(d => !d.nascosta && d.data >= today && dateMatchesShow(d, sh))
+      .sort((a, b) => a.data < b.data ? -1 : 1);
+    return all[0] || null;
+  }
+
+  function fmtLiveDate(str) {
+    const [y, m, d] = str.split('-').map(Number);
+    const mesi = lang === 'en'
+      ? ['January','February','March','April','May','June','July','August','September','October','November','December']
+      : ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
+    return lang === 'en' ? (mesi[m-1] + ' ' + d + ', ' + y) : (d + ' ' + mesi[m-1] + ' ' + y);
   }
 
   function el(tag, attrs, ...children) {
@@ -215,6 +249,24 @@
       )
     );
     sections.push(hero);
+
+    // PROSSIMA DATA DAL VIVO
+    const nd = nextLiveDate(s);
+    if (nd) {
+      const meta = [nd.luogo, nd.ora ? (lang === 'it' ? 'ore ' + nd.ora : nd.ora) : ''].filter(Boolean).join(' · ');
+      const live = el('section', { 'data-reveal': '', style: 'background:#c2543a;color:#1c1b18;padding:clamp(34px,6vh,64px) clamp(20px,5vw,72px);' },
+        el('div', { style: 'display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;' },
+          el('div', {},
+            el('span', { style: 'display:block;font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:rgba(28,27,24,.6);margin-bottom:14px;' }, lang === 'it' ? 'Prossima data dal vivo' : 'Next live date'),
+            el('div', { style: 'font-family:\'Anton\',sans-serif;text-transform:uppercase;font-size:clamp(30px,4.4vw,64px);line-height:.92;' }, fmtLiveDate(nd.data)),
+            meta ? el('p', { style: 'font-family:\'EB Garamond\',serif;font-size:clamp(17px,1.6vw,23px);margin-top:12px;color:rgba(28,27,24,.85);' }, meta) : null
+          ),
+          el('a', { href: ROOT + 'date/', style: 'white-space:nowrap;background:#1c1b18;color:#e7e3d8;padding:14px 24px;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;align-self:flex-end;' },
+            (lang === 'it' ? 'Tutte le date' : 'All dates') + ' →')
+        )
+      );
+      sections.push(live);
+    }
 
     // SINOSSI
     const synPars = (lang === 'it' ? s.sinossi_it : s.sinossi_en) || [];

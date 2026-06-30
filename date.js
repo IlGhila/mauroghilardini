@@ -13,6 +13,7 @@ window.MG_DATE = [
     ora:       "",
     luogo:     "",
     tipo:      "teatro",
+    slug:      "vita-da-cantautrice",
     locandina: "",
     nota:      "" },
 
@@ -29,6 +30,7 @@ window.MG_DATE = [
     ora:       "",
     luogo:     "Ardesio (BG)",
     tipo:      "sushi",
+    slug:      "sushi-cornucopia",
     locandina: "sushi.jpg",
     nota:      "" },
 
@@ -53,6 +55,7 @@ window.MG_DATE = [
     ora:       "16:00",
     luogo:     "Valgoglio (BG)",
     tipo:      "acustico",
+    slug:      "orizzonti-acustici",
     locandina: "orizzonti.webp",
     nota:      "" },
 
@@ -78,14 +81,16 @@ window.MG_DATE = [
     ora:       "",
     luogo:     "Pradalunga (BG)",
     tipo:      "sushi",
+    slug:      "sushi-cornucopia",
     locandina: "sushi.jpg",
     nota:      "" },
 
   { titolo:    "Lydian 'Queen at Wembley' Tribute",
     data:      "2026-07-28",
-    ora:       "",
-    luogo:     "Gazzaniga (BG)",
+    ora:       "21:15",
+    luogo:     "Piazza Sant'Ippolito, Gazzaniga (BG)",
     tipo:      "lydian",
+    slug:      "queen-at-wembley",
     locandina: "lydian.jpeg",
     nota:      "" },
 
@@ -94,6 +99,7 @@ window.MG_DATE = [
     ora:       "",
     luogo:     "Rovetta (BG)",
     tipo:      "sushi",
+    slug:      "sushi-cornucopia",
     locandina: "sushi.jpg",
     nota:      "" },
 
@@ -120,6 +126,7 @@ window.MG_DATE = [
     ora:       "21:30",
     luogo:     "Castione della Presolana (BG)",
     tipo:      "sushi",
+    slug:      "sushi-cornucopia",
     locandina: "sushi.jpg",
     nota:      "" },
 
@@ -136,6 +143,7 @@ window.MG_DATE = [
     ora:       "",
     luogo:     "Pradalunga (BG)",
     tipo:      "sushi",
+    slug:      "sushi-cornucopia",
     locandina: "sushi.jpg",
     nota:      "" },
 
@@ -144,6 +152,7 @@ window.MG_DATE = [
     ora:       "",
     luogo:     "Bologna",
     tipo:      "teatro",
+    slug:      "parabole-di-un-clown",
     locandina: "parabole.jpg",
     nota:      "" },
 

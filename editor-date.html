@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Editor Date — Mauro Ghilardini</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #1c1b18; color: #e7e3d8; min-height: 100vh; }
+  h1  { font-size: 18px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  #toolbar { display: flex; align-items: center; gap: 12px; padding: 18px 28px; border-bottom: 1px solid #333; background: #151412; position: sticky; top: 0; z-index: 10; }
+  #toolbar span { font-size: 12px; color: #7a7469; margin-left: auto; }
+  button { cursor: pointer; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; border: none; padding: 10px 18px; border-radius: 3px; }
+  .btn-primary   { background: #c2543a; color: #fff; }
+  .btn-secondary { background: #2f2e2a; color: #e7e3d8; }
+  .btn-ghost     { background: transparent; color: #7a7469; border: 1px solid #333; }
+  .btn-sm        { padding: 6px 12px; font-size: 11px; }
+  button:disabled { opacity: .4; cursor: not-allowed; }
+
+  #main { display: grid; grid-template-columns: 1fr 1fr; gap: 0; height: calc(100vh - 61px); }
+  #formPane  { padding: 28px; overflow-y: auto; border-right: 1px solid #2a2927; }
+  #listPane  { padding: 28px; overflow-y: auto; }
+
+  h2 { font-size: 11px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: #7a7469; margin-bottom: 20px; }
+
+  .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  label  { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #938c7f; }
+  input, select, textarea {
+    background: #2a2927; border: 1px solid #3a3935; color: #e7e3d8;
+    font-family: inherit; font-size: 14px; padding: 9px 12px; border-radius: 3px; width: 100%;
+  }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: #c2543a; }
+  select option { background: #2a2927; }
+  .hint { font-size: 11px; color: #5b5649; }
+
+  .loc-row { display: flex; gap: 8px; align-items: center; }
+  .loc-row input { flex: 1; }
+  #locPreview { width: 52px; height: 52px; object-fit: cover; border-radius: 3px; display: none; }
+
+  .date-card {
+    border: 1px solid #2f2e2a; border-radius: 4px; padding: 14px 16px; margin-bottom: 10px;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+  }
+  .date-card.past { opacity: .45; }
+  .date-info .d-data { font-weight: 700; font-size: 15px; color: #d9a06a; }
+  .date-info .d-titolo { font-size: 14px; margin-top: 3px; }
+  .date-info .d-luogo  { font-size: 12px; color: #7a7469; margin-top: 2px; }
+  .date-info .d-slug   { font-size: 10px; color: #5b5649; margin-top: 4px; font-family: monospace; }
+  .date-card .del-btn  { flex-shrink: 0; }
+
+  #empty { color: #5b5649; font-size: 14px; text-align: center; margin-top: 60px; }
+  #status { position: fixed; bottom: 20px; right: 20px; background: #2b6e4a; color: #d4f5e2; padding: 10px 18px; border-radius: 4px; font-size: 13px; display: none; z-index: 99; }
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <h1>Date · Editor</h1>
+  <button class="btn-secondary" id="btnOpen">📂 Apri date.js</button>
+  <button class="btn-primary"   id="btnSave" disabled>💾 Salva date.js</button>
+  <span id="fileName">— nessun file aperto —</span>
+</div>
+
+<div id="main">
+  <!-- FORM AGGIUNGI -->
+  <div id="formPane">
+    <h2>Aggiungi una data</h2>
+
+    <div class="field">
+      <label>Titolo *</label>
+      <input id="fTitolo" type="text" placeholder="es. Lydian 'Queen at Wembley' Tribute">
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="field">
+        <label>Data *</label>
+        <input id="fData" type="date">
+      </div>
+      <div class="field">
+        <label>Ora</label>
+        <input id="fOra" type="time" placeholder="21:15">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Luogo</label>
+      <input id="fLuogo" type="text" placeholder="es. Piazza Sant'Ippolito, Gazzaniga (BG)">
+    </div>
+
+    <div class="field">
+      <label>Tipo</label>
+      <select id="fTipo">
+        <option value="teatro">teatro</option>
+        <option value="lydian">lydian</option>
+        <option value="sushi">sushi</option>
+        <option value="acustico">acustico</option>
+        <option value="concerto">concerto</option>
+        <option value="festa">festa</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Spettacolo in repertorio (slug)</label>
+      <select id="fSlug">
+        <option value="">— nessuno / rilevamento automatico —</option>
+        <option value="queen-at-wembley">Queen at Wembley</option>
+        <option value="live-aid-tribute">Lydian – Five Aid</option>
+        <option value="sushi-cornucopia">Sushi Cornucopia</option>
+        <option value="orizzonti-acustici">Orizzonti Acustici</option>
+        <option value="parabole-di-un-clown">Parabole di un Clown</option>
+        <option value="dormono-sulla-collina">Dormono sulla Collina</option>
+        <option value="robin-hood">Robin Hood</option>
+        <option value="angeli-del-natale">Gli Angeli del Natale</option>
+        <option value="sergente-nella-neve">Il Sergente nella Neve</option>
+        <option value="vita-da-cantautrice">Vita da Cantautrice</option>
+      </select>
+      <span class="hint">Serve solo se il titolo sopra non contiene il nome dello spettacolo.</span>
+    </div>
+
+    <div class="field">
+      <label>Locandina</label>
+      <div class="loc-row">
+        <input id="fLocandina" type="text" placeholder="nome-file.jpg">
+        <button class="btn-ghost btn-sm" id="btnPickLoc">Scegli file…</button>
+        <img id="locPreview" alt="preview">
+      </div>
+      <span class="hint" id="locHint">Il file verrà copiato in images/live/locandine/ — scegli una cartella prima del salvataggio.</span>
+    </div>
+
+    <div class="field">
+      <label>Nota (opzionale)</label>
+      <input id="fNota" type="text" placeholder="">
+    </div>
+
+    <div class="field" style="flex-direction:row;align-items:center;gap:10px;">
+      <input id="fNascosta" type="checkbox" style="width:auto;">
+      <label for="fNascosta" style="text-transform:none;font-size:13px;letter-spacing:0;">Nascosta (non compare in DAL VIVO)</label>
+    </div>
+
+    <div style="margin-top:8px;display:flex;gap:10px;">
+      <button class="btn-primary" id="btnAdd" disabled>+ Aggiungi data</button>
+      <button class="btn-ghost btn-sm" id="btnReset">Reset</button>
+    </div>
+  </div>
+
+  <!-- LISTA DATE -->
+  <div id="listPane">
+    <h2>Date in calendario</h2>
+    <div id="dateList"><div id="empty">Apri date.js per vedere le date.</div></div>
+  </div>
+</div>
+
+<div id="status"></div>
+
+<script>
+let fileHandle = null;
+let dirHandle  = null;
+let locFile    = null;
+let dates      = [];
+
+const today = new Date().toISOString().slice(0, 10);
+
+// ── parse date.js (eval sicuro: solo dati) ──────────────────────────────────
+function parseDateJs(src) {
+  const m = src.match(/window\.MG_DATE\s*=\s*(\[[\s\S]*?\]);/);
+  if (!m) throw new Error('Formato date.js non riconosciuto.');
+  return JSON.parse(m[1]
+    .replace(/\/\/.*/g, '')                    // rimuovi commenti inline
+    .replace(/,\s*([}\]])/g, '$1')             // trailing comma
+    .replace(/([{,]\s*)(\w+)(\s*:)/g, '$1"$2"$3') // chiavi senza virgolette
+  );
+}
+
+// ── serializza array → date.js ───────────────────────────────────────────────
+function serializeDateJs(arr) {
+  const entries = arr.map(d => {
+    const fields = ['titolo','data','ora','luogo','tipo','slug','locandina','nota'];
+    const lines = fields.map(k => {
+      const v = d[k] !== undefined ? d[k] : '';
+      return `    ${k}:      ${JSON.stringify(v)}`;
+    });
+    if (d.nascosta) lines.push('    nascosta:  true');
+    return '  {\n' + lines.join(',\n') + ' }';
+  }).join(',\n\n');
+
+  return `/* ════════════════════════════════════════════════════════════════
+   LE DATE DI ANTRA — concerti, letture, spettacoli
+   Generato con editor-date.html. Puoi anche modificarlo a mano.
+   Campi: titolo, data ("AAAA-MM-GG"), ora, luogo,
+          tipo (sushi|lydian|teatro|acustico|festa|concerto),
+          slug (collega alla scheda in repertorio — ometti per rilevamento auto),
+          locandina (file in images/live/locandine/), nota.
+   ════════════════════════════════════════════════════════════════ */
+
+window.MG_DATE = [
+
+${entries},
+
+];
+`;
+}
+
+// ── render lista ─────────────────────────────────────────────────────────────
+function renderList() {
+  const list = document.getElementById('dateList');
+  if (!dates.length) { list.innerHTML = '<div id="empty">Nessuna data.</div>'; return; }
+  const sorted = [...dates].sort((a, b) => a.data < b.data ? -1 : 1);
+  list.innerHTML = '';
+  sorted.forEach((d, _i) => {
+    const realIdx = dates.indexOf(d);
+    const past = d.data < today;
+    const card = document.createElement('div');
+    card.className = 'date-card' + (past ? ' past' : '');
+    card.innerHTML = `
+      <div class="date-info">
+        <div class="d-data">${d.data}${d.ora ? ' · ' + d.ora : ''}${past ? ' <span style="color:#5b5649;font-size:11px;">(passata)</span>' : ''}</div>
+        <div class="d-titolo">${d.titolo}</div>
+        ${d.luogo ? `<div class="d-luogo">${d.luogo}</div>` : ''}
+        ${d.slug  ? `<div class="d-slug">slug: ${d.slug}</div>` : ''}
+        ${d.nascosta ? `<div class="d-slug" style="color:#c2543a;">nascosta</div>` : ''}
+      </div>
+      <button class="btn-ghost btn-sm del-btn" data-idx="${realIdx}">✕</button>`;
+    list.appendChild(card);
+  });
+  list.querySelectorAll('.del-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const i = parseInt(btn.dataset.idx);
+      if (confirm('Eliminare: ' + dates[i].titolo + ' (' + dates[i].data + ')?')) {
+        dates.splice(i, 1);
+        renderList();
+        document.getElementById('btnSave').disabled = false;
+      }
+    });
+  });
+}
+
+// ── apri file ────────────────────────────────────────────────────────────────
+document.getElementById('btnOpen').addEventListener('click', async () => {
+  try {
+    [fileHandle] = await window.showOpenFilePicker({
+      types: [{ description: 'JavaScript', accept: { 'application/javascript': ['.js'] } }],
+      startIn: 'documents',
+    });
+    const file = await fileHandle.getFile();
+    const src  = await file.text();
+    dates = parseDateJs(src);
+    document.getElementById('fileName').textContent = file.name;
+    document.getElementById('btnSave').disabled = false;
+    document.getElementById('btnAdd').disabled  = false;
+    renderList();
+    status('File caricato: ' + dates.length + ' date.');
+  } catch (e) {
+    if (e.name !== 'AbortError') alert('Errore: ' + e.message);
+  }
+});
+
+// ── salva file + copia locandina ─────────────────────────────────────────────
+document.getElementById('btnSave').addEventListener('click', async () => {
+  if (!fileHandle) return;
+
+  // Copia locandina se scelta
+  if (locFile) {
+    try {
+      if (!dirHandle) {
+        alert('Per copiare la locandina, scegli la cartella images/live/locandine/ quando richiesto.');
+        dirHandle = await window.showDirectoryPicker({ mode: 'readwrite', startIn: 'documents' });
+      }
+      const dest = await dirHandle.getFileHandle(locFile.name, { create: true });
+      const writable = await dest.createWritable();
+      await writable.write(await locFile.arrayBuffer());
+      await writable.close();
+    } catch (e) {
+      if (e.name !== 'AbortError') alert('Locandina non copiata: ' + e.message);
+    }
+  }
+
+  // Scrivi date.js
+  try {
+    const writable = await fileHandle.createWritable();
+    await writable.write(serializeDateJs(dates));
+    await writable.close();
+    locFile = null;
+    document.getElementById('locPreview').style.display = 'none';
+    status('Salvato! ✓');
+  } catch (e) {
+    alert('Errore nel salvataggio: ' + e.message);
+  }
+});
+
+// ── pick locandina ───────────────────────────────────────────────────────────
+document.getElementById('btnPickLoc').addEventListener('click', async () => {
+  try {
+    const [fh] = await window.showOpenFilePicker({
+      types: [{ description: 'Immagini', accept: { 'image/*': ['.jpg','.jpeg','.webp','.png'] } }],
+    });
+    locFile = await fh.getFile();
+    document.getElementById('fLocandina').value = locFile.name;
+    const url = URL.createObjectURL(locFile);
+    const prev = document.getElementById('locPreview');
+    prev.src = url; prev.style.display = 'block';
+    document.getElementById('locHint').textContent = 'Verrà copiata in images/live/locandine/' + locFile.name + ' al salvataggio.';
+  } catch (e) {
+    if (e.name !== 'AbortError') alert(e.message);
+  }
+});
+
+// ── aggiungi data ─────────────────────────────────────────────────────────────
+document.getElementById('btnAdd').addEventListener('click', () => {
+  const titolo = document.getElementById('fTitolo').value.trim();
+  const data   = document.getElementById('fData').value;
+  if (!titolo || !data) { alert('Titolo e data sono obbligatori.'); return; }
+
+  const ora       = document.getElementById('fOra').value || '';
+  const luogo     = document.getElementById('fLuogo').value.trim();
+  const tipo      = document.getElementById('fTipo').value;
+  const slug      = document.getElementById('fSlug').value;
+  const locandina = document.getElementById('fLocandina').value.trim();
+  const nota      = document.getElementById('fNota').value.trim();
+  const nascosta  = document.getElementById('fNascosta').checked;
+
+  const entry = { titolo, data, ora, luogo, tipo };
+  if (slug)      entry.slug      = slug;
+  if (locandina) entry.locandina = locandina;
+  if (nota)      entry.nota      = nota;
+  if (nascosta)  entry.nascosta  = true;
+
+  dates.push(entry);
+  renderList();
+  document.getElementById('btnSave').disabled = false;
+  resetForm();
+  status('Data aggiunta — ricordati di salvare!');
+});
+
+// ── reset form ────────────────────────────────────────────────────────────────
+function resetForm() {
+  ['fTitolo','fData','fOra','fLuogo','fNota','fLocandina'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('fTipo').value  = 'teatro';
+  document.getElementById('fSlug').value  = '';
+  document.getElementById('fNascosta').checked = false;
+  document.getElementById('locPreview').style.display = 'none';
+  document.getElementById('locHint').textContent = 'Il file verrà copiato in images/live/locandine/ — scegli una cartella prima del salvataggio.';
+  locFile = null;
+}
+document.getElementById('btnReset').addEventListener('click', resetForm);
+
+// ── status toast ──────────────────────────────────────────────────────────────
+function status(msg) {
+  const el = document.getElementById('status');
+  el.textContent = msg; el.style.display = 'block';
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { el.style.display = 'none'; }, 3000);
+}
+
+// ── controlla supporto API ────────────────────────────────────────────────────
+if (!window.showOpenFilePicker) {
+  document.getElementById('btnOpen').disabled = true;
+  document.getElementById('btnSave').disabled = true;
+  alert('Questo editor richiede Chrome o Edge aggiornato. Safari e Firefox non supportano la File System Access API.');
+}
+</script>
+</body>
+</html>

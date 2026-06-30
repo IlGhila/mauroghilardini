@@ -873,13 +873,13 @@ class Component extends DCLogic {
       { name: 'Vita da Cantautrice', slug: 'vita-da-cantautrice', tint: 'linear-gradient(135deg,#4b4650,#2f2b34)', mIt: 'Lettura-concerto', mEn: 'Reading-concert' },
       { name: 'Robin Hood', slug: 'robin-hood', hero: 'images/REPERTORIO/robin-hood/hero.webp', pos: 'center 28%', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
       { name: 'Gli angeli del Natale', slug: 'angeli-del-natale', hero: 'images/REPERTORIO/angeli-del-natale/locandina.jpg', pos: 'center 25%', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
-      { name: 'Luca', slug: 'luca', bozza: true, tint: 'linear-gradient(135deg,#3f4a46,#28302d)', mIt: 'Teatro profano · coming soon', mEn: 'Profane theatre · coming soon' },
+      { name: 'Luca', slug: 'luca', hero: 'images/REPERTORIO/luca/hero.jpg', pos: 'center 45%', mIt: 'Lettura teatrale · prima ottobre 2026', mEn: 'Theatre reading · premiere Oct 2026' },
     ].map((r) => ({ name: r.name, href: 'repertorio/?slug=' + r.slug, arrow: r.bozza ? '' : '→', meta: en ? r.mEn : r.mIt, imgEl: repImg(r) }));
 
     const repConcerti = [
-      { name: 'Queen at Wembley', slug: 'queen-at-wembley', tint: 'linear-gradient(135deg,#3a4654,#252d37)', mIt: 'Tributo · con i Lydian', mEn: 'Tribute · with Lydian' },
+      { name: 'Queen at Wembley', slug: 'queen-at-wembley', hero: 'images/REPERTORIO/queen-at-wembley/hero.webp', pos: 'center 30%', mIt: 'Tributo · con i Lydian', mEn: 'Tribute · with Lydian' },
       { name: 'Lydian - Five Aid', slug: 'live-aid-tribute', hero: 'images/REPERTORIO/live-aid-tribute/hero.jpg', pos: 'center 24%', mIt: 'Tributo rock · con i Lydian', mEn: 'Rock tribute · with Lydian' },
-      { name: 'I Maestri Cantori d’Italia', slug: 'maestri-cantori-ditalia', tint: 'linear-gradient(135deg,#4d473a,#2f2b22)', mIt: 'Voce e pianoforte', mEn: 'Voice and piano' },
+      { name: ‘I Maestri Cantori d’Italia’, slug: ‘maestri-cantori-ditalia’, hero: ‘images/REPERTORIO/maestri-cantori-ditalia/hero.webp’, pos: ‘center 35%’, mIt: ‘Concerto racconto · voce e maestro ospite’, mEn: ‘Concert storytelling · voice and guest master’ },
       { name: 'Le Malelingue', slug: 'malelingue', tint: 'linear-gradient(135deg,#4e3f3c,#2f2624)', mIt: 'Band · repertorio italiano · su richiesta', mEn: 'Band · Italian repertoire · on request' },
       { name: 'Sushi Cornucopia', slug: 'sushi-cornucopia', hero: 'images/REPERTORIO/sushi-cornucopia/hero.png', pos: 'center 52%', mIt: 'Band · repertorio internazionale · su richiesta', mEn: 'Band · international repertoire · on request' },
       { name: 'Orizzonti Acustici', slug: 'orizzonti-acustici', hero: 'images/REPERTORIO/orizzonti-acustici/hero.webp', pos: 'right 62%', mIt: 'Chitarra e voce', mEn: 'Guitar and voice' },

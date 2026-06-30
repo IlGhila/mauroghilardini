@@ -1,14 +1,45 @@
-﻿{
-    "slug":  "maestri-cantori-ditalia",
-    "bozza":  true,
-    "titolo":  "I Maestri Cantori d’Italia",
-    "eyebrow_it":  "Voce e pianoforte",
-    "eyebrow_en":  "Voice and piano",
-    "forma_it":  "Concerto",
-    "forma_en":  "Concert",
-    "durata":  "",
-    "organico_it":  "",
-    "organico_en":  "",
-    "hero_img":  "",
-    "cta_email":  "info@mauroghilardini.it"
+{
+  "slug": "maestri-cantori-ditalia",
+  "bozza": false,
+  "titolo": "I Maestri Cantori d'Italia",
+  "eyebrow_it": "Concerto racconto · voce e un maestro dello strumento",
+  "eyebrow_en": "Concert storytelling · voice and a guest master",
+  "forma_it": "Concerto racconto",
+  "forma_en": "Concert storytelling",
+  "durata": "circa 100′, senza intervallo",
+  "organico_it": "Voce e un maestro ospite dello strumento",
+  "organico_en": "Voice and a guest instrumental master",
+  "hero_img": "images/REPERTORIO/maestri-cantori-ditalia/hero.webp",
+  "hero_position": "center 35%",
+  "sinossi_lead_it": "Una serata per riscoprire il cantautorato italiano — con un maestro dello strumento che ogni volta cambia.",
+  "sinossi_lead_en": "An evening to rediscover Italian singer-songwriters — with a different instrumental master each time.",
+  "sinossi_it": [
+    "Da giovani ci si innamora dei mondi lontani: il folk americano, il progressive inglese, la fantascienza, i madrigali. Poi un giorno una melodia, un testo mai ascoltato davvero, ti colpisce come un pugno e vuoi subito farla ascoltare a tutti — perché parla non solo di te, parla di tutti noi. I Maestri Cantori d'Italia nasce da questo: la voglia di restituire al pubblico alcune perle del cantautorato italiano, con gli strumenti del racconto oltre che della musica.",
+    "La serata si costruisce su un intreccio di canzoni e storie: la storia di come è nata una canzone, di chi l'ha scritta, di cosa stava attraversando quella persona in quel momento. De André e Fossati che scrivono insieme un album sull'estate. Dalla che passa una notte intera a parlare con una studentessa in un albergo di Montecatini. Guccini che impugna la penna come una spada. Battiato che scende in cantina a registrare un capolavoro filosofico. Fossati che doma un dolore con i ricordi del nonno ferroviere. Storie che cambiano il modo in cui si ascolta una canzone — per sempre.",
+    "Il format ha una variabile fissa: Mauro Ghilardini è sempre al centro, voce e racconto. Ma ogni serata c'è un maestro dello strumento diverso — pianoforte, chitarra, fisarmonica — che porta il proprio colore nell'esecuzione. Non un accompagnatore: un interlocutore."
+  ],
+  "sinossi_en": [
+    "When you're young, you fall in love with distant worlds: American folk, English progressive, science fiction, madrigals. Then one day a melody, a lyric you'd never really heard before, hits you like a fist and you want to share it with everyone — because it doesn't just speak about you, it speaks about all of us. I Maestri Cantori d'Italia was born from this: the desire to give audiences some of the finest gems of Italian singer-songwriters, with the tools of storytelling as well as music.",
+    "The evening is built on an interweaving of songs and stories: the story of how a song came to be, who wrote it, what that person was going through at that moment. De André and Fossati writing an album together over one summer. Dalla spending an entire night talking with a student in a Montecatini hotel. Guccini wielding the pen like a sword. Battiato descending into a basement studio to record a philosophical masterpiece. Fossati taming grief with memories of his railway-worker grandfather. Stories that change the way you listen to a song — forever.",
+    "The format has one fixed variable: Mauro Ghilardini is always at the centre, voice and storytelling. But each evening brings a different instrumental master — piano, guitar, accordion — who gives the performance its own particular colour. Not an accompanist: an interlocutor."
+  ],
+  "progetto_lead_it": "Gli stessi cantautori, ogni volta una serata diversa.",
+  "progetto_lead_en": "The same songwriters, a different evening every time.",
+  "progetto_it": "Il repertorio attinge ai grandi nomi del cantautorato italiano — De André, Fossati, Dalla, Guccini, Battiato, Capossela, Gaber, De Gregori, Battisti — scelti di volta in volta in dialogo con il maestro ospite e con il contesto della serata. Le canzoni non vengono semplicemente eseguite: vengono presentate, contestualizzate, raccontate. Il pubblico esce avendo ascoltato musica che conosce in modo nuovo, o avendo scoperto qualcosa che non sapeva di voler conoscere. Il format è già stato presentato con Francesco Maffeis al pianoforte e con Walter Brambilla alla chitarra.",
+  "progetto_en": "The repertoire draws from the great names of Italian singer-songwriters — De André, Fossati, Dalla, Guccini, Battiato, Capossela, Gaber, De Gregori, Battisti — chosen each time in dialogue with the guest master and the context of the evening. The songs are not simply performed: they are introduced, contextualised, told. The audience leaves having heard music they already knew in an entirely new way, or having discovered something they didn't know they wanted to know. The format has already been performed with Francesco Maffeis on piano and Walter Brambilla on guitar.",
+  "locandina": "",
+  "foto": [],
+  "video": ["6Q5Ba_W1TUk", "EwwFIhc7yvo", "wtAtZ3HoJSk", "oANY22xpBq8"],
+  "cast": [
+    { "nome": "Mauro Ghilardini", "ruolo_it": "Voce e racconto", "ruolo_en": "Voice and storytelling", "strumenti": "Voce · Chitarra acustica" },
+    { "nome": "Maestro ospite", "ruolo_it": "Strumento — variabile a ogni serata", "ruolo_en": "Instrument — varies each evening", "strumenti": "Pianoforte · Chitarra · Fisarmonica" }
+  ],
+  "crew": [],
+  "budget_it": "Su richiesta",
+  "budget_en": "On request",
+  "budget_nota_it": "Il cachet varia in base alla serata e al maestro ospite coinvolto. Scrivimi per disponibilità e preventivo.",
+  "budget_nota_en": "The fee varies depending on the evening and the guest master involved. Write to me for availability and a quote.",
+  "scheda_tecnica_nota_it": "Allestimento essenziale: voce, strumento acustico o elettrico, due microfoni. Adatto a teatri, sale da concerto, spazi privati e festival. Scheda tecnica disponibile su richiesta.",
+  "scheda_tecnica_nota_en": "Minimal setup: voice, acoustic or electric instrument, two microphones. Suited to theatres, concert halls, private spaces and festivals. Full technical rider available on request.",
+  "cta_email": "info@mauroghilardini.it"
 }
