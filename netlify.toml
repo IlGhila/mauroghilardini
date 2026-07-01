@@ -26,3 +26,28 @@
   to = "/"
   status = 404
   force = true
+
+# ── Blocca l'editor delle date sul sito pubblico ──
+# Editing in locale, non serve online (espone solo la meccanica interna).
+[[redirects]]
+  from = "/editor-date.html"
+  to = "/"
+  status = 404
+  force = true
+
+# ── Blocca i file di lavorazione (brief, bozze, materiale non destinato al pubblico) ──
+[[redirects]]
+  from = "/brief-*"
+  to = "/"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/recensioni-chiaroscuro.txt"
+  to = "/"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/Spettacolo-Dormono.dc.html"
+  to = "/"
+  status = 404
+  force = true
