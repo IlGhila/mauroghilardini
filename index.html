@@ -178,7 +178,7 @@
   .music-ctl:hover .music-cap { opacity:1; }
 
   /* Musica — equalizzatore tipografico (4 barre rettangolari) */
-  .eq { position:relative; display:flex; align-items:flex-end; gap:3px; height:16px; padding:0; border:none; background:none; cursor:pointer; }
+  .eq { position:relative; display:flex; align-items:flex-end; gap:3px; height:16px; padding:0; border:none; background:none; cursor:pointer; color:var(--nav-ink); transition:color .4s ease; }
   /* Area tap allargata (invisibile) — le barre restano 17×16px ma il bersaglio è ~45×48px per il touch */
   .eq::before { content:''; position:absolute; inset:-16px -14px; }
   .eq .bar { width:2px; background:currentColor; opacity:.5; transition:opacity .3s ease, background .3s ease; }
@@ -499,10 +499,10 @@
       <img src="images/mauro-03.webp" alt="Mauro Ghilardini" style="width:100%; height:100%; object-fit:cover; object-position:center; filter:grayscale(1) contrast(1.04);">
     </div>
     <!-- Testo: entra da sinistra -->
-    <div id="bioText" style="position:absolute; top:0; left:0; bottom:0; width:50%; background:#d9d6cc; padding:clamp(60px,8vh,120px) clamp(24px,4vw,64px); display:flex; flex-direction:column; justify-content:center; gap:24px; transform:translateX(-100%); opacity:0; overflow-y:auto;">
+    <div id="bioText" style="position:absolute; top:0; left:0; bottom:0; width:50%; background:#d9d6cc; padding:clamp(60px,8vh,120px) clamp(20px,5vw,72px); display:flex; flex-direction:column; justify-content:center; gap:24px; transform:translateX(-100%); opacity:0; overflow-y:auto;">
       <span style="font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:#938c7f;">{{ bioLabel }}</span>
       <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(32px,3.5vw,64px); line-height:.9; letter-spacing:-.01em;">{{ bioTitle }}</h2>
-      <sc-for list="{{ bioPars }}" as="p" hint-placeholder-count="4">
+      <sc-for list="{{ bioPars }}" as="p" hint-placeholder-count="5">
         <p style="font-family:'EB Garamond',serif; font-size:clamp(16px,1.3vw,20px); line-height:1.62; color:#5b5649;">{{ p.t }}</p>
       </sc-for>
     </div>
@@ -956,6 +956,7 @@ class Component extends DCLogic {
       { tIt: 'Il canto nasce nel 1998, con la vittoria al concorso nazionale Festagiovani e lo studio della vocalità antica: il madrigale di Monteverdi e Caccini, il sacro di Pergolesi e Mozart.', tEn: 'Singing began in 1998, winning the national Festagiovani competition and studying early vocality: the madrigal of Monteverdi and Caccini, the sacred of Pergolesi and Mozart.' },
       { tIt: 'Parallelamente, il progressive rock: cantante e compositore dei Minstrel, tre album e un nome nel prog italiano tra gli anni Novanta e Duemila.', tEn: 'In parallel, progressive rock: singer and composer of Minstrel, three albums and a name in Italian prog between the Nineties and the 2000s.' },
       { tIt: 'Dal 2001 il teatro musicale con il Teatro Minimo: ruoli da protagonista e da narratore, e le musiche di scena per il teatro e per il cinema.', tEn: 'From 2001, musical theatre with Teatro Minimo: lead and narrator roles, and original scores for theatre and cinema.' },
+      { tIt: 'Oggi il repertorio vive dal vivo e in rete: rielaborazioni orchestrali di brani rock e pop, un canale YouTube e i concerti in duo acustico.', tEn: 'Today the repertoire lives on stage and online: orchestral reworkings of rock and pop songs, a YouTube channel and live acoustic duo concerts.' },
       { tIt: 'Infine la parola: filosofia tomista, critica delle colonne sonore, e nel 2024 il primo libro. Una voce sola, che attraversa tutto.', tEn: 'Finally, the word: Thomist philosophy, film-score criticism, and in 2024 the first book. A single voice, running through it all.' },
     ].map((p) => ({ t: en ? p.tEn : p.tIt }));
 
