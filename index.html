@@ -168,32 +168,37 @@
   /* Musica — contenitore disco + etichetta */
   .music-ctl { display:flex; align-items:center; gap:13px; pointer-events:auto; }
   /* IT / EN — sbiadito quando non in hover (il backdrop è gestito via JS su layer separato) */
-  .lang-ctl button, .lang-sep { transition:opacity .3s ease; }
+  .lang-ctl button, .lang-sep { transition:opacity .3s ease, color .4s ease; }
   .lang-ctl:not(:hover) button { opacity:.38 !important; }
   .lang-ctl:not(:hover) .lang-sep { opacity:.25 !important; }
-  .music-cap { font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#e7e3d8; white-space:nowrap; opacity:0; transition:opacity .3s ease; pointer-events:none; }
-  #navBar { background:rgba(20,19,17,0); backdrop-filter:blur(0px); -webkit-backdrop-filter:blur(0px); transition:background .3s ease, backdrop-filter .3s ease, -webkit-backdrop-filter .3s ease; }
-  #navBar:has(.music-ctl:hover), #navBar:has(.lang-ctl:hover) { background:rgba(20,19,17,.70); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+  .music-cap { font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--nav-ink); white-space:nowrap; opacity:0; transition:opacity .3s ease, color .4s ease; pointer-events:none; }
+  /* Navbar adattiva: --nav-ink guida il colore di tutti i controlli */
+  #navBar { --nav-ink:#e7e3d8; }
+  #navBar.on-light { --nav-ink:#1c1b18; }
   .music-ctl:hover .music-cap { opacity:1; }
 
-  /* Disco vinile */
-  /* Wrapper: scala il gruppo disco + ombra */
-  .vinyl-wrap { position:relative; width:52px; height:52px; flex-shrink:0; transform:scale(.38); transform-origin:left center; transition:transform .35s ease; }
-  .music-ctl:hover .vinyl-wrap { transform:scale(1); }
-
-  /* Ombra rotante (dietro il disco, visibile solo quando suona) */
-  .vinyl-wrap::after { content:''; position:absolute; inset:-6px; border-radius:50%; background:conic-gradient(rgba(28,27,24,.7) 0deg, transparent 100deg, transparent 360deg); opacity:0; pointer-events:none; transition:opacity .4s ease; }
-  .vinyl-wrap.is-playing::after { opacity:1; animation:vinylspin 3.4s linear infinite; }
-  @keyframes vinylspin { to { transform:rotate(360deg); } }
-
-  /* Disco */
-  .vinyl { position:relative; width:52px; height:52px; border-radius:50%; border:none; padding:0; cursor:pointer; overflow:hidden; flex-shrink:0; background-color:#15140f; background-image:repeating-radial-gradient(circle at 50% 50%,rgba(231,227,216,.06) 0 1.5px,transparent 1.5px 4.5px); box-shadow:0 6px 22px rgba(0,0,0,.5),inset 0 0 0 1px rgba(231,227,216,.16); opacity:.5; transition:opacity .4s ease; }
-  .music-ctl:hover .vinyl { opacity:.85; }
-  .vinyl.is-playing { opacity:1; }
-  .vinyl::before { content:''; position:absolute; top:50%; left:50%; width:18px; height:18px; border-radius:50%; background:radial-gradient(circle,#6e6358 0 38%,#15140f 42%); transform:translate(-50%,-50%); box-shadow:inset 0 0 0 1px rgba(231,227,216,.2); }
+  /* Musica — equalizzatore tipografico (4 barre rettangolari) */
+  .eq { position:relative; display:flex; align-items:flex-end; gap:3px; height:16px; padding:0; border:none; background:none; cursor:pointer; }
+  /* Area tap allargata (invisibile) — le barre restano 17×16px ma il bersaglio è ~45×48px per il touch */
+  .eq::before { content:''; position:absolute; inset:-16px -14px; }
+  .eq .bar { width:2px; background:currentColor; opacity:.5; transition:opacity .3s ease, background .3s ease; }
+  .eq .bar1 { height:5px; }
+  .eq .bar2 { height:12px; }
+  .eq .bar3 { height:7px; }
+  .eq .bar4 { height:10px; }
+  .music-ctl:hover .eq .bar { opacity:.85; }
+  .eq.is-playing .bar { opacity:1; background:#d9a06a; }
+  #navBar.on-light .eq.is-playing .bar { background:#a8632f; }
+  .eq.is-playing .bar1 { animation:eqA .9s ease-in-out infinite; }
+  .eq.is-playing .bar2 { animation:eqB 1.1s ease-in-out infinite; }
+  .eq.is-playing .bar3 { animation:eqA 1s ease-in-out infinite .2s; }
+  .eq.is-playing .bar4 { animation:eqB .8s ease-in-out infinite .15s; }
+  @keyframes eqA { 0%,100%{height:4px} 50%{height:16px} }
+  @keyframes eqB { 0%,100%{height:7px} 45%{height:13px} }
+  @media (prefers-reduced-motion: reduce){ .eq.is-playing .bar { animation:none !important; } }
 
   /* Menu button */
-  #mgMenuLines span { transition: transform .3s ease, opacity .3s ease; }
+  #mgMenuLines span { transition: transform .3s ease, opacity .3s ease, background-color .4s ease; }
 
   /* Hero name — snap istantaneo */
   #heroName { transition: transform .12s cubic-bezier(.22,1,.36,1); }
@@ -207,7 +212,6 @@
   .nav-ctrl { transition: opacity .7s ease, transform .6s cubic-bezier(.4,0,.2,1); }
   .nav-ctrl.is-hidden { opacity: 0 !important; transform: translateY(-18px) !important; pointer-events: none !important; }
   .nav-ctrl.is-active { opacity: 1 !important; transform: translateY(0) !important; }
-  .nav-ctrl.is-active .vinyl-wrap { opacity: 1 !important; transform: scale(1) !important; }
   /* IT/EN è centrato con translateX(-50%): preservalo negli stati nav-ctrl (altrimenti il translateY lo azzera e si sposta) */
   .lang-ctl.is-hidden { transform: translate(-50%,-18px) !important; }
   .lang-ctl.is-active { transform: translate(-50%,0) !important; }
@@ -227,25 +231,28 @@
 
   <!-- ===== NAV (barra fissa in alto) ===== -->
   <audio id="mgAudio" loop src="audio/tema.mp3" preload="none"></audio>
-  <div id="navBar" style="position:fixed; top:0; left:0; right:0; z-index:9100; pointer-events:none; height:64px; color:#e7e3d8;">
+  <div id="navBar" style="position:fixed; top:0; left:0; right:0; z-index:9100; pointer-events:none; height:64px; color:var(--nav-ink);">
 
-    <!-- SINISTRA: disco vinile + etichetta musica -->
+    <!-- SINISTRA: equalizzatore tipografico + etichetta musica -->
     <div class="music-ctl nav-ctrl is-hidden" style="position:absolute; top:0; left:clamp(18px,4vw,46px); height:64px;">
-      <div id="vinylWrap" class="vinyl-wrap">
-        <button id="musicBtn" class="vinyl" aria-label="Musica on/off" data-label-on="{{ musicOn }}" data-label-off="{{ musicOff }}"></button>
-      </div>
+      <button id="musicBtn" class="eq" aria-label="Musica on/off" aria-pressed="false" data-label-on="{{ musicOn }}" data-label-off="{{ musicOff }}">
+        <span class="bar bar1"></span>
+        <span class="bar bar2"></span>
+        <span class="bar bar3"></span>
+        <span class="bar bar4"></span>
+      </button>
       <span id="musicCap" class="music-cap">{{ musicOff }}</span>
     </div>
 
     <!-- CENTRO: IT / EN -->
     <div class="lang-ctl nav-ctrl is-hidden" style="position:absolute; top:0; left:50%; transform:translateX(-50%); height:64px; display:flex; align-items:center; gap:7px; font-size:11px; font-weight:600; letter-spacing:.14em; pointer-events:auto;">
-      <button onClick="{{ setIt }}" style="background:none;border:none;cursor:pointer;color:#e7e3d8;padding:4px 2px;opacity:{{ itOp }};">IT</button>
+      <button onClick="{{ setIt }}" style="background:none;border:none;cursor:pointer;color:var(--nav-ink);padding:4px 2px;opacity:{{ itOp }};">IT</button>
       <span class="lang-sep" style="opacity:.5;">/</span>
-      <button onClick="{{ setEn }}" style="background:none;border:none;cursor:pointer;color:#e7e3d8;padding:4px 2px;opacity:{{ enOp }};">EN</button>
+      <button onClick="{{ setEn }}" style="background:none;border:none;cursor:pointer;color:var(--nav-ink);padding:4px 2px;opacity:{{ enOp }};">EN</button>
     </div>
 
     <!-- DESTRA: MENU -->
-    <button class="nav-ctrl is-hidden" onClick="{{ toggleMenu }}" aria-label="Menu" style="position:absolute; top:0; right:clamp(18px,4vw,46px); height:64px; display:flex; align-items:center; gap:10px; background:none; border:none; cursor:pointer; pointer-events:auto; color:#e7e3d8; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; opacity:{{ menuIconOp }}; transition:opacity .2s ease;">
+    <button class="nav-ctrl is-hidden" onClick="{{ toggleMenu }}" aria-label="Menu" style="position:absolute; top:0; right:clamp(18px,4vw,46px); height:64px; display:flex; align-items:center; gap:10px; background:none; border:none; cursor:pointer; pointer-events:auto; color:var(--nav-ink); font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; opacity:{{ menuIconOp }}; transition:opacity .2s ease;">
       <div id="mgMenuLines" style="width:22px; display:flex; flex-direction:column; gap:5px;">
         <span style="display:block; height:1.5px; background:currentColor; transform-origin:center; transform:{{ menuL1 }};"></span>
         <span style="display:block; height:1.5px; background:currentColor; transform-origin:center; transform:{{ menuL2 }};"></span>
@@ -272,7 +279,7 @@
 
   <!-- ===== 1 · HERO ===== -->
   <div id="heroWrap" style="position:relative; height:160vh; z-index:1;">
-  <section id="top" data-screen-label="Hero" style="position:sticky; top:0; height:100vh; background:transparent;">
+  <section id="top" data-screen-label="Hero" data-navtheme="dark" style="position:sticky; top:0; height:100vh; background:transparent;">
 
     <!-- Nome: invisibile, entra allo scroll, incollato al bordo inferiore -->
     <div id="heroName" style="position:absolute; left:0; right:0; bottom:3.2vh; opacity:0;">
@@ -292,7 +299,7 @@
   </div>
 
   <!-- ===== 2 · MANIFESTO ===== -->
-  <section id="chi" data-screen-label="Manifesto" style="position:sticky; top:0; min-height:100vh; z-index:2; background:#d9d6cc; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(80px,12vh,150px) clamp(20px,5vw,40px); text-align:center;">
+  <section id="chi" data-screen-label="Manifesto" data-navtheme="light" style="position:sticky; top:0; min-height:100vh; z-index:2; background:#d9d6cc; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(80px,12vh,150px) clamp(20px,5vw,40px); text-align:center;">
     <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; max-width:900px; display:flex; flex-direction:column; align-items:center; gap:28px;">
       <span style="width:100%; max-width:520px; display:flex; align-items:center; gap:16px; color:#938c7f; font-size:11px; letter-spacing:.3em; text-transform:uppercase;"><span style="flex:1;height:1px;background:#bdb7a8;"></span>{{ manifestoLabel }}<span style="flex:1;height:1px;background:#bdb7a8;"></span></span>
       <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(38px,5.6vw,86px); line-height:.92; letter-spacing:-.01em;">{{ manifestoLead }}</h2>
@@ -302,7 +309,7 @@
   </section>
 
   <!-- ===== 3 · PROSSIMA DATA ===== -->
-  <section id="dalvivo" data-screen-label="Prossima data" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:3; background:#201f1c;">
+  <section id="dalvivo" data-screen-label="Prossima data" data-navtheme="dark" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:3; background:#201f1c;">
     <img src="images/mauro-02.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position: left bottom; filter:grayscale(1) contrast(1.04) brightness(.62);">
     <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(24,23,20,.55),rgba(24,23,20,.2) 40%,rgba(24,23,20,.85));"></div>
     <div data-reveal style="opacity:0; transition:opacity 1s ease; position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:18px; padding:0 24px; color:#e7e3d8;">
@@ -319,7 +326,7 @@
   <div id="repScroll" style="position:relative; z-index:5;">
 
     <!-- TITOLO -->
-    <div id="repHeader" style="background:#454e5b; color:#e7e3d8; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px) clamp(30px,4vh,48px);">
+    <div id="repHeader" data-navtheme="dark" style="background:#454e5b; color:#e7e3d8; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px) clamp(30px,4vh,48px);">
       <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; border-bottom:1px solid rgba(231,227,216,.25); padding-bottom:24px;">
         <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(46px,9vw,150px); line-height:.86; letter-spacing:-.01em;">{{ repTitle }}</h2>
         <span style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.7vw,22px); color:rgba(231,227,216,.8); max-width:30ch;">{{ repSub }}</span>
@@ -327,7 +334,7 @@
     </div>
 
     <!-- SEZIONE: piastre orizzontali, ognuna richiama l'hero della propria scheda -->
-    <section id="repertorio" data-screen-label="Repertorio" style="position:relative; background:#454e5b; color:#e7e3d8; padding:clamp(24px,3vh,40px) clamp(20px,5vw,72px) clamp(50px,7vh,90px);">
+    <section id="repertorio" data-screen-label="Repertorio" data-navtheme="dark" style="position:relative; background:#454e5b; color:#e7e3d8; padding:clamp(24px,3vh,40px) clamp(20px,5vw,72px) clamp(50px,7vh,90px);">
 
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(30px,5vw,70px);">
 
@@ -376,7 +383,7 @@
   </div>
 
   <!-- ===== 5 · DISCHI (album rooms) ===== -->
-  <section id="dischi" data-screen-label="Dischi intro" style="position:relative; z-index:6; background:#d9d6cc; padding:clamp(70px,10vh,120px) clamp(20px,5vw,72px); text-align:center;">
+  <section id="dischi" data-screen-label="Dischi intro" data-navtheme="light" style="position:relative; z-index:6; background:#d9d6cc; padding:clamp(70px,10vh,120px) clamp(20px,5vw,72px); text-align:center;">
     <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease;">
       <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:#938c7f; margin-bottom:14px;">{{ discIntroLabel }}</span>
       <p style="font-family:'EB Garamond',serif; font-size:clamp(20px,2.2vw,30px); line-height:1.45; color:#68635a; max-width:42ch; margin:0 auto;">{{ discIntro }}</p>
@@ -384,7 +391,7 @@
   </section>
 
   <sc-for list="{{ dischi }}" as="d" hint-placeholder-count="0">
-    <section data-screen-label="Disco" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:{{ d.z }}; background:{{ d.color }}; color:#e7e3d8; display:flex; align-items:center; justify-content:center;">
+    <section data-screen-label="Disco" data-navtheme="dark" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:{{ d.z }}; background:{{ d.color }}; color:#e7e3d8; display:flex; align-items:center; justify-content:center;">
       <span style="position:absolute; top:50%; left:0; right:0; transform:translateY(-50%); text-align:center; font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(64px,18vw,300px); line-height:.82; letter-spacing:-.02em; color:rgba(231,227,216,.13); white-space:nowrap; pointer-events:none;">{{ d.title }}</span>
       <div data-reveal style="opacity:0; transform:translateY(22px); transition:opacity 1s ease,transform 1s ease; position:relative; display:flex; flex-direction:column; align-items:center; gap:22px; padding:24px;">
         <div style="display:flex; justify-content:space-between; width:min(78vw,420px); font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(231,227,216,.8);"><span>{{ d.role }}</span><span>{{ d.year }}</span></div>
@@ -397,7 +404,7 @@
   </sc-for>
 
   <!-- ===== 5b · SINGOLI ===== -->
-  <section id="singoli" data-screen-label="Singoli" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:32; background:#1c1b18; color:#e7e3d8; padding:clamp(40px,6vh,80px) clamp(20px,5vw,72px);">
+  <section id="singoli" data-screen-label="Singoli" data-navtheme="dark" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:32; background:#1c1b18; color:#e7e3d8; padding:clamp(40px,6vh,80px) clamp(20px,5vw,72px);">
     <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease;">
       <div style="border-bottom:1px solid rgba(231,227,216,.25); padding-bottom:24px; margin-bottom:clamp(40px,6vh,70px);">
         <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(231,227,216,.5); margin-bottom:10px;">{{ singLabel }}</span>
@@ -424,13 +431,13 @@
     </div>
   </section>
 
-  <section data-screen-label="Altre incisioni" style="position:relative; z-index:40; background:#d9d6cc; padding:clamp(50px,7vh,90px) clamp(20px,5vw,72px); text-align:center;">
+  <section data-screen-label="Altre incisioni" data-navtheme="light" style="position:relative; z-index:40; background:#d9d6cc; padding:clamp(50px,7vh,90px) clamp(20px,5vw,72px); text-align:center;">
     <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:#938c7f; margin-bottom:8px;">{{ otherLabel }}</span>
     <span style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.8vw,22px); color:#68635a;">{{ otherText }}</span>
   </section>
 
   <!-- ===== 6 · SCRITTURA ===== -->
-  <section id="scrittura" data-screen-label="Scrittura" style="position:relative; z-index:41; background:#6f6244; color:#efe9d8; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px);">
+  <section id="scrittura" data-screen-label="Scrittura" data-navtheme="dark" style="position:relative; z-index:41; background:#6f6244; color:#efe9d8; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px);">
     <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(34px,5vw,70px); align-items:center;">
       <div>
         <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(239,233,216,.7); margin-bottom:18px;">{{ writeLabel }}</span>
@@ -445,7 +452,7 @@
   </section>
 
   <!-- ===== 7 · INSEGNAMENTO ===== -->
-  <section id="insegnamento" data-screen-label="Insegnamento" style="position:relative; z-index:42; background:#566159; color:#e7e3d8; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px);">
+  <section id="insegnamento" data-screen-label="Insegnamento" data-navtheme="dark" style="position:relative; z-index:42; background:#566159; color:#e7e3d8; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px);">
     <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease;">
       <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(231,227,216,.7); margin-bottom:18px;">{{ teachLabel }}</span>
       <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(44px,7vw,120px); line-height:.86; letter-spacing:-.01em; max-width:16ch;">{{ teachTitle }}</h2>
@@ -461,7 +468,7 @@
   </section>
 
   <!-- ===== 8 · VIDEO ===== -->
-  <section id="video" data-screen-label="Video" style="position:relative; z-index:43; background:#d9d6cc; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px);">
+  <section id="video" data-screen-label="Video" data-navtheme="light" style="position:relative; z-index:43; background:#d9d6cc; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px);">
     <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:clamp(28px,4vh,46px);">
       <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(44px,7vw,120px); line-height:.86; letter-spacing:-.01em;">{{ videoTitle }}</h2>
       <a href="https://www.youtube.com/@MauroGhilardiniOfficial" target="_blank" rel="noopener" style="font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#68635a; border-bottom:1px solid #bdb7a8; padding-bottom:5px;">{{ videoCta }} →</a>
@@ -486,7 +493,7 @@
 
   <!-- ===== 9 · BIO (scroll-animated) ===== -->
   <div id="bioScroll" style="position:relative; height:400vh; z-index:44;">
-  <section id="bio" data-screen-label="Bio" style="position:sticky; top:0; height:100vh; overflow:hidden; background:#d9d6cc;">
+  <section id="bio" data-screen-label="Bio" data-navtheme="light" style="position:sticky; top:0; height:100vh; overflow:hidden; background:#d9d6cc;">
     <!-- Immagine: parte full-width, si stringe a destra -->
     <div id="bioImg" style="position:absolute; top:0; left:0; right:0; bottom:0; opacity:0;">
       <img src="images/mauro-03.webp" alt="Mauro Ghilardini" style="width:100%; height:100%; object-fit:cover; object-position:center; filter:grayscale(1) contrast(1.04);">
@@ -503,7 +510,7 @@
   </div>
 
   <!-- ===== 10 · FIRMA ===== -->
-  <section data-screen-label="Firma" style="position:sticky; top:0; min-height:100vh; z-index:45; background:#1c1b18; color:#e7e3d8; display:grid; grid-template-columns:1.3fr .7fr; align-items:center;">
+  <section data-screen-label="Firma" data-navtheme="dark" style="position:sticky; top:0; min-height:100vh; z-index:45; background:#1c1b18; color:#e7e3d8; display:grid; grid-template-columns:1.3fr .7fr; align-items:center;">
     <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1.1s ease,transform 1.1s ease; padding:clamp(60px,8vh,110px) clamp(24px,4vw,72px);">
       <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(34px,5.2vw,84px); line-height:.96; letter-spacing:-.01em;">{{ signQuote }}</h2>
       <span style="display:block; font-family:'EB Garamond',serif; font-style:italic; font-size:18px; color:#938c7f; margin-top:28px;">— Mauro Ghilardini</span>
@@ -514,7 +521,7 @@
   </section>
 
   <!-- ===== 11 · CONTATTI ===== -->
-  <footer id="contatti" data-screen-label="Contatti" style="position:relative; z-index:46; background:#d9d6cc; color:#2b2823; padding:clamp(70px,10vh,130px) clamp(20px,5vw,72px) 50px;">
+  <footer id="contatti" data-screen-label="Contatti" data-navtheme="light" style="position:relative; z-index:46; background:#d9d6cc; color:#2b2823; padding:clamp(70px,10vh,130px) clamp(20px,5vw,72px) 50px;">
     <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease;">
       <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(48px,9vw,160px); line-height:.84; letter-spacing:-.01em;">{{ contactTitle }}</h2>
       <div style="display:flex; justify-content:flex-start; gap:26px; flex-wrap:wrap; margin:clamp(34px,5vh,54px) 0; font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#68635a;">
@@ -584,14 +591,16 @@ class Component extends DCLogic {
 
     // music toggle — listener diretto, bypassa il framework
     window._mgMusicPlaying = false;
+
     const _setMusicState = function (on) {
       window._mgMusicPlaying = on;
-      const btn  = document.getElementById('musicBtn');
-      const wrap = document.getElementById('vinylWrap');
-      const cap  = document.getElementById('musicCap');
-      if (btn)  btn.classList.toggle('is-playing', on);
-      if (wrap) wrap.classList.toggle('is-playing', on);
-      if (cap)  cap.textContent = on ? (btn ? btn.dataset.labelOn || 'Music on' : 'Music on') : (btn ? btn.dataset.labelOff || 'Music off' : 'Music off');
+      const btn = document.getElementById('musicBtn');
+      const cap = document.getElementById('musicCap');
+      if (btn) {
+        btn.classList.toggle('is-playing', on);
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      }
+      if (cap) cap.textContent = on ? (btn ? btn.dataset.labelOn || 'Music on' : 'Music on') : (btn ? btn.dataset.labelOff || 'Music off' : 'Music off');
       try { localStorage.setItem('mg-music', on ? '1' : '0'); } catch(e) {}
     };
 
@@ -696,6 +705,24 @@ class Component extends DCLogic {
     window.addEventListener('scroll', this._heroAnim, { passive: true });
     this._heroAnim();
 
+    // Navbar adattiva: colore controlli in base al tema della sezione sotto la barra.
+    // elementsFromPoint rispetta lo stacking degli sticky → robusto anche con sezioni sovrapposte.
+    const _navBarEl = document.getElementById('navBar');
+    this._navTheme = () => {
+      if (!_navBarEl) return;
+      const x = Math.round(window.innerWidth * 0.32); // colonna senza controlli
+      let theme = 'dark';
+      const els = document.elementsFromPoint(x, 12);
+      for (const el of els) {
+        const s = el.closest && el.closest('[data-navtheme]');
+        if (s) { theme = s.dataset.navtheme; break; }
+      }
+      _navBarEl.classList.toggle('on-light', theme === 'light');
+    };
+    window.addEventListener('scroll', this._navTheme, { passive: true });
+    window.addEventListener('resize', this._navTheme);
+    this._navTheme();
+
     // Repertorio: ogni piastra richiama l'hero della propria scheda — si illumina
     // (--lit 0→1) in base alla vicinanza al centro del viewport, e in hover su desktop.
     const repImgs = () => Array.prototype.slice.call(document.querySelectorAll('#repertorio .rep-plate-img'));
@@ -785,6 +812,8 @@ class Component extends DCLogic {
     window.removeEventListener('scroll', this._heroAnim);
     window.removeEventListener('scroll', this._repAnim);
     window.removeEventListener('scroll', this._bioAnim);
+    window.removeEventListener('scroll', this._navTheme);
+    window.removeEventListener('resize', this._navTheme);
   }
 
   T() {
