@@ -1,0 +1,48 @@
+{
+  "slug": "primo-accordo",
+  "bozza": false,
+  "titolo": "Al primo accordo",
+  "eyebrow_it": "Concerto acustico · Duo Ghilardini / Trevisan",
+  "eyebrow_en": "Acoustic concert · Ghilardini / Trevisan Duo",
+  "forma_it": "Concerto acustico",
+  "forma_en": "Acoustic concert",
+  "durata": "circa 100′",
+  "organico_it": "Duo · due chitarre acustiche e voce",
+  "organico_en": "Duo · two acoustic guitars and voice",
+  "hero_img": "images/REPERTORIO/primo-accordo/hero.webp",
+  "hero_position": "center 22%",
+  "hero_titolo_break": true,
+  "sinossi_lead_it": "Il grande songbook anglo-americano riletto per due chitarre e voce.",
+  "sinossi_lead_en": "The great Anglo-American songbook reimagined for two guitars and voice.",
+  "sinossi_it": [
+    "Un viaggio nei classici del rock, del folk e del cantautorato internazionale, portati alla loro forma più essenziale: solo due chitarre acustiche e la voce. Da Creedence Clearwater Revival a Bob Dylan, da Simon & Garfunkel a Neil Young, dai R.E.M. agli U2, da Dire Straits ai Pink Floyd.",
+    "Brani che tutti conoscono, spogliati degli arrangiamenti originali e riportati al gesto più antico: sedersi, accordare e cantare. Il calore acustico lascia spazio alla parola e alla melodia, in un dialogo continuo fra le due chitarre.",
+    "Un concerto intimo e diretto, che vive del rapporto con il pubblico e si adatta con naturalezza a una piazza, a un locale, a un festival o a una serata privata."
+  ],
+  "sinossi_en": [
+    "A journey through the classics of rock, folk and international songwriting, brought back to their most essential form: just two acoustic guitars and the voice. From Creedence Clearwater Revival to Bob Dylan, from Simon & Garfunkel to Neil Young, from R.E.M. to U2, from Dire Straits to Pink Floyd.",
+    "Songs everyone knows, stripped of their original arrangements and returned to the oldest gesture of all: sitting down, tuning up and singing. The acoustic warmth makes room for words and melody, in a constant dialogue between the two guitars.",
+    "An intimate, direct concert that thrives on its rapport with the audience and adapts naturally to a town square, a club, a festival or a private evening."
+  ],
+  "progetto_lead_it": "«Al primo accordo»: un format acustico costruito su due voci strumentali di lungo corso.",
+  "progetto_lead_en": "«Al primo accordo»: an acoustic format built on two long-standing instrumental voices.",
+  "progetto_it": "«Al primo accordo» nasce dall'incontro fra Mauro Ghilardini — cantante e compositore — e Simone Trevisan, chitarrista di lunga esperienza rock e blues, fondatore dei Mr. Feedback (oltre vent'anni di tributo ai Led Zeppelin), didatta e produttore. Due percorsi che si ritrovano attorno a una scaletta di classici anglo-americani riletti per due chitarre e voce. Una formula leggera nell'allestimento ma solida nel repertorio, pensata per essere replicabile e adattabile: bastano due chitarre, due sedie e un buon impianto voci. Un format pronto da portare in piazze, locali, festival ed eventi privati.",
+  "progetto_en": "«Al primo accordo» comes from the meeting between Mauro Ghilardini — singer and composer — and Simone Trevisan, a guitarist with long experience in rock and blues, founder of Mr. Feedback (over twenty years of Led Zeppelin tribute), teacher and producer. Two paths that come together around a setlist of Anglo-American classics reimagined for two guitars and voice. A format that is light to stage but solid in its repertoire, designed to be repeatable and adaptable: two guitars, two chairs and a good vocal PA are all it takes. A format ready for town squares, clubs, festivals and private events.",
+  "locandina": "images/REPERTORIO/primo-accordo/locandina.webp",
+  "locandina_titolo_it": "La locandina del concerto",
+  "locandina_titolo_en": "The concert poster",
+  "locandina_nota_it": "Locandina della prima data, in attesa di una grafica dedicata costruita sull'immagine del format.",
+  "locandina_nota_en": "Poster for the first date, pending a dedicated artwork built on the format's image.",
+  "cast": [
+    { "nome": "Mauro Ghilardini", "ruolo_it": "Voce · chitarra acustica", "ruolo_en": "Voice · acoustic guitar", "strumenti": "Canto · Chitarra" },
+    { "nome": "Simone Trevisan", "ruolo_it": "Chitarra acustica", "ruolo_en": "Acoustic guitar", "strumenti": "Chitarra" }
+  ],
+  "crew": [
+    { "ruolo_it": "Arrangiamenti", "ruolo_en": "Arrangements", "nome": "Mauro Ghilardini e Simone Trevisan" }
+  ],
+  "budget_it": "Su richiesta",
+  "budget_en": "On request",
+  "budget_nota_it": "Cachet e condizioni concordati direttamente con Mauro Ghilardini. Scrivimi per disponibilità e preventivo.",
+  "budget_nota_en": "Fee and terms agreed directly with Mauro Ghilardini. Write to me for availability and a quote.",
+  "cta_email": "info@mauroghilardini.it"
+}

@@ -55,7 +55,7 @@ window.MG_DATE = [
     ora:      "",
     luogo:      "Cerete (BG)",
     tipo:      "acustico",
-    slug:      "",
+    slug:      "primo-accordo",
     locandina:      "trevisan.webp",
     nota:      "" },
 

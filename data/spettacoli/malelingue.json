@@ -1,14 +1,47 @@
 {
-    "slug":  "malelingue",
-    "bozza":  true,
-    "titolo":  "Le Malelingue",
-    "eyebrow_it":  "Band · repertorio italiano · su richiesta",
-    "eyebrow_en":  "Band · Italian repertoire · on request",
-    "forma_it":  "Concerto",
-    "forma_en":  "Concert",
-    "durata":  "",
-    "organico_it":  "",
-    "organico_en":  "",
-    "hero_img":  "",
-    "cta_email":  "info@mauroghilardini.it"
+  "slug": "malelingue",
+  "bozza": false,
+  "titolo": "Le Malelingue",
+  "eyebrow_it": "Concerto · cantautorato italiano elettrico",
+  "eyebrow_en": "Concert · electric Italian songwriting",
+  "forma_it": "Concerto",
+  "forma_en": "Concert",
+  "durata": "circa 100′",
+  "organico_it": "Trio/quartetto elettrico · voce, chitarra, basso, batteria",
+  "organico_en": "Electric trio/quartet · voice, guitar, bass, drums",
+  "hero_img": "images/REPERTORIO/malelingue/hero.webp",
+  "hero_position": "center 58%",
+  "hero_titolo_break": true,
+  "sinossi_lead_it": "Il cantautorato italiano suonato come un power trio: nessuna base, tutto dal vivo.",
+  "sinossi_lead_en": "Italian songwriting played like a power trio: no backing tracks, all live.",
+  "sinossi_it": [
+    "Le Malelingue riscrivono i classici della canzone d'autore italiana in chiave elettrica, quasi fosse un power trio: nessuna base, pochissimi cori, tutto suonato e cantato in presa diretta.",
+    "Da Battiato a Battisti, da De Gregori a Dalla, da Ivan Graziani a Bersani: brani che tutti conoscono, riportati alla nuda essenza di voce, chitarra, basso e batteria. Classe dove serve la classe, nervo e grinta dove il brano lo chiede.",
+    "Un concerto diretto e senza rete, che vive dell'urto fra la delicatezza delle melodie italiane e l'energia di una band rock. Perfetto per piazze, festival e locali."
+  ],
+  "sinossi_en": [
+    "Le Malelingue rewrite the classics of Italian songwriting in an electric key, almost like a power trio: no backing tracks, very few harmonies, everything played and sung live.",
+    "From Battiato to Battisti, from De Gregori to Dalla, from Ivan Graziani to Bersani: songs everyone knows, brought back to the bare essence of voice, guitar, bass and drums. Class where class is needed, edge and grit where the song calls for it.",
+    "A direct, no-safety-net concert that thrives on the clash between the delicacy of Italian melodies and the energy of a rock band. Perfect for squares, festivals and clubs."
+  ],
+  "progetto_lead_it": "Un'idea semplice: la canzone d'autore italiana suonata come rock, senza compromessi.",
+  "progetto_lead_en": "A simple idea: Italian songwriting played as rock, no compromises.",
+  "progetto_it": "L'idea delle Malelingue nasce dal desiderio di rifare il grande cantautorato italiano quasi come fosse un power trio o quartetto: niente basi registrate, pochissimi cori, tutto affidato al suono di una band vera. Melodie note affrontate con classe quando la classe serve, e con nervo e grinta quando il brano chiede di alzare la tensione. Una formula asciutta e adattabile — dalla piazza al club — per riportare la canzone italiana alla sua forza dal vivo.",
+  "progetto_en": "The idea behind Le Malelingue comes from the wish to remake the great Italian songbook almost like a power trio or quartet: no recorded backing tracks, very few harmonies, everything entrusted to the sound of a real band. Well-known melodies approached with class when class is needed, and with edge and grit when the song calls for higher tension. A lean, adaptable format — from the town square to the club — to bring Italian song back to its live power.",
+  "foto": [
+    "images/REPERTORIO/malelingue/DSC01853.webp",
+    "images/REPERTORIO/malelingue/DSC01841.webp",
+    "images/REPERTORIO/malelingue/DSC01857.webp",
+    "images/REPERTORIO/malelingue/DSC01860.webp"
+  ],
+  "video": [
+    { "id": "3WAReAFEj24", "thumb": "images/REPERTORIO/malelingue/thumb-3WAReAFEj24.jpg" },
+    { "id": "OFymi1UmMCU", "thumb": "images/REPERTORIO/malelingue/thumb-OFymi1UmMCU.jpg" },
+    { "id": "S8UHMPSG1Q8", "thumb": "images/REPERTORIO/malelingue/thumb-S8UHMPSG1Q8.jpg" }
+  ],
+  "budget_it": "Su richiesta",
+  "budget_en": "On request",
+  "budget_nota_it": "Cachet e condizioni concordati direttamente con Mauro Ghilardini. Scrivimi per disponibilità e preventivo.",
+  "budget_nota_en": "Fee and terms agreed directly with Mauro Ghilardini. Write to me for availability and a quote.",
+  "cta_email": "info@mauroghilardini.it"
 }
