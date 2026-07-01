@@ -90,16 +90,16 @@
   },
   {
     "slug": "vita-da-cantautrice",
-    "bozza": true,
+    "bozza": false,
     "titolo": "Vita da Cantautrice",
-    "eyebrow_it": "Lettura-concerto",
-    "eyebrow_en": "Reading-concert",
+    "eyebrow_it": "Lettura-concerto · le cantautrici italiane",
+    "eyebrow_en": "Reading-concert · Italian women songwriters",
     "forma_it": "Lettura-concerto",
     "forma_en": "Reading-concert",
     "durata": "",
-    "organico_it": "",
-    "organico_en": "",
-    "hero_img": "",
+    "organico_it": "Trio · voce narrante, pianoforte, chitarra acustica",
+    "organico_en": "Trio · narrating voice, piano, acoustic guitar",
+    "hero_img": "images/REPERTORIO/vita-da-cantautrice/hero.webp",
     "cta_email": "info@mauroghilardini.it"
   },
   {

@@ -1,14 +1,47 @@
 {
-    "slug":  "vita-da-cantautrice",
-    "bozza":  true,
-    "titolo":  "Vita da Cantautrice",
-    "eyebrow_it":  "Lettura-concerto",
-    "eyebrow_en":  "Reading-concert",
-    "forma_it":  "Lettura-concerto",
-    "forma_en":  "Reading-concert",
-    "durata":  "",
-    "organico_it":  "",
-    "organico_en":  "",
-    "hero_img":  "",
-    "cta_email":  "info@mauroghilardini.it"
+  "slug": "vita-da-cantautrice",
+  "bozza": false,
+  "titolo": "Vita da Cantautrice",
+  "eyebrow_it": "Lettura-concerto · le cantautrici italiane",
+  "eyebrow_en": "Reading-concert · Italian women songwriters",
+  "forma_it": "Lettura-concerto",
+  "forma_en": "Reading-concert",
+  "durata": "",
+  "organico_it": "Trio · voce narrante, pianoforte, chitarra acustica",
+  "organico_en": "Trio · narrating voice, piano, acoustic guitar",
+  "hero_img": "images/REPERTORIO/vita-da-cantautrice/hero.webp",
+  "hero_position": "center 55%",
+  "sinossi_lead_it": "Un viaggio nel cantautorato femminile italiano, dagli anni Cinquanta a oggi.",
+  "sinossi_lead_en": "A journey through Italian women songwriters, from the Fifties to today.",
+  "sinossi_it": [
+    "Musica significa «arte delle Muse»: nove sorelle, figlie della memoria. E sono le donne le custodi della memoria. Eppure, ad aprire il dizionario dei cantautori italiani, i primi nomi sono tutti maschili — Fossati, Guccini, De André, Conte, Dalla. E le donne? Dove sono?",
+    "Da questa domanda parte un racconto in musica lungo più di mezzo secolo: Maria Monti, la prima cantautrice italiana, che inventò la parola «cantautore» e si vide censurare un disco; Giovanna Marini, pioniera del canto sociale, che da Pasolini imparò che «le canzoni non si trovano sui libri»; Gianna Nannini che nel 1980 forza le porte del Premio Tenco; Giuni Russo e Alice, scoperte da Battiato; il canto tormentato di Rosa Balistrieri, voce della Sicilia; e poi Paola Turci, Teresa De Sio, Lucilla Galeazzi, fino a Carmen Consoli ed Elisa.",
+    "Una storia che si fa concerto: la voce narrante intreccia le vite di queste donne alle loro canzoni, eseguite dal vivo da un trio di voci e strumenti. Donne che hanno fatto della musica una cura, una via, un mezzo per farsi strada in un mondo tutto da costruire."
+  ],
+  "sinossi_en": [
+    "Music means \"the art of the Muses\": nine sisters, daughters of memory. And women are the keepers of memory. Yet if you open the dictionary of Italian singer-songwriters, the first names are all male — Fossati, Guccini, De André, Conte, Dalla. And the women? Where are they?",
+    "From that question begins a musical tale spanning more than half a century: Maria Monti, Italy's first female singer-songwriter, who coined the very word \"cantautore\" and had a record censored; Giovanna Marini, pioneer of social song, who learned from Pasolini that \"songs are not found in books\"; Gianna Nannini forcing open the doors of the Premio Tenco in 1980; Giuni Russo and Alice, discovered by Battiato; the tormented voice of Rosa Balistrieri, the voice of Sicily; then Paola Turci, Teresa De Sio, Lucilla Galeazzi, all the way to Carmen Consoli and Elisa.",
+    "A story that becomes a concert: the narrating voice weaves the lives of these women into their songs, performed live by a trio of voices and instruments. Women who made music a cure, a path, a way to carve out their place in a world still to be built."
+  ],
+  "progetto_lead_it": "Lasciare traccia di sé: è questo, in fondo, il desiderio di chi scrive musica.",
+  "progetto_lead_en": "To leave a trace of oneself: this, in the end, is the desire of anyone who writes music.",
+  "progetto_it": "«Vita da Cantautrice» nasce da una ricerca sulla storia del cantautorato femminile in Italia, un percorso rimasto a lungo in ombra rispetto ai grandi nomi maschili. La drammaturgia di Miriam Gotti trasforma quella ricerca in una narrazione teatrale, sostenuta dal vivo da tre musicisti che si scambiano canto e strumenti: Miriam Gotti (voce narrante, canto e percussioni), Francesco Maffeis (pianoforte e canto) e Mauro Ghilardini (chitarra acustica e canto). Un allestimento essenziale e adattabile, pensato per teatri, piazze, festival e rassegne culturali.",
+  "progetto_en": "\"Vita da Cantautrice\" grew out of research into the history of women songwriters in Italy, a story long overshadowed by the great male names. Miriam Gotti's dramaturgy turns that research into a theatrical narrative, sustained live by three musicians who trade vocals and instruments: Miriam Gotti (narrating voice, vocals and percussion), Francesco Maffeis (piano and vocals) and Mauro Ghilardini (acoustic guitar and vocals). An essential, adaptable staging, suited to theatres, town squares, festivals and cultural events.",
+  "foto": [],
+  "video": ["9NdbmJJyqMI"],
+  "cast": [
+    { "nome": "Miriam Gotti", "ruolo_it": "Voce narrante e canto", "ruolo_en": "Narrating voice and vocals", "strumenti": "Voce · Percussioni" },
+    { "nome": "Francesco Maffeis", "ruolo_it": "Pianoforte e canto", "ruolo_en": "Piano and vocals", "strumenti": "Pianoforte · Voce" },
+    { "nome": "Mauro Ghilardini", "ruolo_it": "Chitarra acustica e canto", "ruolo_en": "Acoustic guitar and vocals", "strumenti": "Chitarra · Voce" }
+  ],
+  "crew": [
+    { "ruolo_it": "Drammaturgia", "ruolo_en": "Dramaturgy", "nome": "Miriam Gotti" }
+  ],
+  "budget_it": "Su richiesta",
+  "budget_en": "On request",
+  "budget_nota_it": "Cachet e condizioni concordati direttamente con Mauro Ghilardini. Scrivimi per disponibilità e preventivo.",
+  "budget_nota_en": "Fee and terms agreed directly with Mauro Ghilardini. Write to me for availability and a quote.",
+  "scheda_tecnica_nota_it": "Allestimento essenziale: tre voci, pianoforte o tastiera, chitarra acustica, percussioni. Adatto a teatri, piazze e spazi all'aperto. Scheda tecnica disponibile su richiesta.",
+  "scheda_tecnica_nota_en": "Minimal setup: three voices, piano or keyboard, acoustic guitar, percussion. Suited to theatres, squares and open-air venues. Full technical rider available on request.",
+  "cta_email": "info@mauroghilardini.it"
 }
