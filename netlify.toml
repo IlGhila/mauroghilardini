@@ -17,37 +17,13 @@
     # 'unsafe-eval' è necessario perché il runtime (support.js) compila la logica dei componenti con new Function().
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https:; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://soundcloud.com https://w.soundcloud.com https://www.instagram.com https://www.facebook.com; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; frame-ancestors 'none'"
 
-# ── Blocca il pannello CMS sul sito pubblico ──
+# ── Blocca gli strumenti personali sul sito pubblico ──
+# In admin/ vivono il CMS Decap e l'editor delle date (admin/editor-date.html).
 # L'editing avviene in locale (local_backend in admin/config.yml), quindi /admin/
 # non serve online. Per riattivare l'editing online, rimuovi questo blocco e
 # configura il backend GitHub con OAuth in admin/config.yml.
 [[redirects]]
   from = "/admin/*"
-  to = "/"
-  status = 404
-  force = true
-
-# ── Blocca l'editor delle date sul sito pubblico ──
-# Editing in locale, non serve online (espone solo la meccanica interna).
-[[redirects]]
-  from = "/editor-date.html"
-  to = "/"
-  status = 404
-  force = true
-
-# ── Blocca i file di lavorazione (brief, bozze, materiale non destinato al pubblico) ──
-[[redirects]]
-  from = "/brief-*"
-  to = "/"
-  status = 404
-  force = true
-[[redirects]]
-  from = "/recensioni-chiaroscuro.txt"
-  to = "/"
-  status = 404
-  force = true
-[[redirects]]
-  from = "/Spettacolo-Dormono.dc.html"
   to = "/"
   status = 404
   force = true
