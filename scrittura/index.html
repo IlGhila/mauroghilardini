@@ -12,11 +12,14 @@
 <meta property="og:title" content="Scrittura — Mauro Ghilardini">
 <meta property="og:description" content="Libri, articoli e saggi di Mauro Ghilardini: traduzioni, illustrazioni AI, filosofia tomista e critica delle colonne sonore.">
 <meta property="og:url" content="https://mauroghilardini.netlify.app/scrittura/">
-<meta property="og:image" content="https://mauroghilardini.netlify.app/images/mauro-01.webp">
+<meta property="og:image" content="https://mauroghilardini.netlify.app/images/og-cover.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Scrittura — Mauro Ghilardini">
 <meta name="twitter:description" content="Libri, articoli e saggi di Mauro Ghilardini: traduzioni, illustrazioni AI, filosofia tomista e critica delle colonne sonore.">
-<meta name="twitter:image" content="https://mauroghilardini.netlify.app/images/mauro-01.webp">
+<meta name="twitter:image" content="https://mauroghilardini.netlify.app/images/og-cover.jpg">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,6 +93,7 @@
   .review-item{border-top:1px solid rgba(231,227,216,.12);padding:24px 0;}
   .review-item:last-child{border-bottom:1px solid rgba(231,227,216,.12);}
   .review-header{display:flex;align-items:baseline;justify-content:space-between;gap:20px;cursor:pointer;}
+  .edition-header:focus-visible,.review-header:focus-visible,#topbar a:focus-visible,#topbar button:focus-visible{outline:2px solid #d9a06a;outline-offset:3px;}
   .review-header:hover .review-title{color:#d9a06a;}
   .review-left{display:flex;flex-direction:column;gap:6px;}
   .review-title{font-family:'EB Garamond',serif;font-size:clamp(17px,1.6vw,22px);line-height:1.25;color:#e7e3d8;transition:color .2s;}
@@ -445,6 +449,9 @@
 
         const editionHeader = document.createElement('div');
         editionHeader.className = 'edition-header';
+        editionHeader.setAttribute('role', 'button');
+        editionHeader.setAttribute('tabindex', '0');
+        editionHeader.setAttribute('aria-expanded', 'false');
 
         const label = document.createElement('span');
         label.className = 'edition-label';
@@ -462,10 +469,13 @@
         const editionBody = document.createElement('div');
         editionBody.className = 'edition-body';
 
-        editionHeader.addEventListener('click', () => {
+        const toggleEdition = () => {
           const open = editionBody.classList.toggle('open');
           editionHeader.classList.toggle('open', open);
-        });
+          editionHeader.setAttribute('aria-expanded', open ? 'true' : 'false');
+        };
+        editionHeader.addEventListener('click', toggleEdition);
+        editionHeader.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleEdition(); } });
 
         if (films.length === 0) {
           const empty = document.createElement('p');
@@ -480,6 +490,9 @@
 
           const header = document.createElement('div');
           header.className = 'review-header';
+          header.setAttribute('role', 'button');
+          header.setAttribute('tabindex', '0');
+          header.setAttribute('aria-expanded', 'false');
 
           const left = document.createElement('div');
           left.className = 'review-left';
@@ -520,10 +533,13 @@
             body.appendChild(p);
           });
 
-          header.addEventListener('click', () => {
+          const toggleReview = () => {
             const isOpen = body.classList.toggle('open');
             header.classList.toggle('open', isOpen);
-          });
+            header.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          };
+          header.addEventListener('click', toggleReview);
+          header.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleReview(); } });
 
           item.appendChild(header);
           item.appendChild(body);

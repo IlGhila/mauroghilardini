@@ -12,12 +12,15 @@
 <meta property="og:title" content="Repertorio — Mauro Ghilardini">
 <meta property="og:description" content="Il repertorio di Mauro Ghilardini: teatro, letture musicali, concerti acustici e con band.">
 <meta property="og:url" content="https://mauroghilardini.netlify.app/repertorio/">
-<meta property="og:image" content="https://mauroghilardini.netlify.app/images/mauro-01.webp">
+<meta property="og:image" content="https://mauroghilardini.netlify.app/images/og-cover.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Mauro Ghilardini">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Repertorio — Mauro Ghilardini">
 <meta name="twitter:description" content="Il repertorio di Mauro Ghilardini: teatro, letture musicali, concerti acustici e con band.">
-<meta name="twitter:image" content="https://mauroghilardini.netlify.app/images/mauro-01.webp">
+<meta name="twitter:image" content="https://mauroghilardini.netlify.app/images/og-cover.jpg">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,6 +49,7 @@
   #topbar a,#topbar span,#topbar button{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;}
   #topbar .right{display:flex;align-items:center;gap:14px;}
   #topbar button{background:none;border:none;cursor:pointer;color:#e7e3d8;padding:4px 2px;}
+  [role="button"]:focus-visible,#topbar a:focus-visible,#topbar button:focus-visible{outline:2px solid #d9a06a;outline-offset:3px;}
   #ctabar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:#c2543a;color:#1c1b18;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px clamp(16px,4vw,44px);}
   #ctabar .cta-text{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(15px,1.5vw,21px);}
   #ctabar .cta-btn{white-space:nowrap;background:#1c1b18;color:#e7e3d8;padding:13px 22px;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;}
@@ -189,6 +193,10 @@
   function playVideo(e) {
     const wrap = e.currentTarget;
     const id = wrap.dataset.vid;
+    // una volta partito il video il contenitore non è più un "pulsante"
+    wrap.removeAttribute('role');
+    wrap.removeAttribute('tabindex');
+    wrap.removeAttribute('aria-label');
     wrap.innerHTML = '';
     const f = document.createElement('iframe');
     f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
@@ -283,7 +291,11 @@
     // SINOSSI
     const synPars = (lang === 'it' ? s.sinossi_it : s.sinossi_en) || [];
     if (synPars.length) {
-      const synLeft = el('div', { style: 'position:sticky;top:90px;' },
+      // Sfondo pergamena sul blocco sticky: su mobile (colonna singola) il titolo
+      // scende sopra i paragrafi — con lo sfondo li copre e resta sempre leggibile.
+      // top:0 + padding-top (compensato dal margin negativo) estende la copertura
+      // anche SOPRA il titolo: il testo sparisce dietro lo sfondo, non oltre il bordo.
+      const synLeft = el('div', { style: 'position:sticky;top:0;z-index:1;background:#d9d6cc;padding:90px 0 14px;margin-top:-90px;' },
         el('span', { style: 'display:block;font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:#938c7f;margin-bottom:20px;' }, lang === 'it' ? 'La sinossi' : 'Synopsis'),
         el('h2', { style: 'font-family:\'Anton\',sans-serif;text-transform:uppercase;font-size:clamp(30px,4vw,62px);line-height:.96;letter-spacing:-.01em;color:#514d46;' }, t('sinossi_lead'))
       );
@@ -350,7 +362,7 @@
       const videoEls = s.video.map(v => {
         const id = typeof v === 'string' ? v : v.id;
         const thumbSrc = (typeof v === 'object' && v.thumb) ? ROOT + v.thumb : ROOT + 'images/thumb-' + id + '.jpg';
-        const wrap = el('div', { style: 'cursor:pointer;position:relative;aspect-ratio:16/9;overflow:hidden;background:#000;' },
+        const wrap = el('div', { role: 'button', tabindex: '0', 'aria-label': lang === 'it' ? 'Riproduci video' : 'Play video', style: 'cursor:pointer;position:relative;aspect-ratio:16/9;overflow:hidden;background:#000;' },
           el('img', { src: thumbSrc, alt: '', style: 'width:100%;height:100%;object-fit:cover;opacity:.62;' }),
           el('span', { style: 'position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;' },
             el('span', { style: 'width:66px;height:66px;border-radius:50%;border:1px solid rgba(231,227,216,.8);background:rgba(20,19,17,.35);display:grid;place-items:center;color:#e7e3d8;font-size:18px;' }, '▶')
@@ -358,6 +370,7 @@
         );
         wrap.dataset.vid = id;
         wrap.addEventListener('click', playVideo);
+        wrap.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); playVideo(ev); } });
         return wrap;
       });
       const vid = el('section', { style: 'background:#1c1b18;padding:0 clamp(16px,4vw,56px) clamp(50px,8vh,110px);' },

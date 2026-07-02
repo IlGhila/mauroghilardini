@@ -14,7 +14,10 @@
 <meta property="og:title" content="Immagini — Mauro Ghilardini · Materiale per la stampa">
 <meta property="og:description" content="Ritratti, set acustici e live. Materiale pronto per locandine e comunicati.">
 <meta property="og:url" content="https://mauroghilardini.netlify.app/press.html">
-<meta property="og:image" content="https://mauroghilardini.netlify.app/images/mauro-01.webp">
+<meta property="og:image" content="https://mauroghilardini.netlify.app/images/og-cover.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -76,7 +79,8 @@
   .tab:hover{color:rgba(231,227,216,.75)}
   .tab.on{color:#e7e3d8;border-left:3px solid #d9a06a;padding-left:14px}
   .thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:22px;flex:1;overflow-y:auto;align-content:start}
-  .thumb{position:relative;height:84px;overflow:hidden;cursor:pointer;background:#2c333c;border:2px solid transparent;transition:border-color .25s ease}
+  .thumb{appearance:none;padding:0;width:100%;display:block;position:relative;height:84px;overflow:hidden;cursor:pointer;background:#2c333c;border:2px solid transparent;transition:border-color .25s ease}
+  .tab:focus-visible,.thumb:focus-visible,.lang button:focus-visible,.back:focus-visible,.dl:focus-visible,.ctx-contact a:focus-visible{outline:2px solid #d9a06a;outline-offset:2px}
   .thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.72;transition:opacity .25s ease}
   .thumb:hover img{opacity:.92}
   .thumb.on{border-color:#d9a06a}
@@ -123,7 +127,7 @@
   <div class="gallery">
     <div class="poster-wrap">
       <div class="poster-view">
-        <sc-if value="{{ hasPhotos }}" hint-placeholder-val="{{ true }}"><img src="{{ curSrc }}" alt="Anteprima locandina" decoding="async"></sc-if>
+        <sc-if value="{{ hasPhotos }}" hint-placeholder-val="{{ true }}"><img src="{{ curSrc }}" alt="{{ curAlt }}" decoding="async"></sc-if>
         <div class="scrim"></div>
         <div class="p-top"><span class="p-kick">{{ kicker }}</span></div>
         <div class="p-cap"><div class="p-name">Mauro Ghilardini</div><div class="p-role">{{ catRole }}</div><div class="p-rule"></div></div>
@@ -131,7 +135,7 @@
       <div class="rail-r">
         <div class="rail-h"><b>{{ railHead }}</b><span>{{ countStr }} {{ shotsLabel }}</span></div>
         <div class="tabs"><sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3"><button class="tab {{ t.cls }}" onClick="{{ t.on }}">{{ t.label }}</button></sc-for></div>
-        <div class="thumbs"><sc-for list="{{ thumbs }}" as="th" hint-placeholder-count="6"><div class="thumb {{ th.cls }}" onClick="{{ th.on }}"><img src="{{ th.src }}" alt="scatto" loading="lazy" decoding="async"></div></sc-for></div>
+        <div class="thumbs"><sc-for list="{{ thumbs }}" as="th" hint-placeholder-count="6"><button type="button" class="thumb {{ th.cls }}" onClick="{{ th.on }}" aria-label="{{ th.label }}"><img src="{{ th.src }}" alt="" loading="lazy" decoding="async"></button></sc-for></div>
         <div class="rail-credit">{{ credit }}</div>
         <div class="rail-foot"><span class="rail-cap">{{ curCap }}</span><sc-if value="{{ hasPhotos }}" hint-placeholder-val="{{ true }}"><a class="dl" href="{{ curSrc }}" download>{{ dlLabel }}</a></sc-if></div>
       </div>
@@ -219,8 +223,9 @@ class Component extends DCLogic {
     const shotWord = en ? 'Shot' : 'Scatto';
     return {
       tabs: cats.map((c, i) => ({ label: en ? c.labelEn : c.labelIt, cls: i === this.state.cat ? 'on' : '', on: () => this.setState({ cat:i, idx:0 }) })),
-      thumbs: photos.map((src, i) => ({ src, cls: i === idx ? 'on' : '', on: () => this.setState({ idx:i }) })),
+      thumbs: photos.map((src, i) => ({ src, cls: i === idx ? 'on' : '', on: () => this.setState({ idx:i }), label: shotWord + ' ' + (i + 1) })),
       curSrc: cur,
+      curAlt: has ? ((en ? cat.roleEn : cat.roleIt) + ' · ' + shotWord + ' ' + (idx + 1)) : '',
       curCap: has ? (shotWord + ' ' + (idx + 1)) : '',
       hasPhotos: has,
       countStr: String(photos.length).padStart(2, '0'),

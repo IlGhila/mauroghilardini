@@ -14,14 +14,17 @@
 <meta property="og:title" content="Mauro Ghilardini — Cantante, compositore e interprete">
 <meta property="og:description" content="Mauro Ghilardini, cantante e compositore: canto moderno e lirico, spettacoli dal vivo, repertorio e scrittura. Date, video e contatti.">
 <meta property="og:url" content="https://mauroghilardini.netlify.app/">
-<meta property="og:image" content="https://mauroghilardini.netlify.app/images/mauro-01.webp">
+<meta property="og:image" content="https://mauroghilardini.netlify.app/images/og-cover.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Mauro Ghilardini">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mauro Ghilardini — Cantante, compositore e interprete">
 <meta name="twitter:description" content="Mauro Ghilardini, cantante e compositore: canto moderno e lirico, spettacoli dal vivo, repertorio e scrittura.">
-<meta name="twitter:image" content="https://mauroghilardini.netlify.app/images/mauro-01.webp">
+<meta name="twitter:image" content="https://mauroghilardini.netlify.app/images/og-cover.jpg">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
@@ -121,12 +124,11 @@
     #repHeader { padding-bottom: clamp(20px,3vh,36px) !important; }
     #repertorio { padding-top: 0 !important; }
 
-    /* ── HERO: solo immagine + nome su due righe, poi parte il sito ── */
-    #heroWrap { height: 100vh !important; }
+    /* ── HERO: come su desktop — solo immagine, poi nome e controlli entrano con lo swipe ──
+       (il wrap resta 160vh anche su mobile: è la "pista" che guida l'animazione a scroll) */
     h1, h2, h3 { white-space: normal !important; }
-    /* Dimensione del nome: unica fonte di verità in #heroH1 (vedi sotto) */
-    /* Nome alzato per non sovrapporsi allo scroll hint */
-    #heroName { bottom: 13vh !important; }
+    /* Dimensione del nome: unica fonte di verità in #heroH1 (vedi sotto).
+       Il bottom resta quello desktop (3.2vh, inline): il nome parte in basso anche qui. */
 
     /* ── MENU: riduci font su schermi bassi ── */
     nav a { display: flex !important; font-size: clamp(24px,5vh,56px) !important; }
@@ -138,6 +140,9 @@
 
     /* ── TAP TARGET minimi ── */
     button, a { min-height: 44px; display: inline-flex; align-items: center; }
+    /* L'equalizzatore ha già l'area tap allargata via ::before: il min-height 44px
+       lo stiracchiava e le barre (ancorate in basso) finivano più basse della scritta MUSICA */
+    .eq { min-height: 0; }
 
     /* ── SINGOLI — 2 colonne su mobile ── */
     #singoli .sing-grid { grid-template-columns: repeat(2, 1fr) !important; }
@@ -151,6 +156,10 @@
 
     /* ── DAL VIVO: immagine centrata su mobile ── */
     #dalvivo > img { object-position: center bottom !important; }
+
+    /* ── IMMAGINI (teaser press): su mobile il volto va più a destra,
+       lontano dal testo che sta a sinistra ── */
+    #immagini > img { object-position: 33% 38% !important; }
   }
 
   /* Dissolvenza in uscita verso una scheda (crossfade con l'entrata della scheda) */
@@ -203,7 +212,9 @@
   /* Mobile: nome più grande, su due righe */
   @media (max-width:900px){
     /* !important necessario: il h1 ha la dimensione desktop nello style inline */
-    #heroH1 { white-space:normal !important; font-size:clamp(66px,20vw,150px) !important; line-height:.9 !important; }
+    /* margin-bottom negativo: su due righe la base dell'ultima riga cade più in alto
+       che su desktop — così il Manifesto che sale la aggancia senza stacco */
+    #heroH1 { white-space:normal !important; font-size:clamp(66px,22vw,150px) !important; line-height:.9 !important; margin-bottom:-0.03em !important; }
   }
   /* Insegnamento: le due colonne si impilano su schermi stretti */
   @media (max-width:760px){
@@ -269,9 +280,9 @@
   </div>
 
   <!-- ===== MENU (opens from bottom) ===== -->
-  <nav style="position:fixed; left:0; right:0; bottom:0; z-index:9500; background:#1c1b18; color:#d9d6cc; transform:translateY({{ menuY }}); transition:transform .6s cubic-bezier(.7,0,.2,1); padding:clamp(40px,7vh,80px) clamp(20px,5vw,72px) clamp(30px,5vh,56px); pointer-events:{{ menuPe }};">
+  <nav style="position:fixed; left:0; right:0; bottom:0; z-index:9500; height:calc(100vh - 64px); height:calc(100dvh - 64px); overflow-y:auto; overscroll-behavior:contain; background:#1c1b18; color:#d9d6cc; transform:translateY({{ menuY }}); transition:transform .6s cubic-bezier(.7,0,.2,1); padding:clamp(28px,4vh,56px) clamp(20px,5vw,72px) clamp(30px,5vh,56px); pointer-events:{{ menuPe }};">
     <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="9">
-      <a href="{{ n.href }}" onClick="{{ closeMenu }}" style="display:flex; align-items:baseline; gap:18px; padding:clamp(7px,1.3vh,14px) 0; border-top:1px solid rgba(122,116,105,.32); font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(30px,7vh,76px); line-height:1; letter-spacing:-.01em; color:#d9d6cc;">
+      <a href="{{ n.href }}" onClick="{{ closeMenu }}" style="display:flex; align-items:baseline; gap:18px; padding:clamp(6px,1.1vh,12px) 0; border-top:1px solid rgba(122,116,105,.32); font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(28px,6vh,68px); line-height:1; letter-spacing:-.01em; color:#d9d6cc;">
         <span style="font-family:'Archivo'; font-size:11px; font-weight:600; letter-spacing:.1em; color:#7a7469; transform:translateY(-.4em);">{{ n.num }}</span>
         {{ n.label }}
       </a>
@@ -288,9 +299,11 @@
   <div id="heroWrap" style="position:relative; height:160vh; z-index:1;">
   <section id="top" data-screen-label="Hero" data-navtheme="dark" style="position:sticky; top:0; height:100vh; background:transparent;">
 
-    <!-- Nome: invisibile, entra allo scroll, incollato al bordo inferiore -->
-    <div id="heroName" style="position:absolute; left:0; right:0; bottom:3.2vh; opacity:0;">
-      <h1 id="heroH1" style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#d9d6cc; white-space:nowrap; line-height:.88; letter-spacing:-.02em; font-size:clamp(40px,12.2vw,250px); display:block; width:100%; text-align:center; margin-bottom:-0.12em;">MAURO GHILARDINI</h1>
+    <!-- Nome: invisibile, entra allo scroll, incollato al bordo inferiore.
+         L'offset è SOLO in em (proporzionale al carattere): il Manifesto che sale
+         aggancia la base delle lettere su qualsiasi schermo, senza dipendere da vh. -->
+    <div id="heroName" style="position:absolute; left:0; right:0; bottom:0; opacity:0;">
+      <h1 id="heroH1" style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#d9d6cc; white-space:nowrap; line-height:.88; letter-spacing:-.02em; font-size:clamp(40px,12.2vw,250px); display:block; width:100%; text-align:center; margin-bottom:0;">MAURO GHILARDINI</h1>
     </div>
 
     <!-- Scroll hint -->
@@ -701,36 +714,8 @@ class Component extends DCLogic {
     // Animazione hero: 0=nascosto, 1=nome snap, 2=ctrl attivi, 3=ctrl idle
     let _heroPhase = 0;
     this._heroAnim = () => {
-      // Su mobile: niente animazione scroll, ma un ingresso a comparsa una-tantum al caricamento
-      if (window.innerWidth <= 900) {
-        const nameEl = document.getElementById('heroName');
-        const hintEl = document.getElementById('heroScrollHint');
-        if (!this._mobileIntro) {
-          this._mobileIntro = true;
-          // stato iniziale nascosto
-          if (nameEl) {
-            nameEl.style.transition = 'opacity .9s ease, transform .9s cubic-bezier(.22,1,.36,1)';
-            nameEl.style.opacity = '0';
-            nameEl.style.transform = 'translateY(16px)';
-          }
-          // il nome sale ed entra; quando compare, sparisce l'hint (NO COOKIES / SCROLL)
-          setTimeout(() => {
-            if (nameEl) { nameEl.style.opacity = '1'; nameEl.style.transform = 'translateY(0)'; }
-            if (hintEl) { hintEl.style.transition = 'opacity .6s ease'; hintEl.style.opacity = '0'; }
-            this._mobileNameShown = true;
-          }, 220);
-          // poi entrano i controlli (musica, lingua, menu) via transizione .nav-ctrl
-          setTimeout(() => {
-            document.querySelectorAll('.nav-ctrl').forEach(el => {
-              el.classList.remove('is-hidden');
-              el.classList.add('is-active');
-            });
-          }, 700);
-        }
-        // prima dell'ingresso del nome l'hint resta visibile (o sparisce se si scorre subito)
-        if (hintEl && !this._mobileNameShown) hintEl.style.opacity = window.scrollY > 24 ? '0' : '1';
-        return;
-      }
+      // Stessa logica su desktop e mobile: lo swipe genera gli stessi eventi di scroll
+      // del mouse, quindi nome e controlli entrano scorrendo anche da telefono.
       const p = Math.min(1, window.scrollY / (0.9 * window.innerHeight));
 
       const nameEl = document.getElementById('heroName');
