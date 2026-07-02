@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Immagini — Mauro Ghilardini · Materiale per la stampa</title>
+<meta name="description" content="Materiale fotografico per la stampa di Mauro Ghilardini: ritratti, set acustici e live. Anteprima locandina e download per organizzatori, uffici stampa e grafici.">
+<link rel="canonical" href="https://mauroghilardini.netlify.app/press.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Mauro Ghilardini">
+<meta property="og:locale" content="it_IT">
+<meta property="og:title" content="Immagini — Mauro Ghilardini · Materiale per la stampa">
+<meta property="og:description" content="Ritratti, set acustici e live. Materiale pronto per locandine e comunicati.">
+<meta property="og:url" content="https://mauroghilardini.netlify.app/press.html">
+<meta property="og:image" content="https://mauroghilardini.netlify.app/images/mauro-01.webp">
+
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased}
+  body{font-family:'Archivo',system-ui,sans-serif;background:#15140f;color:#e7e3d8;min-height:100vh}
+  a{color:inherit}
+
+  /* ---- topbar ---- */
+  .topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 clamp(20px,5vw,72px);background:#15140f;border-bottom:1px solid rgba(231,227,216,.12)}
+  .back{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#938c7f;text-decoration:none;border-bottom:1px solid rgba(147,140,127,.4);padding-bottom:3px;transition:color .3s ease}
+  .back:hover{color:#e7e3d8}
+  .lang{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:.14em}
+  .lang button{background:none;border:none;cursor:pointer;color:#e7e3d8;padding:4px 2px;transition:opacity .3s ease}
+  .lang .sep{opacity:.5}
+
+  /* ---- shell ---- */
+  .wrap{max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,72px)}
+  .head{padding:clamp(48px,8vh,90px) 0 clamp(26px,4vh,44px);display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;border-bottom:1px solid rgba(231,227,216,.18)}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#d9a06a;margin-bottom:18px}
+  .h-title{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(64px,9vw,120px);line-height:.84;letter-spacing:-.01em}
+  .h-sub{font-family:'EB Garamond',serif;font-style:italic;font-size:clamp(16px,1.4vw,20px);line-height:1.4;color:rgba(231,227,216,.72);max-width:34ch;text-align:right}
+  .gallery{padding:clamp(24px,4vh,44px) 0 0}
+  .ctx{display:flex;align-items:flex-start;justify-content:space-between;gap:26px;flex-wrap:wrap;margin-top:clamp(30px,5vh,54px);padding:clamp(24px,4vh,40px) 0 clamp(60px,10vh,110px);border-top:1px solid rgba(231,227,216,.18)}
+  .ctx-note{font-size:11px;font-weight:500;letter-spacing:.05em;line-height:1.65;color:#8a8377;max-width:54ch}
+  .ctx-contact{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#938c7f}
+  .ctx-contact a{color:#d9a06a;text-decoration:none;border-bottom:1px solid rgba(217,160,106,.5);padding-bottom:2px}
+
+  /* ---- 1B locandina (ripreso 1:1 dal prototipo) ---- */
+  .poster-wrap{display:flex;height:660px;margin-top:14px;border:1px solid rgba(231,227,216,.14)}
+  .poster-view{position:relative;flex:0 0 62%;overflow:hidden;background:#0c0b09}
+  .poster-view img{width:100%;height:100%;object-fit:cover;display:block}
+  .scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(12,11,9,.2) 0%,rgba(12,11,9,0) 26%,rgba(12,11,9,.9) 100%)}
+  .p-top{position:absolute;top:0;left:0;right:0;display:flex;align-items:flex-start;justify-content:space-between;padding:18px 22px;pointer-events:none}
+  .p-kick{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:rgba(231,227,216,.82)}
+  .p-cat{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#15140f;background:#d9a06a;padding:5px 10px}
+  .p-ai{font-size:10px;font-weight:700;letter-spacing:.14em;color:#d9a06a;border:1px solid rgba(217,160,106,.7);padding:4px 8px;margin-left:8px}
+  .p-cap{position:absolute;left:26px;right:26px;bottom:28px;pointer-events:none}
+  .p-name{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(38px,6vw,66px);line-height:.84;letter-spacing:-.01em}
+  .p-role{font-family:'EB Garamond',serif;font-style:italic;font-size:19px;color:rgba(231,227,216,.88);margin-top:12px}
+  .p-rule{width:62px;height:2px;background:#d9a06a;margin-top:15px}
+  .p-meta{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(231,227,216,.6);margin-top:14px}
+  .rail-r{flex:1;background:#454e5b;padding:28px 26px;display:flex;flex-direction:column;overflow:hidden}
+  .rail-h{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid rgba(231,227,216,.2);padding-bottom:14px}
+  .rail-h b{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:22px;letter-spacing:.01em}
+  .rail-h span{font-size:11px;font-weight:600;letter-spacing:.2em;color:#aab0b9}
+  .tabs{display:flex;flex-direction:column;margin-top:20px;flex:0 0 auto}
+  .tab{appearance:none;background:none;border:none;text-align:left;cursor:pointer;font-family:'Anton',sans-serif;text-transform:uppercase;font-size:30px;line-height:1.18;letter-spacing:.01em;color:rgba(231,227,216,.42);padding:2px 0;border-left:3px solid transparent;padding-left:0;transition:color .3s ease,padding-left .3s ease,border-color .3s ease}
+  .tab:hover{color:rgba(231,227,216,.75)}
+  .tab.on{color:#e7e3d8;border-left:3px solid #d9a06a;padding-left:14px}
+  .thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:22px;flex:1;overflow-y:auto;align-content:start}
+  .thumb{position:relative;height:84px;overflow:hidden;cursor:pointer;background:#2c333c;border:2px solid transparent;transition:border-color .25s ease}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.72;transition:opacity .25s ease}
+  .thumb:hover img{opacity:.92}
+  .thumb.on{border-color:#d9a06a}
+  .thumb.on img{opacity:1}
+  .rail-credit{flex:0 0 auto;margin-top:16px;font-family:'EB Garamond',serif;font-style:italic;font-size:13px;line-height:1.4;color:rgba(231,227,216,.62)}
+  .rail-foot{margin-top:14px;padding-top:22px;display:flex;align-items:center;justify-content:space-between;gap:14px;border-top:1px solid rgba(231,227,216,.2)}
+  .rail-cap{font-family:'EB Garamond',serif;font-style:italic;font-size:15px;color:rgba(231,227,216,.78)}
+  .dl{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(231,227,216,.6);border-bottom:1px solid rgba(231,227,216,.35);padding-bottom:3px;text-decoration:none;white-space:nowrap;transition:color .3s ease}
+  .dl:hover{color:#e7e3d8}
+
+  /* ---- responsive: sotto 900px colonna singola ---- */
+  @media (max-width:900px){
+    .head{align-items:flex-start;flex-direction:column}
+    .h-sub{text-align:left;max-width:none}
+    .poster-wrap{flex-direction:column;height:auto}
+    .poster-view{flex:0 0 auto;height:52vh}
+    .rail-r{flex:0 0 auto;overflow:visible}
+    .thumbs{overflow:visible}
+    .tabs{flex-direction:row;overflow-x:auto;gap:20px;padding-bottom:4px}
+    .tab{font-size:26px;white-space:nowrap;border-left:none;padding-left:0;border-bottom:3px solid transparent}
+    .tab.on{border-left:none;padding-left:0;border-bottom:3px solid #d9a06a}
+  }
+</style>
+</helmet>
+
+<header class="topbar">
+  <a class="back" href="index.html">{{ backLabel }}</a>
+  <div class="lang">
+    <button onClick="{{ setIt }}" style="opacity:{{ itOp }};">IT</button>
+    <span class="sep">/</span>
+    <button onClick="{{ setEn }}" style="opacity:{{ enOp }};">EN</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="head">
+    <div>
+      <div class="eyebrow">{{ eyebrow }}</div>
+      <h1 class="h-title">{{ pageTitle }}</h1>
+    </div>
+    <p class="h-sub">{{ pageSub }}</p>
+  </div>
+
+  <div class="gallery">
+    <div class="poster-wrap">
+      <div class="poster-view">
+        <sc-if value="{{ hasPhotos }}" hint-placeholder-val="{{ true }}"><img src="{{ curSrc }}" alt="Anteprima locandina"></sc-if>
+        <div class="scrim"></div>
+        <div class="p-top"><span class="p-kick">{{ kicker }}</span></div>
+        <div class="p-cap"><div class="p-name">Mauro Ghilardini</div><div class="p-role">{{ catRole }}</div><div class="p-rule"></div><div class="p-meta">{{ posterMeta }}</div></div>
+      </div>
+      <div class="rail-r">
+        <div class="rail-h"><b>{{ railHead }}</b><span>{{ countStr }} {{ shotsLabel }}</span></div>
+        <div class="tabs"><sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3"><button class="tab {{ t.cls }}" onClick="{{ t.on }}">{{ t.label }}</button></sc-for></div>
+        <div class="thumbs"><sc-for list="{{ thumbs }}" as="th" hint-placeholder-count="6"><div class="thumb {{ th.cls }}" onClick="{{ th.on }}"><img src="{{ th.src }}" alt="scatto" loading="lazy"></div></sc-for></div>
+        <div class="rail-credit">{{ credit }}</div>
+        <div class="rail-foot"><span class="rail-cap">{{ curCap }}</span><sc-if value="{{ hasPhotos }}" hint-placeholder-val="{{ true }}"><a class="dl" href="{{ curSrc }}" download>{{ dlLabel }}</a></sc-if></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ctx">
+    <p class="ctx-note">{{ claimer }}</p>
+    <p class="ctx-contact">{{ contactLabel }} <a href="index.html#contatti">{{ contactLink }}</a></p>
+  </div>
+</main>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+function detectLang() {
+  try {
+    const saved = localStorage.getItem('mgh-lang');
+    if (saved === 'it' || saved === 'en') return saved;
+  } catch (e) {}
+  const nav = ((navigator.language || navigator.userLanguage || 'it') + '').toLowerCase();
+  return nav.startsWith('it') ? 'it' : 'en';
+}
+
+class Component extends DCLogic {
+  // Ogni categoria si alimenta da sola: cerca in foto/ i file col proprio prefisso
+  // (ritratto-NN.webp, acustico-NN.webp, live-NN.webp). Per aggiungere uno scatto basta
+  // mettere il file col nome successivo del prefisso giusto: nessuna modifica al codice.
+  state = { lang: detectLang(), cat: 0, idx: 0, sets: null };
+
+  get cats() {
+    return [
+      { id:'posa', prefix:'ritratto', labelIt:'In posa', labelEn:'Portraits',
+        roleIt:'Ritratto · serie diretta dall’artista', roleEn:'Portrait · directed by the artist',
+        creditIt:'Serie generata con Flow AI, diretta dall’artista', creditEn:'Series generated with Flow AI, directed by the artist' },
+      { id:'acustico', prefix:'acustico', labelIt:'Acustico', labelEn:'Acoustic',
+        roleIt:'Set acustico · voce e chitarra', roleEn:'Acoustic set · voice & guitar',
+        creditIt:'Foto di Matteo Gambarini e Silvia Beretta', creditEn:'Photos by Matteo Gambarini and Silvia Beretta' },
+      { id:'live', prefix:'live', labelIt:'Live', labelEn:'Live',
+        roleIt:'Concerto · full band, luci di scena', roleEn:'Concert · full band, stage lights',
+        creditIt:'Foto di Silvia Beretta e Beppe Quintini', creditEn:'Photos by Silvia Beretta and Beppe Quintini' },
+    ];
+  }
+
+  componentDidMount() {
+    document.documentElement.lang = this.state.lang;
+    Promise.all(this.cats.map((c) => this.discover(c.prefix))).then((lists) => {
+      const sets = {};
+      this.cats.forEach((c, i) => { sets[c.id] = lists[i]; });
+      this.setState({ sets });
+    });
+  }
+
+  // Verifica se foto/<prefix>-NN.webp esiste.
+  probe(prefix, i) {
+    const src = 'foto/' + prefix + '-' + String(i).padStart(2, '0') + '.webp';
+    return new Promise((res) => {
+      const im = new Image();
+      im.onload = () => res(src);
+      im.onerror = () => res(null);
+      im.src = src;
+    });
+  }
+
+  // Scansione a blocchi: si ferma quando un intero blocco è vuoto (tollera piccoli buchi di numerazione).
+  async discover(prefix) {
+    let start = 1, batch = 12, found = [];
+    while (start <= 200) {
+      const idxs = [];
+      for (let i = start; i < start + batch; i++) idxs.push(i);
+      const hits = (await Promise.all(idxs.map((i) => this.probe(prefix, i)))).filter(Boolean);
+      found = found.concat(hits);
+      if (!hits.length) break;
+      start += batch;
+    }
+    found.sort((a, b) => parseInt(a.match(/(\d+)\.webp$/)[1], 10) - parseInt(b.match(/(\d+)\.webp$/)[1], 10));
+    return found;
+  }
+
+  renderVals() {
+    const en = this.state.lang === 'en';
+    const cats = this.cats;
+    const cat = cats[this.state.cat];
+    const sets = this.state.sets || {};
+    const photos = sets[cat.id] || [];
+    const has = photos.length > 0;
+    const idx = Math.min(this.state.idx, Math.max(0, photos.length - 1));
+    const cur = photos[idx] || '';
+    const shotWord = en ? 'Shot' : 'Scatto';
+    return {
+      tabs: cats.map((c, i) => ({ label: en ? c.labelEn : c.labelIt, cls: i === this.state.cat ? 'on' : '', on: () => this.setState({ cat:i, idx:0 }) })),
+      thumbs: photos.map((src, i) => ({ src, cls: i === idx ? 'on' : '', on: () => this.setState({ idx:i }) })),
+      curSrc: cur,
+      curCap: has ? (shotWord + ' ' + (idx + 1)) : '',
+      hasPhotos: has,
+      countStr: String(photos.length).padStart(2, '0'),
+      catRole: en ? cat.roleEn : cat.roleIt,
+      credit: en ? cat.creditEn : cat.creditIt,
+
+      // stringhe di pagina (IT/EN)
+      backLabel: en ? '← Back to site' : '← Torna al sito',
+      eyebrow: en ? 'For the press' : 'Per la stampa',
+      pageTitle: en ? 'Images' : 'Immagini',
+      pageSub: en ? 'Press material. Pick a category, pick a shot, download.' : 'Materiale per la stampa. Scegli la categoria, scegli lo scatto, scarica.',
+      kicker: en ? 'Poster preview' : 'Anteprima locandina',
+      railHead: en ? 'Category' : 'Categoria',
+      shotsLabel: en ? 'SHOTS' : 'SCATTI',
+      posterMeta: 'Reduce Tour · 2026',
+      dlLabel: en ? 'Download' : 'Scarica',
+      claimer: en
+        ? 'Are you a photographer and recognise an uncredited shot of yours? Write to me and I’ll fix it right away.'
+        : 'Sei un fotografo e riconosci uno scatto tuo non accreditato? Scrivimi e lo sistemo subito.',
+      contactLabel: en ? 'Press material & contact:' : 'Materiali stampa e contatti:',
+      contactLink: en ? 'contact' : 'contatti',
+
+      itOp: en ? 0.45 : 1,
+      enOp: en ? 1 : 0.45,
+      setIt: () => { try { localStorage.setItem('mgh-lang', 'it'); } catch (e) {} document.documentElement.lang = 'it'; this.setState({ lang: 'it' }); },
+      setEn: () => { try { localStorage.setItem('mgh-lang', 'en'); } catch (e) {} document.documentElement.lang = 'en'; this.setState({ lang: 'en' }); },
+    };
+  }
+}
+</script>
+</body>
+</html>

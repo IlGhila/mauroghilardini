@@ -435,6 +435,18 @@
     </section>
   </div>
 
+  <!-- ===== 4b · TEASER PRESS (richiamo immagini, sotto il repertorio) ===== -->
+  <section data-screen-label="Immagini" data-navtheme="dark" style="position:relative; z-index:6; min-height:clamp(360px,60vh,520px); overflow:hidden; display:flex; align-items:center; background:#15140f;">
+    <img src="foto/live-01.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;">
+    <div style="position:absolute; inset:0; background:linear-gradient(90deg,rgba(21,20,15,.9),rgba(21,20,15,.35) 60%,rgba(21,20,15,.1));"></div>
+    <div data-reveal style="position:relative; z-index:2; opacity:0; transform:translateY(24px); transition:opacity 1.1s ease,transform 1.1s ease; padding:clamp(40px,8vh,90px) clamp(20px,5vw,72px); max-width:760px;">
+      <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:#d9a06a; margin-bottom:18px;">{{ teaserEyebrow }}</span>
+      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#e7e3d8; font-size:clamp(44px,7vw,96px); line-height:.86; letter-spacing:-.01em;">{{ teaserTitle }}</h2>
+      <p style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.5vw,22px); line-height:1.5; color:rgba(231,227,216,.82); margin-top:22px; max-width:40ch;">{{ teaserSub }}</p>
+      <a href="press.html" style="display:inline-block; margin-top:30px; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#15140f; background:#d9a06a; padding:14px 28px; text-decoration:none;">{{ teaserCta }}</a>
+    </div>
+  </section>
+
   <!-- ===== 5 · DISCHI (album rooms) ===== -->
   <section id="dischi" data-screen-label="Dischi intro" data-navtheme="light" style="position:relative; z-index:6; background:#d9d6cc; padding:clamp(70px,10vh,120px) clamp(20px,5vw,72px); text-align:center;">
     <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease;">
@@ -608,6 +620,7 @@
         <span>Bergamo · MMXXVI</span>
         <span>{{ footNote }}</span>
       </div>
+      <p style="margin-top:16px; font-size:10.5px; line-height:1.5; color:#a39c8f; font-family:'Archivo',sans-serif;">{{ imgCredit }}</p>
     </div>
   </footer>
 
@@ -914,11 +927,15 @@ class Component extends DCLogic {
       signQuote: 'Raro concedit, numquam negat, semper distinguit.',
       signAuthor: '— P. Tomáš Týn, su san Tommaso',
       contactTitle: 'Contatti', footNote: 'Cantante · Compositore · Autore',
+      imgCredit: 'Le immagini AI del sito sono generate con Flow e dirette dall’artista.',
       contactFormLabel: 'Booking & Management', contactFieldName: 'Nome', contactFieldEmail: 'Email', contactFieldMsg: 'Messaggio', contactSend: 'Invia',
       contactPrivacy: 'Inviando accetti che i dati siano usati per rispondere alla tua richiesta. Il modulo è gestito tramite Formspree; i dati non vengono usati per altri scopi né ceduti a terzi.',
       coverSoon: 'Copertina',
       musicOn: 'Musica on', musicOff: 'Musica off',
       liveTitle: 'Dal vivo',
+      teaserEyebrow: 'Per la stampa', teaserTitle: 'Immagini',
+      teaserSub: 'Ritratti, set acustici e live. Materiale pronto per locandine e comunicati.',
+      teaserCta: 'Vai alle immagini →',
       menuBtnLabel: 'Menu',
       menuItems: ['Home','Dal vivo','Repertorio','Dischi','Scrittura','Insegnamento','Video','Contatti'],
     };
@@ -947,11 +964,15 @@ class Component extends DCLogic {
       signQuote: 'Raro concedit, numquam negat, semper distinguit.',
       signAuthor: '— Fr. Tomáš Týn, on Thomas Aquinas',
       contactTitle: 'Contact', footNote: 'Singer · Composer · Author',
+      imgCredit: 'AI images are generated with Flow, directed by the artist.',
       contactFormLabel: 'Booking & Management', contactFieldName: 'Name', contactFieldEmail: 'Email', contactFieldMsg: 'Message', contactSend: 'Send',
       contactPrivacy: 'By submitting you agree that your data is used to reply to your request. The form is handled via Formspree; data is not used for other purposes nor shared with third parties.',
       coverSoon: 'Cover',
       musicOn: 'Music on', musicOff: 'Music off',
       liveTitle: 'Live',
+      teaserEyebrow: 'Press', teaserTitle: 'Images',
+      teaserSub: 'Portraits, acoustic sets and live. Ready-to-use material for posters and press releases.',
+      teaserCta: 'Go to images →',
       menuBtnLabel: 'Menu',
       menuItems: ['Home','Live','Repertoire','Records','Writing','Teaching','Video','Contact'],
     };
