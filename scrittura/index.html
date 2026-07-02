@@ -191,7 +191,16 @@
 
 <script>
 (function () {
-  let lang = localStorage.getItem('mgh-lang') || 'it';
+  function detectLang() {
+    try {
+      const saved = localStorage.getItem('mgh-lang');
+      if (saved === 'it' || saved === 'en') return saved;
+    } catch (e) {}
+    const nav = ((navigator.language || navigator.userLanguage || 'it') + '').toLowerCase();
+    return nav.startsWith('it') ? 'it' : 'en';
+  }
+
+  let lang = detectLang();
 
   const strings = {
     it: {
@@ -532,6 +541,7 @@
 
   function applyLang() {
     const s = strings[lang];
+    document.documentElement.lang = lang;
     document.getElementById('btnIt').style.opacity = lang === 'it' ? '1' : '0.45';
     document.getElementById('btnEn').style.opacity = lang === 'en' ? '1' : '0.45';
     document.getElementById('backLabel').textContent = s.backLabel;
@@ -694,6 +704,7 @@
   function setLang(l) {
     lang = l;
     localStorage.setItem('mgh-lang', l);
+    document.documentElement.lang = l;
     applyLang();
   }
 

@@ -614,10 +614,20 @@
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+function detectLang() {
+  try {
+    const saved = localStorage.getItem('mgh-lang');
+    if (saved === 'it' || saved === 'en') return saved;
+  } catch (e) {}
+  const nav = ((navigator.language || navigator.userLanguage || 'it') + '').toLowerCase();
+  return nav.startsWith('it') ? 'it' : 'en';
+}
+
 class Component extends DCLogic {
-  state = { lang: 'it', menuOpen: false, datesOpen: false };
+  state = { lang: detectLang(), menuOpen: false, datesOpen: false };
 
   componentDidMount() {
+    document.documentElement.lang = this.state.lang;
     // Lenis smooth scroll
     const startLenis = () => {
       if (window.Lenis && !this._lenis) {
@@ -1057,8 +1067,8 @@ class Component extends DCLogic {
       menuIconOp: this.state.menuOpen ? 1 : 0.42,
       menuL1: this.state.menuOpen ? 'rotate(45deg) translate(3px,3px)' : 'none',
       menuL2: this.state.menuOpen ? 'rotate(-45deg) translate(3px,-3px)' : 'none',
-      setIt: () => this.setState({ lang: 'it' }),
-      setEn: () => this.setState({ lang: 'en' }),
+      setIt: () => { try { localStorage.setItem('mgh-lang', 'it'); } catch (e) {} document.documentElement.lang = 'it'; this.setState({ lang: 'it' }); },
+      setEn: () => { try { localStorage.setItem('mgh-lang', 'en'); } catch (e) {} document.documentElement.lang = 'en'; this.setState({ lang: 'en' }); },
       toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
       closeMenu: () => this.setState({ menuOpen: false }),
       goHome: () => { this.setState({ menuOpen: false }); window.scrollTo({ top: 0, behavior: 'smooth' }); },

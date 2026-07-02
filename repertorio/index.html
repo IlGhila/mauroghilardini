@@ -79,12 +79,22 @@
   function revealPage() { const p = document.getElementById('page'); if (p) requestAnimationFrame(() => { p.style.opacity = '1'; }); }
   setTimeout(revealPage, 1500); // safety: non lasciare mai la pagina invisibile
 
-  let lang = localStorage.getItem('mgh-lang') || 'it';
+  function detectLang() {
+    try {
+      const saved = localStorage.getItem('mgh-lang');
+      if (saved === 'it' || saved === 'en') return saved;
+    } catch (e) {}
+    const nav = ((navigator.language || navigator.userLanguage || 'it') + '').toLowerCase();
+    return nav.startsWith('it') ? 'it' : 'en';
+  }
+
+  let lang = detectLang();
   let show = null;
 
   function setLang(l) {
     lang = l;
     localStorage.setItem('mgh-lang', l);
+    document.documentElement.lang = l;
     document.getElementById('btnIt').style.opacity = lang === 'it' ? '1' : '0.45';
     document.getElementById('btnEn').style.opacity = lang === 'en' ? '1' : '0.45';
     if (show) render(show);

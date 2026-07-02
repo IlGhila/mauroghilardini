@@ -124,7 +124,16 @@ const mesiEn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov
 const mesiFullIt = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
 const mesiFullEn = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-let lang = localStorage.getItem('mg_lang') || 'it';
+function detectLang() {
+  try {
+    const saved = localStorage.getItem('mgh-lang');
+    if (saved === 'it' || saved === 'en') return saved;
+  } catch (e) {}
+  const nav = ((navigator.language || navigator.userLanguage || 'it') + '').toLowerCase();
+  return nav.startsWith('it') ? 'it' : 'en';
+}
+
+let lang = detectLang();
 
 function fmtDate(str) {
   const [y, m, d] = str.split('-').map(Number);
@@ -188,6 +197,7 @@ function render() {
 
   document.getElementById('btnIt').style.opacity = lang === 'it' ? '1' : '0.4';
   document.getElementById('btnEn').style.opacity = lang === 'en' ? '1' : '0.4';
+  document.documentElement.lang = lang;
 
   const empty = lang === 'en' ? 'No upcoming dates yet.' : 'Nessuna data in programma al momento.';
   document.getElementById('listUpcoming').innerHTML = future.length
@@ -199,8 +209,8 @@ function render() {
     : '';
 }
 
-document.getElementById('btnIt').addEventListener('click', () => { lang = 'it'; localStorage.setItem('mg_lang', lang); render(); });
-document.getElementById('btnEn').addEventListener('click', () => { lang = 'en'; localStorage.setItem('mg_lang', lang); render(); });
+document.getElementById('btnIt').addEventListener('click', () => { lang = 'it'; localStorage.setItem('mgh-lang', lang); document.documentElement.lang = lang; render(); });
+document.getElementById('btnEn').addEventListener('click', () => { lang = 'en'; localStorage.setItem('mgh-lang', lang); document.documentElement.lang = lang; render(); });
 
 const lb = document.getElementById('lb');
 const lbImg = document.getElementById('lbImg');
