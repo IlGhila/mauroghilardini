@@ -103,7 +103,7 @@
 </helmet>
 
 <header class="topbar">
-  <a class="back" href="index.html">{{ backLabel }}</a>
+  <a class="back" href="index.html?t=0#immagini" onClick="{{ goHome }}">{{ backLabel }}</a>
   <div class="lang">
     <button onClick="{{ setIt }}" style="opacity:{{ itOp }};">IT</button>
     <span class="sep">/</span>
@@ -123,15 +123,15 @@
   <div class="gallery">
     <div class="poster-wrap">
       <div class="poster-view">
-        <sc-if value="{{ hasPhotos }}" hint-placeholder-val="{{ true }}"><img src="{{ curSrc }}" alt="Anteprima locandina"></sc-if>
+        <sc-if value="{{ hasPhotos }}" hint-placeholder-val="{{ true }}"><img src="{{ curSrc }}" alt="Anteprima locandina" decoding="async"></sc-if>
         <div class="scrim"></div>
         <div class="p-top"><span class="p-kick">{{ kicker }}</span></div>
-        <div class="p-cap"><div class="p-name">Mauro Ghilardini</div><div class="p-role">{{ catRole }}</div><div class="p-rule"></div><div class="p-meta">{{ posterMeta }}</div></div>
+        <div class="p-cap"><div class="p-name">Mauro Ghilardini</div><div class="p-role">{{ catRole }}</div><div class="p-rule"></div></div>
       </div>
       <div class="rail-r">
         <div class="rail-h"><b>{{ railHead }}</b><span>{{ countStr }} {{ shotsLabel }}</span></div>
         <div class="tabs"><sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3"><button class="tab {{ t.cls }}" onClick="{{ t.on }}">{{ t.label }}</button></sc-for></div>
-        <div class="thumbs"><sc-for list="{{ thumbs }}" as="th" hint-placeholder-count="6"><div class="thumb {{ th.cls }}" onClick="{{ th.on }}"><img src="{{ th.src }}" alt="scatto" loading="lazy"></div></sc-for></div>
+        <div class="thumbs"><sc-for list="{{ thumbs }}" as="th" hint-placeholder-count="6"><div class="thumb {{ th.cls }}" onClick="{{ th.on }}"><img src="{{ th.src }}" alt="scatto" loading="lazy" decoding="async"></div></sc-for></div>
         <div class="rail-credit">{{ credit }}</div>
         <div class="rail-foot"><span class="rail-cap">{{ curCap }}</span><sc-if value="{{ hasPhotos }}" hint-placeholder-val="{{ true }}"><a class="dl" href="{{ curSrc }}" download>{{ dlLabel }}</a></sc-if></div>
       </div>
@@ -140,7 +140,7 @@
 
   <div class="ctx">
     <p class="ctx-note">{{ claimer }}</p>
-    <p class="ctx-contact">{{ contactLabel }} <a href="index.html#contatti">{{ contactLink }}</a></p>
+    <p class="ctx-contact">{{ contactLabel }} <a href="index.html?t=0#contatti" onClick="{{ goContacts }}">{{ contactLink }}</a></p>
   </div>
 </main>
 
@@ -184,15 +184,12 @@ class Component extends DCLogic {
     });
   }
 
-  // Verifica se foto/<prefix>-NN.webp esiste.
+  // Verifica se foto/<prefix>-NN.webp esiste. Richiesta HEAD: controlla l'esistenza
+  // senza scaricare il file — le immagini si caricano poi solo quando servono (lazy).
+  // Nota: richiede 404 reali; su Netlify ok (nessun redirect catch-all in netlify.toml).
   probe(prefix, i) {
     const src = 'foto/' + prefix + '-' + String(i).padStart(2, '0') + '.webp';
-    return new Promise((res) => {
-      const im = new Image();
-      im.onload = () => res(src);
-      im.onerror = () => res(null);
-      im.src = src;
-    });
+    return fetch(src, { method: 'HEAD' }).then((r) => (r.ok ? src : null)).catch(() => null);
   }
 
   // Scansione a blocchi: si ferma quando un intero blocco è vuoto (tollera piccoli buchi di numerazione).
@@ -238,7 +235,6 @@ class Component extends DCLogic {
       kicker: en ? 'Poster preview' : 'Anteprima locandina',
       railHead: en ? 'Category' : 'Categoria',
       shotsLabel: en ? 'SHOTS' : 'SCATTI',
-      posterMeta: 'Reduce Tour · 2026',
       dlLabel: en ? 'Download' : 'Scarica',
       claimer: en
         ? 'Are you a photographer and recognise an uncredited shot of yours? Write to me and I’ll fix it right away.'
@@ -250,6 +246,10 @@ class Component extends DCLogic {
       enOp: en ? 1 : 0.45,
       setIt: () => { try { localStorage.setItem('mgh-lang', 'it'); } catch (e) {} document.documentElement.lang = 'it'; this.setState({ lang: 'it' }); },
       setEn: () => { try { localStorage.setItem('mgh-lang', 'en'); } catch (e) {} document.documentElement.lang = 'en'; this.setState({ lang: 'en' }); },
+      // Ritorno alla home con cache-bust: forza il ricaricamento e lo scroll all'ancora
+      // (stesso pattern delle altre sottopagine) invece del ripristino scroll da cache.
+      goHome: (e) => { e.preventDefault(); location.href = 'index.html?t=' + Date.now() + '#immagini'; },
+      goContacts: (e) => { e.preventDefault(); location.href = 'index.html?t=' + Date.now() + '#contatti'; },
     };
   }
 }

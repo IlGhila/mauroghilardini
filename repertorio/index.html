@@ -91,9 +91,11 @@
   let lang = detectLang();
   let show = null;
 
-  function setLang(l) {
+  // save=false ai boot: applica la lingua rilevata senza salvarla come scelta
+  // dell'utente (altrimenti la detection automatica resterebbe congelata).
+  function setLang(l, save) {
     lang = l;
-    localStorage.setItem('mgh-lang', l);
+    if (save !== false) localStorage.setItem('mgh-lang', l);
     document.documentElement.lang = l;
     document.getElementById('btnIt').style.opacity = lang === 'it' ? '1' : '0.45';
     document.getElementById('btnEn').style.opacity = lang === 'en' ? '1' : '0.45';
@@ -458,7 +460,7 @@
       .then(s => {
         show = s;
         document.title = s.titolo + ' — Mauro Ghilardini';
-        setLang(lang);
+        setLang(lang, false);
         render(s);
       })
       .catch(() => {
@@ -467,7 +469,7 @@
       });
   }
 
-  setLang(lang);
+  setLang(lang, false);
   loadAndRender();
 })();
 </script>

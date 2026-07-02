@@ -270,7 +270,7 @@
 
   <!-- ===== MENU (opens from bottom) ===== -->
   <nav style="position:fixed; left:0; right:0; bottom:0; z-index:9500; background:#1c1b18; color:#d9d6cc; transform:translateY({{ menuY }}); transition:transform .6s cubic-bezier(.7,0,.2,1); padding:clamp(40px,7vh,80px) clamp(20px,5vw,72px) clamp(30px,5vh,56px); pointer-events:{{ menuPe }};">
-    <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="8">
+    <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="9">
       <a href="{{ n.href }}" onClick="{{ closeMenu }}" style="display:flex; align-items:baseline; gap:18px; padding:clamp(7px,1.3vh,14px) 0; border-top:1px solid rgba(122,116,105,.32); font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(30px,7vh,76px); line-height:1; letter-spacing:-.01em; color:#d9d6cc;">
         <span style="font-family:'Archivo'; font-size:11px; font-weight:600; letter-spacing:.1em; color:#7a7469; transform:translateY(-.4em);">{{ n.num }}</span>
         {{ n.label }}
@@ -311,7 +311,7 @@
       <span style="width:100%; max-width:520px; display:flex; align-items:center; gap:16px; color:#938c7f; font-size:11px; letter-spacing:.3em; text-transform:uppercase;"><span style="flex:1;height:1px;background:#bdb7a8;"></span>{{ manifestoLabel }}<span style="flex:1;height:1px;background:#bdb7a8;"></span></span>
       <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(38px,5.6vw,86px); line-height:.92; letter-spacing:-.01em;">{{ manifestoLead }}</h2>
       <p style="font-family:'EB Garamond',serif; font-size:clamp(18px,1.6vw,23px); line-height:1.5; color:#68635a; max-width:58ch;">{{ manifestoBody }}</p>
-      <span style="font-family:'EB Garamond',serif; font-style:italic; font-size:15px; color:#938c7f;">{{ manifestoSign }}</span>
+      <span style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.5vw,21px); color:#938c7f;">{{ manifestoSign }}</span>
     </div>
   </section>
 
@@ -436,8 +436,8 @@
   </div>
 
   <!-- ===== 4b · TEASER PRESS (richiamo immagini, sotto il repertorio) ===== -->
-  <section data-screen-label="Immagini" data-navtheme="dark" style="position:relative; z-index:6; min-height:clamp(360px,60vh,520px); overflow:hidden; display:flex; align-items:center; background:#15140f;">
-    <img src="foto/live-01.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;">
+  <section id="immagini" data-screen-label="Immagini" data-navtheme="dark" style="position:relative; z-index:6; min-height:clamp(360px,60vh,520px); overflow:hidden; display:flex; align-items:center; background:#15140f;">
+    <img src="foto/live-02.webp" alt="" loading="lazy" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:57% 38%;">
     <div style="position:absolute; inset:0; background:linear-gradient(90deg,rgba(21,20,15,.9),rgba(21,20,15,.35) 60%,rgba(21,20,15,.1));"></div>
     <div data-reveal style="position:relative; z-index:2; opacity:0; transform:translateY(24px); transition:opacity 1.1s ease,transform 1.1s ease; padding:clamp(40px,8vh,90px) clamp(20px,5vw,72px); max-width:760px;">
       <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:#d9a06a; margin-bottom:18px;">{{ teaserEyebrow }}</span>
@@ -907,7 +907,7 @@ class Component extends DCLogic {
       heroEyebrow: 'Cantante · Bergamo', heroTagline: 'Una voce, molte strade.',
       menuLabel: 'Le pagine', closeLabel: 'Chiudi',
       manifestoLabel: 'Chi è', manifestoLead: 'La musica come incontro',
-      manifestoBody: 'Ho cantato Monteverdi in chiese di pietra e Roger Waters sotto fari rossi. Ho scritto colonne sonore per il teatro, composto progressive rock, cofondato uno studio di registrazione in montagna. Oggi insegno canto e musica. Ogni esperienza mi ha insegnato qualcosa sugli altri — e su me stesso.',
+      manifestoBody: 'Ho cantato Monteverdi in chiese di pietra e Roger Waters sotto fari rossi. Ho scritto colonne sonore per il teatro, composto progressive rock, cofondato uno studio di registrazione in montagna. Oggi insegno canto e musica. Ogni esperienza mi ha rivelato qualcosa sugli altri — e su me stesso.',
       manifestoSign: 'Molti mestieri, un solo strumento.',
       liveLabel: 'Prossima data',
       datesBtn: 'Tutte le date',
@@ -937,13 +937,13 @@ class Component extends DCLogic {
       teaserSub: 'Ritratti, set acustici e live. Materiale pronto per locandine e comunicati.',
       teaserCta: 'Vai alle immagini →',
       menuBtnLabel: 'Menu',
-      menuItems: ['Home','Dal vivo','Repertorio','Dischi','Scrittura','Insegnamento','Video','Contatti'],
+      menuItems: ['Home','Dal vivo','Repertorio','Immagini','Dischi','Scrittura','Insegnamento','Video','Contatti'],
     };
     const en = {
       heroEyebrow: 'Singer · Bergamo', heroTagline: 'One voice, many roads.',
       menuLabel: 'The pages', closeLabel: 'Close',
       manifestoLabel: 'About', manifestoLead: 'Music as encounter',
-      manifestoBody: 'I have sung Monteverdi in stone churches and Roger Waters under red lights. I have written scores for theatre, composed progressive rock, co-founded a recording studio in the mountains. Today I teach singing and music. Every experience has taught me something about others — and about myself.',
+      manifestoBody: 'I have sung Monteverdi in stone churches and Roger Waters under red lights. I have written scores for theatre, composed progressive rock, co-founded a recording studio in the mountains. Today I teach singing and music. Every experience has revealed something about others — and about myself.',
       manifestoSign: 'Many crafts, one instrument.',
       liveLabel: 'Next show',
       datesBtn: 'All dates',
@@ -974,7 +974,7 @@ class Component extends DCLogic {
       teaserSub: 'Portraits, acoustic sets and live. Ready-to-use material for posters and press releases.',
       teaserCta: 'Go to images →',
       menuBtnLabel: 'Menu',
-      menuItems: ['Home','Live','Repertoire','Records','Writing','Teaching','Video','Contact'],
+      menuItems: ['Home','Live','Repertoire','Images','Records','Writing','Teaching','Video','Contact'],
     };
     return this.state.lang === 'en' ? en : it;
   }
@@ -982,8 +982,8 @@ class Component extends DCLogic {
   renderVals() {
     const en = this.state.lang === 'en';
     const t = this.T();
-    const ROM = ['I','II','III','IV','V','VI','VII','VIII'];
-    const hrefs = ['#top','#dalvivo','#repertorio','#dischi','#scrittura','#insegnamento','#video','#contatti'];
+    const ROM = ['I','II','III','IV','V','VI','VII','VIII','IX'];
+    const hrefs = ['#top','#dalvivo','#repertorio','#immagini','#dischi','#scrittura','#insegnamento','#video','#contatti'];
     const navItems = t.menuItems.map((label, i) => ({ label, href: hrefs[i], num: ROM[i] }));
 
     // piastra hero: img della scheda (o fallback slate) — luminosità guidata da --lit (JS)
