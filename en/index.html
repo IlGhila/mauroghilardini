@@ -703,7 +703,9 @@ class Component extends DCLogic {
     // music toggle — listener diretto, bypassa il framework
     window._mgMusicPlaying = false;
 
-    const _setMusicState = function (on) {
+    // persist=false: aggiorna solo l'aspetto senza toccare la preferenza salvata
+    // (serve quando il browser blocca l'autoplay: la scelta dell'utente resta "on")
+    const _setMusicState = function (on, persist) {
       window._mgMusicPlaying = on;
       const btn = document.getElementById('musicBtn');
       const cap = document.getElementById('musicCap');
@@ -712,7 +714,40 @@ class Component extends DCLogic {
         btn.setAttribute('aria-pressed', on ? 'true' : 'false');
       }
       if (cap) cap.textContent = on ? (btn ? btn.dataset.labelOn || 'Music on' : 'Music on') : (btn ? btn.dataset.labelOff || 'Music off' : 'Music off');
-      try { localStorage.setItem('mg-music', on ? '1' : '0'); } catch(e) {}
+      if (persist !== false) { try { localStorage.setItem('mg-music', on ? '1' : '0'); } catch(e) {} }
+    };
+
+    // Posizione del brano: salvata quando si lascia la pagina, ripresa al ritorno
+    const _savePos = function () {
+      const audio = document.getElementById('mgAudio');
+      if (audio && !audio.paused) { try { localStorage.setItem('mg-music-pos', String(audio.currentTime)); } catch (e) {} }
+    };
+    window.addEventListener('pagehide', _savePos);
+
+    // Dissolvenze audio. Il token annulla il fade precedente se ne parte uno
+    // nuovo (es. fade-in di rientro interrotto da un fade-out di uscita).
+    let _fadeToken = 0;
+    const _fadeAudioTo = function (target, ms, done) {
+      const audio = document.getElementById('mgAudio');
+      if (!audio) { if (done) done(); return; }
+      const id = ++_fadeToken;
+      const v0 = audio.volume, t0 = performance.now();
+      const step = function (t) {
+        if (id !== _fadeToken) return;
+        const p = Math.min(1, (t - t0) / ms);
+        audio.volume = v0 + (target - v0) * p;
+        if (p < 1) requestAnimationFrame(step);
+        else if (done) done();
+      };
+      requestAnimationFrame(step);
+    };
+
+    // In uscita verso le pagine interne: niente taglio secco
+    const _fadeOutAudio = function (ms, done) {
+      const audio = document.getElementById('mgAudio');
+      if (!audio || audio.paused) { if (done) done(); return; }
+      _savePos();
+      _fadeAudioTo(0, ms, function () { audio.pause(); if (done) done(); });
     };
 
     const _musicBtn = document.getElementById('musicBtn');
@@ -728,8 +763,55 @@ class Component extends DCLogic {
         }
       });
     }
-    // ripristino visivo (audio parte solo al primo clic)
-    if (localStorage.getItem('mg-music') === '1') _setMusicState(true);
+    // Ritorno in home con musica accesa: riprende da dove era rimasta.
+    // Se il browser blocca l'autoplay l'equalizzatore resta spento, ma la
+    // posizione è già applicata: il primo clic riparte dal punto giusto.
+    let _posApplied = false;
+    const _applySavedPos = function (audio) {
+      if (_posApplied) return;
+      _posApplied = true;
+      const pos = parseFloat(localStorage.getItem('mg-music-pos') || '0') || 0;
+      if (!(pos > 0) || (audio.duration && pos >= audio.duration)) return;
+      const seek = function () { try { audio.currentTime = pos; } catch (e) {} };
+      seek();
+      // Se il seek non attecchisce (la parte di file non è ancora scaricata,
+      // currentTime resta a 0), riprova appena il browser ha abbastanza dati.
+      if (audio.currentTime < pos - 1) {
+        audio.addEventListener('canplaythrough', function () {
+          if (audio.currentTime < pos - 1) seek();
+        }, { once: true });
+      }
+    };
+    const _resumeMusic = function () {
+      const audio = document.getElementById('mgAudio');
+      if (!audio || localStorage.getItem('mg-music') !== '1') return;
+      const start = function () {
+        _applySavedPos(audio);
+        audio.volume = 0; // rientro morbido: fade-in più lungo del fade-out di uscita
+        audio.play()
+          .then(function () { _setMusicState(true); _fadeAudioTo(1, 600); })
+          .catch(function () { audio.volume = 1; _setMusicState(false, false); });
+      };
+      if (audio.readyState >= 1) start();
+      else { audio.addEventListener('loadedmetadata', start, { once: true }); audio.load(); }
+    };
+    _resumeMusic();
+    window.addEventListener('pageshow', function (ev) { if (ev.persisted) _resumeMusic(); });
+
+    // Link verso le pagine interne: se la musica suona, breve dissolvenza
+    // (audio + pagina) prima di navigare. Con musica spenta non cambia nulla.
+    document.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (!window._mgMusicPlaying) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const a = e.target.closest('a[href]');
+      if (!a || a.target === '_blank') return;
+      const href = a.getAttribute('href') || '';
+      if (href[0] !== '/' || href.indexOf('/#') === 0) return;
+      e.preventDefault();
+      document.body.classList.add('page-leaving');
+      _fadeOutAudio(200, function () { location.href = href; });
+    });
 
 
     // Animazione hero: 0=nascosto, 1=nome snap, 2=ctrl attivi, 3=ctrl idle
@@ -858,6 +940,7 @@ class Component extends DCLogic {
       e.preventDefault();
       const href = a.getAttribute('href');
       document.body.classList.add('page-leaving');
+      _fadeOutAudio(200); // la musica sfuma insieme alla pagina
       setTimeout(() => { location.href = href; }, 210);
     });
     // tornando indietro (anche da bfcache) la home non deve restare sfumata
