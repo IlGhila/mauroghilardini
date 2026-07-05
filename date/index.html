@@ -236,5 +236,35 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb();
 
 render();
 </script>
+<script>
+// Dati strutturati per Google (risultati "Eventi"): un MusicEvent/TheaterEvent
+// per ogni data futura, costruito da window.MG_DATE (date.js).
+(function () {
+  var BASE = 'https://mauroghilardini.netlify.app';
+  var today = new Date().toISOString().slice(0, 10);
+  var tipoSchema = { teatro: 'TheaterEvent', concerto: 'MusicEvent', acustico: 'MusicEvent', sushi: 'MusicEvent', lydian: 'MusicEvent', festa: 'MusicEvent' };
+  var events = (window.MG_DATE || [])
+    .filter(function (d) { return !d.nascosta && d.titolo && d.data >= today; })
+    .map(function (d) {
+      var ev = {
+        '@type': tipoSchema[d.tipo] || 'MusicEvent',
+        name: d.titolo,
+        startDate: d.data + (d.ora ? 'T' + d.ora : ''),
+        eventStatus: 'https://schema.org/EventScheduled',
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+        performer: { '@type': 'Person', name: 'Mauro Ghilardini', url: BASE + '/' },
+        organizer: { '@type': 'Person', name: 'Mauro Ghilardini', url: BASE + '/' }
+      };
+      if (d.luogo) ev.location = { '@type': 'Place', name: d.luogo, address: d.luogo };
+      if (d.slug) ev.url = BASE + '/repertorio/' + d.slug + '/';
+      return ev;
+    });
+  if (!events.length) return;
+  var s = document.createElement('script');
+  s.type = 'application/ld+json';
+  s.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': events });
+  document.head.appendChild(s);
+})();
+</script>
 </body>
 </html>
