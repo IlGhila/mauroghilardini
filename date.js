@@ -156,7 +156,7 @@ window.MG_DATE = [
     luogo:      "Teatro Tomasini - Clusone",
     tipo:      "teatro",
     slug:      "",
-    locandina:      "hero.webp",
+    locandina:      "luca.webp",
     nota:      "Debutto, prima assoluta con la presenza del protagonista Luca Barisonzi in sala." },
 
 ];
