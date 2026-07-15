@@ -36,7 +36,7 @@ window.MG_DATE = [
     luogo:      "Ardesio (BG)",
     tipo:      "sushi",
     slug:      "sushi-cornucopia",
-    locandina:      "sushi.jpg",
+    locandina:      "sushi.webp",
     nota:      "" },
 
   {
@@ -80,24 +80,13 @@ window.MG_DATE = [
     nota:      "" },
 
   {
-    titolo:      "Presentatore Concerto bandistico",
-    data:      "2026-07-18",
-    ora:      "20:00",
-    luogo:      "Gromo (BG)",
-    tipo:      "concerto",
-    slug:      "",
-    locandina:      "",
-    nota:      "",
-    nascosta:  true },
-
-  {
-    titolo:      "Sushi Pradalunga",
+    titolo:      "Sushi Cornucopia",
     data:      "2026-07-25",
     ora:      "",
     luogo:      "Pradalunga (BG)",
     tipo:      "sushi",
     slug:      "sushi-cornucopia",
-    locandina:      "sushi.jpg",
+    locandina:      "sushi-pradalunga.webp",
     nota:      "" },
 
   {
@@ -107,7 +96,7 @@ window.MG_DATE = [
     luogo:      "Piazza Sant'Ippolito, Gazzaniga (BG)",
     tipo:      "lydian",
     slug:      "queen-at-wembley",
-    locandina:      "lydian.jpeg",
+    locandina:      "lydian.webp",
     nota:      "" },
 
   {
@@ -117,30 +106,8 @@ window.MG_DATE = [
     luogo:      "Rovetta (BG)",
     tipo:      "sushi",
     slug:      "sushi-cornucopia",
-    locandina:      "sushi.jpg",
+    locandina:      "sushi.webp",
     nota:      "" },
-
-  {
-    titolo:      "Presentatore Concerto bandistico",
-    data:      "2026-08-07",
-    ora:      "20:00",
-    luogo:      "Gromo (BG)",
-    tipo:      "concerto",
-    slug:      "",
-    locandina:      "",
-    nota:      "",
-    nascosta:  true },
-
-  {
-    titolo:      "Presentatore Concerto bandistico",
-    data:      "2026-08-09",
-    ora:      "20:00",
-    luogo:      "Gromo (BG)",
-    tipo:      "concerto",
-    slug:      "",
-    locandina:      "",
-    nota:      "",
-    nascosta:  true },
 
   {
     titolo:      "Sushi Cornucopia",
@@ -149,7 +116,7 @@ window.MG_DATE = [
     luogo:      "Castione della Presolana (BG)",
     tipo:      "sushi",
     slug:      "sushi-cornucopia",
-    locandina:      "sushi.jpg",
+    locandina:      "sushi.webp",
     nota:      "" },
 
   {
@@ -169,7 +136,7 @@ window.MG_DATE = [
     luogo:      "Pradalunga (BG)",
     tipo:      "sushi",
     slug:      "sushi-cornucopia",
-    locandina:      "sushi.jpg",
+    locandina:      "sushi.webp",
     nota:      "" },
 
   {
@@ -179,7 +146,7 @@ window.MG_DATE = [
     luogo:      "Bologna",
     tipo:      "teatro",
     slug:      "parabole-di-un-clown",
-    locandina:      "parabole.jpg",
+    locandina:      "parabole.webp",
     nota:      "" },
 
   {
@@ -189,7 +156,7 @@ window.MG_DATE = [
     luogo:      "Teatro Tomasini - Clusone",
     tipo:      "teatro",
     slug:      "",
-    locandina:      "hero.jpg",
+    locandina:      "hero.webp",
     nota:      "Debutto, prima assoluta con la presenza del protagonista Luca Barisonzi in sala." },
 
 ];

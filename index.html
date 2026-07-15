@@ -130,16 +130,12 @@
       order: -1;
       height: 45vh !important;
     }
-    section[data-screen-label="Firma"] [data-reveal] {
+    section[data-screen-label="Firma"] .firma-text {
       padding: clamp(32px,6vh,60px) 20px !important;
     }
-    section[data-screen-label="Firma"] [data-reveal] h2 {
+    section[data-screen-label="Firma"] .firma-text h2 {
       font-size: clamp(28px,8vw,48px) !important;
     }
-
-    /* ── REPERTORIO ── */
-    #repHeader { padding-bottom: clamp(20px,3vh,36px) !important; }
-    #repertorio { padding-top: 0 !important; }
 
     /* ── HERO: come su desktop — solo immagine, poi nome e controlli entrano con lo swipe ──
        (il wrap resta 160vh anche su mobile: è la "pista" che guida l'animazione a scroll) */
@@ -182,12 +178,73 @@
   /* Dissolvenza in uscita verso una scheda (crossfade con l'entrata della scheda) */
   body.page-leaving{ opacity:0; transition:opacity .24s ease; }
 
-  /* ── REPERTORIO — piastre orizzontali che richiamano l'hero della scheda ── */
-  /* --lit (0→1) guidato da JS sulla vicinanza al centro viewport / hover */
-  .rep-plate-img { --lit:0; filter: grayscale(calc(1 - var(--lit)*.9)) brightness(calc(.42 + var(--lit)*.55)) contrast(calc(.9 + var(--lit)*.2)); opacity: calc(.16 + var(--lit)*.84); transform: scale(calc(1 + var(--lit)*.045)); transition: filter .5s ease, opacity .5s ease, transform .7s ease; will-change: filter, opacity, transform; }
-  @media (prefers-reduced-motion: reduce){ .rep-plate-img{ transition:none; transform:none; } }
-  /* Touch: niente hover → le piastre restano visibili invece di rimanere spente per sempre */
-  @media (hover:none){ .rep-plate-img { --lit:.6 !important; } }
+  /* ── REPERTORIO — rail continuo (scrub morbido, stacchi Teatro/Concerti, indice fisso) ── */
+  #repViewport{ --idxH:112px; }
+  .rep-eyebrow{ position:absolute; top:clamp(18px,3.4vh,32px); left:clamp(20px,5vw,72px); z-index:8; font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:.02em; color:#e7e3d8; font-size:clamp(22px,2.4vw,40px); line-height:1; pointer-events:none; text-shadow:0 2px 24px rgba(0,0,0,.5); transform-origin:left top; will-change:transform, font-size; }
+  .rep-group-label{ position:absolute; right:clamp(20px,5vw,72px); bottom:calc(var(--idxH) + clamp(18px,3vh,34px)); z-index:6; pointer-events:none; font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(30px,5vw,72px); line-height:.86; letter-spacing:-.01em; color:rgba(231,227,216,.16); transition:opacity .4s ease; }
+
+  #repRail{ display:flex; align-items:center; height:calc(100vh - var(--idxH)); will-change:transform; }
+  .rail-tile{ position:relative; flex:0 0 auto; width:clamp(190px,25vw,340px); aspect-ratio:3/4; max-height:calc(100vh - var(--idxH) - 48px); margin:0 clamp(8px,0.9vw,14px); overflow:hidden; border-radius:2px; background:#3c444f; }
+  .rail-tile img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(.2) contrast(1.03) brightness(.9); transition:transform .7s cubic-bezier(.2,.6,.2,1), filter .5s ease; }
+  .rail-tile:hover img{ transform:scale(1.05); filter:grayscale(0) contrast(1.05) brightness(1); }
+  .rail-tile .scrim{ position:absolute; inset:0; pointer-events:none; background:linear-gradient(to top, rgba(18,17,15,.86) 0%, rgba(18,17,15,.3) 42%, rgba(18,17,15,.04) 76%); transition:background .45s ease; }
+  .rail-tile:hover .scrim{ background:linear-gradient(to top, rgba(18,17,15,.92) 0%, rgba(18,17,15,.44) 46%, rgba(18,17,15,.08) 80%); }
+  .rail-tile .cap{ position:absolute; left:0; right:0; bottom:0; padding:clamp(16px,1.7vw,26px); opacity:0; transform:translateY(6px); transition:opacity .5s ease, transform .5s ease; }
+  .rail-tile.focus .cap, .rail-tile:hover .cap{ opacity:1; transform:translateY(0); }
+  .rail-tile .name{ display:block; font-family:'EB Garamond',serif; font-size:clamp(21px,1.9vw,32px); line-height:1.06; text-shadow:0 1px 16px rgba(0,0,0,.6); }
+  .rail-tile .meta{ display:block; font-size:10px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#cdd2d9; margin-top:8px; text-shadow:0 1px 8px rgba(0,0,0,.6); }
+  .rail-tile .cta{ display:inline-flex; align-items:center; gap:7px; font-size:10px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#d9a06a; max-height:0; margin-top:0; opacity:0; overflow:hidden; transition:opacity .35s ease, max-height .35s ease, margin-top .35s ease; }
+  .rail-tile.focus .cta, .rail-tile:hover .cta{ opacity:1; max-height:2em; margin-top:11px; }
+
+  .rail-divider{ flex:0 0 auto; width:100vw; height:calc(100vh - var(--idxH)); display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:16px; padding:0 clamp(20px,5vw,72px); }
+  .rail-divider .k{ font-size:12px; font-weight:600; letter-spacing:.34em; text-transform:uppercase; color:rgba(231,227,216,.55); }
+  .rail-divider h2{ font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(70px,13vw,200px); line-height:.84; letter-spacing:-.01em; color:#e7e3d8; }
+  .rail-divider .count{ font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.7vw,24px); color:rgba(231,227,216,.7); }
+  .rail-divider .arrow{ margin-top:6px; font-size:26px; color:#d9a06a; }
+
+  .rail-end{ flex:0 0 auto; width:clamp(300px,42vw,560px); height:calc(100vh - var(--idxH)); display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:14px; padding:0 clamp(24px,4vw,60px); }
+  .rail-end .k{ font-size:11px; font-weight:600; letter-spacing:.34em; text-transform:uppercase; color:#d9a06a; }
+  .rail-end h3{ font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(40px,6vw,92px); line-height:.86; letter-spacing:-.01em; color:#e7e3d8; }
+  .rail-end p{ font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(15px,1.5vw,21px); color:rgba(231,227,216,.6); max-width:34ch; }
+  .rail-end .down{ margin-top:8px; font-size:11px; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:rgba(231,227,216,.5); display:flex; align-items:center; gap:9px; }
+
+  .rep-progress{ position:absolute; left:0; right:0; bottom:var(--idxH); height:2px; z-index:7; background:rgba(231,227,216,.12); }
+  .rep-progress b{ position:absolute; left:0; top:0; height:100%; width:0; background:#d9a06a; }
+
+  .rep-swipe{ position:absolute; top:clamp(18px,3.4vh,32px); right:clamp(20px,5vw,72px); z-index:8; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(231,227,216,.6); display:flex; align-items:center; gap:8px; transition:opacity .5s ease; }
+  .rep-swipe.gone{ opacity:0; }
+  .rep-swipe .a{ font-size:14px; animation:repsw 1.6s ease-in-out infinite; }
+  @keyframes repsw{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(5px) } }
+
+  #repIndex{ position:absolute; left:0; right:0; bottom:0; height:var(--idxH); z-index:6; display:flex; align-items:center; gap:clamp(12px,1.6vw,22px); padding:0 clamp(16px,4vw,40px); background:linear-gradient(to top, rgba(20,22,26,.96), rgba(20,22,26,.82)); border-top:1px solid rgba(231,227,216,.14); backdrop-filter:blur(6px); }
+  .idx-filters{ display:flex; flex-direction:column; gap:6px; flex:0 0 auto; }
+  .idx-filters button{ font-family:'Archivo',sans-serif; font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:rgba(231,227,216,.7); background:none; border:none; border-left:2px solid transparent; padding:3px 0 3px 9px; cursor:pointer; text-align:left; transition:color .25s, border-color .25s; }
+  .idx-filters button:hover{ color:#e7e3d8; } .idx-filters button.on{ color:#d9a06a; border-color:#d9a06a; }
+  .idx-sep{ width:1px; align-self:stretch; margin:22px 0; background:rgba(231,227,216,.16); flex:0 0 auto; }
+  .idx-thumbs{ display:flex; align-items:flex-end; gap:clamp(6px,0.8vw,12px); overflow-x:auto; overflow-y:hidden; flex:1 1 auto; padding:6px 2px; scrollbar-width:thin; }
+  .idx-thumbs::-webkit-scrollbar{ height:4px; } .idx-thumbs::-webkit-scrollbar-thumb{ background:rgba(231,227,216,.25); border-radius:2px; }
+  .thumb{ flex:0 0 auto; width:clamp(38px,3vw,50px); background:none; border:none; padding:0; cursor:pointer; text-align:center; opacity:.5; transition:opacity .25s ease, transform .25s ease; }
+  .thumb:hover{ opacity:.85; } .thumb.on{ opacity:1; transform:translateY(-2px); }
+  .thumb .tw{ display:block; width:100%; aspect-ratio:1/1; overflow:hidden; border-radius:1px; border:1.5px solid transparent; transition:border-color .25s ease; }
+  .thumb.on .tw{ border-color:#d9a06a; }
+  .thumb img{ display:block; width:100%; height:100%; object-fit:cover; filter:grayscale(.3) brightness(.9); } .thumb.on img{ filter:grayscale(0) brightness(1); }
+  .thumb .tt{ display:block; font-size:8px; font-weight:600; letter-spacing:.02em; text-transform:uppercase; color:rgba(231,227,216,.72); margin-top:5px; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .thumb.on .tt{ color:#e7e3d8; }
+  .idx-current{ flex:0 0 auto; max-width:20vw; text-align:right; }
+  .idx-current .cl{ display:block; font-size:9px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:rgba(231,227,216,.45); }
+  .idx-current .cn{ display:block; font-family:'EB Garamond',serif; font-size:clamp(15px,1.4vw,20px); color:#e7e3d8; line-height:1.1; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+  #repertorio.native{ height:auto !important; }
+  #repertorio.native #repViewport{ position:relative; }
+  #repertorio.native #repRail{ overflow-x:auto; scroll-snap-type:x proximity; transform:none !important; scrollbar-width:none; }
+  #repertorio.native #repRail::-webkit-scrollbar{ display:none; }
+  #repertorio.native .rail-tile, #repertorio.native .rail-divider{ scroll-snap-align:center; }
+  #repertorio.native .rail-tile .cap{ opacity:1; transform:none; }
+  #repertorio.native .rail-tile .cta{ opacity:1; max-height:2em; margin-top:11px; }
+  #repertorio.native .rep-progress{ display:none; }
+
+  @media (prefers-reduced-motion: reduce){ .rail-tile img, .rail-tile .cap, .rail-tile .cta, .thumb, .rep-swipe .a{ transition:none; animation:none; } }
+  @media (max-width:700px){ #repViewport{ --idxH:96px; } .idx-current{ display:none; } .thumb .tt{ display:none; } }
 
   /* Musica — contenitore disco + etichetta */
   .music-ctl { display:flex; align-items:center; gap:13px; pointer-events:auto; }
@@ -337,11 +394,11 @@
 
   <!-- ===== 2 · MANIFESTO ===== -->
   <section id="chi" data-screen-label="Manifesto" data-navtheme="light" style="position:sticky; top:0; min-height:100vh; z-index:2; background:#d9d6cc; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(80px,12vh,150px) clamp(20px,5vw,40px); text-align:center;">
-    <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; max-width:900px; display:flex; flex-direction:column; align-items:center; gap:28px;">
-      <span style="width:100%; max-width:520px; display:flex; align-items:center; gap:16px; color:#938c7f; font-size:11px; letter-spacing:.3em; text-transform:uppercase;"><span style="flex:1;height:1px;background:#bdb7a8;"></span>{{ manifestoLabel }}<span style="flex:1;height:1px;background:#bdb7a8;"></span></span>
-      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(38px,5.6vw,86px); line-height:.92; letter-spacing:-.01em;">{{ manifestoLead }}</h2>
-      <p style="font-family:'EB Garamond',serif; font-size:clamp(18px,1.6vw,23px); line-height:1.5; color:#68635a; max-width:58ch;">{{ manifestoBody }}</p>
-      <span style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.5vw,21px); color:#938c7f;">{{ manifestoSign }}</span>
+    <div style="max-width:900px; display:flex; flex-direction:column; align-items:center; gap:28px;">
+      <span data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; width:100%; max-width:520px; display:flex; align-items:center; gap:16px; color:#938c7f; font-size:11px; letter-spacing:.3em; text-transform:uppercase;"><span style="flex:1;height:1px;background:#bdb7a8;"></span>{{ manifestoLabel }}<span style="flex:1;height:1px;background:#bdb7a8;"></span></span>
+      <h2 data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; transition-delay:.12s; font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(38px,5.6vw,86px); line-height:.92; letter-spacing:-.01em;">{{ manifestoLead }}</h2>
+      <p data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; transition-delay:.24s; font-family:'EB Garamond',serif; font-size:clamp(18px,1.6vw,23px); line-height:1.5; color:#68635a; max-width:58ch;">{{ manifestoBody }}</p>
+      <span data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; transition-delay:.36s; font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.5vw,21px); color:#938c7f;">{{ manifestoSign }}</span>
     </div>
   </section>
 
@@ -349,166 +406,121 @@
   <section id="dalvivo" data-screen-label="Prossima data" data-navtheme="dark" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:3; background:#201f1c;">
     <img src="/images/mauro-02.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position: left bottom; filter:grayscale(1) contrast(1.04) brightness(.62);">
     <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(24,23,20,.55),rgba(24,23,20,.2) 40%,rgba(24,23,20,.85));"></div>
-    <div data-reveal style="opacity:0; transition:opacity 1s ease; position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:18px; padding:0 24px; color:#e7e3d8;">
-      <span style="font-size:11px; font-weight:600; letter-spacing:.34em; text-transform:uppercase; color:rgba(231,227,216,.7);">{{ liveLabel }}</span>
-      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(46px,9vw,150px); line-height:.9; letter-spacing:-.01em;">{{ liveTitle }}</h2>
-      <div style="font-family:'EB Garamond',serif; font-size:clamp(18px,2vw,26px);">{{ nextTitle }}</div>
-      <div style="font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:rgba(231,227,216,.6);">{{ nextWhere }}</div>
-      <div style="font-size:12px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(231,227,216,.78);">{{ nextWhen }}</div>
-      <a href="/date/" style="margin-top:18px; display:inline-block; border:1px solid rgba(231,227,216,.5); color:#e7e3d8; padding:14px 26px; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; min-height:0;">{{ datesBtn }}</a>
+    <div style="position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:18px; padding:0 24px; color:#e7e3d8;">
+      <span data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; font-size:11px; font-weight:600; letter-spacing:.34em; text-transform:uppercase; color:rgba(231,227,216,.7);">{{ liveLabel }}</span>
+      <h2 data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.12s; font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(46px,9vw,150px); line-height:.9; letter-spacing:-.01em;">{{ liveTitle }}</h2>
+      <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.22s; font-family:'EB Garamond',serif; font-size:clamp(18px,2vw,26px);">{{ nextTitle }}</div>
+      <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.30s; font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:rgba(231,227,216,.6);">{{ nextWhere }}</div>
+      <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.38s; font-size:12px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(231,227,216,.78);">{{ nextWhen }}</div>
+      <a href="/date/" data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.46s; margin-top:18px; display:inline-block; border:1px solid rgba(231,227,216,.5); color:#e7e3d8; padding:14px 26px; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; min-height:0;">{{ datesBtn }}</a>
     </div>
   </section>
 
-  <!-- ===== 4 · REPERTORIO ===== -->
-  <div id="repScroll" style="position:relative; z-index:5;">
+  <!-- ===== 4 · REPERTORIO (rail continuo) ===== -->
+  <div id="repertorio" style="position:relative; z-index:5;">
+    <div id="repViewport" data-screen-label="Repertorio" data-navtheme="dark" style="position:sticky; top:0; height:100vh; overflow:hidden; background:#454e5b; color:#e7e3d8;">
+      <span class="rep-eyebrow">{{ repTitle }}</span>
+      <span class="rep-group-label" id="repGroupLabel"></span>
+      <div class="rep-swipe" id="repSwipe"><span>{{ repScrollHintWord }}</span><span class="a">↓</span></div>
 
-    <!-- TITOLO -->
-    <div id="repHeader" data-navtheme="dark" style="background:#454e5b; color:#e7e3d8; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px) clamp(30px,4vh,48px);">
-      <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; border-bottom:1px solid rgba(231,227,216,.25); padding-bottom:24px;">
-        <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(46px,9vw,150px); line-height:.86; letter-spacing:-.01em;">{{ repTitle }}</h2>
-        <span style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.7vw,22px); color:rgba(231,227,216,.8); max-width:30ch;">{{ repSub }}</span>
+      <div id="repRail">
+        <div class="rail-divider" data-divider="concerti">
+          <h2>{{ repGroupConcerti }}</h2>
+          <span class="count">{{ repConcertiCount }} {{ repShowsWord }}</span>
+          <span class="arrow">↓</span>
+        </div>
+        <sc-for list="{{ repConcerti }}" as="r" hint-placeholder-count="7">
+          <a class="rail-tile" href="{{ r.href }}">
+            {{ r.imgEl }}
+            <div class="scrim"></div>
+            <div class="cap"><span class="name">{{ r.name }}</span><span class="meta">{{ r.meta }}</span><span class="cta">{{ r.more }} →</span></div>
+          </a>
+        </sc-for>
+        <div class="rail-divider" data-divider="teatro">
+          <h2>{{ repGroupTeatro }}</h2>
+          <span class="count">{{ repTeatroCount }} {{ repShowsWord }}</span>
+          <span class="arrow">↓</span>
+        </div>
+        <sc-for list="{{ repTheatre }}" as="r" hint-placeholder-count="7">
+          <a class="rail-tile" href="{{ r.href }}">
+            {{ r.imgEl }}
+            <div class="scrim"></div>
+            <div class="cap"><span class="name">{{ r.name }}</span><span class="meta">{{ r.meta }}</span><span class="cta">{{ r.more }} →</span></div>
+          </a>
+        </sc-for>
+        <div class="rail-end">
+          <span class="k">{{ repTitle }}</span>
+          <h3>{{ repEndTitle }}</h3>
+          <p>{{ repEndBody }}</p>
+          <span class="down">{{ repEndCta }} <span>↓</span></span>
+        </div>
+      </div>
+
+      <div class="rep-progress"><b id="repProgress"></b></div>
+
+      <div id="repIndex">
+        <div class="idx-filters">
+          <button type="button" data-jump="concerti">{{ repGroupConcerti }}</button>
+          <button type="button" data-jump="teatro">{{ repGroupTeatro }}</button>
+        </div>
+        <div class="idx-sep"></div>
+        <div class="idx-thumbs" id="repThumbs">
+          <sc-for list="{{ repAll }}" as="r" hint-placeholder-count="14">
+            <button type="button" class="thumb" aria-label="{{ r.name }}">
+              <span class="tw"><img src="{{ r.thumbSrc }}" alt="" style="object-position:center"></span>
+              <span class="tt">{{ r.name }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <div class="idx-current"><span class="cl">{{ repInView }}</span><span class="cn" id="repCurrent">—</span></div>
       </div>
     </div>
-
-    <!-- SEZIONE: piastre orizzontali, ognuna richiama l'hero della propria scheda -->
-    <section id="repertorio" data-screen-label="Repertorio" data-navtheme="dark" style="position:relative; background:#454e5b; color:#e7e3d8; padding:clamp(24px,3vh,40px) clamp(20px,5vw,72px) clamp(50px,7vh,90px);">
-
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(30px,5vw,70px);">
-
-        <!-- COLONNA SINISTRA: Teatro + Letture -->
-        <div style="display:flex; flex-direction:column; gap:clamp(26px,3.5vw,44px);">
-
-          <div style="display:flex; flex-direction:column; gap:clamp(10px,1.4vw,14px);">
-            <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9;">{{ repG1 }}</span>
-            <div style="display:flex; flex-direction:column; gap:clamp(3px,0.4vw,5px);">
-              <sc-for list="{{ repTeatro }}" as="r" hint-placeholder-count="3">
-                <a href="{{ r.href }}" style="position:relative; display:block; overflow:hidden; height:clamp(74px,9vh,112px); border-radius:2px; background:#454e5b; color:#e7e3d8;">
-                  {{ r.imgEl }}
-                  <div style="position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,rgba(20,19,17,.84),rgba(20,19,17,.46) 52%,rgba(20,19,17,.10));"></div>
-                  <div style="position:absolute; left:0; right:0; bottom:0; display:flex; align-items:flex-end; justify-content:space-between; gap:10px; padding:clamp(10px,1.4vw,16px) clamp(13px,1.6vw,20px); pointer-events:none;">
-                    <span style="display:block;">
-                      <span style="display:block; font-family:'EB Garamond',serif; font-size:clamp(20px,2vw,28px); line-height:1.05; text-shadow:0 1px 12px rgba(0,0,0,.55);">{{ r.name }}</span>
-                      <span style="display:block; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#cdd2d9; margin-top:4px; text-shadow:0 1px 8px rgba(0,0,0,.6);">{{ r.meta }}</span>
-                    </span>
-                    <span style="font-size:18px; color:#d9a06a;">{{ r.arrow }}</span>
-                  </div>
-                </a>
-              </sc-for>
-            </div>
-          </div>
-
-          <div style="display:flex; flex-direction:column; gap:clamp(10px,1.4vw,14px);">
-            <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9;">{{ repG2 }}</span>
-            <div style="display:flex; flex-direction:column; gap:clamp(3px,0.4vw,5px);">
-              <sc-for list="{{ repLetture }}" as="r" hint-placeholder-count="4">
-                <a href="{{ r.href }}" style="position:relative; display:block; overflow:hidden; height:clamp(74px,9vh,112px); border-radius:2px; background:#454e5b; color:#e7e3d8;">
-                  {{ r.imgEl }}
-                  <div style="position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,rgba(20,19,17,.84),rgba(20,19,17,.46) 52%,rgba(20,19,17,.10));"></div>
-                  <div style="position:absolute; left:0; right:0; bottom:0; display:flex; align-items:flex-end; justify-content:space-between; gap:10px; padding:clamp(10px,1.4vw,16px) clamp(13px,1.6vw,20px); pointer-events:none;">
-                    <span style="display:block;">
-                      <span style="display:block; font-family:'EB Garamond',serif; font-size:clamp(20px,2vw,28px); line-height:1.05; text-shadow:0 1px 12px rgba(0,0,0,.55);">{{ r.name }}</span>
-                      <span style="display:block; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#cdd2d9; margin-top:4px; text-shadow:0 1px 8px rgba(0,0,0,.6);">{{ r.meta }}</span>
-                    </span>
-                    <span style="font-size:18px; color:#d9a06a;">{{ r.arrow }}</span>
-                  </div>
-                </a>
-              </sc-for>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- COLONNA DESTRA: Acustici + Concerti con band -->
-        <div style="display:flex; flex-direction:column; gap:clamp(26px,3.5vw,44px);">
-
-          <div style="display:flex; flex-direction:column; gap:clamp(10px,1.4vw,14px);">
-            <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9;">{{ repG4 }}</span>
-            <div style="display:flex; flex-direction:column; gap:clamp(3px,0.4vw,5px);">
-              <sc-for list="{{ repAcustici }}" as="r" hint-placeholder-count="3">
-                <a href="{{ r.href }}" style="position:relative; display:block; overflow:hidden; height:clamp(74px,9vh,112px); border-radius:2px; background:#454e5b; color:#e7e3d8;">
-                  {{ r.imgEl }}
-                  <div style="position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,rgba(20,19,17,.84),rgba(20,19,17,.46) 52%,rgba(20,19,17,.10));"></div>
-                  <div style="position:absolute; left:0; right:0; bottom:0; display:flex; align-items:flex-end; justify-content:space-between; gap:10px; padding:clamp(10px,1.4vw,16px) clamp(13px,1.6vw,20px); pointer-events:none;">
-                    <span style="display:block;">
-                      <span style="display:block; font-family:'EB Garamond',serif; font-size:clamp(20px,2vw,28px); line-height:1.05; text-shadow:0 1px 12px rgba(0,0,0,.55);">{{ r.name }}</span>
-                      <span style="display:block; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#cdd2d9; margin-top:4px; text-shadow:0 1px 8px rgba(0,0,0,.6);">{{ r.meta }}</span>
-                    </span>
-                    <span style="font-size:18px; color:#d9a06a;">{{ r.arrow }}</span>
-                  </div>
-                </a>
-              </sc-for>
-            </div>
-          </div>
-
-          <div style="display:flex; flex-direction:column; gap:clamp(10px,1.4vw,14px);">
-            <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:#aab0b9;">{{ repG3 }}</span>
-            <div style="display:flex; flex-direction:column; gap:clamp(3px,0.4vw,5px);">
-              <sc-for list="{{ repBand }}" as="r" hint-placeholder-count="4">
-                <a href="{{ r.href }}" style="position:relative; display:block; overflow:hidden; height:clamp(74px,9vh,112px); border-radius:2px; background:#454e5b; color:#e7e3d8;">
-                  {{ r.imgEl }}
-                  <div style="position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,rgba(20,19,17,.84),rgba(20,19,17,.46) 52%,rgba(20,19,17,.10));"></div>
-                  <div style="position:absolute; left:0; right:0; bottom:0; display:flex; align-items:flex-end; justify-content:space-between; gap:10px; padding:clamp(10px,1.4vw,16px) clamp(13px,1.6vw,20px); pointer-events:none;">
-                    <span style="display:block;">
-                      <span style="display:block; font-family:'EB Garamond',serif; font-size:clamp(20px,2vw,28px); line-height:1.05; text-shadow:0 1px 12px rgba(0,0,0,.55);">{{ r.name }}</span>
-                      <span style="display:block; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#cdd2d9; margin-top:4px; text-shadow:0 1px 8px rgba(0,0,0,.6);">{{ r.meta }}</span>
-                    </span>
-                    <span style="font-size:18px; color:#d9a06a;">{{ r.arrow }}</span>
-                  </div>
-                </a>
-              </sc-for>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
   </div>
 
   <!-- ===== 4b · TEASER PRESS (richiamo immagini, sotto il repertorio) ===== -->
   <section id="immagini" data-screen-label="Immagini" data-navtheme="dark" style="position:relative; z-index:6; min-height:clamp(360px,60vh,520px); overflow:hidden; display:flex; align-items:center; background:#15140f;">
     <img src="/foto/live-02.webp" alt="" loading="lazy" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:57% 38%;">
     <div style="position:absolute; inset:0; background:linear-gradient(90deg,rgba(21,20,15,.9),rgba(21,20,15,.35) 60%,rgba(21,20,15,.1));"></div>
-    <div data-reveal style="position:relative; z-index:2; opacity:0; transform:translateY(24px); transition:opacity 1.1s ease,transform 1.1s ease; padding:clamp(40px,8vh,90px) clamp(20px,5vw,72px); max-width:760px;">
-      <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:#d9a06a; margin-bottom:18px;">{{ teaserEyebrow }}</span>
-      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#e7e3d8; font-size:clamp(44px,7vw,96px); line-height:.86; letter-spacing:-.01em;">{{ teaserTitle }}</h2>
-      <p style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.5vw,22px); line-height:1.5; color:rgba(231,227,216,.82); margin-top:22px; max-width:40ch;">{{ teaserSub }}</p>
-      <a href="/press.html" style="display:inline-block; margin-top:30px; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#15140f; background:#d9a06a; padding:14px 28px; text-decoration:none;">{{ teaserCta }}</a>
+    <div style="position:relative; z-index:2; padding:clamp(40px,8vh,90px) clamp(20px,5vw,72px); max-width:760px;">
+      <span data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1.1s ease,transform 1.1s ease; display:block; font-size:11px; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:#d9a06a; margin-bottom:18px;">{{ teaserEyebrow }}</span>
+      <h2 data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1.1s ease,transform 1.1s ease; transition-delay:.12s; font-family:'Anton',sans-serif; text-transform:uppercase; color:#e7e3d8; font-size:clamp(44px,7vw,96px); line-height:.86; letter-spacing:-.01em;">{{ teaserTitle }}</h2>
+      <p data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1.1s ease,transform 1.1s ease; transition-delay:.24s; font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.5vw,22px); line-height:1.5; color:rgba(231,227,216,.82); margin-top:22px; max-width:40ch;">{{ teaserSub }}</p>
+      <a href="/press.html" data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1.1s ease,transform 1.1s ease; transition-delay:.36s; display:inline-block; margin-top:30px; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:#15140f; background:#d9a06a; padding:14px 28px; text-decoration:none;">{{ teaserCta }}</a>
     </div>
   </section>
 
   <!-- ===== 5 · DISCHI (album rooms) ===== -->
   <section id="dischi" data-screen-label="Dischi intro" data-navtheme="light" style="position:relative; z-index:6; background:#d9d6cc; padding:clamp(70px,10vh,120px) clamp(20px,5vw,72px); text-align:center;">
-    <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease;">
-      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(46px,9vw,150px); line-height:.9; letter-spacing:-.01em; color:#2b2823;">{{ discIntroLabel }}</h2>
-      <p style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.7vw,22px); line-height:1.5; color:#68635a; max-width:42ch; margin:18px auto 0;">{{ discIntro }}</p>
+    <div>
+      <h2 data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(46px,9vw,150px); line-height:.9; letter-spacing:-.01em; color:#2b2823;">{{ discIntroLabel }}</h2>
+      <p data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.12s; font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.7vw,22px); line-height:1.5; color:#68635a; max-width:42ch; margin:18px auto 0;">{{ discIntro }}</p>
     </div>
   </section>
 
   <sc-for list="{{ dischi }}" as="d" hint-placeholder-count="0">
     <section data-screen-label="Disco" data-navtheme="dark" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:{{ d.z }}; background:{{ d.color }}; color:#e7e3d8; display:flex; align-items:center; justify-content:center;">
       <span style="position:absolute; top:50%; left:0; right:0; transform:translateY(-50%); text-align:center; font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(64px,18vw,300px); line-height:.82; letter-spacing:-.02em; color:rgba(231,227,216,.13); white-space:nowrap; pointer-events:none;">{{ d.title }}</span>
-      <div data-reveal style="opacity:0; transform:translateY(22px); transition:opacity 1s ease,transform 1s ease; position:relative; display:flex; flex-direction:column; align-items:center; gap:22px; padding:24px;">
-        <div style="display:flex; justify-content:space-between; width:min(78vw,420px); font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(231,227,216,.8);"><span>{{ d.role }}</span><span>{{ d.year }}</span></div>
-        {{ d.coverEl }}
-        <h3 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(40px,7vw,90px); line-height:.9; letter-spacing:-.01em;">{{ d.title }}</h3>
-        <p style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(15px,1.4vw,19px); line-height:1.5; color:rgba(231,227,216,.85); max-width:38ch; text-align:center;">{{ d.desc }}</p>
-        <a href="{{ d.progUrl }}" target="_blank" rel="noopener" style="font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(231,227,216,.55); border-bottom:1px solid rgba(231,227,216,.3); padding-bottom:3px;">Progarchives →</a>
+      <div style="position:relative; display:flex; flex-direction:column; align-items:center; gap:22px; padding:24px;">
+        <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity 1s ease,transform 1s ease; display:flex; justify-content:space-between; width:min(78vw,420px); font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(231,227,216,.8);"><span>{{ d.role }}</span><span>{{ d.year }}</span></div>
+        <div data-reveal style="opacity:0; transform:translateY(18px); transition:opacity 1s ease,transform 1s ease; transition-delay:.10s;">{{ d.coverEl }}</div>
+        <h3 data-reveal style="opacity:0; transform:translateY(18px); transition:opacity 1s ease,transform 1s ease; transition-delay:.20s; font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(40px,7vw,90px); line-height:.9; letter-spacing:-.01em;">{{ d.title }}</h3>
+        <p data-reveal style="opacity:0; transform:translateY(18px); transition:opacity 1s ease,transform 1s ease; transition-delay:.30s; font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(15px,1.4vw,19px); line-height:1.5; color:rgba(231,227,216,.85); max-width:38ch; text-align:center;">{{ d.desc }}</p>
+        <a href="{{ d.progUrl }}" target="_blank" rel="noopener" data-reveal style="opacity:0; transform:translateY(18px); transition:opacity 1s ease,transform 1s ease; transition-delay:.40s; font-size:10px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(231,227,216,.55); border-bottom:1px solid rgba(231,227,216,.3); padding-bottom:3px;">Progarchives →</a>
       </div>
     </section>
   </sc-for>
 
   <!-- ===== 5b · SINGOLI ===== -->
   <section id="singoli" data-screen-label="Singoli" data-navtheme="dark" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:32; background:#1c1b18; color:#e7e3d8; padding:clamp(40px,6vh,80px) clamp(20px,5vw,72px);">
-    <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease;">
+    <div>
       <div style="border-bottom:1px solid rgba(231,227,216,.25); padding-bottom:24px; margin-bottom:clamp(40px,6vh,70px);">
-        <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(231,227,216,.5); margin-bottom:10px;">{{ singLabel }}</span>
+        <span data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(231,227,216,.5); margin-bottom:10px;">{{ singLabel }}</span>
         <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap;">
-          <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(52px,9vw,140px); line-height:.88; letter-spacing:-.01em;">{{ singTitle }}</h2>
-          <span style="font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.7vw,22px); color:rgba(231,227,216,.8); max-width:30ch;">{{ singSubIt }}</span>
+          <h2 data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.12s; font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(52px,9vw,140px); line-height:.88; letter-spacing:-.01em;">{{ singTitle }}</h2>
+          <span data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.24s; font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.7vw,22px); color:rgba(231,227,216,.8); max-width:30ch;">{{ singSubIt }}</span>
         </div>
       </div>
-      <div class="sing-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:clamp(16px,2vw,28px);">
+      <div class="sing-grid" data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.34s; display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:clamp(16px,2vw,28px);">
         <sc-for list="{{ singoli }}" as="s" hint-placeholder-count="0">
           <a class="sing-card" href="{{ s.url }}" target="_blank" rel="noopener">
             <img src="{{ s.cover }}" alt="{{ s.titolo }}" loading="lazy">
@@ -521,7 +533,7 @@
         </sc-for>
       </div>
       <div style="margin-top:clamp(40px,6vh,64px); text-align:center;">
-        <a href="https://open.spotify.com/artist/2S5nHjpLNALfAubXS4levr" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; border:1px solid rgba(231,227,216,.35); padding:14px 28px; color:#e7e3d8; transition:border-color .25s;">{{ singCta }} →</a>
+        <a href="https://open.spotify.com/artist/2S5nHjpLNALfAubXS4levr" target="_blank" rel="noopener" data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease,border-color .25s; transition-delay:.44s; display:inline-flex; align-items:center; gap:10px; font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; border:1px solid rgba(231,227,216,.35); padding:14px 28px; color:#e7e3d8;">{{ singCta }} →</a>
       </div>
     </div>
   </section>
@@ -533,30 +545,30 @@
 
   <!-- ===== 6 · SCRITTURA ===== -->
   <section id="scrittura" data-screen-label="Scrittura" data-navtheme="dark" style="position:relative; z-index:41; background:#6f6244; color:#efe9d8; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px);">
-    <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(34px,5vw,70px); align-items:center;">
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(34px,5vw,70px); align-items:center;">
       <div>
-        <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(239,233,216,.7); margin-bottom:18px;">{{ writeLabel }}</span>
-        <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(44px,7vw,120px); line-height:.86; letter-spacing:-.01em;">{{ writeTitle }}</h2>
-        <p style="font-family:'EB Garamond',serif; font-size:clamp(18px,1.7vw,23px); line-height:1.55; color:rgba(239,233,216,.9); max-width:46ch; margin-top:26px;">{{ writeBody }}</p>
-        <div style="display:flex; gap:22px; flex-wrap:wrap; margin-top:30px;">
+        <span data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(239,233,216,.7); margin-bottom:18px;">{{ writeLabel }}</span>
+        <h2 data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.12s; font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(44px,7vw,120px); line-height:.86; letter-spacing:-.01em;">{{ writeTitle }}</h2>
+        <p data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.24s; font-family:'EB Garamond',serif; font-size:clamp(18px,1.7vw,23px); line-height:1.55; color:rgba(239,233,216,.9); max-width:46ch; margin-top:26px;">{{ writeBody }}</p>
+        <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.36s; display:flex; gap:22px; flex-wrap:wrap; margin-top:30px;">
           <a href="/scrittura/" style="font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; border-bottom:1px solid rgba(239,233,216,.5); padding-bottom:5px;">{{ writePageCta }} →</a>
         </div>
       </div>
-      <img src="/images/scrittura/image_28.jpg" alt="Dormono sulla Collina" style="aspect-ratio:6/9; width:88%; max-width:400px; object-fit:cover; display:block; margin:0 auto;">
+      <img src="/images/scrittura/image_28.webp" alt="Dormono sulla Collina" data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.20s; aspect-ratio:6/9; width:88%; max-width:400px; object-fit:cover; display:block; margin:0 auto;">
     </div>
   </section>
 
   <!-- ===== 7 · INSEGNAMENTO ===== -->
   <section id="insegnamento" data-screen-label="Insegnamento" data-navtheme="dark" style="position:relative; z-index:42; background:#566159; color:#e7e3d8; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px);">
-    <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease;">
-      <span style="display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(231,227,216,.7); margin-bottom:18px;">{{ teachLabel }}</span>
-      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(44px,7vw,120px); line-height:.86; letter-spacing:-.01em; max-width:16ch;">{{ teachTitle }}</h2>
+    <div>
+      <span data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; display:block; font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(231,227,216,.7); margin-bottom:18px;">{{ teachLabel }}</span>
+      <h2 data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.12s; font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(44px,7vw,120px); line-height:.86; letter-spacing:-.01em; max-width:16ch;">{{ teachTitle }}</h2>
       <div class="teach-grid" style="display:grid; grid-template-columns:1fr .9fr; gap:clamp(24px,4vw,56px); margin-top:clamp(34px,5vh,56px); align-items:start;">
-        <div>
+        <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.24s;">
           <p style="font-family:'EB Garamond',serif; font-size:clamp(18px,1.7vw,23px); line-height:1.55; color:rgba(231,227,216,.9);">{{ teachBody }}</p>
           <a href="/insegnamento/" style="display:inline-block; margin-top:26px; font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; border-bottom:1px solid rgba(231,227,216,.5); padding-bottom:5px;">{{ teachPageCta }} →</a>
         </div>
-        <div>
+        <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.36s;">
           <div style="padding:14px 0; border-top:1px solid rgba(231,227,216,.2);"><a href="https://www.cdpm.it/didattica/docenti/mauro-ghilardini/" target="_blank" rel="noopener" style="font-family:'EB Garamond',serif; font-size:clamp(20px,1.9vw,26px); display:inline-flex; align-items:baseline; gap:10px; color:#e7e3d8;">CDpM Bergamo <span style="font-size:.7em; opacity:.6;">→</span></a><span style="display:block; font-family:'Archivo'; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(231,227,216,.6); margin-top:5px;">{{ teachT1 }}</span></div>
           <div style="padding:14px 0; border-top:1px solid rgba(231,227,216,.2);"><a href="https://repartoelettroacustica.weebly.com/" target="_blank" rel="noopener" style="font-family:'EB Garamond',serif; font-size:clamp(20px,1.9vw,26px); display:inline-flex; align-items:baseline; gap:10px; color:#e7e3d8;">Reparto Elettroacustica <span style="font-size:.7em; opacity:.6;">→</span></a><span style="display:block; font-family:'Archivo'; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(231,227,216,.6); margin-top:5px;">{{ teachT2 }}</span></div>
           <div style="padding:14px 0; border-top:1px solid rgba(231,227,216,.2);"><a href="#contatti" style="font-family:'EB Garamond',serif; font-size:clamp(20px,1.9vw,26px); display:inline-flex; align-items:baseline; gap:10px; color:#e7e3d8;">Masterclass <span style="font-size:.7em; opacity:.6;">→</span></a><span style="display:block; font-family:'Archivo'; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:rgba(231,227,216,.6); margin-top:5px;">{{ teachT3 }}</span></div>
@@ -567,9 +579,9 @@
 
   <!-- ===== 8 · VIDEO ===== -->
   <section id="video" data-screen-label="Video" data-navtheme="light" style="position:relative; z-index:43; background:#d9d6cc; padding:clamp(80px,12vh,150px) clamp(20px,5vw,72px);">
-    <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:clamp(28px,4vh,46px);">
-      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(44px,7vw,120px); line-height:.86; letter-spacing:-.01em;">{{ videoTitle }}</h2>
-      <a href="https://www.youtube.com/@MauroGhilardiniOfficial" target="_blank" rel="noopener" style="font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#68635a; border-bottom:1px solid #bdb7a8; padding-bottom:5px;">{{ videoCta }} →</a>
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:clamp(28px,4vh,46px);">
+      <h2 data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(44px,7vw,120px); line-height:.86; letter-spacing:-.01em;">{{ videoTitle }}</h2>
+      <a href="https://www.youtube.com/@MauroGhilardiniOfficial" target="_blank" rel="noopener" data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.14s; font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#68635a; border-bottom:1px solid #bdb7a8; padding-bottom:5px;">{{ videoCta }} →</a>
     </div>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,2vw,28px);">
       <sc-for list="{{ videos }}" as="v" hint-placeholder-count="3">
@@ -609,9 +621,9 @@
 
   <!-- ===== 10 · FIRMA ===== -->
   <section data-screen-label="Firma" data-navtheme="dark" style="position:sticky; top:0; min-height:100vh; z-index:45; background:#1c1b18; color:#e7e3d8; display:grid; grid-template-columns:1.3fr .7fr; align-items:center;">
-    <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1.1s ease,transform 1.1s ease; padding:clamp(60px,8vh,110px) clamp(24px,4vw,72px);">
-      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(34px,5.2vw,84px); line-height:.96; letter-spacing:-.01em;">{{ signQuote }}</h2>
-      <span style="display:block; font-family:'EB Garamond',serif; font-style:italic; font-size:18px; color:#938c7f; margin-top:28px;">{{ signAuthor }}</span>
+    <div class="firma-text" style="padding:clamp(60px,8vh,110px) clamp(24px,4vw,72px);">
+      <h2 data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1.1s ease,transform 1.1s ease; font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(34px,5.2vw,84px); line-height:.96; letter-spacing:-.01em;">{{ signQuote }}</h2>
+      <span data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1.1s ease,transform 1.1s ease; transition-delay:.15s; display:block; font-family:'EB Garamond',serif; font-style:italic; font-size:18px; color:#938c7f; margin-top:28px;">{{ signAuthor }}</span>
     </div>
     <div style="position:relative; height:100%; overflow:hidden;">
       <img src="/images/mauro-04.webp" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center; filter:grayscale(1) contrast(1.05);">
@@ -620,16 +632,16 @@
 
   <!-- ===== 11 · CONTATTI ===== -->
   <footer id="contatti" data-screen-label="Contatti" data-navtheme="light" style="position:relative; z-index:46; background:#d9d6cc; color:#2b2823; padding:clamp(70px,10vh,130px) clamp(20px,5vw,72px) 50px;">
-    <div data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease;">
-      <h2 style="font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(48px,9vw,160px); line-height:.84; letter-spacing:-.01em;">{{ contactTitle }}</h2>
-      <div style="display:flex; justify-content:flex-start; gap:26px; flex-wrap:wrap; margin:clamp(34px,5vh,54px) 0; font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#68635a;">
+    <div>
+      <h2 data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(48px,9vw,160px); line-height:.84; letter-spacing:-.01em;">{{ contactTitle }}</h2>
+      <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.12s; display:flex; justify-content:flex-start; gap:26px; flex-wrap:wrap; margin:clamp(34px,5vh,54px) 0; font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#68635a;">
         <a href="https://www.youtube.com/@MauroGhilardiniOfficial" target="_blank" rel="noopener" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">YouTube</a>
         <a href="https://www.instagram.com/mauroghilardini_official/" target="_blank" rel="noopener" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">Instagram</a>
         <a href="https://open.spotify.com/artist/2S5nHjpLNALfAubXS4levr" target="_blank" rel="noopener" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">Spotify</a>
         <a href="https://www.facebook.com/people/Mauro-Ghilardini/100094280127809/" target="_blank" rel="noopener" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">Facebook</a>
         <a href="https://soundcloud.com/user-201202878" target="_blank" rel="noopener" style="border-bottom:1px solid #bdb7a8; padding-bottom:5px;">SoundCloud</a>
       </div>
-      <form action="https://formspree.io/f/mwvzlvnp" method="POST" style="border:1px solid #bdb7a8; padding:clamp(24px,3vw,40px); margin-bottom:18px;">
+      <form action="https://formspree.io/f/mwvzlvnp" method="POST" data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.24s; border:1px solid #bdb7a8; padding:clamp(24px,3vw,40px); margin-bottom:18px;">
         <span style="display:block; font-size:10.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#938c7f; margin-bottom:20px;">{{ contactFormLabel }}</span>
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-bottom:14px;">
           <input type="text" name="nome" placeholder="{{ contactFieldName }}" required style="width:100%; border:none; border-bottom:1px solid #bdb7a8; padding:10px 0; background:transparent; font-family:'Archivo',sans-serif; font-size:13px; color:#2b2823; outline:none;">
@@ -640,7 +652,7 @@
         <button type="submit" style="font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; background:#2b2823; color:#d9d6cc; border:none; padding:13px 28px; cursor:pointer;">{{ contactSend }} →</button>
         <p style="margin-top:18px; font-size:11px; line-height:1.5; color:#938c7f; font-family:'Archivo',sans-serif;">{{ contactPrivacy }}</p>
       </form>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px;">
+      <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.36s; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px;">
         <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="2">
           <div style="border:1px solid #bdb7a8; padding:24px;">
             <span style="display:block; font-size:10.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#938c7f; margin-bottom:10px;">{{ c.role }}</span>
@@ -689,15 +701,32 @@ class Component extends DCLogic {
     startLenis();
     if (!window.Lenis) { this._t = setTimeout(startLenis, 600); }
 
+    // il ritorno da una scheda repertorio (ripristino della posizione esatta) avviene in
+    // _initRepRail, dopo measure(): solo lì il pager ha l'altezza piena e lo scroll salvato è valido.
+    if (history.scrollRestoration) history.scrollRestoration = 'manual';
+
     // reveal on scroll
     const els = document.querySelectorAll('[data-reveal]');
+    const show = (el) => { el.style.opacity = '1'; el.style.transform = 'none'; };
     if ('IntersectionObserver' in window) {
-      this._io = new IntersectionObserver((ents) => {
-        ents.forEach((e) => { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'none'; this._io.unobserve(e.target); } });
-      }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-      els.forEach((el) => this._io.observe(el));
-      this._safety = setTimeout(() => els.forEach((el) => { el.style.opacity = '1'; el.style.transform = 'none'; }), 2500);
-    } else { els.forEach((el) => { el.style.opacity = '1'; el.style.transform = 'none'; }); }
+      // Scrittura e Insegnamento sono in flusso normale subito sotto una sezione sticky a tutto
+      // schermo: col margine +18% i loro testi cadono nella fascia di "pre-rivelazione" mentre
+      // sono ancora fuori vista → nessuna animazione percepita. Per loro uso una soglia che
+      // scatta a vista avvenuta (margine negativo), lasciando invariate le altre sezioni.
+      const lateEls = new Set(document.querySelectorAll('#immagini [data-reveal], #scrittura [data-reveal], #insegnamento [data-reveal], #video [data-reveal]'));
+      const mkIO = (rootMargin) => new IntersectionObserver((ents, io) => {
+        ents.forEach((e) => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+      }, { threshold: 0, rootMargin: rootMargin });
+      this._io = mkIO('0px 0px 18% 0px');
+      this._ioLate = mkIO('0px 0px -12% 0px');
+      els.forEach((el) => (lateEls.has(el) ? this._ioLate : this._io).observe(el));
+      // Paracadute NON invasivo: dopo 2.5s rivela solo ciò che è già entrato in viewport
+      // (in caso l'osservatore non fosse partito). Il resto resta in attesa dello scroll.
+      this._safety = setTimeout(() => els.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) show(el);
+      }), 2500);
+    } else { els.forEach(show); }
 
     // music toggle — listener diretto, bypassa il framework
     window._mgMusicPlaying = false;
@@ -903,37 +932,100 @@ class Component extends DCLogic {
     window.addEventListener('resize', this._navTheme);
     this._navTheme();
 
-    // Repertorio: le piastre restano fuse col fondo (--lit 0) e si illuminano solo in hover.
-    const repImgs = () => Array.prototype.slice.call(document.querySelectorAll('#repertorio .rep-plate-img'));
-    this._repAnim = () => {
-      repImgs().forEach((img) => {
-        img.style.setProperty('--lit', img._hover ? '1' : '0');
-      });
-    };
-    // bind hover + ripristino scroll dopo che sc-for ha renderizzato le piastre
-    setTimeout(() => {
-      repImgs().forEach((img) => {
-        const a = img.closest('a');
-        if (!a || a._repBound) return;
-        a._repBound = true;
-        a.addEventListener('mouseenter', () => { img._hover = true; img.style.setProperty('--lit', '1'); });
-        a.addEventListener('mouseleave', () => { img._hover = false; this._repAnim(); });
-      });
-      this._repAnim();
-      // al ritorno da una scheda spettacolo, riporta alla sezione repertorio
-      if (sessionStorage.getItem('repReturnScroll') === '1') {
-        sessionStorage.removeItem('repReturnScroll');
-        document.getElementById('repertorio')?.scrollIntoView({ behavior: 'instant', block: 'start' });
-      }
-    }, 140);
-    window.addEventListener('scroll', this._repAnim, { passive: true });
-    this._repAnim();
+    // Repertorio — RAIL CONTINUO: scrub morbido con inerzia + posa dolce (snap), stacchi
+    // Teatro/Concerti, indice fisso, filigrana di gruppo. I contenuti sono renderizzati da
+    // sc-for (lieve ritardo) → inizializzo dopo un tick, riprovando finché ci sono.
+    const SCRUB = 0.10, SCREENS = 2.4, SNAP_IDLE = 140; // le 3 manopole di "sensazione"
+    const INTRO = 0.16; // intro: quota di scroll dedicata alla fase del titolo (grande→piccolo)
+    this._initRepRail = () => {
+      const pager = document.getElementById('repertorio'), viewport = document.getElementById('repViewport'),
+            rail = document.getElementById('repRail'), progressEl = document.getElementById('repProgress'),
+            groupLabel = document.getElementById('repGroupLabel'), swipeHint = document.getElementById('repSwipe'),
+            currentEl = document.getElementById('repCurrent');
+      if (!pager || !viewport || !rail) return false;
+      const tileEls = Array.prototype.slice.call(rail.querySelectorAll('.rail-tile'));
+      const thumbEls = Array.prototype.slice.call(document.querySelectorAll('#repThumbs .thumb'));
+      const divTeatro = rail.querySelector('.rail-divider[data-divider="teatro"]');
+      const divConcerti = rail.querySelector('.rail-divider[data-divider="concerti"]');
+      const endPanel = rail.querySelector('.rail-end');
+      if (!tileEls.length || !divConcerti) return false;   // sc-for non ancora pronto
+      const firstCount = this._repConcertiCount || 0; // Concerti è il primo gruppo del rail
+      const labelT = divTeatro ? divTeatro.querySelector('h2').textContent : 'Teatro';
+      const labelC = divConcerti.querySelector('h2').textContent;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const touch  = window.matchMedia('(hover:none)').matches;
+      const snapXof = (el) => el.offsetLeft - (viewport.clientWidth - el.offsetWidth) / 2;
+      const nameOf = (el) => { const n = el.querySelector('.name'); return n ? n.textContent : ''; };
 
-    // Click su una piastra: salva ritorno + dissolvenza in uscita, poi naviga (crossfade)
-    document.getElementById('repertorio')?.addEventListener('click', (e) => {
+      if (!reduce && !touch) {
+        let railMax = 0, targetX = 0, curX = 0, snapTarget = null, idleTimer = null, hintGone = false;
+        const eyebrow = document.querySelector('#repViewport .rep-eyebrow'); let eyeSmall = 0, eyeBig = 0;
+        const measure = () => {
+          railMax = Math.max(0, rail.scrollWidth - viewport.clientWidth);
+          pager.style.height = (window.innerHeight * (1 + SCREENS)) + 'px';
+          if (eyebrow) {
+            eyeSmall = Math.max(22, Math.min(0.024 * window.innerWidth, 40)); // = clamp(22px,2.4vw,40px): la misura "piccola" originale
+            const th = divTeatro && divTeatro.querySelector('h2');
+            const teatroFont = th ? parseFloat(getComputedStyle(th).fontSize) : Math.min(0.13 * window.innerWidth, 200);
+            eyeBig = Math.min(teatroFont, window.innerWidth * 0.92 / 6.2); // ~come TEATRO, ma limitato per non traboccare (REPERTORIO è più lungo)
+          }
+        };
+        const progressFromScroll = () => { const range = pager.offsetHeight - window.innerHeight; const scrolled = Math.min(Math.max(window.scrollY - pager.offsetTop, 0), range); return range > 0 ? scrolled / range : 0; };
+        // intro: la prima quota INTRO dello scroll anima il titolo; il rail scorre solo dopo
+        const railProgress = () => { const p = progressFromScroll(); return INTRO < 1 ? Math.min(Math.max((p - INTRO) / (1 - INTRO), 0), 1) : 1; };
+        const applyTitle = () => {
+          if (!eyebrow) return;
+          const t = INTRO > 0 ? Math.min(progressFromScroll() / INTRO, 1) : 1;
+          const e = t * t * (3 - 2 * t); // smoothstep: 0 = grande e centrato, 1 = piccolo in alto a sinistra
+          eyebrow.style.fontSize = (eyeSmall + (eyeBig - eyeSmall) * (1 - e)).toFixed(1) + 'px';
+          const W = eyebrow.offsetWidth, H = eyebrow.offsetHeight, L = eyebrow.offsetLeft, T = eyebrow.offsetTop;
+          const tx = (window.innerWidth / 2 - W / 2 - L) * (1 - e);
+          const ty = (window.innerHeight / 2 - H / 2 - T) * (1 - e);
+          eyebrow.style.transform = 'translate(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px)';
+          rail.style.opacity = e.toFixed(3); // TEATRO invisibile al centro → sfuma in vista mentre il titolo si sposta
+        };
+        const nearestSnap = (x) => { let best = x, bd = Infinity; [divTeatro, divConcerti, endPanel].concat(tileEls).forEach((el) => { if (!el) return; const sx = Math.max(0, Math.min(railMax, snapXof(el))); const d = Math.abs(sx - x); if (d < bd) { bd = d; best = sx; } }); return best; };
+        const focusAndLabel = () => {
+          const centerX = curX + viewport.clientWidth / 2; let fi = -1, bd = Infinity;
+          tileEls.forEach((el, k) => { const c = el.offsetLeft + el.offsetWidth / 2; const d = Math.abs(c - centerX); el.classList.toggle('focus', d < el.offsetWidth * 0.75); if (d < bd) { bd = d; fi = k; } });
+          const overDivider = (curX < snapXof(divConcerti) + viewport.clientWidth * 0.4) || (curX > snapXof(divTeatro) - viewport.clientWidth * 0.15 && curX < snapXof(divTeatro) + viewport.clientWidth * 0.4);
+          if (fi >= 0) { groupLabel.textContent = fi < firstCount ? labelC : labelT; groupLabel.style.opacity = overDivider ? '0' : '1'; currentEl.textContent = nameOf(tileEls[fi]); thumbEls.forEach((t, k) => t.classList.toggle('on', k === fi)); const at = thumbEls[fi]; if (at && at !== this._repActiveThumb) { this._repActiveThumb = at; const strip = at.parentElement; const want = at.offsetLeft - (strip.clientWidth - at.offsetWidth) / 2; strip.scrollTo({ left: Math.max(0, want), behavior: 'smooth' }); } }
+        };
+        const raf = () => { const goal = snapTarget != null ? snapTarget : targetX; curX += (goal - curX) * SCRUB; if (Math.abs(goal - curX) < 0.4) curX = goal; rail.style.transform = 'translateX(' + (-curX) + 'px)'; if (progressEl) progressEl.style.width = (railMax ? (curX / railMax * 100) : 0) + '%'; applyTitle(); focusAndLabel(); this._repRaf = requestAnimationFrame(raf); };
+        this._repOnScroll = () => { snapTarget = null; targetX = railProgress() * railMax; if (!hintGone && window.scrollY > 10) { hintGone = true; swipeHint.classList.add('gone'); } clearTimeout(idleTimer); idleTimer = setTimeout(() => { snapTarget = nearestSnap(targetX); }, SNAP_IDLE); };
+        this._repOnResize = () => { measure(); targetX = railProgress() * railMax; };
+        measure(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure); window.addEventListener('scroll', this._repOnScroll, { passive: true }); window.addEventListener('resize', this._repOnResize); this._repOnScroll(); this._repRaf = requestAnimationFrame(raf);
+        // ritorno da una scheda: riporta alla posizione di scroll esatta (rail allineato all'istante)
+        const _ret = sessionStorage.getItem('repReturnScroll');
+        if (_ret !== null) { sessionStorage.removeItem('repReturnScroll'); const y = Math.min(parseInt(_ret, 10) || 0, document.documentElement.scrollHeight - window.innerHeight); if (this._lenis) this._lenis.scrollTo(y, { immediate: true }); else window.scrollTo(0, y); targetX = railProgress() * railMax; curX = targetX; }
+        const goToX = (x) => { const range = pager.offsetHeight - window.innerHeight; const frac = INTRO + (railMax > 0 ? (x / railMax) : 0) * (1 - INTRO); const top = pager.offsetTop + frac * range; if (this._lenis) this._lenis.scrollTo(top); else window.scrollTo({ top, behavior: 'smooth' }); };
+        thumbEls.forEach((t, k) => t.addEventListener('click', () => goToX(Math.max(0, Math.min(railMax, snapXof(tileEls[k]))))));
+        document.querySelector('#repIndex .idx-filters button[data-jump="concerti"]')?.addEventListener('click', () => goToX(Math.max(0, Math.min(railMax, snapXof(tileEls[0])))));
+        document.querySelector('#repIndex .idx-filters button[data-jump="teatro"]')?.addEventListener('click', () => goToX(Math.max(0, Math.min(railMax, snapXof(tileEls[firstCount])))));
+      } else {
+        // Fallback nativo (touch / reduced-motion): swipe orizzontale, didascalie sempre visibili
+        pager.classList.add('native'); tileEls.forEach((el) => el.classList.add('focus'));
+        const sync = () => { const x = rail.scrollLeft + rail.clientWidth / 2; let bi = -1, bd = Infinity; tileEls.forEach((el, k) => { const c = el.offsetLeft + el.offsetWidth / 2; const d = Math.abs(c - x); if (d < bd) { bd = d; bi = k; } }); if (bi >= 0) { currentEl.textContent = nameOf(tileEls[bi]); thumbEls.forEach((t, k) => t.classList.toggle('on', k === bi)); if (groupLabel) groupLabel.textContent = bi < firstCount ? labelC : labelT; } };
+        rail.addEventListener('scroll', sync, { passive: true }); sync();
+        const goToEl = (el) => rail.scrollTo({ left: el.offsetLeft - (rail.clientWidth - el.offsetWidth) / 2, behavior: 'smooth' });
+        thumbEls.forEach((t, k) => t.addEventListener('click', () => goToEl(tileEls[k])));
+        document.querySelector('#repIndex .idx-filters button[data-jump="concerti"]')?.addEventListener('click', () => goToEl(tileEls[0]));
+        document.querySelector('#repIndex .idx-filters button[data-jump="teatro"]')?.addEventListener('click', () => goToEl(tileEls[firstCount]));
+        const _ret = sessionStorage.getItem('repReturnScroll');
+        if (_ret !== null) { sessionStorage.removeItem('repReturnScroll'); const y = Math.min(parseInt(_ret, 10) || 0, document.documentElement.scrollHeight - window.innerHeight); window.scrollTo(0, y); }
+      }
+      return true;
+    };
+    let _repTries = 0;
+    const _repTry = () => { if (this._initRepRail()) return; if (_repTries++ < 40) setTimeout(_repTry, 100); };
+    setTimeout(_repTry, 140);
+
+
+    // Click su una tessera: salva ritorno + dissolvenza in uscita, poi naviga (crossfade)
+    document.getElementById('repViewport')?.addEventListener('click', (e) => {
       const a = e.target.closest('a[href]');
       if (!a || !(a.getAttribute('href') || '').startsWith('/repertorio/')) return;
-      sessionStorage.setItem('repReturnScroll', '1');
+      sessionStorage.setItem('repReturnScroll', String(Math.round(window.scrollY)));
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduce || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       e.preventDefault();
@@ -982,12 +1074,14 @@ class Component extends DCLogic {
     if (this._io) this._io.disconnect();
     if (this._safety) clearTimeout(this._safety);
     if (this._t) clearTimeout(this._t);
+    if (this._repRaf) cancelAnimationFrame(this._repRaf);
     window.removeEventListener('scroll', this._onScroll);
     window.removeEventListener('scroll', this._heroAnim);
-    window.removeEventListener('scroll', this._repAnim);
     window.removeEventListener('scroll', this._bioAnim);
     window.removeEventListener('scroll', this._navTheme);
+    window.removeEventListener('scroll', this._repOnScroll);
     window.removeEventListener('resize', this._navTheme);
+    window.removeEventListener('resize', this._repOnResize);
   }
 
   T() {
@@ -1001,6 +1095,9 @@ class Component extends DCLogic {
       datesBtn: 'Tutte le date',
       repTitle: 'Repertorio', repSub: 'Clicca su uno spettacolo per saperne di pi\u00f9.',
       repG1: 'Teatro', repG2: 'Letture', repG3: 'Concerti con band', repG4: 'Acustici',
+      repGroupTeatro: 'Teatro', repGroupConcerti: 'Concerti',
+      repShowsWord: 'spettacoli', repInView: 'In vista', repScrollHintWord: 'Scorri',
+      repEndTitle: 'Ancora in arrivo', repEndBody: 'Nuovi spettacoli e produzioni in preparazione per la prossima stagione.', repEndCta: 'Continua a scorrere',
       discIntroLabel: 'Discografia', discIntro: 'Due album con i Minstrel, lungo la stagione dell’ultimo progressive italiano. E una nuova stagione di uscite digitali, in solo.',
       singLabel: 'Uscite digitali', singTitle: 'Singoli', singSubIt: 'Alcune mie reinterpretazioni, orchestrali e al pianoforte, disponibili sulle piattaforme di streaming.', singCta: 'Ascolta su Spotify',
       otherLabel: 'Altre incisioni', otherText: 'New Life (Minstrel, 1997) · In Viaggio (Teatro Minimo) · Toni Mannaro (musical) — fuori catalogo.',
@@ -1038,6 +1135,9 @@ class Component extends DCLogic {
       datesBtn: 'All dates',
       repTitle: 'Repertoire', repSub: 'Click on a show to find out more.',
       repG1: 'Theatre', repG2: 'Readings', repG3: 'Band concerts', repG4: 'Acoustic',
+      repGroupTeatro: 'Theatre', repGroupConcerti: 'Concerts',
+      repShowsWord: 'shows', repInView: 'In view', repScrollHintWord: 'Scroll',
+      repEndTitle: 'More to come', repEndBody: 'New shows and productions in preparation for the coming season.', repEndCta: 'Keep scrolling',
       discIntroLabel: 'Discography', discIntro: 'Two albums with Minstrel, through the season of the last Italian progressive. And a new season of digital releases, solo.',
       singLabel: 'Digital releases', singTitle: 'Singles', singSubIt: 'Orchestral and piano reinterpretations, available on all streaming platforms.', singCta: 'Listen on Spotify',
       otherLabel: 'Other recordings', otherText: 'New Life (Minstrel, 1997) · In Viaggio (Teatro Minimo) · Toni Mannaro (musical) — out of print.',
@@ -1076,29 +1176,29 @@ class Component extends DCLogic {
     const hrefs = ['#top','#dalvivo','#repertorio','#immagini','#dischi','#scrittura','#insegnamento','#video','#contatti'];
     const navItems = t.menuItems.map((label, i) => ({ label, href: hrefs[i], num: ROM[i] }));
 
-    // piastra hero: img della scheda (o fallback slate) — luminosità guidata da --lit (JS)
+    // quadro hero: img della scheda (o fallback slate) — sempre a piena opacità
     const repImg = (r) => r.hero
-      ? React.createElement('img', { src: r.hero, alt: '', className: 'rep-plate-img', loading: 'lazy', style: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: r.pos || 'center 38%' } })
-      : React.createElement('div', { className: 'rep-plate-img', style: { position: 'absolute', inset: 0, background: r.tint || 'linear-gradient(135deg,#3c444f,#2b323b)' } });
+      ? React.createElement('img', { src: r.hero, alt: '', className: 'rep-tile-img', loading: 'lazy', style: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: r.pos || 'center 38%' } })
+      : React.createElement('div', { className: 'rep-tile-img', style: { position: 'absolute', inset: 0, background: r.tint || 'linear-gradient(135deg,#3c444f,#2b323b)' } });
 
-    const repMap = (r) => ({ name: r.name, href: '/repertorio/' + r.slug + '/', arrow: r.bozza ? '' : '→', meta: en ? r.mEn : r.mIt, imgEl: repImg(r) });
+    const repMap = (r) => ({ name: r.name, href: '/repertorio/' + r.slug + '/', arrow: r.bozza ? '' : '→', meta: en ? r.mEn : r.mIt, more: en ? 'Discover' : 'Scopri', imgEl: repImg(r), thumbSrc: r.hero || '', pos: r.pos || 'center 38%' });
 
     const repTeatro = [
-      { name: 'Parabole di un Clown', slug: 'parabole-di-un-clown', hero: '/images/REPERTORIO/parabole-di-un-clown/hero.jpg', pos: 'center 30%', mIt: 'Teatro sacro · in repertorio', mEn: 'Sacred theatre · in repertoire' },
-      { name: 'Dormono sulla Collina', slug: 'dormono-sulla-collina', hero: '/images/REPERTORIO/dormono/scena-03.jpg', pos: 'center 58%', mIt: 'Teatro musicale · da cui il libro', mEn: 'Musical theatre · became the book' },
-      { name: 'Luca', slug: 'luca', hero: '/images/REPERTORIO/luca/hero.jpg', pos: 'center 45%', mIt: 'Teatro · prima ottobre 2026', mEn: 'Theatre · premiere Oct 2026' },
+      { name: 'Parabole di un Clown', slug: 'parabole-di-un-clown', hero: '/images/REPERTORIO/parabole-di-un-clown/hero.webp', pos: 'center 30%', mIt: 'Teatro sacro · in repertorio', mEn: 'Sacred theatre · in repertoire' },
+      { name: 'Dormono sulla Collina', slug: 'dormono-sulla-collina', hero: '/images/REPERTORIO/dormono/scena-03.webp', pos: 'center 58%', mIt: 'Teatro musicale · da cui il libro', mEn: 'Musical theatre · became the book' },
+      { name: 'Luca', slug: 'luca', hero: '/images/REPERTORIO/luca/hero.webp', pos: 'center 45%', mIt: 'Teatro · prima ottobre 2026', mEn: 'Theatre · premiere Oct 2026' },
     ].map(repMap);
 
     const repLetture = [
       { name: 'Sergente nella Neve', slug: 'sergente-nella-neve', hero: '/images/REPERTORIO/sergente-nella-neve/hero.webp', pos: 'center 40%', mIt: 'Lettura · Rigoni Stern', mEn: 'Reading · Rigoni Stern' },
       { name: 'Vita da Cantautrice', slug: 'vita-da-cantautrice', hero: '/images/REPERTORIO/vita-da-cantautrice/hero.webp', pos: 'center 55%', mIt: 'Lettura-concerto · con Miriam Gotti e Francesco Maffeis', mEn: 'Reading-concert · with Miriam Gotti and Francesco Maffeis' },
       { name: 'Robin Hood', slug: 'robin-hood', hero: '/images/REPERTORIO/robin-hood/hero.webp', pos: 'center 28%', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
-      { name: 'Gli angeli del Natale', slug: 'angeli-del-natale', hero: '/images/REPERTORIO/angeli-del-natale/hero.jpg', pos: 'center 30%', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
+      { name: 'Gli angeli del Natale', slug: 'angeli-del-natale', hero: '/images/REPERTORIO/angeli-del-natale/hero.webp', pos: 'center 30%', mIt: 'Lettura · con Luca Giudici', mEn: 'Reading · with Luca Giudici' },
     ].map(repMap);
 
     const repBand = [
       { name: 'Queen at Wembley', slug: 'queen-at-wembley', hero: '/images/REPERTORIO/queen-at-wembley/hero.webp', pos: 'center 30%', mIt: 'Tributo · con i Lydian', mEn: 'Tribute · with Lydian' },
-      { name: 'Lydian - Five Aid', slug: 'live-aid-tribute', hero: '/images/REPERTORIO/live-aid-tribute/hero.jpg', pos: 'center 24%', mIt: 'Tributo rock · con i Lydian', mEn: 'Rock tribute · with Lydian' },
+      { name: 'Lydian - Five Aid', slug: 'live-aid-tribute', hero: '/images/REPERTORIO/live-aid-tribute/hero.webp', pos: 'center 24%', mIt: 'Tributo rock · con i Lydian', mEn: 'Rock tribute · with Lydian' },
       { name: 'Le Malelingue', slug: 'malelingue', hero: '/images/REPERTORIO/malelingue/hero.webp', pos: 'center 58%', mIt: 'Cantautorato italiano · elettrico', mEn: 'Italian songwriting · electric' },
       { name: 'Sushi Cornucopia', slug: 'sushi-cornucopia', hero: '/images/REPERTORIO/sushi-cornucopia/hero.webp', pos: 'center 52%', mIt: 'Band · repertorio internazionale · su richiesta', mEn: 'Band · international repertoire · on request' },
     ].map(repMap);
@@ -1109,10 +1209,18 @@ class Component extends DCLogic {
       { name: 'Al primo accordo', slug: 'primo-accordo', hero: '/images/REPERTORIO/primo-accordo/hero.webp', pos: 'center 22%', mIt: 'Format acustico · Duo con Simone Trevisan', mEn: 'Acoustic format · Duo with Simone Trevisan' },
     ].map(repMap);
 
+    // Due macro-gruppi: Teatro (teatro + letture) · Concerti (acustici + band)
+    const repTheatre = repTeatro.concat(repLetture);
+    const repConcerti = repAcustici.concat(repBand);
+    const repAll = repConcerti.concat(repTheatre);   // ordine tessere = ordine miniature (Concerti prima)
+    // conteggi per l'etichetta di gruppo del rail (letti dal componentDidMount)
+    this._repTeatroCount = repTheatre.length;
+    this._repConcertiCount = repConcerti.length;
+
     const dischi = [
-      { title: 'Faust', year: '2000', roleIt: 'Minstrel · Kaliphonia', roleEn: 'Minstrel · Kaliphonia', color: '#6d7e84', z: 30, cover: '/images/cover-a.jpg',
+      { title: 'Faust', year: '2000', roleIt: 'Minstrel · Kaliphonia', roleEn: 'Minstrel · Kaliphonia', color: '#6d7e84', z: 30, cover: '/images/cover-a.webp',
         dIt: 'Concept album dal Faust di Goethe: la voce incontra le strutture elaborate del prog.', dEn: 'A concept album from Goethe\u2019s Faust: the voice meets the elaborate structures of prog.' },
-      { title: 'Ahab', year: '2009', roleIt: 'Minstrel · BTF', roleEn: 'Minstrel · BTF', color: '#6e3d3f', z: 31, cover: '/images/cover-b.jpg',
+      { title: 'Ahab', year: '2009', roleIt: 'Minstrel · BTF', roleEn: 'Minstrel · BTF', color: '#6e3d3f', z: 31, cover: '/images/cover-b.webp',
         dIt: 'Da Moby Dick: l\u2019ossessione del capitano diventa architettura sonora. Il lavoro più maturo.', dEn: 'From Moby Dick: the captain\u2019s obsession becomes sonic architecture. The most mature work.' },
     ];
     const progUrls = ['https://www.progarchives.com/album.asp?id=6796','https://www.progarchives.com/album.asp?id=25892'];
@@ -1144,14 +1252,14 @@ class Component extends DCLogic {
     ].map((v) => ({
       title: v.title,
       href: 'https://www.youtube.com/playlist?list=' + v.list,
-      thumb: '/images/thumb-' + v.vid + '.jpg',
+      thumb: '/images/thumb-' + v.vid + '.webp',
     }));
 
     const bioPars = [
-      { tIt: 'Il canto nasce nel 1998, con la vittoria al concorso nazionale Festagiovani e lo studio della vocalità antica: il madrigale di Monteverdi e Caccini, il sacro di Pergolesi e Mozart.', tEn: 'Singing began in 1998, winning the national Festagiovani competition and studying early vocality: the madrigal of Monteverdi and Caccini, the sacred of Pergolesi and Mozart.' },
+      { tIt: 'Il canto nasce nel 1998, con la vittoria al Festagiovani e lo studio della vocalità antica: il madrigale di Monteverdi e Caccini, il sacro di Pergolesi e Mozart.', tEn: 'Singing began in 1998, winning the Festagiovani competition and studying early vocality: the madrigal of Monteverdi and Caccini, the sacred of Pergolesi and Mozart.' },
       { tIt: 'Parallelamente, il progressive rock: cantante e compositore dei Minstrel, tre album e un nome nel prog italiano tra gli anni Novanta e Duemila.', tEn: 'In parallel, progressive rock: singer and composer of Minstrel, three albums and a name in Italian prog between the Nineties and the 2000s.' },
       { tIt: 'Dal 2001 il teatro musicale con il Teatro Minimo: ruoli da protagonista e da narratore, e le musiche di scena per il teatro e per il cinema.', tEn: 'From 2001, musical theatre with Teatro Minimo: lead and narrator roles, and original scores for theatre and cinema.' },
-      { tIt: 'Oggi il lavoro si moltiplica: l’insegnamento, la composizione per cinema e video, i live che lo vedono ospite in numerose band o in intime formazioni acustiche — sul palco come in rete — e infine la scrittura e la critica cinematografica.', tEn: 'Today the work multiplies: teaching, composing for film and video, live performances as a guest in numerous bands or in intimate acoustic formations — on stage and online — and finally writing and film criticism.' },
+      { tIt: 'Oggi il lavoro si moltiplica: insegnamento, composizione per cinema e video, live come ospite di band o in formazioni acustiche — sul palco come in rete — e la scrittura e la critica cinematografica.', tEn: 'Today the work multiplies: teaching, composing for film and video, live as a guest with bands or in acoustic formations — on stage and online — and writing and film criticism.' },
       { tIt: 'Una voce sola che attraversa il tutto.', tEn: 'One voice running through it all.' },
     ].map((p) => ({ t: en ? p.tEn : p.tIt }));
 
@@ -1171,7 +1279,9 @@ class Component extends DCLogic {
     return {
       ...t,
       nextTitle, nextWhere, nextWhen,
-      navItems, repTeatro, repLetture, repBand, repAcustici, dischi: dischiMapped, singoli, videos, bioPars, contacts,
+      navItems, repTeatro, repLetture, repBand, repAcustici, repTheatre, repConcerti, repAll,
+      repTeatroCount: repTheatre.length, repConcertiCount: repConcerti.length,
+      dischi: dischiMapped, singoli, videos, bioPars, contacts,
       itOp: en ? 0.45 : 1, enOp: en ? 1 : 0.45,
       menuY: this.state.menuOpen ? '0%' : '100%',
       menuPe: this.state.menuOpen ? 'auto' : 'none',

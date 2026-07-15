@@ -361,7 +361,7 @@
     if (s.video && s.video.length) {
       const videoEls = s.video.map(v => {
         const id = typeof v === 'string' ? v : v.id;
-        const thumbSrc = (typeof v === 'object' && v.thumb) ? ROOT + v.thumb : ROOT + 'images/thumb-' + id + '.jpg';
+        const thumbSrc = (typeof v === 'object' && v.thumb) ? ROOT + v.thumb : ROOT + 'images/thumb-' + id + '.webp';
         const wrap = el('div', { role: 'button', tabindex: '0', 'aria-label': lang === 'it' ? 'Riproduci video' : 'Play video', style: 'cursor:pointer;position:relative;aspect-ratio:16/9;overflow:hidden;background:#000;' },
           el('img', { src: thumbSrc, alt: '', style: 'width:100%;height:100%;object-fit:cover;opacity:.62;' }),
           el('span', { style: 'position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;' },

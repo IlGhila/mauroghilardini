@@ -1,0 +1,7 @@
+# Impostazioni locali degli strumenti di sviluppo
+.claude/
+**/.claude/
+
+# File di sistema
+Thumbs.db
+.DS_Store

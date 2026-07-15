@@ -13,7 +13,7 @@
 <meta property="og:title" content="Dormono sulla Collina — Mauro Ghilardini">
 <meta property="og:description" content="Un doppio anniversario, un solo viaggio. Un reading teatrale che celebra il 25° dalla scomparsa di Fabrizio De André e il 110° dalla pubblicazione di…">
 <meta property="og:url" content="https://mauroghilardini.netlify.app/repertorio/dormono-sulla-collina/">
-<meta property="og:image" content="https://mauroghilardini.netlify.app/images/REPERTORIO/dormono/scena-03.jpg">
+<meta property="og:image" content="https://mauroghilardini.netlify.app/images/REPERTORIO/dormono/scena-03.webp">
 
 
 
@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Dormono sulla Collina — Mauro Ghilardini">
 <meta name="twitter:description" content="Un doppio anniversario, un solo viaggio. Un reading teatrale che celebra il 25° dalla scomparsa di Fabrizio De André e il 110° dalla pubblicazione di…">
-<meta name="twitter:image" content="https://mauroghilardini.netlify.app/images/REPERTORIO/dormono/scena-03.jpg">
+<meta name="twitter:image" content="https://mauroghilardini.netlify.app/images/REPERTORIO/dormono/scena-03.webp">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,7 +61,7 @@
   "@type": "CreativeWork",
   "name": "Dormono sulla Collina",
   "description": "Un doppio anniversario, un solo viaggio. Un reading teatrale che celebra il 25° dalla scomparsa di Fabrizio De André e il 110° dalla pubblicazione di…",
-  "image": "https://mauroghilardini.netlify.app/images/REPERTORIO/dormono/scena-03.jpg",
+  "image": "https://mauroghilardini.netlify.app/images/REPERTORIO/dormono/scena-03.webp",
   "url": "https://mauroghilardini.netlify.app/repertorio/dormono-sulla-collina/",
   "inLanguage": "it",
   "creator": {
@@ -391,7 +391,7 @@
     if (s.video && s.video.length) {
       const videoEls = s.video.map(v => {
         const id = typeof v === 'string' ? v : v.id;
-        const thumbSrc = (typeof v === 'object' && v.thumb) ? ROOT + v.thumb : ROOT + 'images/thumb-' + id + '.jpg';
+        const thumbSrc = (typeof v === 'object' && v.thumb) ? ROOT + v.thumb : ROOT + 'images/thumb-' + id + '.webp';
         const wrap = el('div', { role: 'button', tabindex: '0', 'aria-label': lang === 'it' ? 'Riproduci video' : 'Play video', style: 'cursor:pointer;position:relative;aspect-ratio:16/9;overflow:hidden;background:#000;' },
           el('img', { src: thumbSrc, alt: '', style: 'width:100%;height:100%;object-fit:cover;opacity:.62;' }),
           el('span', { style: 'position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;' },
