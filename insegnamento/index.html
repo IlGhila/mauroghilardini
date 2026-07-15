@@ -59,7 +59,7 @@
   #topbar{position:fixed;top:0;left:0;right:0;z-index:9100;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(18px,4vw,56px);background:rgba(20,19,17,.70);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
   #backLink{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#d9d6cc;border:1px solid rgba(217,214,204,.35);padding:9px 18px;transition:background .2s,color .2s;}
   #backLink:hover{background:#d9d6cc;color:#1c1b18;}
-  #backLink:focus-visible{outline:2px solid #d9d6cc;outline-offset:2px;}
+  a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #d9d6cc;outline-offset:2px;}
 
   #hero{padding:clamp(120px,18vh,180px) clamp(20px,5vw,72px) clamp(40px,6vh,72px);}
   #hero .eyebrow{display:block;font-size:11px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:#d9a06a;margin-bottom:16px;}

@@ -178,6 +178,13 @@
   /* Dissolvenza in uscita verso una scheda (crossfade con l'entrata della scheda) */
   body.page-leaving{ opacity:0; transition:opacity .24s ease; }
 
+  /* ── ACCESSIBILITÀ: focus visibile per la navigazione da tastiera ──
+     !important per vincere gli outline:none inline dei campi del form.
+     L'ocra del sito è leggibile sia sui fondi scuri che su quelli chiari. */
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible{
+    outline:2px solid #d9a06a !important; outline-offset:3px; border-radius:1px;
+  }
+
   /* ── REPERTORIO — rail continuo (scrub morbido, stacchi Teatro/Concerti, indice fisso) ── */
   #repViewport{ --idxH:112px; }
   .rep-eyebrow{ position:absolute; top:clamp(18px,3.4vh,32px); left:clamp(20px,5vw,72px); z-index:8; font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:.02em; color:#e7e3d8; font-size:clamp(22px,2.4vw,40px); line-height:1; pointer-events:none; text-shadow:0 2px 24px rgba(0,0,0,.5); transform-origin:left top; will-change:transform, font-size; }
@@ -344,7 +351,7 @@
     </div>
 
     <!-- DESTRA: MENU -->
-    <button class="nav-ctrl is-hidden" onClick="{{ toggleMenu }}" aria-label="Menu" style="position:absolute; top:0; right:clamp(18px,4vw,46px); height:64px; display:flex; align-items:center; gap:10px; background:none; border:none; cursor:pointer; pointer-events:auto; color:var(--nav-ink); font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; opacity:{{ menuIconOp }}; transition:opacity .2s ease;">
+    <button class="nav-ctrl is-hidden" onClick="{{ toggleMenu }}" aria-label="Menu" aria-expanded="{{ menuExp }}" style="position:absolute; top:0; right:clamp(18px,4vw,46px); height:64px; display:flex; align-items:center; gap:10px; background:none; border:none; cursor:pointer; pointer-events:auto; color:var(--nav-ink); font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; opacity:{{ menuIconOp }}; transition:opacity .2s ease;">
       <div id="mgMenuLines" style="width:22px; display:flex; flex-direction:column; gap:5px;">
         <span style="display:block; height:1.5px; background:currentColor; transform-origin:center; transform:{{ menuL1 }};"></span>
         <span style="display:block; height:1.5px; background:currentColor; transform-origin:center; transform:{{ menuL2 }};"></span>
@@ -354,7 +361,7 @@
   </div>
 
   <!-- ===== MENU (opens from bottom) ===== -->
-  <nav style="position:fixed; left:0; right:0; bottom:0; z-index:9500; height:calc(100vh - 64px); height:calc(100dvh - 64px); overflow-y:auto; overscroll-behavior:contain; background:#1c1b18; color:#d9d6cc; transform:translateY({{ menuY }}); transition:transform .6s cubic-bezier(.7,0,.2,1); padding:clamp(28px,4vh,56px) clamp(20px,5vw,72px) clamp(30px,5vh,56px); pointer-events:{{ menuPe }};">
+  <nav style="position:fixed; left:0; right:0; bottom:0; z-index:9500; height:calc(100vh - 64px); height:calc(100dvh - 64px); overflow-y:auto; overscroll-behavior:contain; background:#1c1b18; color:#d9d6cc; transform:translateY({{ menuY }}); visibility:{{ menuVis }}; transition:transform .6s cubic-bezier(.7,0,.2,1), visibility 0s {{ menuVisDl }}; padding:clamp(28px,4vh,56px) clamp(20px,5vw,72px) clamp(30px,5vh,56px); pointer-events:{{ menuPe }};">
     <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="9">
       <a href="{{ n.href }}" onClick="{{ closeMenu }}" style="display:flex; align-items:baseline; gap:18px; padding:clamp(6px,1.1vh,12px) 0; border-top:1px solid rgba(122,116,105,.32); font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(28px,6vh,68px); line-height:1; letter-spacing:-.01em; color:#d9d6cc;">
         <span style="font-family:'Archivo'; font-size:11px; font-weight:600; letter-spacing:.1em; color:#7a7469; transform:translateY(-.4em);">{{ n.num }}</span>
@@ -420,14 +427,14 @@
   <div id="repertorio" style="position:relative; z-index:5;">
     <div id="repViewport" data-screen-label="Repertorio" data-navtheme="dark" style="position:sticky; top:0; height:100vh; overflow:hidden; background:#454e5b; color:#e7e3d8;">
       <span class="rep-eyebrow">{{ repTitle }}</span>
-      <span class="rep-group-label" id="repGroupLabel"></span>
-      <div class="rep-swipe" id="repSwipe"><span>{{ repScrollHintWord }}</span><span class="a">↓</span></div>
+      <span class="rep-group-label" id="repGroupLabel" aria-hidden="true"></span>
+      <div class="rep-swipe" id="repSwipe" aria-hidden="true"><span>{{ repScrollHintWord }}</span><span class="a">↓</span></div>
 
       <div id="repRail">
         <div class="rail-divider" data-divider="concerti">
           <h2>{{ repGroupConcerti }}</h2>
           <span class="count">{{ repConcertiCount }} {{ repShowsWord }}</span>
-          <span class="arrow">↓</span>
+          <span class="arrow" aria-hidden="true">↓</span>
         </div>
         <sc-for list="{{ repConcerti }}" as="r" hint-placeholder-count="7">
           <a class="rail-tile" href="{{ r.href }}">
@@ -439,7 +446,7 @@
         <div class="rail-divider" data-divider="teatro">
           <h2>{{ repGroupTeatro }}</h2>
           <span class="count">{{ repTeatroCount }} {{ repShowsWord }}</span>
-          <span class="arrow">↓</span>
+          <span class="arrow" aria-hidden="true">↓</span>
         </div>
         <sc-for list="{{ repTheatre }}" as="r" hint-placeholder-count="7">
           <a class="rail-tile" href="{{ r.href }}">
@@ -644,10 +651,10 @@
       <form action="https://formspree.io/f/mwvzlvnp" method="POST" data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.24s; border:1px solid #bdb7a8; padding:clamp(24px,3vw,40px); margin-bottom:18px;">
         <span style="display:block; font-size:10.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#938c7f; margin-bottom:20px;">{{ contactFormLabel }}</span>
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-bottom:14px;">
-          <input type="text" name="nome" placeholder="{{ contactFieldName }}" required style="width:100%; border:none; border-bottom:1px solid #bdb7a8; padding:10px 0; background:transparent; font-family:'Archivo',sans-serif; font-size:13px; color:#2b2823; outline:none;">
-          <input type="email" name="email" placeholder="{{ contactFieldEmail }}" required style="width:100%; border:none; border-bottom:1px solid #bdb7a8; padding:10px 0; background:transparent; font-family:'Archivo',sans-serif; font-size:13px; color:#2b2823; outline:none;">
+          <input type="text" name="nome" placeholder="{{ contactFieldName }}" aria-label="{{ contactFieldName }}" required style="width:100%; border:none; border-bottom:1px solid #bdb7a8; padding:10px 0; background:transparent; font-family:'Archivo',sans-serif; font-size:13px; color:#2b2823; outline:none;">
+          <input type="email" name="email" placeholder="{{ contactFieldEmail }}" aria-label="{{ contactFieldEmail }}" required style="width:100%; border:none; border-bottom:1px solid #bdb7a8; padding:10px 0; background:transparent; font-family:'Archivo',sans-serif; font-size:13px; color:#2b2823; outline:none;">
         </div>
-        <textarea name="messaggio" placeholder="{{ contactFieldMsg }}" rows="4" required style="width:100%; border:none; border-bottom:1px solid #bdb7a8; padding:10px 0; background:transparent; font-family:'EB Garamond',serif; font-size:clamp(16px,1.4vw,19px); color:#2b2823; outline:none; resize:none; margin-bottom:20px;"></textarea>
+        <textarea name="messaggio" placeholder="{{ contactFieldMsg }}" aria-label="{{ contactFieldMsg }}" rows="4" required style="width:100%; border:none; border-bottom:1px solid #bdb7a8; padding:10px 0; background:transparent; font-family:'EB Garamond',serif; font-size:clamp(16px,1.4vw,19px); color:#2b2823; outline:none; resize:none; margin-bottom:20px;"></textarea>
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
         <button type="submit" style="font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; background:#2b2823; color:#d9d6cc; border:none; padding:13px 28px; cursor:pointer;">{{ contactSend }} →</button>
         <p style="margin-top:18px; font-size:11px; line-height:1.5; color:#938c7f; font-family:'Archivo',sans-serif;">{{ contactPrivacy }}</p>
@@ -999,6 +1006,15 @@ class Component extends DCLogic {
         const _ret = sessionStorage.getItem('repReturnScroll');
         if (_ret !== null) { sessionStorage.removeItem('repReturnScroll'); const y = Math.min(parseInt(_ret, 10) || 0, document.documentElement.scrollHeight - window.innerHeight); if (this._lenis) this._lenis.scrollTo(y, { immediate: true }); else window.scrollTo(0, y); targetX = railProgress() * railMax; curX = targetX; }
         const goToX = (x) => { const range = pager.offsetHeight - window.innerHeight; const frac = INTRO + (railMax > 0 ? (x / railMax) : 0) * (1 - INTRO); const top = pager.offsetTop + frac * range; if (this._lenis) this._lenis.scrollTo(top); else window.scrollTo({ top, behavior: 'smooth' }); };
+        // Tastiera: quando una tessera riceve il focus (Tab), il browser scrolla il
+        // viewport overflow:hidden e desincronizza il rail trasformato — annullo quello
+        // scroll e porto il rail sulla tessera via scroll di pagina (stessa via del mouse).
+        viewport.addEventListener('focusin', (ev) => {
+          const tile = ev.target.closest ? ev.target.closest('.rail-tile') : null;
+          if (!tile) return;
+          viewport.scrollLeft = 0; viewport.scrollTop = 0;
+          goToX(Math.max(0, Math.min(railMax, snapXof(tile))));
+        });
         thumbEls.forEach((t, k) => t.addEventListener('click', () => goToX(Math.max(0, Math.min(railMax, snapXof(tileEls[k]))))));
         document.querySelector('#repIndex .idx-filters button[data-jump="concerti"]')?.addEventListener('click', () => goToX(Math.max(0, Math.min(railMax, snapXof(tileEls[0])))));
         document.querySelector('#repIndex .idx-filters button[data-jump="teatro"]')?.addEventListener('click', () => goToX(Math.max(0, Math.min(railMax, snapXof(tileEls[firstCount])))));
@@ -1285,6 +1301,11 @@ class Component extends DCLogic {
       itOp: en ? 0.45 : 1, enOp: en ? 1 : 0.45,
       menuY: this.state.menuOpen ? '0%' : '100%',
       menuPe: this.state.menuOpen ? 'auto' : 'none',
+      // menu chiuso: visibility:hidden (con ritardo = durata animazione) lo toglie
+      // dal giro del Tab, così la tastiera non finisce sui link invisibili
+      menuVis: this.state.menuOpen ? 'visible' : 'hidden',
+      menuVisDl: this.state.menuOpen ? '0s' : '.6s',
+      menuExp: this.state.menuOpen ? 'true' : 'false',
       menuIconOp: this.state.menuOpen ? 1 : 0.42,
       menuL1: this.state.menuOpen ? 'rotate(45deg) translate(3px,3px)' : 'none',
       menuL2: this.state.menuOpen ? 'rotate(-45deg) translate(3px,-3px)' : 'none',
