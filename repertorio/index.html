@@ -337,19 +337,26 @@
       sections.push(loc);
     }
 
-    // GALLERIA
+    // GALLERIA — etichetta e nota personalizzabili per scheda (foto_label / foto_nota);
+    // con una sola foto niente ritaglio 16/7: immagine intera, senza upscaling estremo.
     if (s.foto && s.foto.length) {
       const [first, ...rest] = s.foto;
       const galItems = [
-        el('div', { style: 'grid-column:1/-1;aspect-ratio:16/7;overflow:hidden;' },
-          el('img', { src: ROOT + first, alt: '', style: 'width:100%;height:100%;object-fit:cover;object-position:center 40%;' })
-        ),
+        rest.length
+          ? el('div', { style: 'grid-column:1/-1;aspect-ratio:16/7;overflow:hidden;' },
+              el('img', { src: ROOT + first, alt: '', style: 'width:100%;height:100%;object-fit:cover;object-position:center 40%;' })
+            )
+          : el('div', { style: 'grid-column:1/-1;' },
+              el('img', { src: ROOT + first, alt: '', style: 'display:block;width:100%;max-width:720px;height:auto;' })
+            ),
         ...rest.map(f => el('div', { style: 'aspect-ratio:4/3;overflow:hidden;' },
           el('img', { src: ROOT + f, alt: '', style: 'width:100%;height:100%;object-fit:cover;' })
         ))
       ];
+      const galNota = t('foto_nota');
       const gal = el('section', { style: 'background:#1c1b18;padding:clamp(50px,8vh,110px) clamp(16px,4vw,56px);' },
-        el('span', { style: 'display:block;font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:#7a7469;margin-bottom:24px;' }, lang === 'it' ? 'Dal vivo' : 'Live'),
+        el('span', { style: 'display:block;font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:#7a7469;margin-bottom:24px;' }, t('foto_label') || (lang === 'it' ? 'Dal vivo' : 'Live')),
+        galNota ? el('p', { style: 'font-family:\'EB Garamond\',serif;font-size:clamp(15px,1.3vw,18px);line-height:1.55;color:rgba(231,227,216,.68);max-width:60ch;margin:-10px 0 24px;' }, galNota) : null,
         el('div', { className: 'gal' }, ...galItems)
       );
       sections.push(gal);
