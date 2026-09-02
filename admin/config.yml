@@ -132,4 +132,4 @@ collections:
           - { label: "Nota IT (se no PDF)", name: scheda_tecnica_nota_it, widget: string, required: false }
           - { label: "Nota EN (se no PDF)", name: scheda_tecnica_nota_en, widget: string, required: false }
 
-      - { label: "Email CTA", name: cta_email, widget: string, default: "info@mauroghilardini.it" }
+      - { label: "Email CTA", name: cta_email, widget: string, default: "mauroghilardini@gmail.com" }

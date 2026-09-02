@@ -58,7 +58,7 @@
     "budget_nota_en": "Fee and terms agreed with Teatro Minimo, who handle production and the technical side. Write to me for availability and a quote.",
     "scheda_tecnica_nota_it": "Scheda tecnica gestita da Teatro Minimo — fornita su richiesta.",
     "scheda_tecnica_nota_en": "Technical rider handled by Teatro Minimo — provided on request.",
-    "cta_email": "info@mauroghilardini.it"
+    "cta_email": "mauroghilardini@gmail.com"
   },
   {
     "slug": "parabole-di-un-clown",
@@ -72,7 +72,7 @@
     "organico_it": "",
     "organico_en": "",
     "hero_img": "",
-    "cta_email": "info@mauroghilardini.it"
+    "cta_email": "mauroghilardini@gmail.com"
   },
   {
     "slug": "sergente-nella-neve",
@@ -86,7 +86,7 @@
     "organico_it": "",
     "organico_en": "",
     "hero_img": "",
-    "cta_email": "info@mauroghilardini.it"
+    "cta_email": "mauroghilardini@gmail.com"
   },
   {
     "slug": "vita-da-cantautrice",
@@ -100,7 +100,7 @@
     "organico_it": "Trio · voce narrante, pianoforte, chitarra acustica",
     "organico_en": "Trio · narrating voice, piano, acoustic guitar",
     "hero_img": "images/REPERTORIO/vita-da-cantautrice/hero.webp",
-    "cta_email": "info@mauroghilardini.it"
+    "cta_email": "mauroghilardini@gmail.com"
   },
   {
     "slug": "robin-hood",
@@ -118,7 +118,7 @@
     "sinossi_lead_it": "La leggenda di Robin Hood raccontata e cantata, con un pizzico di magia interattiva.",
     "sinossi_lead_en": "The legend of Robin Hood told and sung, with a touch of interactive magic.",
     "locandina": "images/REPERTORIO/robin-hood/locandina.webp",
-    "cta_email": "info@mauroghilardini.it"
+    "cta_email": "mauroghilardini@gmail.com"
   },
   {
     "slug": "angeli-del-natale",
@@ -135,7 +135,7 @@
     "hero_position": "center 40%",
     "sinossi_lead_it": "La storia del Natale raccontata da un angelo che non sa volare.",
     "sinossi_lead_en": "The story of Christmas told by an angel who cannot fly.",
-    "cta_email": "info@mauroghilardini.it"
+    "cta_email": "mauroghilardini@gmail.com"
   },
   {
     "slug": "luca",
@@ -149,7 +149,7 @@
     "organico_it": "",
     "organico_en": "",
     "hero_img": "",
-    "cta_email": "info@mauroghilardini.it"
+    "cta_email": "mauroghilardini@gmail.com"
   },
   {
     "slug": "queen-at-wembley",
@@ -163,7 +163,7 @@
     "organico_it": "",
     "organico_en": "",
     "hero_img": "",
-    "cta_email": "info@mauroghilardini.it"
+    "cta_email": "mauroghilardini@gmail.com"
   },
   {
     "slug": "live-aid-tribute",
@@ -177,7 +177,7 @@
     "organico_it": "",
     "organico_en": "",
     "hero_img": "",
-    "cta_email": "info@mauroghilardini.it"
+    "cta_email": "mauroghilardini@gmail.com"
   },
   {
     "slug": "maestri-cantori-ditalia",
@@ -191,7 +191,7 @@
     "organico_it": "",
     "organico_en": "",
     "hero_img": "",
-    "cta_email": "info@mauroghilardini.it"
+    "cta_email": "mauroghilardini@gmail.com"
   },
   {
     "slug": "sushi-cornucopia",
@@ -205,7 +205,7 @@
     "organico_it": "",
     "organico_en": "",
     "hero_img": "",
-    "cta_email": "info@mauroghilardini.it"
+    "cta_email": "mauroghilardini@gmail.com"
   },
   {
     "slug": "orizzonti-acustici",
@@ -223,6 +223,6 @@
     "hero_titolo_break": true,
     "sinossi_lead_it": "Il cantautorato italiano riletto per due chitarre acustiche e voci in coro.",
     "sinossi_lead_en": "Italian songwriting reimagined for two acoustic guitars and harmony vocals.",
-    "cta_email": "info@mauroghilardini.it"
+    "cta_email": "mauroghilardini@gmail.com"
   }
 ]
