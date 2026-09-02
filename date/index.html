@@ -118,8 +118,8 @@
 <script>
 const LOCANDINE = '../images/live/locandine/';
 
-const tipoIt = { sushi:'Sushi Cornucopia', lydian:'Lydian', teatro:'Teatro', acustico:'Acustico', festa:'Evento privato', concerto:'Concerto' };
-const tipoEn = { sushi:'Sushi Cornucopia', lydian:'Lydian', teatro:'Theatre', acustico:'Acoustic', festa:'Private event', concerto:'Concert' };
+const tipoIt = { sushi:'Sushi Cornucopia', lydian:'Lydian', teatro:'Teatro', acustico:'Acustico', festa:'Evento privato', concerto:'Concerto', incontro:'Incontro' };
+const tipoEn = { sushi:'Sushi Cornucopia', lydian:'Lydian', teatro:'Theatre', acustico:'Acoustic', festa:'Private event', concerto:'Concert', incontro:'Talk' };
 
 const mesiIt = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
 const mesiEn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -240,7 +240,7 @@ render();
 (function () {
   var BASE = 'https://mauroghilardini.netlify.app';
   var today = new Date().toISOString().slice(0, 10);
-  var tipoSchema = { teatro: 'TheaterEvent', concerto: 'MusicEvent', acustico: 'MusicEvent', sushi: 'MusicEvent', lydian: 'MusicEvent', festa: 'MusicEvent' };
+  var tipoSchema = { teatro: 'TheaterEvent', concerto: 'MusicEvent', acustico: 'MusicEvent', sushi: 'MusicEvent', lydian: 'MusicEvent', festa: 'MusicEvent', incontro: 'EducationEvent' };
   var events = (window.MG_DATE || [])
     .filter(function (d) { return !d.nascosta && d.titolo && d.data >= today; })
     .map(function (d) {

@@ -130,14 +130,15 @@ window.MG_DATE = [
     nota:      "" },
 
   {
-    titolo:      "Sushi Pradalunga",
-    data:      "2026-09-04",
-    ora:      "",
-    luogo:      "Pradalunga (BG)",
-    tipo:      "sushi",
-    slug:      "sushi-cornucopia",
-    locandina:      "sushi.webp",
-    nota:      "" },
+    titolo:      "Irripetibili — Abbey Road (The Beatles)",
+    data:      "2026-09-16",
+    ora:      "18:30",
+    luogo:      "Parco Vilafant, Rovetta (BG)",
+    tipo:      "incontro",
+    slug:      "",
+    locandina:      "irripetibili.jpg",
+    novita:      true,
+    nota:      "Ascolto guidato in stem con Francesco Maffeis e Diego Bergamini — progetto \"Tutti in Pista\", Regione Lombardia. Ingresso libero, 16–34 anni." },
 
   {
     titolo:      "Parabole di un clown",
@@ -148,6 +149,17 @@ window.MG_DATE = [
     slug:      "parabole-di-un-clown",
     locandina:      "parabole.webp",
     nota:      "" },
+
+  {
+    titolo:      "Irripetibili — Grace (Jeff Buckley)",
+    data:      "2026-10-07",
+    ora:      "18:30",
+    luogo:      "Parco Vilafant, Rovetta (BG)",
+    tipo:      "incontro",
+    slug:      "",
+    locandina:      "irripetibili.jpg",
+    novita:      true,
+    nota:      "Ascolto guidato in stem con Francesco Maffeis e Diego Bergamini — progetto \"Tutti in Pista\", Regione Lombardia. Ingresso libero, 16–34 anni." },
 
   {
     titolo:      "Luca. Rinascita di un Alpino",

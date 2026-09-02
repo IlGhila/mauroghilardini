@@ -72,6 +72,7 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" integrity="sha384-li4UtcFCH6QeUqR4JyV58/VgTprMuz9aauj+oWtew7V4Y7ZVjnvz5px9Y3UCG0Ea" crossorigin="anonymous"></script>
 <script src="/date.js"></script>
+<script src="/news.js"></script>
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   html{-webkit-font-smoothing:antialiased;}
@@ -140,6 +141,30 @@
       text-align: left !important;
       font-size: clamp(34px,10vw,60px) !important;
       max-width: 18ch !important;
+    }
+
+    /* ── NOVITÀ: disabilita scroll-pin, sezione statica full-bleed ── */
+    #novitaScroll {
+      height: auto !important;
+    }
+    #novita {
+      position: static !important;
+      height: auto !important;
+      min-height: 90vh;
+      display: block !important;
+    }
+    #novitaInner {
+      position: relative !important;
+      inset: auto !important;
+      min-height: 90vh;
+    }
+    #novitaClaim {
+      opacity: 1 !important;
+      transform: none !important;
+      padding: clamp(32px,8vh,60px) clamp(20px,6vw,40px) !important;
+    }
+    #novitaClaim p {
+      font-size: clamp(34px,10vw,56px) !important;
     }
 
     /* ── SINGOLI: rimuovi sticky, altezza naturale ── */
@@ -353,6 +378,9 @@
   .sing-card:hover .sing-overlay { opacity:1; }
   .sing-play { width:54px; height:54px; border-radius:50%; border:2px solid #fff; display:grid; place-items:center; }
   .sing-play::after { content:''; display:block; width:0; height:0; border-style:solid; border-width:10px 0 10px 18px; border-color:transparent transparent transparent #fff; margin-left:4px; }
+
+  /* Novità — claim hover (desktop, sezione con pin) */
+  #novitaClaim:hover #novitaCta { color:#c96a4f; border-color:rgba(201,106,79,.6); }
 </style>
 </helmet>
 <div style="position:relative; background:#d9d6cc; color:#2b2823;">
@@ -428,8 +456,35 @@
   </section>
   </div>
 
+  <!-- ===== 1b · NOVITÀ (pin & release, come "Senza basi") =====
+       La sezione resta ferma mentre si scorre: il claim compare in grande,
+       cliccabile (porta alla novità in evidenza); poi il pin si libera e la
+       pagina prosegue normalmente. Il contenitore alto dà la corsa di scroll;
+       animazione guidata da _novitaAnim. Legge window.MG_NEWS (news.js): se
+       vuoto, "newsFeatured" è [] e la sezione non compare (sc-for vuoto).
+       Su ≤900px il pin è disattivato via CSS (sezione statica full-bleed). -->
+  <div id="novitaScroll" style="position:relative; height:200vh; z-index:2;">
+  <section id="novita" data-screen-label="Novità" data-navtheme="dark" style="position:sticky; top:0; height:100vh; overflow:hidden; display:flex; align-items:center; justify-content:center; background:#0a0a08;">
+    <sc-for list="{{ newsFeatured }}" as="nw" hint-placeholder-count="1">
+      <div id="novitaInner" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+        <div id="novitaImg" style="position:absolute; inset:0; will-change:transform;">
+          <img src="{{ nw.img }}" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; object-position:center 78%; filter:grayscale(.15) contrast(1.05);">
+        </div>
+        <!-- Ombra animata: quasi assente all'ingresso, si scurisce mentre si scorre
+             (vedi _novitaAnim) — così la foto si vede bene prima che arrivi il titolo. -->
+        <div id="novitaScrim" style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,8,.55),rgba(10,10,8,.88)); opacity:.06; pointer-events:none;"></div>
+        <a id="novitaClaim" href="{{ nw.href }}" style="position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:clamp(14px,2.4vh,26px); text-align:center; max-width:min(88vw,900px); padding:clamp(24px,6vw,90px); opacity:0; transform:scale(.94); text-decoration:none; color:#e7e3d8;">
+          <span style="padding:5px 16px; border:1px solid rgba(201,106,79,.6); border-radius:999px; font-size:10px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#c96a4f;">{{ nw.tag }}</span>
+          <p style="font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(38px,7vw,120px); line-height:.92; letter-spacing:-.01em; max-width:16ch; text-shadow:0 2px 40px rgba(0,0,0,.55);">{{ nw.titolo }}</p>
+          <span id="novitaCta" style="font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:rgba(231,227,216,.85); border-bottom:1px solid rgba(231,227,216,.4); padding-bottom:3px; transition:color .3s ease, border-color .3s ease;">{{ nw.cta }}</span>
+        </a>
+      </div>
+    </sc-for>
+  </section>
+  </div>
+
   <!-- ===== 2 · MANIFESTO ===== -->
-  <section id="chi" data-screen-label="Manifesto" data-navtheme="light" style="position:sticky; top:0; min-height:100vh; z-index:2; background:#d9d6cc; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(80px,12vh,150px) clamp(20px,5vw,40px); text-align:center;">
+  <section id="chi" data-screen-label="Manifesto" data-navtheme="light" style="position:sticky; top:0; min-height:100vh; z-index:3; background:#d9d6cc; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(80px,12vh,150px) clamp(20px,5vw,40px); text-align:center;">
     <div style="max-width:900px; display:flex; flex-direction:column; align-items:center; gap:28px;">
       <span data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; width:100%; max-width:520px; display:flex; align-items:center; gap:16px; color:#938c7f; font-size:11px; letter-spacing:.3em; text-transform:uppercase;"><span style="flex:1;height:1px;background:#bdb7a8;"></span>{{ manifestoLabel }}<span style="flex:1;height:1px;background:#bdb7a8;"></span></span>
       <h2 data-reveal style="opacity:0; transform:translateY(24px); transition:opacity 1s ease,transform 1s ease; transition-delay:.12s; font-family:'Anton',sans-serif; text-transform:uppercase; color:#514d46; font-size:clamp(38px,5.6vw,86px); line-height:.92; letter-spacing:-.01em;">{{ manifestoLead }}</h2>
@@ -439,12 +494,15 @@
   </section>
 
   <!-- ===== 3 · PROSSIMA DATA ===== -->
-  <section id="dalvivo" data-screen-label="Prossima data" data-navtheme="dark" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:3; background:#201f1c;">
+  <section id="dalvivo" data-screen-label="Prossima data" data-navtheme="dark" style="position:sticky; top:0; height:100vh; overflow:hidden; z-index:4; background:#201f1c;">
     <img src="/images/mauro-02.webp" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position: left bottom; filter:grayscale(1) contrast(1.04) brightness(.62);">
     <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(24,23,20,.55),rgba(24,23,20,.2) 40%,rgba(24,23,20,.85));"></div>
     <div style="position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:18px; padding:0 24px; color:#e7e3d8;">
       <span data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; font-size:11px; font-weight:600; letter-spacing:.34em; text-transform:uppercase; color:rgba(231,227,216,.7);">{{ liveLabel }}</span>
       <h2 data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.12s; font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(46px,9vw,150px); line-height:.9; letter-spacing:-.01em;">{{ liveTitle }}</h2>
+      <sc-for list="{{ novitaTag }}" as="nv" hint-placeholder-count="0">
+        <span data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.18s; display:inline-block; padding:5px 14px; border:1px solid rgba(201,106,79,.6); border-radius:999px; font-size:10px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#c96a4f;">{{ nv.label }}</span>
+      </sc-for>
       <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.22s; font-family:'EB Garamond',serif; font-size:clamp(18px,2vw,26px);">{{ nextTitle }}</div>
       <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.30s; font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:rgba(231,227,216,.6);">{{ nextWhere }}</div>
       <div data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.38s; font-size:12px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(231,227,216,.78);">{{ nextWhen }}</div>
@@ -457,7 +515,7 @@
        destra e sfuma nel nero, poi la sezione riprende a scendere. Il contenitore
        alto fornisce la corsa di scroll; l'animazione è guidata da _creedAnim.
        Su ≤900px il pin è disattivato via CSS (sezione statica full-bleed). -->
-  <div id="senzabasiScroll" style="position:relative; height:210vh; z-index:4;">
+  <div id="senzabasiScroll" style="position:relative; height:210vh; z-index:5;">
   <section id="senzabasi" data-screen-label="Senza basi" data-navtheme="dark" style="position:sticky; top:0; height:100vh; overflow:hidden; display:flex; align-items:center; background:#0a0a08;">
     <div id="senzabasiImg" style="position:absolute; inset:0; will-change:transform,opacity;">
       <img src="/foto/acustico-03.webp" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; object-position:center 28%; filter:grayscale(1) contrast(1.05) brightness(.46);">
@@ -478,7 +536,7 @@
   </div>
 
   <!-- ===== 4 · REPERTORIO (rail continuo) ===== -->
-  <div id="repertorio" style="position:relative; z-index:5;">
+  <div id="repertorio" style="position:relative; z-index:6;">
     <div id="repViewport" data-screen-label="Repertorio" data-navtheme="dark" style="position:sticky; top:0; height:100vh; overflow:hidden; background:#454e5b; color:#e7e3d8;">
       <span class="rep-eyebrow">{{ repTitle }}</span>
       <span class="rep-group-label" id="repGroupLabel" aria-hidden="true"></span>
@@ -539,7 +597,7 @@
   </div>
 
   <!-- ===== 4b · TEASER PRESS (richiamo immagini, sotto il repertorio) ===== -->
-  <section id="immagini" data-screen-label="Immagini" data-navtheme="dark" style="position:relative; z-index:6; min-height:clamp(360px,60vh,520px); overflow:hidden; display:flex; align-items:center; background:#15140f;">
+  <section id="immagini" data-screen-label="Immagini" data-navtheme="dark" style="position:relative; z-index:7; min-height:clamp(360px,60vh,520px); overflow:hidden; display:flex; align-items:center; background:#15140f;">
     <img src="/foto/live-02.webp" alt="" loading="lazy" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:57% 38%;">
     <div style="position:absolute; inset:0; background:linear-gradient(90deg,rgba(21,20,15,.9),rgba(21,20,15,.35) 60%,rgba(21,20,15,.1));"></div>
     <div style="position:relative; z-index:2; padding:clamp(40px,8vh,90px) clamp(20px,5vw,72px); max-width:760px;">
@@ -551,7 +609,7 @@
   </section>
 
   <!-- ===== 5 · DISCHI (album rooms) ===== -->
-  <section id="dischi" data-screen-label="Dischi intro" data-navtheme="light" style="position:relative; z-index:6; background:#d9d6cc; padding:clamp(70px,10vh,120px) clamp(20px,5vw,72px); text-align:center;">
+  <section id="dischi" data-screen-label="Dischi intro" data-navtheme="light" style="position:relative; z-index:7; background:#d9d6cc; padding:clamp(70px,10vh,120px) clamp(20px,5vw,72px); text-align:center;">
     <div>
       <h2 data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; font-family:'Anton',sans-serif; text-transform:uppercase; font-size:clamp(46px,9vw,150px); line-height:.9; letter-spacing:-.01em; color:#2b2823;">{{ discIntroLabel }}</h2>
       <p data-reveal style="opacity:0; transform:translateY(20px); transition:opacity 1s ease,transform 1s ease; transition-delay:.12s; font-family:'EB Garamond',serif; font-style:italic; font-size:clamp(17px,1.7vw,22px); line-height:1.5; color:#68635a; max-width:42ch; margin:18px auto 0;">{{ discIntro }}</p>
@@ -1162,6 +1220,29 @@ class Component extends DCLogic {
     window.addEventListener('resize', this._creedAnim);
     this._creedAnim();
 
+    // "Novità" — pin & release: la foto entra quasi scoperta, poi l'ombra sale,
+    // poi il titolo compare in grande; infine il pin si libera e si prosegue.
+    this._novitaAnim = () => {
+      if (window.innerWidth <= 900) return;
+      const container = document.getElementById('novitaScroll');
+      const imgEl = document.getElementById('novitaImg');
+      const scrimEl = document.getElementById('novitaScrim');
+      const claimEl = document.getElementById('novitaClaim');
+      if (!container || !imgEl) return;
+      const rect = container.getBoundingClientRect();
+      const total = container.offsetHeight - window.innerHeight;
+      const p = total > 0 ? Math.max(0, Math.min(1, (-rect.top) / total)) : 0;
+      const ease = (x) => x * x * (3 - 2 * x); // smoothstep
+      imgEl.style.transform = 'scale(' + (1 + p * 0.08).toFixed(3) + ')';
+      const dark = ease(Math.max(0, Math.min(1, p / 0.4)));              // l'ombra sale: p 0→0.40
+      if (scrimEl) scrimEl.style.opacity = (0.06 + dark * 0.76).toFixed(3);
+      const claim = ease(Math.max(0, Math.min(1, (p - 0.32) / 0.38)));   // il titolo appare: p 0.32→0.70
+      if (claimEl) { claimEl.style.opacity = claim.toFixed(3); claimEl.style.transform = 'scale(' + (0.92 + claim * 0.08).toFixed(3) + ')'; }
+    };
+    window.addEventListener('scroll', this._novitaAnim, { passive: true });
+    window.addEventListener('resize', this._novitaAnim);
+    this._novitaAnim();
+
     this._onScroll = () => {};
   }
   componentWillUnmount() {
@@ -1175,18 +1256,20 @@ class Component extends DCLogic {
     window.removeEventListener('scroll', this._heroAnim);
     window.removeEventListener('scroll', this._bioAnim);
     window.removeEventListener('scroll', this._creedAnim);
+    window.removeEventListener('scroll', this._novitaAnim);
     window.removeEventListener('scroll', this._navTheme);
     window.removeEventListener('scroll', this._repOnScroll);
     window.removeEventListener('resize', this._navTheme);
     window.removeEventListener('resize', this._repOnResize);
     window.removeEventListener('resize', this._creedAnim);
+    window.removeEventListener('resize', this._novitaAnim);
   }
 
   T() {
     const it = {
       heroEyebrow: 'Cantante · Bergamo', heroTagline: 'Una voce, molte strade.',
       menuLabel: 'Le pagine', closeLabel: 'Chiudi',
-      manifestoLabel: 'Chi è', manifestoLead: 'La musica come incontro',
+      manifestoLabel: 'Chi sono', manifestoLead: 'La musica come incontro',
       manifestoBody: 'Ho cantato Monteverdi in chiese di pietra e Roger Waters sotto fari rossi. Ho scritto colonne sonore per il teatro, composto progressive rock, cofondato uno studio di registrazione in montagna. Oggi insegno canto e musica. Ogni esperienza mi ha rivelato qualcosa sugli altri — e su me stesso.',
       manifestoSign: 'Molti mestieri, un solo strumento.',
       liveLabel: 'Prossima data',
@@ -1347,6 +1430,22 @@ class Component extends DCLogic {
     const nextWhere = nextDate ? (nextDate.luogo || '—') : '—';
     const nextWhen = nextDate ? (fmtD(nextDate.data) + (nextDate.ora ? ' · ' + nextDate.ora : '')) : '';
 
+    // Tag "Novità" nella sezione Prossima data: compare solo se la prossima data
+    // in calendario ha novita:true in date.js — nessuna scadenza da gestire a mano.
+    const novitaTag = nextDate && nextDate.novita ? [{ label: en ? 'News' : 'Novità' }] : [];
+
+    // Box "Novità" (pin & release) tra l'hero e "Chi sono": la novità più recente
+    // in window.MG_NEWS (news.js) diventa il claim a schermo intero. Array di
+    // 0 o 1 elemento: sc-for lo fa sparire da solo se non c'è nessuna novità.
+    const latestNews = (window.MG_NEWS || []).slice().sort((a, b) => a.data < b.data ? 1 : -1)[0];
+    const newsFeatured = latestNews ? [{
+      tag: en ? (latestNews.tag_en || latestNews.tag_it) : (latestNews.tag_it || latestNews.tag_en),
+      titolo: en ? (latestNews.titolo_en || latestNews.titolo_it) : (latestNews.titolo_it || latestNews.titolo_en),
+      href: latestNews.link || '#',
+      cta: en ? (latestNews.cta_en || latestNews.cta_it) : (latestNews.cta_it || latestNews.cta_en),
+      img: latestNews.immagine || '',
+    }] : [];
+
     // Thumbnail locali (no i.ytimg.com), link a playlist in nuova scheda (no iframe) → nessun cookie di terze parti.
     const videos = [
       { title: 'Epic Gaming Music — Orchestral & Vocal Tributes', list: 'PLVGMuNVpBRevU5YQgfOrRBvWTRtaG-PzX', vid: 'iCmLCaempFQ' },
@@ -1384,7 +1483,7 @@ class Component extends DCLogic {
 
     return {
       ...t,
-      nextTitle, nextWhere, nextWhen,
+      nextTitle, nextWhere, nextWhen, novitaTag, newsFeatured,
       navItems, repTeatro, repLetture, repBand, repAcustici, repTheatre, repConcerti, repAll,
       repTeatroCount: repTheatre.length, repConcertiCount: repConcerti.length,
       dischi: dischiMapped, singoli, videos, bioPars, contacts,
