@@ -43,7 +43,13 @@
   @media(max-width:760px){.credits{grid-template-columns:1fr;}}
   [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity 1s ease,transform 1s ease;}
   [data-reveal].visible{opacity:1;transform:none;}
-  #page{padding-bottom:84px;}
+  /* La distanza dalla barra CTA fissa la tiene ora #altri, che chiude la pagina. */
+  #page{padding-bottom:0;}
+  #altri{background:#141310;color:#e7e3d8;padding:clamp(46px,7vh,80px) clamp(20px,5vw,72px) calc(clamp(46px,7vh,80px) + 84px);}
+  #altri .lbl{display:block;font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:#7a7469;margin-bottom:20px;}
+  #altri .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px 28px;}
+  #altri a{font-family:'EB Garamond',serif;font-size:17px;line-height:1.4;color:rgba(231,227,216,.72);}
+  #altri a:hover{color:#d9a06a;}
   #topbar{position:fixed;top:0;left:0;right:0;z-index:9100;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(16px,4vw,44px);background:rgba(20,19,17,.70);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#e7e3d8;}
   #topbar a,#topbar span,#topbar button{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;}
   #topbar .right{display:flex;align-items:center;gap:14px;}
@@ -96,6 +102,29 @@
 </section>
 </div>
 
+<!-- Collegamenti alle altre schede: li scrive tools/build.js al posto di questa
+     ancora. Stanno FUORI da #page perché render() svuota #page a ogni cambio
+     lingua — qui restano sia nell'HTML servito (che è ciò che vede un crawler
+     senza JS) sia nella pagina renderizzata. -->
+<nav id="altri" aria-label="Altri spettacoli">
+  <span class="lbl" id="altriLabel">Altri spettacoli</span>
+  <div class="grid">
+    <a href="/repertorio/angeli-del-natale/">Gli Angeli del Natale</a>
+    <a href="/repertorio/dormono-sulla-collina/">Dormono sulla Collina</a>
+    <a href="/repertorio/live-aid-tribute/">Lydian - Five Aid</a>
+    <a href="/repertorio/luca/">Luca</a>
+    <a href="/repertorio/maestri-cantori-ditalia/">I Maestri Cantori d'Italia</a>
+    <a href="/repertorio/malelingue/">Le Malelingue</a>
+    <a href="/repertorio/orizzonti-acustici/">Orizzonti Acustici</a>
+    <a href="/repertorio/parabole-di-un-clown/">Parabole di un Clown</a>
+    <a href="/repertorio/primo-accordo/">Al primo accordo</a>
+    <a href="/repertorio/queen-at-wembley/">Queen at Wembley</a>
+    <a href="/repertorio/sergente-nella-neve/">Sergente nella Neve</a>
+    <a href="/repertorio/sushi-cornucopia/">Sushi Cornucopia</a>
+    <a href="/repertorio/vita-da-cantautrice/">Vita da Cantautrice</a>
+  </div>
+</nav>
+
 <div id="ctabar" style="display:none;">
   <span class="cta-text" id="ctaText"></span>
   <a class="cta-btn" id="ctaBtn" href="#"></a>
@@ -131,6 +160,8 @@
     document.documentElement.lang = l;
     document.getElementById('btnIt').style.opacity = lang === 'it' ? '1' : '0.45';
     document.getElementById('btnEn').style.opacity = lang === 'en' ? '1' : '0.45';
+    const altriLabel = document.getElementById('altriLabel');
+    if (altriLabel) altriLabel.textContent = lang === 'it' ? 'Altri spettacoli' : 'Other shows';
     if (show) render(show);
   }
 

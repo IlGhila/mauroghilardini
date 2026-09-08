@@ -105,7 +105,7 @@
 </helmet>
 
 <header class="topbar">
-  <a class="back" href="index.html?t=0#immagini" onClick="{{ goHome }}">{{ backLabel }}</a>
+  <a class="back" href="/#immagini" onClick="{{ goHome }}">{{ backLabel }}</a>
   <div class="lang">
     <button onClick="{{ setIt }}" style="opacity:{{ itOp }};">IT</button>
     <span class="sep">/</span>
@@ -142,7 +142,7 @@
 
   <div class="ctx">
     <p class="ctx-note">{{ claimer }}</p>
-    <p class="ctx-contact">{{ contactLabel }} <a href="index.html?t=0#contatti" onClick="{{ goContacts }}">{{ contactLink }}</a></p>
+    <p class="ctx-contact">{{ contactLabel }} <a href="/#contatti" onClick="{{ goContacts }}">{{ contactLink }}</a></p>
   </div>
 </main>
 
@@ -251,8 +251,8 @@ class Component extends DCLogic {
       setEn: () => { try { localStorage.setItem('mgh-lang', 'en'); } catch (e) {} document.documentElement.lang = 'en'; this.setState({ lang: 'en' }); },
       // Ritorno alla home con cache-bust: forza il ricaricamento e lo scroll all'ancora
       // (stesso pattern delle altre sottopagine) invece del ripristino scroll da cache.
-      goHome: (e) => { e.preventDefault(); location.href = 'index.html?t=' + Date.now() + '#immagini'; },
-      goContacts: (e) => { e.preventDefault(); location.href = 'index.html?t=' + Date.now() + '#contatti'; },
+      goHome: (e) => { e.preventDefault(); location.href = '/?t=' + Date.now() + '#immagini'; },
+      goContacts: (e) => { e.preventDefault(); location.href = '/?t=' + Date.now() + '#contatti'; },
     };
   }
 }

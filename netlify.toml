@@ -41,6 +41,41 @@
   status = 301
   force = true
 
+# ── Pagine rimosse: i vecchi URL non muoiono in un 404 ──
+# Google ha ancora in indice URL di pagine cancellate nel giugno 2026 (il blog,
+# la cartella uploads, i file di lavorazione .dc.html). Il 404 in sé non è un
+# errore, ma un 301 verso la pagina più vicina conserva gli eventuali link in
+# entrata invece di buttarli via.
+[[redirects]]
+  from = "/blog/*"
+  to = "/scrittura/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/uploads/*"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Spettacolo-Dormono.dc.html"
+  to = "/repertorio/dormono-sulla-collina/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/Home.dc.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index_old.html"
+  to = "/"
+  status = 301
+  force = true
+
 # ── Blocca gli strumenti personali sul sito pubblico ──
 # In admin/ vivono il CMS Decap e l'editor delle date (admin/editor-date.html).
 # L'editing avviene in locale (local_backend in admin/config.yml), quindi /admin/

@@ -87,7 +87,7 @@
 <body>
 
 <div id="topbar">
-  <a id="backLink" href="../index.html#dalvivo" onclick="event.preventDefault();location.href='../index.html?t='+Date.now()+'#dalvivo';">← Dal vivo</a>
+  <a id="backLink" href="/#dalvivo" onclick="event.preventDefault();location.href='/?t='+Date.now()+'#dalvivo';">← Dal vivo</a>
   <div id="langToggle">
     <button id="btnIt">IT</button>
     <span style="opacity:.4;">/</span>
@@ -100,9 +100,52 @@
   <p id="heroSub">Concerti, teatro, letture — in giro per le valli (e l'Italia).</p>
 </div>
 
+<!-- Gli elenchi qui sotto li riempie il JS in fondo alla pagina, ma fra i
+     marcatori "date:*" li scrive anche tools/build.js in HTML statico: senza,
+     un crawler senza JS vede due <div> vuoti e una pagina di due righe.
+     Rigenerare con `node tools/build.js` dopo ogni modifica a date.js. -->
 <section id="upcoming">
   <div class="section-label" id="labelUpcoming">Prossime date</div>
-  <div id="listUpcoming"></div>
+  <div id="listUpcoming"><!-- date:prossime -->
+  <div class="month-head">Settembre 2026</div>
+  <div class="date-row">
+    <div class="date-col">16 Set<span class="ora">18:30</span></div>
+    <div class="info-col">
+      <div class="titolo">Irripetibili — Abbey Road (The Beatles)</div>
+      <div class="luogo"><span>Parco Vilafant, Rovetta (BG)</span></div>
+      <div class="tipo">Incontro</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+  <div class="date-row">
+    <div class="date-col">26 Set</div>
+    <div class="info-col">
+      <div class="titolo">Parabole di un clown</div>
+      <div class="luogo"><span>Bologna</span></div>
+      <div class="tipo">Teatro</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+  <div class="month-head">Ottobre 2026</div>
+  <div class="date-row">
+    <div class="date-col">7 Ott<span class="ora">18:30</span></div>
+    <div class="info-col">
+      <div class="titolo">Irripetibili — Grace (Jeff Buckley)</div>
+      <div class="luogo"><span>Parco Vilafant, Rovetta (BG)</span></div>
+      <div class="tipo">Incontro</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+  <div class="date-row">
+    <div class="date-col">31 Ott<span class="ora">21:00</span></div>
+    <div class="info-col">
+      <div class="titolo">Luca. Rinascita di un Alpino</div>
+      <div class="luogo"><span>Teatro Tomasini - Clusone</span></div>
+      <div class="tipo">Teatro</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+<!-- /date --></div>
 </section>
 
 <div id="lb" role="dialog" aria-modal="true">
@@ -112,7 +155,119 @@
 
 <section id="past">
   <div class="section-label" id="labelPast">Date passate</div>
-  <div id="listPast"></div>
+  <div id="listPast"><!-- date:passate -->
+  <div class="month-head">Agosto 2026</div>
+  <div class="date-row">
+    <div class="date-col">29 Ago<span class="ora">16:00</span></div>
+    <div class="info-col">
+      <div class="titolo">'Là, dove nasce l'acqua'</div>
+      <div class="luogo"><span>Ponte Nossa (BG)</span></div>
+      <div class="tipo">Teatro</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+  <div class="date-row">
+    <div class="date-col">25 Ago<span class="ora">21:30</span></div>
+    <div class="info-col">
+      <div class="titolo">Sushi Cornucopia</div>
+      <div class="luogo"><span>Castione della Presolana (BG)</span></div>
+      <div class="tipo">Sushi Cornucopia</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+  <div class="date-row">
+    <div class="date-col">6 Ago</div>
+    <div class="info-col">
+      <div class="titolo">Sushi Cornucopia</div>
+      <div class="luogo"><span>Rovetta (BG)</span></div>
+      <div class="tipo">Sushi Cornucopia</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+  <div class="month-head">Luglio 2026</div>
+  <div class="date-row">
+    <div class="date-col">28 Lug<span class="ora">21:15</span></div>
+    <div class="info-col">
+      <div class="titolo">Lydian 'Queen at Wembley' Tribute</div>
+      <div class="luogo"><span>Piazza Sant'Ippolito, Gazzaniga (BG)</span></div>
+      <div class="tipo">Lydian</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+  <div class="date-row">
+    <div class="date-col">25 Lug</div>
+    <div class="info-col">
+      <div class="titolo">Sushi Cornucopia</div>
+      <div class="luogo"><span>Pradalunga (BG)</span></div>
+      <div class="tipo">Sushi Cornucopia</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+  <div class="date-row">
+    <div class="date-col">12 Lug<span class="ora">16:00</span></div>
+    <div class="info-col">
+      <div class="titolo">'Là, dove nasce l'acqua'</div>
+      <div class="luogo"><span>Oltressenda Alta (BG)</span></div>
+      <div class="tipo">Teatro</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+  <div class="date-row">
+    <div class="date-col">11 Lug<span class="ora">16:00</span></div>
+    <div class="info-col">
+      <div class="titolo">'Orizzonti acustici' Giorgio &amp; Ghila</div>
+      <div class="luogo"><span>Valgoglio (BG)</span></div>
+      <div class="tipo">Acustico</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+  <div class="date-row">
+    <div class="date-col">4 Lug</div>
+    <div class="info-col">
+      <div class="titolo">'Al primo accordo' Duo Ghilardini / Trevisan</div>
+      <div class="luogo"><span>Cerete (BG)</span></div>
+      <div class="tipo">Acustico</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+  <div class="month-head">Giugno 2026</div>
+  <div class="date-row">
+    <div class="date-col">21 Giu</div>
+    <div class="info-col">
+      <div class="titolo">'Là, dove nasce l'acqua'</div>
+      <div class="luogo"><span>Villa d'Ogna (BG)</span></div>
+      <div class="tipo">Teatro</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+  <div class="date-row">
+    <div class="date-col">6 Giu</div>
+    <div class="info-col">
+      <div class="titolo">Sushi Cornucopia</div>
+      <div class="luogo"><span>Ardesio (BG)</span></div>
+      <div class="tipo">Sushi Cornucopia</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+  <div class="month-head">Maggio 2026</div>
+  <div class="date-row">
+    <div class="date-col">30 Mag</div>
+    <div class="info-col">
+      <div class="titolo">Festa privata al Curò</div>
+      <div class="luogo"><span>Rifugio Antonio Curò, Valbondione (BG)</span></div>
+      <div class="tipo">Evento privato</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+  <div class="date-row">
+    <div class="date-col">20 Mag</div>
+    <div class="info-col">
+      <div class="titolo">Vita da cantautrice</div>
+      <div class="tipo">Teatro</div>
+    </div>
+    <div class="thumb-col"><div class="thumb-placeholder"></div></div>
+  </div>
+<!-- /date --></div>
 </section>
 
 <script>

@@ -468,7 +468,11 @@
     <sc-for list="{{ newsFeatured }}" as="nw" hint-placeholder-count="1">
       <div id="novitaInner" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
         <div id="novitaImg" style="position:absolute; inset:0; will-change:transform;">
-          <img src="{{ nw.img }}" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; object-position:center 78%; filter:grayscale(.15) contrast(1.05);">
+          <!-- 62% e non più giù: la locandina è verticale (1200×1591) dentro una
+               sezione orizzontale, quindi il ritaglio è stretto. A 78% su monitor
+               larghi il bordo alto cadeva sulle teste; a 62% restano libere anche
+               in 21:9, al prezzo di tagliare le gambe più in basso. -->
+          <img src="{{ nw.img }}" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; object-position:center 62%; filter:grayscale(.15) contrast(1.05);">
         </div>
         <!-- Ombra animata: quasi assente all'ingresso, si scurisce mentre si scorre
              (vedi _novitaAnim) — così la foto si vede bene prima che arrivi il titolo. -->
@@ -780,6 +784,33 @@
           </div>
         </sc-for>
       </div>
+      <!-- Indice testuale del repertorio.
+           Il rail qui sopra costruisce le sue tessere via JS (sc-for), quindi
+           nell'HTML servito non esiste nessun <a> verso /repertorio/<slug>/:
+           i crawler trovavano le schede solo dalla sitemap e le lasciavano in
+           "Rilevata, ma attualmente non indicizzata". Questi link statici sono
+           la scorciatoia che mancava. I titoli non si traducono (sono nomi
+           propri), quindi il blocco resta uguale in IT e EN. -->
+      <nav aria-label="Repertorio" style="margin-top:clamp(40px,6vh,70px); padding-top:24px; border-top:1px solid #bdb7a8;">
+        <span style="display:block; font-size:10.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:#938c7f; margin-bottom:16px;">{{ repTitle }}</span>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:9px 26px; font-family:'EB Garamond',serif; font-size:16px; line-height:1.4;">
+          <a href="/repertorio/parabole-di-un-clown/" style="color:#68635a;">Parabole di un Clown</a>
+          <a href="/repertorio/dormono-sulla-collina/" style="color:#68635a;">Dormono sulla Collina</a>
+          <a href="/repertorio/luca/" style="color:#68635a;">Luca</a>
+          <a href="/repertorio/sergente-nella-neve/" style="color:#68635a;">Sergente nella Neve</a>
+          <a href="/repertorio/vita-da-cantautrice/" style="color:#68635a;">Vita da Cantautrice</a>
+          <a href="/repertorio/robin-hood/" style="color:#68635a;">Robin Hood</a>
+          <a href="/repertorio/angeli-del-natale/" style="color:#68635a;">Gli angeli del Natale</a>
+          <a href="/repertorio/queen-at-wembley/" style="color:#68635a;">Queen at Wembley</a>
+          <a href="/repertorio/live-aid-tribute/" style="color:#68635a;">Lydian - Five Aid</a>
+          <a href="/repertorio/malelingue/" style="color:#68635a;">Le Malelingue</a>
+          <a href="/repertorio/sushi-cornucopia/" style="color:#68635a;">Sushi Cornucopia</a>
+          <a href="/repertorio/maestri-cantori-ditalia/" style="color:#68635a;">I Maestri Cantori d’Italia</a>
+          <a href="/repertorio/orizzonti-acustici/" style="color:#68635a;">Orizzonti Acustici</a>
+          <a href="/repertorio/primo-accordo/" style="color:#68635a;">Al primo accordo</a>
+        </div>
+      </nav>
+
       <div style="display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-top:clamp(40px,6vh,70px); padding-top:24px; border-top:1px solid #bdb7a8; font-size:10px; font-weight:500; letter-spacing:.26em; text-transform:uppercase; color:#938c7f;">
         <span>Bergamo · MMXXVI</span>
         <span>{{ footNote }}</span>

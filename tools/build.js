@@ -1,16 +1,21 @@
 #!/usr/bin/env node
 /* ════════════════════════════════════════════════════════════════
    BUILD SEO — genera i file derivati del sito. Eseguire dopo ogni
-   modifica a index.html, repertorio/index.html o data/spettacoli/*.json:
+   modifica a index.html, repertorio/index.html, data/spettacoli/*.json
+   o date.js:
 
        node tools/build.js
 
    Produce:
      · repertorio/<slug>/index.html — una pagina statica per ogni
        spettacolo (title/description/canonical/OG propri), basata sul
-       visualizzatore repertorio/index.html con lo slug "cotto" dentro
+       visualizzatore repertorio/index.html con lo slug "cotto" dentro,
+       più i link alle altre schede
      · en/index.html — homepage inglese (stesso contenuto di index.html,
        meta in inglese, lingua iniziale EN)
+     · date/index.html — l'elenco date scritto anche in HTML statico
+       (il file è insieme sorgente e destinazione: si riscrive in place
+       fra i marcatori "date:*")
      · sitemap.xml — con tutte le pagine, incluse le schede
    ════════════════════════════════════════════════════════════════ */
 'use strict';
@@ -55,9 +60,15 @@ function buildSchede() {
   const dir = path.join(ROOT, 'data', 'spettacoli');
   const slugs = [];
 
-  for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.json')).sort()) {
+  // Tutti gli spettacoli in memoria prima di generare: ogni scheda deve poter
+  // linkare le altre (vedi blocco "Altri spettacoli" più sotto).
+  const shows = fs.readdirSync(dir).filter((f) => f.endsWith('.json')).sort().map((file) => {
     const show = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
     if (!show.slug || !show.titolo) throw new Error('JSON senza slug o titolo: ' + file);
+    return show;
+  });
+
+  for (const show of shows) {
     const slug = show.slug;
     const url = BASE + '/repertorio/' + slug + '/';
     const title = show.titolo + ' — Mauro Ghilardini';
@@ -133,6 +144,21 @@ function buildSchede() {
     ].filter(Boolean).join('\n');
     out = mustReplace(out, '<div id="page"></div>', '<div id="page">\n' + staticHtml + '\n</div>', 'contenuto statico');
 
+    // Altri spettacoli: link veri, in HTML, verso le altre 13 schede. La home
+    // costruisce il rail via JS, quindi senza questo blocco le schede non hanno
+    // nessun link in entrata nell'HTML servito e Google le lascia in
+    // "Rilevata, ma attualmente non indicizzata".
+    const altriHtml = [
+      '<nav id="altri" aria-label="Altri spettacoli">',
+      '  <span class="lbl" id="altriLabel">Altri spettacoli</span>',
+      '  <div class="grid">',
+      ...shows.filter((o) => o.slug !== slug).map(
+        (o) => '    <a href="/repertorio/' + o.slug + '/">' + esc(o.titolo) + '</a>'),
+      '  </div>',
+      '</nav>',
+    ].join('\n');
+    out = mustReplace(out, '<!-- ALTRI-SPETTACOLI -->', altriHtml, 'altri spettacoli');
+
     const outDir = path.join(ROOT, 'repertorio', slug);
     fs.mkdirSync(outDir, { recursive: true });
     fs.writeFileSync(path.join(outDir, 'index.html'), out);
@@ -192,7 +218,84 @@ function buildEn() {
   fs.writeFileSync(path.join(outDir, 'index.html'), out);
 }
 
-/* ── 3 · SITEMAP ───────────────────────────────────────────────── */
+/* ── 3 · ELENCO DATE STATICO in /date/ ─────────────────────────── */
+
+// /date/ costruisce le righe via JS: nell'HTML servito restavano due <div>
+// vuoti, cioè una pagina di due righe di testo. Google l'ha classificata
+// "Rilevata, ma attualmente non indicizzata" senza mai scansionarla. Qui le
+// date finiscono anche in HTML statico; il JS le rimpiazza al load, quindi per
+// chi naviga non cambia nulla.
+//
+// La pagina è sia sorgente sia destinazione, quindi si scrive fra marcatori
+// (non con mustReplace, che al secondo giro non troverebbe più l'ancora).
+function fillBetween(str, start, end, content, label) {
+  const i = str.indexOf(start);
+  const j = i === -1 ? -1 : str.indexOf(end, i);
+  if (i === -1 || j === -1) throw new Error('Marcatori non trovati (' + label + '): ' + start);
+  return str.slice(0, i + start.length) + '\n' + content + '\n' + str.slice(j);
+}
+
+function buildDate() {
+  // date.js è uno script da browser: si esegue dandogli un finto `window`.
+  const win = {};
+  new Function('window', fs.readFileSync(path.join(ROOT, 'date.js'), 'utf8'))(win);
+  const dates = win.MG_DATE;
+  if (!Array.isArray(dates) || !dates.length) throw new Error('date.js non espone window.MG_DATE');
+
+  // Etichette allineate a quelle del JS della pagina (versione italiana:
+  // è la lingua di default, e il toggle EN ridisegna comunque tutto).
+  const tipoIt = { sushi: 'Sushi Cornucopia', lydian: 'Lydian', teatro: 'Teatro', acustico: 'Acustico', festa: 'Evento privato', concerto: 'Concerto', incontro: 'Incontro' };
+  const mesiIt = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'];
+  const mesiFullIt = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
+
+  const today = new Date().toISOString().slice(0, 10);
+  const all = dates.filter((d) => !d.nascosta).slice().sort((a, b) => (a.data < b.data ? -1 : 1));
+  const future = all.filter((d) => d.data >= today);
+  const past = all.filter((d) => d.data < today).reverse();
+
+  // Niente locandine né link a Maps in statico: sono elementi interattivi che
+  // il JS ricostruisce comunque. Qui serve il testo, non i comandi.
+  const row = (d) => {
+    const [, m, g] = d.data.split('-').map(Number);
+    return [
+      '  <div class="date-row">',
+      '    <div class="date-col">' + g + ' ' + mesiIt[m - 1] + (d.ora ? '<span class="ora">' + esc(d.ora) + '</span>' : '') + '</div>',
+      '    <div class="info-col">',
+      '      <div class="titolo">' + esc(d.titolo) + '</div>',
+      d.luogo ? '      <div class="luogo"><span>' + esc(d.luogo) + '</span></div>' : '',
+      '      <div class="tipo">' + esc(tipoIt[d.tipo] || d.tipo) + '</div>',
+      '    </div>',
+      '    <div class="thumb-col"><div class="thumb-placeholder"></div></div>',
+      '  </div>',
+    ].filter(Boolean).join('\n');
+  };
+
+  const grouped = (list, vuoto) => {
+    if (!list.length) return '  <div class="empty">' + vuoto + '</div>';
+    let key = '';
+    const out = [];
+    for (const d of list) {
+      const [y, m] = d.data.split('-').map(Number);
+      if (y + '-' + m !== key) {
+        key = y + '-' + m;
+        out.push('  <div class="month-head">' + mesiFullIt[m - 1] + ' ' + y + '</div>');
+      }
+      out.push(row(d));
+    }
+    return out.join('\n');
+  };
+
+  const file = path.join(ROOT, 'date', 'index.html');
+  let out = fs.readFileSync(file, 'utf8');
+  out = fillBetween(out, '<!-- date:prossime -->', '<!-- /date -->',
+    grouped(future, 'Nessuna data in programma al momento.'), 'prossime date');
+  out = fillBetween(out, '<!-- date:passate -->', '<!-- /date -->',
+    grouped(past, ''), 'date passate');
+  fs.writeFileSync(file, out);
+  return { future: future.length, past: past.length };
+}
+
+/* ── 4 · SITEMAP ───────────────────────────────────────────────── */
 
 function buildSitemap(slugs) {
   const today = new Date().toISOString().slice(0, 10);
@@ -221,5 +324,7 @@ function buildSitemap(slugs) {
 
 const slugs = buildSchede();
 buildEn();
+const date = buildDate();
 buildSitemap(slugs);
-console.log('OK — generati: ' + slugs.length + ' schede spettacolo, en/index.html, sitemap.xml');
+console.log('OK — generati: ' + slugs.length + ' schede spettacolo, en/index.html, '
+  + 'elenco date (' + date.future + ' future, ' + date.past + ' passate), sitemap.xml');
