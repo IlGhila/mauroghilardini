@@ -135,7 +135,7 @@ window.MG_DATE = [
     ora:      "18:30",
     luogo:      "Parco Vilafant, Rovetta (BG)",
     tipo:      "incontro",
-    slug:      "",
+    slug:      "irripetibili",
     locandina:      "irripetibili.jpg",
     novita:      true,
     nota:      "Ascolto guidato in stem con Francesco Maffeis e Diego Bergamini — progetto \"Tutti in Pista\", Regione Lombardia. Ingresso libero, 16–34 anni." },
@@ -156,7 +156,7 @@ window.MG_DATE = [
     ora:      "18:30",
     luogo:      "Parco Vilafant, Rovetta (BG)",
     tipo:      "incontro",
-    slug:      "",
+    slug:      "irripetibili",
     locandina:      "irripetibili.jpg",
     novita:      true,
     nota:      "Ascolto guidato in stem con Francesco Maffeis e Diego Bergamini — progetto \"Tutti in Pista\", Regione Lombardia. Ingresso libero, 16–34 anni." },
@@ -164,11 +164,12 @@ window.MG_DATE = [
   {
     titolo:      "Luca. Rinascita di un Alpino",
     data:      "2026-10-31",
-    ora:      "21:00",
+    ora:      "20:30",
     luogo:      "Teatro Tomasini - Clusone",
     tipo:      "teatro",
-    slug:      "",
+    slug:      "luca",
     locandina:      "luca.webp",
-    nota:      "Debutto, prima assoluta con la presenza del protagonista Luca Barisonzi in sala." },
+    novita:      true,
+    nota:      "Prima assoluta, con Luca Barisonzi in sala. Ingresso libero con offerta." },
 
 ];

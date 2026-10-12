@@ -468,11 +468,10 @@
     <sc-for list="{{ newsFeatured }}" as="nw" hint-placeholder-count="1">
       <div id="novitaInner" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
         <div id="novitaImg" style="position:absolute; inset:0; will-change:transform;">
-          <!-- 62% e non più giù: la locandina è verticale (1200×1591) dentro una
-               sezione orizzontale, quindi il ritaglio è stretto. A 78% su monitor
-               larghi il bordo alto cadeva sulle teste; a 62% restano libere anche
-               in 21:9, al prezzo di tagliare le gambe più in basso. -->
-          <img src="{{ nw.img }}" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; object-position:center 62%; filter:grayscale(.15) contrast(1.05);">
+          <!-- Meglio un'immagine orizzontale senza scritte (il titolo lo mette il
+               claim), soggetto al centro: su telefono resta solo la fascia centrale.
+               Con 55% su monitor 21:9 il taglio cade su cielo e pavimento. -->
+          <img src="{{ nw.img }}" alt="" loading="lazy" decoding="async" style="width:100%; height:100%; object-fit:cover; object-position:center 55%; filter:grayscale(.15) contrast(1.05);">
         </div>
         <!-- Ombra animata: quasi assente all'ingresso, si scurisce mentre si scorre
              (vedi _novitaAnim) — così la foto si vede bene prima che arrivi il titolo. -->
@@ -797,6 +796,7 @@
           <a href="/repertorio/parabole-di-un-clown/" style="color:#68635a;">Parabole di un Clown</a>
           <a href="/repertorio/dormono-sulla-collina/" style="color:#68635a;">Dormono sulla Collina</a>
           <a href="/repertorio/luca/" style="color:#68635a;">Luca</a>
+          <a href="/repertorio/irripetibili/" style="color:#68635a;">Irripetibili</a>
           <a href="/repertorio/sergente-nella-neve/" style="color:#68635a;">Sergente nella Neve</a>
           <a href="/repertorio/vita-da-cantautrice/" style="color:#68635a;">Vita da Cantautrice</a>
           <a href="/repertorio/robin-hood/" style="color:#68635a;">Robin Hood</a>
@@ -1406,7 +1406,8 @@ class Component extends DCLogic {
     const repTeatro = [
       { name: 'Parabole di un Clown', slug: 'parabole-di-un-clown', hero: '/images/REPERTORIO/parabole-di-un-clown/hero.webp', pos: 'center 30%', mIt: 'Teatro sacro · in repertorio', mEn: 'Sacred theatre · in repertoire' },
       { name: 'Dormono sulla Collina', slug: 'dormono-sulla-collina', hero: '/images/REPERTORIO/dormono/scena-03.webp', pos: 'center 58%', mIt: 'Teatro musicale · da cui il libro', mEn: 'Musical theatre · became the book' },
-      { name: 'Luca', slug: 'luca', hero: '/images/REPERTORIO/luca/hero.webp', pos: 'center 45%', mIt: 'Teatro · prima ottobre 2026', mEn: 'Theatre · premiere Oct 2026' },
+      { name: 'Luca', slug: 'luca', hero: '/images/REPERTORIO/luca/palco.webp', pos: 'center 50%', mIt: 'Teatro · prima 31 ottobre 2026', mEn: 'Theatre · premiere 31 Oct 2026' },
+      { name: 'Irripetibili', slug: 'irripetibili', hero: '/images/REPERTORIO/irripetibili/hero.webp', pos: 'center 72%', mIt: 'Music teller · ascolto guidato', mEn: 'Music teller · guided listening' },
     ].map(repMap);
 
     const repLetture = [

@@ -2,44 +2,97 @@
   "slug": "luca",
   "bozza": false,
   "titolo": "Luca",
-  "eyebrow_it": "Lettura teatrale · prima 31 ottobre 2026",
-  "eyebrow_en": "Theatre reading · premiere 31 October 2026",
+  "eyebrow_it": "Lettura teatrale · prima assoluta 31 ottobre 2026",
+  "eyebrow_en": "Theatre reading · world premiere 31 October 2026",
   "forma_it": "Lettura teatrale e musicale",
   "forma_en": "Theatre and music reading",
   "durata": "60–70 minuti, senza intervallo",
-  "organico_it": "Due voci, due strumenti, un attore",
-  "organico_en": "Two voices, two instruments, one actor",
-  "hero_img": "images/REPERTORIO/luca/hero.webp",
-  "hero_position": "center 45%",
+  "organico_it": "Un attore, due musicisti, la voce di Luca",
+  "organico_en": "One actor, two musicians, Luca's own voice",
+  "hero_img": "images/REPERTORIO/luca/palco.webp",
+  "hero_position": "center 55%",
   "hero_titolo_break": false,
   "sinossi_lead_it": "Nato a Voghera nel 1990. Alpino dell'8° Reggimento. Afghanistan, 18 gennaio 2011.",
   "sinossi_lead_en": "Born in Voghera, 1990. Alpine soldier, 8th Regiment. Afghanistan, 18 January 2011.",
   "sinossi_it": [
     "Luca Barisonzi era andato in Afghanistan per fare il suo lavoro. Alla base di Bala Murghab aveva scoperto — come scopre chi parte davvero — che cosa conta: i biscotti condivisi con i bambini del posto, le bambine che per la prima volta potevano andare a scuola, la presenza silenziosa in un luogo devastato. Il senso, insomma, che si trova solo quando si smette di cercarlo.",
     "Il 18 gennaio 2011 tutto questo si è interrotto in pochi secondi. Da quel giorno Luca ha dovuto imparare di nuovo — non a camminare, ma qualcosa di più difficile: chi essere. Ha scalato il rifugio Margherita a 4.556 metri, ha avuto una figlia che si chiama Bianca, si allena con il Gruppo Sportivo del Ministero della Difesa per andare alle Paralimpiadi nel tiro a segno. E gira l'Italia a raccontare la sua storia — non perché si senta un eroe, ma esattamente per il motivo opposto.",
-    "Prima assoluta il 31 ottobre 2026 al Teatro Tomasini di Clusone, per commissione della Sezione Alpini di Clusone."
+    "Prima assoluta sabato 31 ottobre 2026, ore 20:30, al Teatro Tomasini di Clusone: un progetto del Gruppo Alpini Città di Clusone, con il contributo di Regione Lombardia. Ingresso libero con offerta."
   ],
   "sinossi_en": [
     "Luca Barisonzi had gone to Afghanistan to do his job. At the Bala Murghab outpost he had discovered — as those who truly leave always do — what really matters: biscuits shared with local children, girls attending school for the first time, a quiet presence in a devastated place. Meaning, in other words, found only when you stop looking for it.",
     "On 18 January 2011, all of this stopped in a matter of seconds. From that day, Luca had to learn again — not to walk, but something harder: who to be. He climbed the Margherita Hut at 4,556 metres, had a daughter named Bianca, trains with the Italian Military Sports Group for Paralympic air rifle shooting. And he travels Italy telling his story — not because he feels like a hero, but for exactly the opposite reason.",
-    "World premiere on 31 October 2026 at Teatro Tomasini in Clusone, commissioned by the Alpini Section of Clusone."
+    "World premiere on Saturday 31 October 2026, 8:30 pm, at Teatro Tomasini in Clusone: a project of the Gruppo Alpini Città di Clusone, supported by Regione Lombardia. Free entry, donations welcome."
   ],
   "progetto_lead_it": "«Non sono un eroe. Ho fatto solo il mio dovere.»",
   "progetto_lead_en": "\"I'm not a hero. I only did my duty.\"",
-  "progetto_it": "Luca Barisonzi lo dice lui stesso, con quella misura che è la cosa più difficile da imparare. Lo spettacolo parte da lì — dalle sue parole, quelle dei suoi libri, senza riscrivere niente e senza abbellire niente. Gli fa da contrappunto la voce di chi, cento anni prima, scriveva lettere simili dal fronte: stessa lingua del corpo, stesso strappo, stessa attesa. E a tenere insieme i pezzi, Tolkien — non come citazione d'apertura, ma come chiave: il peso che cade sulle spalle di chi non lo ha scelto, e la domanda su cosa fare nel tempo che ci è dato. Testo e regia: Mauro Ghilardini. Con Mauro Ghilardini e Francesco Maffeis.",
-  "progetto_en": "Luca Barisonzi says it himself, with the restraint that is the hardest thing to learn. The show starts there — from his own words, those of his books, nothing rewritten, nothing embellished. Set against them: voices from a hundred years earlier, alpine soldiers writing similar letters from the front — the same language of the body, the same rupture, the same waiting. And holding it all together, Tolkien — not as an opening quote but as a key: the weight that falls on those who did not choose it, and the question of what to do with the time that is given. Text and direction: Mauro Ghilardini. With Mauro Ghilardini and Francesco Maffeis.",
+  "progetto_it": "Luca Barisonzi lo dice lui stesso, con quella misura che è la cosa più difficile da imparare. Lo spettacolo parte da lì — dalle sue parole, quelle dei suoi libri, senza riscrivere niente e senza abbellire niente. Gli fa da contrappunto la voce di chi, cento anni prima, scriveva lettere simili dal fronte: stessa lingua del corpo, stesso strappo, stessa attesa. E a tenere insieme i pezzi, Tolkien — non come citazione d'apertura, ma come chiave: il peso che cade sulle spalle di chi non lo ha scelto, e la domanda su cosa fare nel tempo che ci è dato. Testo e regia: Mauro Ghilardini. Con Walter Tiraboschi, Mauro Ghilardini e Francesco Maffeis.",
+  "progetto_en": "Luca Barisonzi says it himself, with the restraint that is the hardest thing to learn. The show starts there — from his own words, those of his books, nothing rewritten, nothing embellished. Set against them: voices from a hundred years earlier, alpine soldiers writing similar letters from the front — the same language of the body, the same rupture, the same waiting. And holding it all together, Tolkien — not as an opening quote but as a key: the weight that falls on those who did not choose it, and the question of what to do with the time that is given. Text and direction: Mauro Ghilardini. With Walter Tiraboschi, Mauro Ghilardini and Francesco Maffeis.",
   "locandina": "images/REPERTORIO/luca/locandina.webp",
   "locandina_titolo_it": "La locandina",
   "locandina_titolo_en": "The poster",
-  "locandina_nota_it": "Locandina provvisoria della prima assoluta al Teatro Tomasini di Clusone, in attesa della grafica definitiva.",
-  "locandina_nota_en": "Provisional poster for the world premiere at Teatro Tomasini in Clusone, pending the final artwork.",
-  "foto": ["images/REPERTORIO/luca/render.webp"],
+  "locandina_nota_it": "Locandina ufficiale della prima assoluta: Teatro Tomasini di Clusone, 31 ottobre 2026, ore 20:30.",
+  "locandina_nota_en": "Official poster for the world premiere: Teatro Tomasini, Clusone, 31 October 2026, 8:30 pm.",
+  "foto": [
+    "images/REPERTORIO/luca/render.webp"
+  ],
   "foto_label_it": "Studio visivo",
   "foto_label_en": "Visual study",
   "foto_nota_it": "Render AI orientativo dello spazio scenico: paravento retroilluminato al centro, i due musicisti ai lati, l'attore davanti. In attesa delle immagini di scena dopo il debutto.",
   "foto_nota_en": "AI render of the stage concept: backlit screen at centre, two musicians on either side, actor downstage. Stage photos to follow after the premiere.",
   "video": [],
-  "cast": [],
-  "crew": [],
+  "cast": [
+    {
+      "nome": "Walter Tiraboschi",
+      "ruolo_it": "Narratore · la voce di Luca",
+      "ruolo_en": "Narrator · Luca's voice",
+      "strumenti": ""
+    },
+    {
+      "nome": "Mauro Ghilardini",
+      "ruolo_it": "Legge Tolkien",
+      "ruolo_en": "Reads Tolkien",
+      "strumenti": "Voce · Chitarra"
+    },
+    {
+      "nome": "Francesco Maffeis",
+      "ruolo_it": "Legge le lettere dal fronte",
+      "ruolo_en": "Reads the letters from the front",
+      "strumenti": "Voce · Pianoforte"
+    },
+    {
+      "nome": "Luca Barisonzi",
+      "ruolo_it": "Voce registrata",
+      "ruolo_en": "Recorded voice",
+      "strumenti": ""
+    }
+  ],
+  "crew": [
+    {
+      "ruolo_it": "Testo e regia",
+      "ruolo_en": "Text & direction",
+      "nome": "Mauro Ghilardini"
+    },
+    {
+      "ruolo_it": "Produzione musicale",
+      "ruolo_en": "Music production",
+      "nome": "Francesco Maffeis · Mauro Ghilardini"
+    },
+    {
+      "ruolo_it": "Suono",
+      "ruolo_en": "Sound",
+      "nome": "Diego Bergamini"
+    },
+    {
+      "ruolo_it": "Dai libri di",
+      "ruolo_en": "From the books of",
+      "nome": "Luca Barisonzi"
+    },
+    {
+      "ruolo_it": "Un progetto del",
+      "ruolo_en": "A project of",
+      "nome": "Gruppo Alpini Città di Clusone"
+    }
+  ],
   "cta_email": "mauroghilardini@gmail.com"
 }

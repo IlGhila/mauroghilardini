@@ -1,0 +1,43 @@
+{
+  "slug": "irripetibili",
+  "bozza": false,
+  "titolo": "Irripetibili",
+  "eyebrow_it": "Ascolto guidato · Music teller",
+  "eyebrow_en": "Guided listening · Music teller",
+  "forma_it": "Ascolto guidato in stem",
+  "forma_en": "Guided stem listening",
+  "durata": "",
+  "organico_it": "Due narratori-musicisti, regia audio",
+  "organico_en": "Two musician-narrators, audio direction",
+  "hero_img": "images/REPERTORIO/irripetibili/hero.webp",
+  "hero_position": "center 72%",
+  "sinossi_lead_it": "Due album che hanno ridefinito la musica moderna, aperti traccia per traccia.",
+  "sinossi_lead_en": "Two albums that redefined modern music, opened up track by track.",
+  "sinossi_it": [
+    "Con Francesco Maffeis apro in diretta gli stem di due capolavori irripetibili: Abbey Road dei Beatles e Grace di Jeff Buckley. Voci, strumenti, scelte di studio separati e rimessi insieme davanti al pubblico, per raccontarne segreti e struttura musicale.",
+    "Due serate, un solo filo conduttore. La prima edizione si è tenuta il 16 settembre e il 7 ottobre 2026 al Parco Vilafant di Rovetta, nel progetto «Tutti in Pista» con il contributo di Regione Lombardia."
+  ],
+  "sinossi_en": [
+    "With Francesco Maffeis I open up the stems of two irreplaceable masterpieces live: The Beatles' Abbey Road and Jeff Buckley's Grace. Voices, instruments and studio choices taken apart and put back together in front of the audience, to reveal their secrets and musical structure.",
+    "Two evenings, one thread. The first edition took place on 16 September and 7 October 2026 at Parco Vilafant in Rovetta, as part of the «Tutti in Pista» project supported by Regione Lombardia."
+  ],
+  "locandina": "images/REPERTORIO/irripetibili/locandina.webp",
+  "locandina_titolo_it": "La locandina",
+  "locandina_titolo_en": "The poster",
+  "locandina_nota_it": "Locandina della prima edizione, Parco Vilafant di Rovetta, settembre–ottobre 2026.",
+  "locandina_nota_en": "Poster of the first edition, Parco Vilafant, Rovetta, September–October 2026.",
+  "foto": [],
+  "video": [],
+  "cast": [
+    { "nome": "Mauro Ghilardini", "ruolo_it": "Guida all'ascolto", "ruolo_en": "Listening guide", "strumenti": "" },
+    { "nome": "Francesco Maffeis", "ruolo_it": "Guida all'ascolto", "ruolo_en": "Listening guide", "strumenti": "" }
+  ],
+  "crew": [
+    { "ruolo_it": "Regia e direzione tecnica audio", "ruolo_en": "Direction & audio engineering", "nome": "Diego Bergamini" }
+  ],
+  "budget_it": "Su richiesta",
+  "budget_en": "On request",
+  "budget_nota_it": "Il format si adatta ad altri album e ad altri spazi. Scrivimi per disponibilità e preventivo.",
+  "budget_nota_en": "The format adapts to other albums and other venues. Write to me for availability and a quote.",
+  "cta_email": "mauroghilardini@gmail.com"
+}
