@@ -463,9 +463,9 @@
        animazione guidata da _novitaAnim. Legge window.MG_NEWS (news.js): se
        vuoto, "newsFeatured" è [] e la sezione non compare (sc-for vuoto).
        Su ≤900px il pin è disattivato via CSS (sezione statica full-bleed). -->
+  <sc-for list="{{ newsFeatured }}" as="nw" hint-placeholder-count="1">
   <div id="novitaScroll" style="position:relative; height:200vh; z-index:2;">
   <section id="novita" data-screen-label="Novità" data-navtheme="dark" style="position:sticky; top:0; height:100vh; overflow:hidden; display:flex; align-items:center; justify-content:center; background:#0a0a08;">
-    <sc-for list="{{ newsFeatured }}" as="nw" hint-placeholder-count="1">
       <div id="novitaInner" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
         <div id="novitaImg" style="position:absolute; inset:0; will-change:transform;">
           <!-- Meglio un'immagine orizzontale senza scritte (il titolo lo mette il
@@ -482,9 +482,9 @@
           <span id="novitaCta" style="font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:rgba(231,227,216,.85); border-bottom:1px solid rgba(231,227,216,.4); padding-bottom:3px; transition:color .3s ease, border-color .3s ease;">{{ nw.cta }}</span>
         </a>
       </div>
-    </sc-for>
   </section>
   </div>
+  </sc-for>
 
   <!-- ===== 2 · MANIFESTO ===== -->
   <section id="chi" data-screen-label="Manifesto" data-navtheme="light" style="position:sticky; top:0; min-height:100vh; z-index:3; background:#d9d6cc; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(80px,12vh,150px) clamp(20px,5vw,40px); text-align:center;">
