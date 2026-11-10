@@ -169,7 +169,6 @@ window.MG_DATE = [
     tipo:      "teatro",
     slug:      "luca",
     locandina:      "luca.webp",
-    novita:      true,
-    nota:      "Prima assoluta, con Luca Barisonzi in sala. Ingresso libero con offerta." },
+    nota:      "Debutto, con Luca Barisonzi in sala. Ingresso libero con offerta." },
 
 ];
